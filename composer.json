@@ -1,0 +1,15 @@
+{
+    "name": "digitronac/robinson.rs.phalcon",
+    "description": "robinson.rs phalcon website",
+    "license": "proprietary",
+    "require": 
+    {
+         "raveren/kint": "dev-1.0.0-wip"
+    },
+    "require-dev": 
+    {
+         "phpunit/phpunit": "*",
+         "phpunit/dbunit": "*",
+	 "sneakybobito/phalcon-stubs": "1.2.3"
+    }
+}

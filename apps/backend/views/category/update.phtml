@@ -1,0 +1,44 @@
+<div class="admin category update">
+    <form method="post">
+        <div>
+            
+            <?=$this->tag->textField(array
+            (
+                'category',
+                'placeholder' => 'Kategorija',
+                'required' => 'required',
+            ))
+            ?>
+
+        </div>
+        <div>
+            
+            <?=$this->tag->textArea(array
+            (
+                'description',
+                'placeholder' => 'Tekst',
+                'required' => 'required',
+            ))
+            ?>
+
+        </div>
+        <div>
+            
+            <?=$this->tag->selectStatic(array
+            (
+                'status',
+                'required' => 'required',
+                 \Robinson\Backend\Models\Category::getStatusMessages(),
+            ))
+            ?>
+            
+        </div>
+        <div>
+            <input type="file" name="files" accept="image/jpeg, image/png" />
+        </div>
+
+        <div>
+            <input type="submit" name="submit" value="OK" />
+        </div>
+    </form>
+</div>
