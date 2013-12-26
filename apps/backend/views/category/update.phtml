@@ -1,5 +1,5 @@
 <div class="admin category update">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <div>
             
             <?=$this->tag->textField(array
@@ -7,17 +7,18 @@
                 'category',
                 'placeholder' => 'Kategorija',
                 'required' => 'required',
+                'value' => $category->getCategory(),
             ))
             ?>
 
         </div>
         <div>
-            
             <?=$this->tag->textArea(array
             (
                 'description',
                 'placeholder' => 'Tekst',
                 'required' => 'required',
+                'class' => 'ckeditor',
             ))
             ?>
 
@@ -33,8 +34,30 @@
             ?>
             
         </div>
+        <dl>
+            <dt>Slike:</dt>
+            
+            <?php foreach($category->getImages() as $image): ?>
+            
+            <dd>
+                <img data-image-category-id="<?=$image->getImageCategoryId()?>" src="<?=$image->getResizedSrc() ?>" />
+                
+                <?=$this->tag->textField(array
+                (
+                    'sort[' . $image->getImageCategoryId() . ']',
+                    'length' => 2,
+                    'maxsize' => 2,
+                    'size' => 2,
+                    'value' => $image->getSort(),
+                ))?>
+                
+            </dd>
+            
+        <?php endforeach ?>
+            
+        </dl>
         <div>
-            <input type="file" name="files" accept="image/jpeg, image/png" />
+            <input type="file" name="files[]" multiple="multiple" accept="image/jpeg, image/png" />
         </div>
 
         <div>

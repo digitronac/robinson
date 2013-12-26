@@ -1,10 +1,16 @@
 <?php
+// autoload
+include __DIR__ . '/../vendor/autoload.php';
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+
 use Phalcon\Mvc\Application;
 
-(new \Phalcon\Debug())->listenLowSeverity()->listen();
+(new \Phalcon\Debug())->listen();
 
+define('APPLICATION_PATH', realpath(__DIR__ . '/../apps'));
 
 /**
  * Include services

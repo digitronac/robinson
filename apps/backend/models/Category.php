@@ -23,6 +23,8 @@ class Category extends \Phalcon\Mvc\Model
     
     protected $updatedAt;
     
+    public $imageCategory;
+    
     public function initialize()
     {
         $this->setSource('Category');
@@ -46,10 +48,20 @@ class Category extends \Phalcon\Mvc\Model
         return $this;
     }
     
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    
     public function setStatus($status)
     {
         $this->status = (int) $status;
         return $this;
+    }
+    
+    public function getStatus()
+    {
+        return (int) $this->status;
     }
     
     public function getCategoryId()
@@ -89,5 +101,14 @@ class Category extends \Phalcon\Mvc\Model
     {
         return self::$statusMessages;
     }
-
+    
+    public function getImages()
+    {
+        if(!$this->imageCategory)
+        {
+            $this->imageCategory = $this->getRelated('Robinson\Backend\Models\ImageCategory');
+        }
+        
+        return $this->imageCategory;
+    }
 }

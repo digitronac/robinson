@@ -2,6 +2,12 @@
 <html>
 	<head>
 		<title>Phalcon PHP Framework</title>
+                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+                <script type="text/javascript" src="/_ckeditor/ckeditor.js"></script>
+                <script type="text/javascript" src="/_ckeditor/adapters/jquery.js"></script>
+                <script type="text/javascript">
+                    $('.ckeditor').ckeditor();
+                </script>
 	</head>
 	<body>
 		<?php echo $this->getContent(); ?>
