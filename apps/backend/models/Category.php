@@ -23,7 +23,6 @@ class Category extends \Phalcon\Mvc\Model
     
     protected $updatedAt;
     
-    public $imageCategory;
     
     public function initialize()
     {
@@ -102,13 +101,15 @@ class Category extends \Phalcon\Mvc\Model
         return self::$statusMessages;
     }
     
+    /**
+     * 
+     * @return \Phalcon\Mvc\Model\Resultset\Simple
+     */
     public function getImages()
     {
-        if(!$this->imageCategory)
-        {
-            $this->imageCategory = $this->getRelated('Robinson\Backend\Models\ImageCategory');
-        }
-        
-        return $this->imageCategory;
+        return $this->getRelated('Robinson\Backend\Models\ImageCategory', array
+        (
+            'order' => 'sort ASC',
+        ));
     }
 }

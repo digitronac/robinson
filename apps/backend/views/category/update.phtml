@@ -65,3 +65,20 @@
         </div>
     </form>
 </div>
+<script type="text/javascript">
+    $('document').ready(function()
+    {
+        $('img[data-image-category-id]').on('click', function(e)
+        {
+           e.preventDefault();
+           var that = $(this);
+           $.post("<?=$this->url->get(array('for' => 'admin', 'controller' => 'category', 'action' => 'deleteImage'))?>", {id: $(this).data('image-category-id')}, function(response)
+           {
+               if(response.response)
+               {
+                   that.parent().remove();
+               }
+           });
+        });
+    });
+</script>

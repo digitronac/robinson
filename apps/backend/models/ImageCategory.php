@@ -25,6 +25,12 @@ class ImageCategory extends \Phalcon\Mvc\Model
         return (int) $this->sort;
     }
     
+    public function setSort($sort)
+    {
+        $this->sort = (int) $sort;
+        return $this;
+    }
+    
     public static function createFromUploadedFile(\Phalcon\Http\Request\File $file)
     {
         $self = new self();
@@ -49,14 +55,14 @@ class ImageCategory extends \Phalcon\Mvc\Model
     
     public function getImageCategoryId()
     {
-        return $this->imageCategoryId;
+        return (int) $this->imageCategoryId;
     }
     
     public function save($data = null, $whiteList = null)
     {
         if(null === $this->sort)
         {
-            $this->sort = (int) self::maximum(array('column' => 'sort')) + 1;
+            $this->sort = (int) self::maximum(array('categoryId=' . $this->categoryId , 'column' => 'sort')) + 1;
         }
         
         if(null === $this->createdAt)
@@ -64,9 +70,24 @@ class ImageCategory extends \Phalcon\Mvc\Model
             $this->createdAt = date('Y-m-d H:i:s');
         }
         
-        $this->file->moveTo($this->getDI()->getShared('config')->application->categoryImagesPath . '/' . $this->getFilename());
+        // doesnt exist ?
+        if(!is_file($this->getDI()->getShared('config')->application->categoryImagesPath . '/' . $this->getFilename()))
+        {
+            $this->file->moveTo($this->getDI()->getShared('config')->application->categoryImagesPath . '/' . $this->getFilename());
+        }
  
         return parent::save($data, $whiteList);
+    }
+    
+    public function delete()
+    {
+        // exists ?
+        if(is_file($this->getDI()->getShared('config')->application->categoryImagesPath . '/' . $this->getFilename()))
+        {
+            unlink($this->getDI()->getShared('config')->application->categoryImagesPath . '/' . $this->getFilename());
+        }
+        
+        return parent::delete();
     }
     
     public function setCategoryId($categoryId)
