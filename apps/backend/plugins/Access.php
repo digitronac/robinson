@@ -4,7 +4,7 @@ class Access extends \Phalcon\Mvc\User\Plugin
 {
     public function beforeExecuteRoute(\Phalcon\Events\Event $event, \Phalcon\Mvc\Dispatcher $dispatcher)
     {
-        $auth = $this->session->get('auth');
+        $auth = $this->getDI()->getShared('session')->get('auth');
         $role = (!$auth) ? 'Guest' : 'User';
 
         $controller = $dispatcher->getControllerName();

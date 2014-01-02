@@ -105,12 +105,8 @@ class ImageCategory extends \Phalcon\Mvc\Model
         {
             return '/img/category/' . $width . 'x' . $height . '_' . $this->getFilename();
         }
-        
-        //$imagine = new \Imagine\Imagick\Imagine();
-       // $imagine->open($file)
-         //   ->resize(new \Imagine\Image\Box($width, $height))
-           // ->save($cropfile);
-        $imagick = new \Imagick($file);
+
+        $imagick = $this->getDI()->get('Imagick', array($file));
         $imagick->scaleimage($width, $height);
         $imagick->writeimage($cropfile);
         return '/img/category/' . $width . 'x' . $height . '_' . $this->getFilename();

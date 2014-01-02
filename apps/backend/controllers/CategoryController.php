@@ -4,12 +4,15 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
 {
     public function createAction()
     {
+        $isPost = $this->request->isPost();
+
         if($this->request->isPost())
         {
             $category = new \Robinson\Backend\Models\Category();
             $category->setCategory($this->request->getPost('category'))
                 ->setDescription($this->request->getPost('description'))
-                ->setStatus($this->request->getPost('status'))
+                ->setStatus($this->request->getPost('status'));
+            $category
                 ->setCreatedAt(new \DateTime('now', new \DateTimeZone('Europe/Belgrade')))
                 ->setUpdatedAt(new \DateTime('now', new \DateTimeZone('Europe/Belgrade')))
                 ->save();
@@ -40,9 +43,8 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
                 $imageCategory = \Robinson\Backend\Models\ImageCategory::createFromUploadedFile($file);
                 $imageCategory->setCategoryId($category->getCategoryId());
                 $imageCategory->save();
-                array_push($category->getImages(), $imageCategory);
             }
-            
+
             // sort
             foreach($category->getImages() as $image)
             {
@@ -74,3 +76,16 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
         return $this->response;
     }
 }
+
+/**
+ *  * 
+array (size=1)
+  0 => 
+    object(Phalcon\Http\Request\File)[67]
+      protected '_name' => string 'Screenshot from 2013-10-14 13:44:45.png' (length=39)
+      protected '_tmp' => string '/tmp/php6HM8Ay' (length=14)
+      protected '_size' => int 641960
+      protected '_type' => string 'image/png' (length=9)
+      protected '_error' => int 0
+      protected '_key' => string 'files.0' (length=7)
+ */

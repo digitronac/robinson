@@ -1,34 +1,29 @@
 <?php
 namespace Robinson\Backend\Controllers;
-class IndexControllerTest extends \Phalcon\Test\FunctionalTestCase
+class IndexControllerTest extends \Robinson\Backend\Controllers\BaseTestController
 {
-    public function setUp(\Phalcon\DiInterface $di = null, \Phalcon\Config $config = null)
-    {
-        /**
-        * Include services
-        */
-        require APPLICATION_PATH . '/../config/services.php';
-
-        $config = include APPLICATION_PATH . '/backend/config/config.php';
-        $di = include APPLICATION_PATH . '/backend/config/services.php';
-        parent::setUp($di, $config);
-        
-        $this->application->registerModules(array
-        (
-            'backend' => array
-            (
-                'className' => 'Robinson\Backend\Module',
-                'path' => APPLICATION_PATH . '/backend/Module.php',
-            ),
-        ));
-
-    }
-    
     public function testIndexActionShouldShowLogin()
     {
         $this->dispatch('/admin');
         $this->assertAction('index');
         $this->assertController('index');
         $this->assertResponseContentContains('<input type="password" name="password" placeholder="Password" required="required" />');
+    }
+    
+    public function testUserOnIndexActionShouldBeRedirectedToDashboard()
+    {
+        $this->getDI()->getShared('session')->set('auth', 'User');
+        $this->dispatch('/admin');
+        $this->assertAction('index');
+        $this->assertController('index');
+        $this->assertRedirectTo('/admin/index/dashboard');
+    }
+    
+    public function testAccessingPrivateActionAsGuestShouldForwardToIndexAction()
+    {
+        $this->dispatch('/admin/index/dashboard');
+        $this->assertDispatchIsForwarded();
+        $this->assertAction('index');
+        $this->assertController('index');
     }
 }

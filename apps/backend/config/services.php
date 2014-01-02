@@ -1,5 +1,10 @@
 <?php
 
+$di->setShared('config', function() use ($config)
+{
+    return $config;
+});
+
 $di->set('dispatcher', function() use ($di)
 {
     $access = new \Robinson\Backend\Plugin\Access($di);
@@ -27,8 +32,9 @@ $di['view'] = function()
 /**
  * Database connection is created based in the parameters defined in the configuration file
  */
-$di['db'] = function() use ($config)
+$di['db'] = function() use ($di)
 {
+    $config = $di->getShared('config');
     $eventsManager = new \Phalcon\Events\Manager();
 
     $logger = new \Phalcon\Logger\Adapter\Firephp(); //("app/logs/debug.log");
@@ -50,11 +56,6 @@ $di['db'] = function() use ($config)
     $adapter->setEventsManager($eventsManager);
     return $adapter;
 };
-
-$di->setShared('config', function() use ($config)
-{
-    return $config;
-});
 
 // This function will 'divide' parts of the application with the correct url:
 $di->set('url', function() use ($di)

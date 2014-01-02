@@ -82,12 +82,12 @@ class Category extends \Phalcon\Mvc\Model
     
     public function getCreatedAt($format = 'd.m.Y. H:i:s')
     {
-        return (new \DateTime($this->createdAt, 'Europe/Belgrade'))->format($format);
+        return (new \DateTime($this->createdAt, new \DateTimeZone('Europe/Belgrade')))->format($format);
     }
     
     public function getUpdatedAt($format = 'd.m.Y. H:i:s')
     {
-        return (new \DateTime($this->updatedAt, 'Europe/Belgrade'))->format($format);
+        return (new \DateTime($this->updatedAt, new \DateTimeZone('Europe/Belgrade')))->format($format);
     }
     
     public function getUpdateUrl()
