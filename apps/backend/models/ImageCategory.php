@@ -48,7 +48,7 @@ class ImageCategory extends \Phalcon\Mvc\Model
         return $this;
     }
     
-    protected function getFilename()
+    public function getFilename()
     {
         return $this->filename;
     }
@@ -70,8 +70,11 @@ class ImageCategory extends \Phalcon\Mvc\Model
             $this->createdAt = date('Y-m-d H:i:s');
         }
         
+        $splFileInfo = $this->getDI()->get('SplFileInfo', 
+            array($this->getDI()->getShared('config')->application->categoryImagesPath . '/' . $this->getFilename()));
+        
         // doesnt exist ?
-        if(!is_file($this->getDI()->getShared('config')->application->categoryImagesPath . '/' . $this->getFilename()))
+        if(!$splFileInfo->isFile())
         {
             $this->file->moveTo($this->getDI()->getShared('config')->application->categoryImagesPath . '/' . $this->getFilename());
         }
@@ -86,8 +89,8 @@ class ImageCategory extends \Phalcon\Mvc\Model
         {
             unlink($this->getDI()->getShared('config')->application->categoryImagesPath . '/' . $this->getFilename());
         }
-        
-        return parent::delete();
+        $result = parent::delete();
+        return $result;
     }
     
     public function setCategoryId($categoryId)

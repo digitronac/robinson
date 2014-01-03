@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "d4108f1c1d43972eb9deed5301e2ec45",
+    "hash": "50f607dffda385df217d4dc72f122027",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -157,17 +157,55 @@
     ],
     "packages-dev": [
         {
+            "name": "mikey179/vfsStream",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mikey179/vfsStream.git",
+                "reference": "be8409595280ca4b3bf06e35531a1f1574a5b16b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mikey179/vfsStream/zipball/be8409595280ca4b3bf06e35531a1f1574a5b16b",
+                "reference": "be8409595280ca4b3bf06e35531a1f1574a5b16b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~3.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "org\\bovigo\\vfs\\": "src/main/php"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "homepage": "http://vfs.bovigo.org/",
+            "time": "2013-12-24 12:00:00"
+        },
+        {
             "name": "phalcon/incubator",
             "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digitronac/incubator.git",
-                "reference": "be131456fc46fe0398ddaa67343cd969c3833ab5"
+                "reference": "7bb0335ac6ccef845364750b797c74580a88e11f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digitronac/incubator/zipball/be131456fc46fe0398ddaa67343cd969c3833ab5",
-                "reference": "be131456fc46fe0398ddaa67343cd969c3833ab5",
+                "url": "https://api.github.com/repos/digitronac/incubator/zipball/7bb0335ac6ccef845364750b797c74580a88e11f",
+                "reference": "7bb0335ac6ccef845364750b797c74580a88e11f",
                 "shasum": ""
             },
             "require": {
@@ -198,7 +236,7 @@
             "support": {
                 "source": "https://github.com/digitronac/incubator/tree/develop"
             },
-            "time": "2014-01-02 22:45:52"
+            "time": "2014-01-03 18:07:18"
         },
         {
             "name": "phpunit/dbunit",
@@ -710,6 +748,7 @@
         "raveren/kint": 20,
         "cocur/slugify": 20,
         "imagine/imagine": 20,
+        "mikey179/vfsstream": 20,
         "phalcon/incubator": 20
     },
     "platform": {

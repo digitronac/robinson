@@ -25,7 +25,7 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
     {
         /* @var $category \Robinson\Backend\Models\Category */
         $category = $this->getDI()->get('Robinson\Backend\Models\Category');
-        $category = $category->findFirst('categoryId = ' . $this->dispatcher->getParam('id'));      
+        $category = $category->findFirst('categoryId = ' . $this->dispatcher->getParam('id'));   
 
         if($this->request->isPost())
         {
@@ -76,16 +76,3 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
         return $this->response;
     }
 }
-
-/**
- *  * 
-array (size=1)
-  0 => 
-    object(Phalcon\Http\Request\File)[67]
-      protected '_name' => string 'Screenshot from 2013-10-14 13:44:45.png' (length=39)
-      protected '_tmp' => string '/tmp/php6HM8Ay' (length=14)
-      protected '_size' => int 641960
-      protected '_type' => string 'image/png' (length=9)
-      protected '_error' => int 0
-      protected '_key' => string 'files.0' (length=7)
- */
