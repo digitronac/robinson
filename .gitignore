@@ -1,2 +1,3 @@
 nbproject
 vendor
+apps/backend/config/application.dist.ini

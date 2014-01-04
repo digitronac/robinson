@@ -2,6 +2,9 @@
 // autoload
 include __DIR__ . '/../vendor/autoload.php';
 
+// zf style env
+define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ?: 'production'));
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 

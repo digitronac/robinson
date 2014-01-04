@@ -15,7 +15,11 @@ class Module implements ModuleDefinitionInterface
 	 */
 	public function registerAutoloaders()
 	{
-
+                if(!defined('MODULE_PATH'))
+                {
+                    define('MODULE_PATH', __DIR__);
+                }
+                
 		$loader = new Loader();
 
 		$loader->registerNamespaces(array(
@@ -35,15 +39,17 @@ class Module implements ModuleDefinitionInterface
 	 */
 	public function registerServices($di)
 	{
-		/**
-		 * Read configuration
-		 */
-		$config = include __DIR__ . "/config/config.php";
-
+                $config = new \Phalcon\Config\Adapter\Ini(MODULE_PATH . '/config/application.ini');
+                if(is_file(MODULE_PATH . '/config/application.dist.ini'))
+                {
+                    $dist = (new \Phalcon\Config\Adapter\Ini(__DIR__ . '/config/application.dist.ini'));
+                    $config->merge($dist);
+                }
+                $config = $config->get(APPLICATION_ENV);
+              
                 include APPLICATION_PATH . '/backend/config/services.php';
                 
                 return $di;
 
 	}
-
 }

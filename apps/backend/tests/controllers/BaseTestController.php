@@ -9,8 +9,14 @@ class BaseTestController extends \Phalcon\Test\FunctionalTestCase
         */
         require APPLICATION_PATH . '/../config/services.php';
 
-        $config = include APPLICATION_PATH . '/backend/config/config.php';
-        $config['database']['dbname'] = 'robinson_testing';
+        $config = new \Phalcon\Config\Adapter\Ini(APPLICATION_PATH . '/backend/config/application.ini');
+        if(is_file(APPLICATION_PATH . '/backend/config/application.dist.ini'))
+        {
+            $dist = (new \Phalcon\Config\Adapter\Ini(APPLICATION_PATH . '/backend/config/application.dist.ini'));
+            $config->merge($dist);
+        }
+        $config = $config->get(APPLICATION_ENV);
+                
         $di = include APPLICATION_PATH . '/backend/config/services.php';
         
         parent::setUp($di, $config);

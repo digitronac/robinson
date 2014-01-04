@@ -2,14 +2,14 @@
 use Phalcon\DI,
     Phalcon\DI\FactoryDefault;
 
-// autoload
-include __DIR__ . '/../../../vendor/autoload.php';
-
-
 ini_set('display_errors',1);
 error_reporting(E_ALL);
 
+// autoload
+include __DIR__ . '/../../../vendor/autoload.php';
+
 define('APPLICATION_PATH', realpath(__DIR__ . '/../../../apps'));
+define('APPLICATION_ENV', 'testing');
 
 $loader = new \Phalcon\Loader();
 
