@@ -1,5 +1,5 @@
 <?php
-namespace Robinson\Backend\Controllers;
+namespace Robinson\Backend\Tests\Controllers;
 class BaseTestController extends \Phalcon\Test\FunctionalTestCase
 {
     public function setUp(\Phalcon\DiInterface $di = null, \Phalcon\Config $config = null)
@@ -66,7 +66,7 @@ class BaseTestController extends \Phalcon\Test\FunctionalTestCase
             foreach ($parts as $part) {
                     $suffix .= ucfirst($part);
             }
-            include_once APPLICATION_PATH . '/../tests/fixtures/' . $suffix . '.php';
+
             $class = 'Phalcon\Test\Fixtures\\' . $suffix;
 
             $data = $class::get($records);

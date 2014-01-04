@@ -1,6 +1,6 @@
 <?php
-namespace Robinson\Backend\Controllers;
-class IndexControllerTest extends \Robinson\Backend\Controllers\BaseTestController
+namespace Robinson\Backend\Tests\Controllers;
+class IndexControllerTest extends BaseTestController
 {
     public function testIndexActionShouldShowLogin()
     {

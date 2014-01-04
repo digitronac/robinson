@@ -1,5 +1,5 @@
 <?php
-namespace Robinson\Backend\Controllers;
+namespace Robinson\Backend\Tests\Controllers;
 class CategoryControllerTest extends BaseTestController
 {
     public function setUp(\Phalcon\DiInterface $di = null, \Phalcon\Config $config = null)
@@ -133,14 +133,15 @@ class CategoryControllerTest extends BaseTestController
             ->method('isPost')
             ->will($this->returnValue(true));
         
-        //$file = new \Phalcon\Http\Request\File('testfile.png');
-        include APPLICATION_PATH . '/../tests/stubs/File.php';
-        $fileStub = new \Robinson\Stub\Request\File('aaa');
+        $fileMock = $this->getMock('Phalcon\Http\Request\File', array('getName'), array(), 'MockFileRequest', false);
+        $fileMock->expects($this->once())
+            ->method('getName')
+            ->will($this->returnValue('testfile.png'));
         $request->expects($this->once())
             ->method('getUploadedFiles')
             ->will($this->returnValue(array
             (
-                0 => $fileStub,
+                0 => $fileMock,
             )));
             
         $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
