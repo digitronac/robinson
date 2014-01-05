@@ -133,10 +133,14 @@ class CategoryControllerTest extends BaseTestController
             ->method('isPost')
             ->will($this->returnValue(true));
         
-        $fileMock = $this->getMock('Phalcon\Http\Request\File', array('getName'), array(), 'MockFileRequest', false);
-        $fileMock->expects($this->once())
+        $fileMock = $this->getMock('Phalcon\Http\Request\File', array('getName', 'moveTo'), array(), 'MockFileRequest', false);
+        $fileMock->expects($this->exactly(2))
             ->method('getName')
             ->will($this->returnValue('testfile.png'));
+        $fileMock->expects($this->once())
+            ->method('moveTo')
+            ->will($this->returnValue(true));
+        
         $request->expects($this->once())
             ->method('getUploadedFiles')
             ->will($this->returnValue(array

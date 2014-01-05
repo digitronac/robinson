@@ -2,22 +2,33 @@
 namespace Robinson\Backend\Models;
 class ImageCategory extends \Phalcon\Mvc\Model
 {   
+    protected $basePath;
+    
     protected $imageCategoryId;
     
     protected $categoryId;
     
     protected $filename;
     
+    protected $extension;
+    
     protected $createdAt;
     
     protected $sort;
     
+    protected $action;
+    
+    /**
+     *
+     * @var \SplFileInfo 
+     */
     protected $file;
     
     public function initialize()
     {
         $this->setSource('ImageCategory');
         $this->belongsTo('categoryId', 'Robinson\Backend\Models\Category', 'categoryId');
+        $this->basePath = $this->getDI()->getShared('config')->application->categoryImagesPath;
     }
     
     public function getSort()
@@ -31,21 +42,34 @@ class ImageCategory extends \Phalcon\Mvc\Model
         return $this;
     }
     
-    public static function createFromUploadedFile(\Phalcon\Http\Request\File $file)
+    /**
+     * Creates and persists model from uploaded file
+     * @param \Phalcon\Http\Request\File $file
+     * @param int $categoryId
+     * @return \Robinson\Backend\Models\ImageCategory
+     */
+    public function createFromUploadedFile(\Phalcon\Http\Request\File $file, $categoryId)
     {
-        $self = new self();
-        $slugify = new \Cocur\Slugify\Slugify();
-        $suffix = uniqid();
-        $fileinfo = new \SplFileInfo($file->getName());
-        $self->setFilename($slugify->slugify($fileinfo->getFilename()) . '_' . $suffix . '.' . $fileinfo->getExtension());
-        $self->file = $file;
-        return $self;
+        $slugify = $this->makeSlugify();
+        $this->filename = $slugify->slugify(pathinfo($file->getName(), PATHINFO_BASENAME));
+        $this->extension = pathinfo($file->getName(), PATHINFO_EXTENSION);
+        $this->categoryId = $categoryId;
+        if(!$this->save())
+        {
+            throw new \ErrorException('Unable to save ImageCategory model.');
+        }
+        
+        if(!$file->moveTo($this->basePath . '/' . $this->getRealFilename()))
+        {
+            throw new \ErrorException('Unable to move uploaded file to destination "' . $this->basePath . '/' . $this->getRealFilename() . '".');
+        }
+        
+        return $this;
     }
     
-    protected function setFilename($filename)
+    public function getRealFilename()
     {
-        $this->filename = $filename;
-        return $this;
+        return $this->getImageCategoryId() . '-' . $this->filename . '.' . $this->extension;
     }
     
     public function getFilename()
@@ -62,7 +86,7 @@ class ImageCategory extends \Phalcon\Mvc\Model
     {
         if(null === $this->sort)
         {
-            $this->sort = (int) self::maximum(array('categoryId=' . $this->categoryId , 'column' => 'sort')) + 1;
+            $this->sort = (int) self::maximum(array('categoryId = ' . $this->categoryId , 'column' => 'sort')) + 1;
         }
         
         if(null === $this->createdAt)
@@ -70,27 +94,33 @@ class ImageCategory extends \Phalcon\Mvc\Model
             $this->createdAt = date('Y-m-d H:i:s');
         }
         
-        $splFileInfo = $this->getDI()->get('SplFileInfo', 
-            array($this->getDI()->getShared('config')->application->categoryImagesPath . '/' . $this->getFilename()));
-        
-        // doesnt exist ?
-        if(!$splFileInfo->isFile())
-        {
-            $this->file->moveTo($this->getDI()->getShared('config')->application->categoryImagesPath . '/' . $this->getFilename());
-        }
- 
         return parent::save($data, $whiteList);
     }
     
     public function delete()
     {
-        // exists ?
-        if(is_file($this->getDI()->getShared('config')->application->categoryImagesPath . '/' . $this->getFilename()))
+        if(is_file($this->basePath . '/' . $this->getRealFilename()))
         {
-            unlink($this->getDI()->getShared('config')->application->categoryImagesPath . '/' . $this->getFilename());
+            unlink($this->basePath . '/' . $this->getRealFilename());
         }
-        $result = parent::delete();
-        return $result;
+        
+        $dirIterator = new \DirectoryIterator($this->basePath);
+        while($dirIterator->valid())
+        {
+            if($dirIterator->current()->isDir())
+            {
+                $crop = $this->basePath . '/' . $dirIterator->current()->getFilename() . '/' . $this->getRealFilename();
+                
+                if(is_file($crop))
+                {
+                    unlink($crop);
+                }
+            }
+            
+            $dirIterator->next();
+        }
+        
+        return parent::delete();
     }
     
     public function setCategoryId($categoryId)
@@ -99,20 +129,47 @@ class ImageCategory extends \Phalcon\Mvc\Model
         return $this;
     }
     
+    public function getCategoryId()
+    {
+        return (int) $this->categoryId;
+    }
+    
+    /**
+     * Method which does image resizing, dimensions are sorted by folders with $width x $height names
+     * @param int $width
+     * @param int $height
+     * @return string public path to image
+     */
     public function getResizedSrc($width = 300, $height = 0)
     {
-        $cropfile = APPLICATION_PATH . '/../public/img/category/' . $width . 'x' . $height . '_' . $this->getFilename();
-        $file = APPLICATION_PATH . '/../public/img/category/' . $this->getFilename();
+        $cropDir = $this->basePath . '/' . $width . 'x' . $height;
         
-        if(is_file($cropfile))
+        if(!is_dir($cropDir))
         {
-            return '/img/category/' . $width . 'x' . $height . '_' . $this->getFilename();
+            mkdir($cropDir, 0755);
+        }
+        
+        $cropFile = $cropDir . '/' . $this->getRealFilename();
+        
+        $public = '/img/category/' . $width . 'x' . $height . '/' . $this->getRealFilename();
+        
+        if(is_file($cropFile))
+        {
+            return $public;
         }
 
-        $imagick = $this->getDI()->get('Imagick', array($file));
+        $imagick = $this->getDI()->get('Imagick', array($this->basePath . '/' . $this->getRealFilename()));
         $imagick->scaleimage($width, $height);
-        $imagick->writeimage($cropfile);
-        return '/img/category/' . $width . 'x' . $height . '_' . $this->getFilename();
+        $imagick->writeimage($cropFile);
+        return $public;
         
+    }
+    
+    /**
+     * @return \Cocur\Slugify\Slugify
+     */
+    protected function makeSlugify()
+    {
+        return $this->getDI()->get('Cocur\Slugify\Slugify');
     }
 }

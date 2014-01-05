@@ -29,7 +29,6 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
 
         if($this->request->isPost())
         {
-            
             $category->setCategory($this->request->getPost('category'))
                 ->setDescription($this->request->getPost('description'))
                 ->setStatus($this->request->getPost('status'))
@@ -40,9 +39,9 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
 
             foreach($files as $file)
             {
-                $imageCategory = \Robinson\Backend\Models\ImageCategory::createFromUploadedFile($file);
-                $imageCategory->setCategoryId($category->getCategoryId());
-                $imageCategory->save();
+                /* @var $imageCategory \Robinson\Backend\Models\ImageCategory */
+                $imageCategory = $this->getDI()->get('Robinson\Backend\Models\ImageCategory');
+                $imageCategory->createFromUploadedFile($file, $category->getCategoryId());
             }
 
             // sort
