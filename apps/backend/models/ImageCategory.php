@@ -72,11 +72,6 @@ class ImageCategory extends \Phalcon\Mvc\Model
         return $this->getImageCategoryId() . '-' . $this->filename . '.' . $this->extension;
     }
     
-    public function getFilename()
-    {
-        return $this->filename;
-    }
-    
     public function getImageCategoryId()
     {
         return (int) $this->imageCategoryId;
@@ -121,17 +116,6 @@ class ImageCategory extends \Phalcon\Mvc\Model
         }
         
         return parent::delete();
-    }
-    
-    public function setCategoryId($categoryId)
-    {
-        $this->categoryId = (int) $categoryId;
-        return $this;
-    }
-    
-    public function getCategoryId()
-    {
-        return (int) $this->categoryId;
     }
     
     /**
