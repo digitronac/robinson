@@ -1,3 +1,4 @@
 nbproject
 vendor
 apps/backend/config/application.dist.ini
+apps/backend/config/credentials.php

@@ -14,9 +14,8 @@
         <directory>./</directory>
     </testsuite>
     <filter>
-            
         <whitelist>
-            <directory suffix=".php">./../apps</directory>
+            <directory suffix=".php">./../../backend</directory>
         </whitelist>
     </filter>
 </phpunit>

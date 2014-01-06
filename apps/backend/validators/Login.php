@@ -2,13 +2,12 @@
 namespace Robinson\Backend\Validator;
 class Login extends \Phalcon\Validation
 {
-    private static $credentials = array
-    (
-        'nemanja' => array
-        (
-            'password' => 'robinson',
-        ),
-    );
+    private static $credentials;
+    
+    public function __construct($credentials)
+    {
+        self::$credentials = $credentials;
+    }
     
     public function validate($data = null, $entity = null)
     {

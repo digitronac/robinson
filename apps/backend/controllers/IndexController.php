@@ -21,7 +21,8 @@ class IndexController extends ControllerBase
         
         if($this->request->isPost())
         {
-            $loginValidator = new \Robinson\Backend\Validator\Login();
+            /* @var $loginValidator \Robinson\Backend\Validator\Login */ 
+            $loginValidator = $this->getDI()->get('Robinson\Backend\Validator\Login', array(require MODULE_PATH . '/config/credentials.php'));
             $isValid = $loginValidator->validate(array
             (
                 'username' => $this->request->getPost('username'),
@@ -51,11 +52,5 @@ class IndexController extends ControllerBase
         $categories = \Robinson\Backend\Models\Category::find();
         $this->view->setVar('categories', $categories);
     }
-    
-    public function testAction()
-    {
-        var_dump($this->dispatcher->getParams());
-    }
-
 }
 

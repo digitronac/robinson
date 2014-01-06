@@ -42,17 +42,6 @@ class BaseTestController extends \Phalcon\Test\FunctionalTestCase
     }
     
     /**
-     * 
-     * @param array $methods
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function makeRequestMock($methods = array())
-    {
-        $requestMock = $this->getMock('Phalcon\Http\Request', $methods);
-        return $requestMock;
-    }
-    
-    /**
         * Populates a table with default data
         *
         * @param      $table
