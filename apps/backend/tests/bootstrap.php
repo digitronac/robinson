@@ -19,6 +19,7 @@ $loader->registerNamespaces(array(
         'Robinson\Backend\Plugin' => APPLICATION_PATH . '/backend/plugins/',
         'Robinson\Backend\Validator' => APPLICATION_PATH . '/backend/validators/',
         'Phalcon\Test\Fixtures' => APPLICATION_PATH . '/backend/tests/fixtures/',
+        'Robinson\Backend\Tests\Validators' => APPLICATION_PATH . '/backend/tests/validators/',
 ));
 
 $loader->register();

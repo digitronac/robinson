@@ -71,6 +71,7 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
         $images = $this->getDI()->get('Robinson\Backend\Models\ImageCategory');
         /* @var $image \Robinson\Backend\Models\ImageCategory */
         $image = $images->findFirst($this->request->getPost('id'));
+        
         $this->response->setJsonContent(array('response' => $image->delete()))->setContentType('application/json');
         return $this->response;
     }

@@ -28,7 +28,10 @@ class ImageCategory extends \Phalcon\Mvc\Model
     {
         $this->setSource('ImageCategory');
         $this->belongsTo('categoryId', 'Robinson\Backend\Models\Category', 'categoryId');
-        $this->basePath = $this->getDI()->getShared('config')->application->categoryImagesPath;
+        if($this->getDI()->has('config'))
+        {
+            $this->basePath = $this->getDI()->getShared('config')->application->categoryImagesPath;
+        }
     }
     
     public function getSort()
@@ -42,6 +45,12 @@ class ImageCategory extends \Phalcon\Mvc\Model
         return $this;
     }
     
+    public function setBasePath($basePath)
+    {
+        $this->basePath = $basePath;
+        return $this;
+    }
+    
     /**
      * Creates and persists model from uploaded file
      * @param \Phalcon\Http\Request\File $file
@@ -50,6 +59,11 @@ class ImageCategory extends \Phalcon\Mvc\Model
      */
     public function createFromUploadedFile(\Phalcon\Http\Request\File $file, $categoryId)
     {
+        if(!$this->basePath)
+        {
+            throw new \Phalcon\Mvc\Model\Exception('basePath is not set.');
+        }
+        
         $slugify = $this->makeSlugify();
         $this->filename = $slugify->slugify(pathinfo($file->getName(), PATHINFO_BASENAME));
         $this->extension = pathinfo($file->getName(), PATHINFO_EXTENSION);
@@ -94,9 +108,14 @@ class ImageCategory extends \Phalcon\Mvc\Model
     
     public function delete()
     {
-        if(is_file($this->basePath . '/' . $this->getRealFilename()))
+        if(!$this->basePath)
         {
-            unlink($this->basePath . '/' . $this->getRealFilename());
+            throw new \Phalcon\Mvc\Model\Exception('basePath is not set.');
+        }
+        
+        if($this->isFile($this->basePath . '/' . $this->getRealFilename()))
+        {
+            $this->unlink($this->basePath . '/' . $this->getRealFilename());
         }
         
         $dirIterator = new \DirectoryIterator($this->basePath);
@@ -106,15 +125,24 @@ class ImageCategory extends \Phalcon\Mvc\Model
             {
                 $crop = $this->basePath . '/' . $dirIterator->current()->getFilename() . '/' . $this->getRealFilename();
                 
-                if(is_file($crop))
+                if($this->isFile($crop))
                 {
-                    unlink($crop);
+                    $this->unlink($crop);
                 }
             }
             
             $dirIterator->next();
         }
         
+        return $this->parentDelete();
+    }
+    
+    /**
+     * Overriden to provide easier PHPUnit mocking
+     * @return bolean
+     */
+    public function parentDelete()
+    {
         return parent::delete();
     }
     
@@ -128,16 +156,16 @@ class ImageCategory extends \Phalcon\Mvc\Model
     {
         $cropDir = $this->basePath . '/' . $width . 'x' . $height;
         
-        if(!is_dir($cropDir))
+        if(!$this->isDir($cropDir))
         {
-            mkdir($cropDir, 0755);
+            $this->mkdir($cropDir);
         }
         
         $cropFile = $cropDir . '/' . $this->getRealFilename();
         
         $public = '/img/category/' . $width . 'x' . $height . '/' . $this->getRealFilename();
         
-        if(is_file($cropFile))
+        if($this->isFile($cropFile))
         {
             return $public;
         }
@@ -155,5 +183,25 @@ class ImageCategory extends \Phalcon\Mvc\Model
     protected function makeSlugify()
     {
         return $this->getDI()->get('Cocur\Slugify\Slugify');
+    }
+    
+    protected function isFile($file)
+    {
+       return is_file($file); 
+    }
+    
+    protected function unlink($file)
+    {
+        return unlink($file);
+    }
+    
+    protected function isDir($filename)
+    {
+        return is_dir($filename);
+    }
+    
+    protected function mkdir($pathname)
+    {
+        return mkdir($pathname, 0755);
     }
 }

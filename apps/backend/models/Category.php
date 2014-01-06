@@ -68,6 +68,12 @@ class Category extends \Phalcon\Mvc\Model
         return $this->categoryId;
     }
     
+    public function setCategoryId($id)
+    {
+        $this->categoryId = (int) $id;
+        return $this;
+    }
+    
     public function setCreatedAt(\DateTime $datetime)
     {
         $this->createdAt = $datetime->format('Y-m-d H:i:s');
