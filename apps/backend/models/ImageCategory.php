@@ -16,8 +16,6 @@ class ImageCategory extends \Phalcon\Mvc\Model
     
     protected $sort;
     
-    protected $action;
-    
     public function initialize()
     {
         $this->setSource('ImageCategory');
