@@ -6,10 +6,13 @@ include __DIR__ . '/../vendor/autoload.php';
 define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ?: 'production'));
 use Phalcon\Mvc\Application;
 
-
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
-(new \Phalcon\Debug())->listen();
+
+if(APPLICATION_ENV !== 'production')
+{
+    ini_set('display_errors', 1);
+    (new \Phalcon\Debug())->listen();
+}
 
 define('APPLICATION_PATH', realpath(__DIR__ . '/../apps'));
 
