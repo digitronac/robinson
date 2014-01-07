@@ -2,6 +2,7 @@
 use Phalcon\DI,
     Phalcon\DI\FactoryDefault;
 
+date_default_timezone_set('Europe/Belgrade');
 ini_set('display_errors',1);
 error_reporting(E_ALL);
 
