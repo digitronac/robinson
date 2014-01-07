@@ -18,12 +18,6 @@ class ImageCategory extends \Phalcon\Mvc\Model
     
     protected $action;
     
-    /**
-     *
-     * @var \SplFileInfo 
-     */
-    protected $file;
-    
     public function initialize()
     {
         $this->setSource('ImageCategory');
