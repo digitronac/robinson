@@ -49,7 +49,7 @@ class IndexController extends ControllerBase
     public function dashboardAction()
     {
         /* @var $categories \Phalcon\Mvc\Model\Resultset\Simple */
-        $categories = \Robinson\Backend\Models\Category::find();
+        $categories = \Robinson\Backend\Models\Category::find(array('limit' => 5, 'order' => 'categoryId'));
         $this->view->setVar('categories', $categories);
     }
 }

@@ -28,9 +28,13 @@ class ImageCategory extends \Phalcon\Mvc\Model
     {
         $this->setSource('ImageCategory');
         $this->belongsTo('categoryId', 'Robinson\Backend\Models\Category', 'categoryId');
+    }
+    
+    public function onConstruct()
+    {
         if($this->getDI()->has('config'))
         {
-            $this->basePath = $this->getDI()->getShared('config')->application->categoryImagesPath;
+            $this->basePath = realpath($this->getDI()->getShared('config')->application->categoryImagesPath);
         }
     }
     
@@ -58,7 +62,7 @@ class ImageCategory extends \Phalcon\Mvc\Model
      * @return \Robinson\Backend\Models\ImageCategory
      */
     public function createFromUploadedFile(\Phalcon\Http\Request\File $file, $categoryId)
-    {
+    { 
         if(!$this->basePath)
         {
             throw new \Phalcon\Mvc\Model\Exception('basePath is not set.');

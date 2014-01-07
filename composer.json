@@ -12,7 +12,6 @@
     ],
     "require": 
     {
-         "raveren/kint": "dev-1.0.0-wip",
 	 "cocur/slugify": "dev-master",
 	 "imagine/imagine": "0.6.*@dev",
 	 "ext-imagick": "*"

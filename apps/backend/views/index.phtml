@@ -1,10 +1,24 @@
+<?php 
+$this->assets
+    ->addJs('http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', false, false)
+    ->addJs('http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js', false, false);
+
+$jsManager = new \Phalcon\Assets\Manager();
+$jsManager->collection('mainjs')
+    ->addJs('_ckeditor/ckeditor.js', true, true)
+    ->addJs('_ckeditor/adapters/jquery.js', true, true)
+    ->join(false)
+    ->setTargetPath('js/js.js')
+    ->setTargetUri('js/js.js')
+    ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
+?>
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Phalcon PHP Framework</title>
-                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-                <script type="text/javascript" src="/_ckeditor/ckeditor.js"></script>
-                <script type="text/javascript" src="/_ckeditor/adapters/jquery.js"></script>
+		<?=$this->tag->getTitle()?>
+                <?=$this->assets->outputCss()?>
+                <?=$this->assets->outputJs()?>
+                <?=$jsManager->outputJs('mainjs')?>
                 <script type="text/javascript">
                     $('.ckeditor').ckeditor();
                 </script>

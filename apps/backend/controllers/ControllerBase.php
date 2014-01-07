@@ -1,10 +1,10 @@
 <?php
-
 namespace Robinson\Backend\Controllers;
 
-use Phalcon\Mvc\Controller;
-
-class ControllerBase extends Controller
+class ControllerBase extends \Phalcon\Mvc\Controller
 {
-
+    public function initialize()
+    {
+        $this->tag->setTitle('Robinson Admin');
+    }
 }
