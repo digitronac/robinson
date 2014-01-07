@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "9d08eeea36e45103764aba2d449b9423",
+    "hash": "dfd6b2f83c2eb7de0fb269a5ebd81f23",
     "packages": [
         {
             "name": "imagine/imagine",
@@ -658,6 +658,7 @@
         "phalcon/incubator": 20
     },
     "platform": {
+        "ext-phalcon": "1.2.4",
         "ext-imagick": "*"
     },
     "platform-dev": [
