@@ -1,6 +1,6 @@
 nbproject
 vendor
-apps/backend/config/application.dist.ini
+apps/backend/config/application.local.ini
 apps/backend/config/credentials.php
 apps/backend/config/migrations.config.php
 composer.phar

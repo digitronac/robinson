@@ -41,10 +41,10 @@ class Module implements ModuleDefinitionInterface
 	public function registerServices($di)
 	{
                 $config = new \Phalcon\Config\Adapter\Ini(MODULE_PATH . '/config/application.ini');
-                if(is_file(MODULE_PATH . '/config/application.dist.ini'))
+                if(is_file(MODULE_PATH . '/config/application.local.ini'))
                 {
-                    $dist = (new \Phalcon\Config\Adapter\Ini(__DIR__ . '/config/application.dist.ini'));
-                    $config->merge($dist);
+                    $local = (new \Phalcon\Config\Adapter\Ini(__DIR__ . '/config/application.local.ini'));
+                    $config->merge($local);
                 }
                 $config = $config->get(APPLICATION_ENV);
               

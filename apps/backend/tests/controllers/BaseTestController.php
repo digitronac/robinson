@@ -10,10 +10,10 @@ class BaseTestController extends \Phalcon\Test\FunctionalTestCase
         require APPLICATION_PATH . '/../config/services.php';
 
         $config = new \Phalcon\Config\Adapter\Ini(APPLICATION_PATH . '/backend/config/application.ini');
-        if(is_file(APPLICATION_PATH . '/backend/config/application.dist.ini'))
+        if(is_file(APPLICATION_PATH . '/backend/config/application.local.ini'))
         {
-            $dist = (new \Phalcon\Config\Adapter\Ini(APPLICATION_PATH . '/backend/config/application.dist.ini'));
-            $config->merge($dist);
+            $local = (new \Phalcon\Config\Adapter\Ini(APPLICATION_PATH . '/backend/config/application.local.ini'));
+            $config->merge($local);
         }
         $config = $config->get(APPLICATION_ENV);
                 
