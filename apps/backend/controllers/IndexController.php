@@ -8,7 +8,7 @@ class IndexController extends ControllerBase
     public function indexAction()
     {
         /* @var $acl \Phalcon\Acl\Adapter\Memory */
-        $acl = $this->di->getShared('acl');
+        $acl = $this->di->getService('acl')->resolve();
         if($acl->getActiveRole() !== 'Guest')
         {
             return $this->response->redirect(array

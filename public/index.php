@@ -4,13 +4,11 @@ include __DIR__ . '/../vendor/autoload.php';
 
 // zf style env
 define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ?: 'production'));
+use Phalcon\Mvc\Application;
+
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
-
-use Phalcon\Mvc\Application;
-
 (new \Phalcon\Debug())->listen();
 
 define('APPLICATION_PATH', realpath(__DIR__ . '/../apps'));

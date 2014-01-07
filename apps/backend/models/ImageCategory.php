@@ -61,7 +61,7 @@ class ImageCategory extends \Phalcon\Mvc\Model
         }
 
         /* @var $tag \Phalcon\Tag */
-        $tag = $this->getDI()->getShared('tag');
+        $tag = $this->getDI()->getService('tag')->resolve();
         $this->filename = $tag->friendlyTitle(pathinfo($file->getName(), PATHINFO_FILENAME));
         $this->extension = pathinfo($file->getName(), PATHINFO_EXTENSION);
         $this->categoryId = $categoryId;
