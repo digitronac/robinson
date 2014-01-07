@@ -77,4 +77,11 @@ $di['session'] = function() {
 	return $session;
 };
 
+$di['response'] = function()
+{
+    $response = new \Phalcon\Http\Response();
+    $response->setStatusCode(200, 'OK');
+    return $response;
+};
+
 	

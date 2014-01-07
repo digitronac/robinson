@@ -62,7 +62,7 @@ class Category extends \Phalcon\Mvc\Model
     {
         return (int) $this->status;
     }
-    
+   
     public function getCategoryId()
     {
         return $this->categoryId;
@@ -96,10 +96,21 @@ class Category extends \Phalcon\Mvc\Model
         return (new \DateTime($this->updatedAt, new \DateTimeZone('Europe/Belgrade')))->format($format);
     }
     
-    public function getUpdateUrl()
+    public function getUpdateUrl($asArray = false)
     {
-        return $this->getDI()->get('url')->get(array('for' => 'admin-update', 
-        'controller' => 'category', 'action' => 'update', 'id' => $this->getCategoryId()));
+        $fragments = array
+        (
+            'for' => 'admin-update', 
+            'controller' => 'category', 
+            'action' => 'update', 
+            'id' => $this->getCategoryId()
+        );
+        if($asArray)
+        {
+          return $fragments;  
+        }
+        
+        return $this->getDI()->get('url')->get($fragments);
     }
     
     public static function getStatusMessages()

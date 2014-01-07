@@ -1,0 +1,23 @@
+
+<dl>
+    <dt>Kategorije</dt>
+    <dd>
+        <ul>
+            
+            <?php foreach($categories as $category): ?>
+            
+            <li>
+                <?=$this->tag->linkTo(array
+                (
+                    $category->getUpdateUrl(true),
+                    $category->getCategory(),
+                    'style' => ($category->getStatus()) ? 'text-decoration:line-through' : '', 
+                ))?>
+            </li>
+            <?php endforeach ?>
+            
+            <li><a href="<?=$this->url->get(array('for' => 'admin', 'controller' => 'category', 'action' => 'create'))?>">Dodaj novu kategoriju</a></li>
+            
+        </ul>
+    </dd>
+</dl>

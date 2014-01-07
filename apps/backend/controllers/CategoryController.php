@@ -4,7 +4,9 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
 {
     public function indexAction()
     {
-        
+        /* @var $categories \Phalcon\Mvc\Model\Resultset\Simple */
+        $categories = \Robinson\Backend\Models\Category::find(array('order' => 'categoryId'));
+        $this->view->setVar('categories', $categories);
     }
     public function createAction()
     {
@@ -13,7 +15,8 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
         if($this->request->isPost())
         {
             $category = new \Robinson\Backend\Models\Category();
-            $category->setCategory($this->request->getPost('category'))
+            $category
+                ->setCategory($this->request->getPost('category'))
                 ->setDescription($this->request->getPost('description'))
                 ->setStatus($this->request->getPost('status'));
             $category

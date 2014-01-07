@@ -293,6 +293,7 @@ class CategoryControllerTest extends BaseTestController
     {
         $this->registerMockSession();
         $this->dispatch('/admin/category/index');
+        $this->assertResponseCode(200);
     }
     
     public function tearDown()

@@ -154,12 +154,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/digitronac/incubator.git",
-                "reference": "7bb0335ac6ccef845364750b797c74580a88e11f"
+                "reference": "ca879e5c6e5c08ea9e06ec7408e335e80ca634a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digitronac/incubator/zipball/7bb0335ac6ccef845364750b797c74580a88e11f",
-                "reference": "7bb0335ac6ccef845364750b797c74580a88e11f",
+                "url": "https://api.github.com/repos/digitronac/incubator/zipball/ca879e5c6e5c08ea9e06ec7408e335e80ca634a3",
+                "reference": "ca879e5c6e5c08ea9e06ec7408e335e80ca634a3",
                 "shasum": ""
             },
             "require": {
@@ -190,7 +190,7 @@
             "support": {
                 "source": "https://github.com/digitronac/incubator/tree/develop"
             },
-            "time": "2014-01-03 18:07:18"
+            "time": "2014-01-07 11:37:24"
         },
         {
             "name": "phpunit/dbunit",
