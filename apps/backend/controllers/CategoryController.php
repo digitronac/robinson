@@ -2,6 +2,10 @@
 namespace Robinson\Backend\Controllers;
 class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
 {
+    public function indexAction()
+    {
+        
+    }
     public function createAction()
     {
         $isPost = $this->request->isPost();

@@ -289,6 +289,12 @@ class CategoryControllerTest extends BaseTestController
         $this->assertFalse($image);
     }
     
+    public function testCategoryIndexShouldDisplayCategoryPage()
+    {
+        $this->registerMockSession();
+        $this->dispatch('/admin/category/index');
+    }
+    
     public function tearDown()
     {
         $this->truncateTable('ImageCategory');

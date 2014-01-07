@@ -72,8 +72,8 @@ $di->setShared('acl', function() use ($di)
     $acl->setDefaultAction(\Phalcon\Acl::DENY);
     $roles = array
     (
-    'user' => new \Phalcon\Acl\Role('User'),
-    'guest' => new \Phalcon\Acl\Role('Guest'),
+        'user' => new \Phalcon\Acl\Role('User'),
+        'guest' => new \Phalcon\Acl\Role('Guest'),
     );
 
     foreach ($roles as $role)
@@ -83,13 +83,13 @@ $di->setShared('acl', function() use ($di)
 
     $privateResources = array
     (
-    'index' => array('test', 'dashboard'),
-    'category' => array('create', 'update', 'delete', 'deleteImage'),
+        'index' => array('dashboard'),
+        'category' => array('index', 'create', 'update', 'delete', 'deleteImage'),
     );
 
     $publicResources = array
     (
-    'index' => array('index'),
+        'index' => array('index'),
     );
 
     foreach ($publicResources as $resource => $actions)
