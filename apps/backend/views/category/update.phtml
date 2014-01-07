@@ -8,6 +8,7 @@
                 'placeholder' => 'Kategorija',
                 'required' => 'required',
                 'value' => $category->getCategory(),
+                'class' => 'form-control',
             ))
             ?>
 
@@ -18,7 +19,7 @@
                 'description',
                 'placeholder' => 'Tekst',
                 'required' => 'required',
-                'class' => 'ckeditor',
+                'class' => 'ckeditor form-control',
             ))
             ?>
 
@@ -30,6 +31,7 @@
                 'status',
                 'required' => 'required',
                  \Robinson\Backend\Models\Category::getStatusMessages(),
+                'class' => 'form-control',
             ))
             ?>
             
@@ -61,7 +63,7 @@
         </div>
 
         <div>
-            <input type="submit" name="submit" value="OK" />
+            <button class="btn btn-default btn-lg" name="submit">OK</button>
         </div>
     </form>
 </div>

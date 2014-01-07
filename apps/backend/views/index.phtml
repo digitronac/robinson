@@ -1,7 +1,8 @@
 <?php 
 $this->assets
     ->addJs('http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', false, false)
-    ->addJs('http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js', false, false);
+    ->addJs('http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js', false, false)
+    ->addCss('http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css', false, false);
 
 $jsManager = new \Phalcon\Assets\Manager();
 $jsManager->collection('mainjs')
@@ -22,6 +23,9 @@ $jsManager->collection('mainjs')
                 <script type="text/javascript">
                     $('.ckeditor').ckeditor();
                 </script>
+                <style type="text/css">
+                    .admin.category.create div, .admin.category.update div {margin-top:10px}
+                </style>
 	</head>
 	<body>
             <?=(new \Robinson\Backend\Tag\MainMenu())->mainMenu() . PHP_EOL ?>

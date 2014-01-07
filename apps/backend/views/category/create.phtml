@@ -1,13 +1,13 @@
 <div class="admin category create">
     <form method="post">
         <div>
-            <input type="text" name="category" placeholder="Kategorija" required="required" />
+            <input class="form-control" type="text" name="category" placeholder="Kategorija" required="required" />
         </div>
         <div>
             <textarea name="description" class="ckeditor" placeholder="Tekst" required="required"></textarea>
         </div>
         <div>
-            <select name="status" required="required">
+            <select class="form-control" name="status" required="required">
 
                 <?php foreach(\Robinson\Backend\Models\Category::getStatusMessages() as $status => $message): ?>
 
@@ -18,7 +18,7 @@
             </select>
         </div>
         <div>
-            <input type="submit" name="submit" value="OK" />
+            <button class="btn btn-default btn-lg" name="submit">OK</button>
         </div>
     </form>
 </div>

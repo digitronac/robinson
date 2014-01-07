@@ -31,7 +31,7 @@ class ImageCategoryTest extends \Phalcon\Test\UnitTestCase
     
     /**
      * @expectedException \ErrorException
-     * @expectedExceptionMessage Unable to move uploaded file to destination "./0-n-a."
+     * @expectedExceptionMessage Unable to move uploaded file to destination "./0-test-file-url-friendly."
      */
     public function testUnableToMoveFileShouldThrowException()
     {
@@ -42,11 +42,14 @@ class ImageCategoryTest extends \Phalcon\Test\UnitTestCase
             ->method('save')
             ->will($this->returnValue(true));
         
-        $mockFileRequest = $this->getMock('Phalcon\Http\Request\File', array('moveTo', 'save'), array('fakefile.jpg'), 'Mock_Request_File', false);
+        $mockFileRequest = $this->getMock('Phalcon\Http\Request\File', array('moveTo', 'save', 'getName'), array('fakefile.jpg'), 'Mock_Request_File', false);
         
         $mockFileRequest->expects($this->once())
             ->method('moveTo')
             ->will($this->returnValue(false));
+        $mockFileRequest->expects($this->exactly(2))
+            ->method('getName')
+            ->will($this->returnValue('test % file url friendlY'));
         $mockImageCategory->createFromUploadedFile($mockFileRequest, 1);  
     }
     

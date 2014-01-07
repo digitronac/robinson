@@ -12,7 +12,6 @@
     ],
     "require": 
     {
-	 "cocur/slugify": "dev-master",
 	 "imagine/imagine": "0.6.*@dev",
 	 "ext-imagick": "*"
     },

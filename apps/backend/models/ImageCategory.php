@@ -67,9 +67,10 @@ class ImageCategory extends \Phalcon\Mvc\Model
         {
             throw new \Phalcon\Mvc\Model\Exception('basePath is not set.');
         }
-        
-        $slugify = $this->makeSlugify();
-        $this->filename = $slugify->slugify(pathinfo($file->getName(), PATHINFO_BASENAME));
+
+        /* @var $tag \Phalcon\Tag */
+        $tag = $this->getDI()->getShared('tag');
+        $this->filename = $tag->friendlyTitle(pathinfo($file->getName(), PATHINFO_BASENAME));
         $this->extension = pathinfo($file->getName(), PATHINFO_EXTENSION);
         $this->categoryId = $categoryId;
         if(!$this->save())
@@ -79,7 +80,7 @@ class ImageCategory extends \Phalcon\Mvc\Model
         
         if(!$file->moveTo($this->basePath . '/' . $this->getRealFilename()))
         {
-            throw new \ErrorException('Unable to move uploaded file to destination "' . $this->basePath . '/' . $this->getRealFilename() . '".');
+            throw new \ErrorException(sprintf('Unable to move uploaded file to destination "%s".', $this->basePath . '/' . $this->getRealFilename()));
         }
         
         return $this;
@@ -179,14 +180,6 @@ class ImageCategory extends \Phalcon\Mvc\Model
         $imagick->writeimage($cropFile);
         return $public;
         
-    }
-    
-    /**
-     * @return \Cocur\Slugify\Slugify
-     */
-    protected function makeSlugify()
-    {
-        return $this->getDI()->get('Cocur\Slugify\Slugify');
     }
     
     protected function isFile($file)
