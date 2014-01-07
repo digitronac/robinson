@@ -50,6 +50,13 @@ class Module implements ModuleDefinitionInterface
               
                 include APPLICATION_PATH . '/backend/config/services.php';
                 
+                // listen for exceptions if debug ip
+                if(in_array($di->getService('request')->resolve()->getClientAddress(), 
+        $di->getService('config')->resolve()->application->debug->ips->toArray()))
+                {
+                    (new \Phalcon\Debug())->listen();
+                }
+                
                 return $di;
 
 	}

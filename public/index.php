@@ -18,7 +18,6 @@ require __DIR__ . '/../config/services.php';
 if(APPLICATION_ENV !== 'production')
 {
     ini_set('display_errors', 1);
-    (new \Phalcon\Debug())->listen();
 }
 
 register_shutdown_function(function() use ($di)
