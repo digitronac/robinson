@@ -15,15 +15,16 @@ $jsManager->collection('mainjs')
 <!DOCTYPE html>
 <html>
 	<head>
-		<?=$this->tag->getTitle()?>
-                <?=$this->assets->outputCss()?>
-                <?=$this->assets->outputJs()?>
-                <?=$jsManager->outputJs('mainjs')?>
+		<?=$this->tag->getTitle() . PHP_EOL ?>
+                <?=$this->assets->outputCss() . PHP_EOL ?>
+                <?=$this->assets->outputJs() . PHP_EOL ?>
+                <?=$jsManager->outputJs('mainjs') . PHP_EOL ?>
                 <script type="text/javascript">
                     $('.ckeditor').ckeditor();
                 </script>
 	</head>
 	<body>
-		<?php echo $this->getContent(); ?>
+            <?=(new \Robinson\Backend\Tag\MainMenu())->mainMenu() . PHP_EOL ?>
+            <?=$this->getContent() . PHP_EOL ?>
 	</body>
 </html>

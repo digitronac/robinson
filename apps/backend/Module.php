@@ -27,6 +27,7 @@ class Module implements ModuleDefinitionInterface
 			'Robinson\Backend\Models' => __DIR__ . '/models/',
                         'Robinson\Backend\Plugin' => __DIR__ . '/plugins/',
                         'Robinson\Backend\Validator' => __DIR__ . '/validators/',
+                        'Robinson\Backend\Tag' => __DIR__ . '/tags/',
 		));
 
 		$loader->register();
