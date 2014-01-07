@@ -121,4 +121,36 @@ $di->setShared('acl', function() use ($di)
     return $acl;
 });
 
+$di->setShared('log', function() use ($di)
+{
+    $log = new \Phalcon\Logger\Multiple();
+    $logDir = APPLICATION_PATH . '/backend/logs/' . date('Y') . '/' . date('m') . '/' . date('d');
+    $logFile = $logDir . '/' . 'log.txt';
+    if(!is_file($logFile))
+    {
+        mkdir($logDir, 0775, true);
+        
+        if(!is_file($logFile))
+        {
+            touch($logFile);
+        }
+    }
+    
+    $fileLogger = new \Phalcon\Logger\Adapter\File($logFile);
+    //$jsonFormatter = new \Phalcon\Logger\Formatter\Json();
+    $fireFormatter = new \Phalcon\Logger\Formatter\Firephp();
+    $fileLogger->setFormatter($fireFormatter);
+    $log->push($fileLogger);
+
+    if(in_array($di->getService('request')->resolve()->getClientAddress(), 
+        $di->getService('config')->resolve()->application->debug->ips->toArray()))
+    {
+        $fireLogger = new \Phalcon\Logger\Adapter\Firephp();
+        $fireFormatter = new \Phalcon\Logger\Formatter\Firephp();
+        $fireLogger->setFormatter($fireFormatter);
+        $log->push($fireLogger);
+    }
+    return $log;
+});
+
 return $di;

@@ -8,12 +8,6 @@ use Phalcon\Mvc\Application;
 
 error_reporting(E_ALL);
 
-if(APPLICATION_ENV !== 'production')
-{
-    ini_set('display_errors', 1);
-    (new \Phalcon\Debug())->listen();
-}
-
 define('APPLICATION_PATH', realpath(__DIR__ . '/../apps'));
 
 /**
@@ -21,6 +15,21 @@ define('APPLICATION_PATH', realpath(__DIR__ . '/../apps'));
  */
 require __DIR__ . '/../config/services.php';
 
+if(APPLICATION_ENV !== 'production')
+{
+    ini_set('display_errors', 1);
+    (new \Phalcon\Debug())->listen();
+}
+
+register_shutdown_function(function() use ($di)
+{
+    $lastError = error_get_last();
+    if(!isset($lastError['message']) || !$di->has('log'))
+    {
+        return;
+    }
+    $di->getShared('log')->error($lastError);
+});
 /**
  * Handle the request
  */
@@ -36,4 +45,7 @@ $application->setDI($di);
  */
 require __DIR__ . '/../config/modules.php';
 
+
 echo $application->handle()->getContent();
+
+
