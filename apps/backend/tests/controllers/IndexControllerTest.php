@@ -7,7 +7,7 @@ class IndexControllerTest extends BaseTestController
         $this->dispatch('/admin');
         $this->assertAction('index');
         $this->assertController('index');
-        $this->assertResponseContentContains('<input type="password" name="password" placeholder="Password" required="required" />');
+        $this->assertResponseContentContains('<input class="form-control" type="password" name="password" placeholder="Password" required="required" />');
     }
     
     public function testUserOnIndexActionShouldBeRedirectedToDashboard()

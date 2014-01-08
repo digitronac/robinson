@@ -108,17 +108,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/digitronac/incubator.git",
-                "reference": "7942f63b24534479ac85e4a493267e6ec2ace9d4"
+                "reference": "faee88643e2017031a16b59681d0986b2bd05c6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digitronac/incubator/zipball/7942f63b24534479ac85e4a493267e6ec2ace9d4",
-                "reference": "7942f63b24534479ac85e4a493267e6ec2ace9d4",
+                "url": "https://api.github.com/repos/digitronac/incubator/zipball/faee88643e2017031a16b59681d0986b2bd05c6f",
+                "reference": "faee88643e2017031a16b59681d0986b2bd05c6f",
                 "shasum": ""
             },
             "require": {
                 "ext-phalcon": "1.2.4",
                 "php": ">=5.3.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.28",
+                "sneakybobito/phalcon-stubs": "1.2.3"
             },
             "type": "library",
             "autoload": {
@@ -142,9 +146,9 @@
                 "phalcon"
             ],
             "support": {
-                "source": "https://github.com/digitronac/incubator/tree/1.2.4"
+                "source": "https://github.com/digitronac/incubator/tree/develop"
             },
-            "time": "2014-01-07 21:44:35"
+            "time": "2014-01-08 22:33:18"
         },
         {
             "name": "phpunit/dbunit",
