@@ -12,7 +12,7 @@
                     (
                         $category->getUpdateUrl(true),
                         $category->getCategory(),
-                        'style' => ($category->getStatus()) ? 'text-decoration:line-through' : '', 
+                        'style' => (!$category->isVisible()) ? 'text-decoration:line-through' : '', 
                     ))?>
                 </li>
                 <?php endforeach ?>

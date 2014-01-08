@@ -23,5 +23,6 @@ class CategoryTest extends \Phalcon\Test\UnitTestCase
         $categoryMock->setCategoryId(3);
         $categoryMock->setDI($di);
         $this->assertContains('/admin/category/update/3', $categoryMock->getUpdateUrl());
+        $this->assertFalse($categoryMock->isVisible());
     }
 }

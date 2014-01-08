@@ -62,6 +62,11 @@ class Category extends \Phalcon\Mvc\Model
     {
         return (int) $this->status;
     }
+    
+    public function isVisible()
+    {
+        return ($this->getStatus() === self::STATUS_VISIBLE);
+    }
    
     public function getCategoryId()
     {
