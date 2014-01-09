@@ -236,4 +236,14 @@ class Category extends \Phalcon\Mvc\Model
             'order' => 'sort ASC',
         ));
     }
+    
+    /**
+     * Fetches related destinations.
+     * 
+     * @return \Phalcon\Mvc\Model\Resultset\Simple
+     */
+    public function getDestinations()
+    {
+        return $this->getRelated('Robinson\Backend\Models\Destinations');
+    }
 }

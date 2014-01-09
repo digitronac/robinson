@@ -85,6 +85,7 @@ $di->setShared('acl', function() use ($di)
     (
         'index' => array('dashboard'),
         'category' => array('index', 'create', 'update', 'delete', 'deleteImage'),
+        'destination' => array('index', 'create', 'update', 'delete', 'deleteImage'),
     );
 
     $publicResources = array

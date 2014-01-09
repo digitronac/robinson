@@ -10,7 +10,7 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
     public function indexAction()
     {
         /* @var $categories \Phalcon\Mvc\Model\Resultset\Simple */
-        $categories = \Robinson\Backend\Models\Category::find(array('order' => 'categoryId'));
+        $categories = \Robinson\Backend\Models\Category::find(array('order' => 'categoryId DESC'));
         $this->view->setVar('categories', $categories);
     }
     

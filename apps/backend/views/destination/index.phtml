@@ -1,0 +1,50 @@
+
+<div class="admin destination index">
+    <dl>
+        <dt><h4>Kategorije i destinacije</h4></dt>
+        <dd>
+            <ul class="nav nav-list">
+
+                <?php foreach($categories as $category): ?>
+
+                <li>
+                    <?=$this->tag->linkTo(array
+                    (
+                        $category->getUpdateUrl(true),
+                        $category->getCategory(),
+                        'style' => (!$category->isVisible()) ? 'text-decoration:line-through' : '', 
+                    )) . PHP_EOL ?>
+                    
+                    <?php if ($category->getDestinations()): ?>
+                    
+                    <h3>Destinacije za kategoriju "<?=$category->getCategory()?>":</h3>
+                    <ul class="nav nav-list">
+                        
+                        <?php foreach ($category->getDestinations() as $destination): ?>
+                        
+                        <li>
+                            
+                            <?=$this->tag->linkTo(array
+                            (
+                                $destination->getUpdateUrl(true),
+                                $destination->getDestination(),
+                                'style' => (!$category->isVisible()) ? 'text-decoration:line-through' : '',
+                            )) . PHP_EOL ?>
+                            
+                        </li>
+                        
+                        <?php endforeach ?>
+                        
+                    </ul>
+                    
+                    <?php endif ?>
+                    
+                </li>
+                <?php endforeach ?>
+
+                <li><a href="<?=$this->url->get(array('for' => 'admin', 'controller' => 'category', 'action' => 'create'))?>">Dodaj novu kategoriju</a></li>
+
+            </ul>
+        </dd>
+    </dl>
+</div>
