@@ -3,6 +3,14 @@ namespace Robinson\Backend\Tests\Controllers;
 // @codingStandardsIgnoreStart
 class IndexControllerTest extends BaseTestController
 {
+    public function setUp(\Phalcon\DiInterface $di = null, \Phalcon\Config $config = null)
+    {
+        parent::setUp($di, $config);
+        $this->populateTable('Category');
+        $this->populateTable('ImageCategory');
+        $this->populateTable('Destinations');
+    }
+    
     public function testIndexActionShouldShowLogin()
     {
         $this->dispatch('/admin');
@@ -54,6 +62,7 @@ class IndexControllerTest extends BaseTestController
     {
         $this->registerMockSession();
         $this->dispatch('/admin/index/dashboard');
+        $this->assertResponseContentContains('<li><a href="/admin/destination/update/5">fixture destination 5</a></li>');
         $this->assertAction('dashboard');
     }
 }

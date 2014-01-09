@@ -1,6 +1,6 @@
 <?php
 namespace Robinson\Backend\Models;
-class Category extends \Phalcon\Mvc\Model
+class Destinations extends \Phalcon\Mvc\Model
 {
     const STATUS_INVISIBLE = 0;
     const STATUS_VISIBLE = 1;
@@ -11,9 +11,9 @@ class Category extends \Phalcon\Mvc\Model
         self::STATUS_VISIBLE => 'vidljiv',
     );
     
-    protected $categoryId;
+    protected $destinationId;
     
-    protected $category;
+    protected $destination;
     
     protected $description;
     
@@ -23,50 +23,50 @@ class Category extends \Phalcon\Mvc\Model
     
     protected $updatedAt;
     
-    
     /**
-     * Initializaton method.
+     * Initialization method.
      * 
      * @return void
      */
     public function initialize()
     {
-        $this->setSource('Category');
-        $this->hasMany('categoryId', 'Robinson\Backend\Models\ImageCategory', 'categoryId');
-        $this->hasMany('categoryId', 'Robinson\Backend\Models\Destinations', 'categoryId');
+        $this->setSource('Destinations');
+        $this->hasMany('destinationId', 'Robinson\Backend\Models\DestinationImages', 
+            'destinationId');
+        $this->belongsTo('categoryId', 'Robinson\Backend\Models\Category', 'categoryId');
     }
     
     /**
-     * Getter method for category name.
+     * Getter method for destination name.
      *  
      * @param bool $escapeHtml flag
      * 
      * @return string
      */
-    public function getCategory($escapeHtml = true)
+    public function getDestination($escapeHtml = true)
     {
-        return $this->getDI()->getShared('escaper')->escapeHtml($this->category);
+        return $this->getDI()->getShared('escaper')->escapeHtml($this->destination);
     }
     
     /**
-     * Sets category name.
+     * Sets destination name.
      * 
-     * @param string $category category name
+     * @param string $destination destination name
      * 
-     * @return \Robinson\Backend\Models\Category
+     * @return \Robinson\Backend\Models\Destinations
      */
-    public function setCategory($category)
+    public function setCategory($destination)
     {
-        $this->category = $category;
+        $this->destination = $destination;
         return $this;
     }
     
     /**
-     * Sets category description.
+     * Sets destination description.
      * 
      * @param string $description description
      * 
-     * @return \Robinson\Backend\Models\Category
+     * @return \Robinson\Backend\Models\Destinations
      */
     public function setDescription($description)
     {
@@ -75,7 +75,7 @@ class Category extends \Phalcon\Mvc\Model
     }
     
     /**
-     * Gets category description.
+     * Gets destination description.
      * 
      * @return string
      */
@@ -85,11 +85,11 @@ class Category extends \Phalcon\Mvc\Model
     }
     
     /**
-     * Sets category status.
+     * Sets destination status.
      * 
      * @param int $status category status
      * 
-     * @return \Robinson\Backend\Models\Category
+     * @return \Robinson\Backend\Models\Destinations
      */
     public function setStatus($status)
     {
@@ -98,7 +98,7 @@ class Category extends \Phalcon\Mvc\Model
     }
     
     /**
-     * Gets category status.
+     * Gets destination status.
      * 
      * @return int
      */
@@ -108,7 +108,7 @@ class Category extends \Phalcon\Mvc\Model
     }
     
     /**
-     * Is category visible?
+     * Is destination visible?
      * 
      * @return bool
      */
@@ -118,34 +118,34 @@ class Category extends \Phalcon\Mvc\Model
     }
    
     /**
-     * Gets categoryId.
+     * Gets destinationId.
      * 
      * @return int
      */
-    public function getCategoryId()
+    public function getDestinationId()
     {
-        return $this->categoryId;
+        return $this->destinationId;
     }
     
     /**
-     * Sets category id.
+     * Sets destination id.
      * 
      * @param int $id id
      * 
-     * @return \Robinson\Backend\Models\Category
+     * @return \Robinson\Backend\Models\Destinations
      */
-    public function setCategoryId($id)
+    public function setDestinationId($id)
     {
-        $this->categoryId = (int) $id;
+        $this->destinationId = (int) $id;
         return $this;
     }
     
     /**
-     * Sets datetime when category was created.
+     * Sets datetime when destination was created.
      * 
      * @param \DateTime $datetime datetime object whcih will be used for setting datetime
      * 
-     * @return \Robinson\Backend\Models\Category
+     * @return \Robinson\Backend\Models\Destination
      */
     public function setCreatedAt(\DateTime $datetime)
     {
@@ -154,11 +154,11 @@ class Category extends \Phalcon\Mvc\Model
     }
     
     /**
-     * Sets datetime when category was last updated.
+     * Sets datetime when destination was last updated.
      * 
-     * @param \DateTime $datetime datetime object whcih will be used for setting datetime
+     * @param \DateTime $datetime datetime object which will be used for setting datetime
      * 
-     * @return \Robinson\Backend\Models\Category
+     * @return \Robinson\Backend\Models\Destinations
      */
     public function setUpdatedAt(\DateTime $datetime)
     {
@@ -167,7 +167,7 @@ class Category extends \Phalcon\Mvc\Model
     }
     
     /**
-     * Gets createdAt category datetime.
+     * Gets createdAt destination datetime.
      * 
      * @param string $format date format
      * 
@@ -179,7 +179,7 @@ class Category extends \Phalcon\Mvc\Model
     }
     
     /**
-     * Gets last updated category datetime.
+     * Gets last updated destination datetime.
      * 
      * @param string $format date format
      * 
@@ -188,30 +188,6 @@ class Category extends \Phalcon\Mvc\Model
     public function getUpdatedAt($format = 'd.m.Y. H:i:s')
     {
         return (new \DateTime($this->updatedAt, new \DateTimeZone('Europe/Belgrade')))->format($format);
-    }
-    
-    /**
-     * Assembles and returns url for category update page.
-     * 
-     * @param bool $asArray flag, if set to true, url params will be returned as array
-     * 
-     * @return string|array
-     */
-    public function getUpdateUrl($asArray = false)
-    {
-        $fragments = array
-        (
-            'for' => 'admin-update', 
-            'controller' => 'category', 
-            'action' => 'update', 
-            'id' => $this->getCategoryId()
-        );
-        if ($asArray)
-        {
-          return $fragments;  
-        }
-        
-        return $this->getDI()->get('url')->get($fragments);
     }
     
     /**
@@ -225,15 +201,49 @@ class Category extends \Phalcon\Mvc\Model
     }
     
     /**
+     * Assembles and returns url for destination update page.
+     * 
+     * @param bool $asArray flag, if set to true, url params will be returned as array
+     * 
+     * @return string|array
+     */
+    public function getUpdateUrl($asArray = false)
+    {
+        $fragments = array
+        (
+            'for' => 'admin-update', 
+            'controller' => 'destination', 
+            'action' => 'update', 
+            'id' => $this->getDestinationId(),
+        );
+        if ($asArray)
+        {
+          return $fragments;  
+        }
+        
+        return $this->getDI()->get('url')->get($fragments);
+    }
+    
+    /**
      * Fetches related images.
      * 
      * @return \Phalcon\Mvc\Model\Resultset\Simple
      */
     public function getImages()
     {
-        return $this->getRelated('Robinson\Backend\Models\ImageCategory', array
+        return $this->getRelated('Robinson\Backend\Models\DestinationImages', array
         (
             'order' => 'sort ASC',
         ));
+    }
+    
+    /**
+     * Fetches destination category.
+     * 
+     * @return \Phalcon\Mvc\Model\Resultset\Simple
+     */
+    public function getCategory()
+    {
+        return $this->getRelated('Robinson\Backend\Models\Category');
     }
 }

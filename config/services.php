@@ -5,9 +5,9 @@
  */
 
 use Phalcon\Mvc\Router,
-	Phalcon\Mvc\Url as UrlResolver,
-	Phalcon\DI\FactoryDefault,
-	Phalcon\Session\Adapter\Files as SessionAdapter;
+    Phalcon\Mvc\Url as UrlResolver,
+    Phalcon\DI\FactoryDefault,
+    Phalcon\Session\Adapter\Files as SessionAdapter;
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
@@ -19,12 +19,12 @@ $di = new FactoryDefault();
  */
 $di['router'] = function() {
 
-	$router = new Router();
+        $router = new Router();
         $router->removeExtraSlashes(true);
         $router->setUriSource(\Phalcon\Mvc\Router::URI_SOURCE_SERVER_REQUEST_URI);
 
-	$router->setDefaultModule("frontend");
-	$router->setDefaultNamespace("Robinson\Frontend\Controllers");
+        $router->setDefaultModule("frontend");
+        $router->setDefaultNamespace("Robinson\Frontend\Controllers");
        
         // add backend
         $router->add('/admin', array
@@ -83,5 +83,3 @@ $di['response'] = function()
     $response->setStatusCode(200, 'OK');
     return $response;
 };
-
-	

@@ -62,9 +62,18 @@ class IndexController extends ControllerBase
         (
             'limit' => 5, 
             'status' => 1, 
-            'order' => 'categoryId'
+            'order' => 'categoryId DESC'
         ));
         $this->view->setVar('categories', $categories);
+        
+        /* @var $destinations \Phalcon\Mvc\Model\Resultset\Simple */
+        $destinations = \Robinson\Backend\Models\Destinations::find(array
+        (
+            'limit' => 5,
+            'status' => 1,
+            'order' => 'destinationId DESC',
+        ));
+        $this->view->setVar('destinations', $destinations);
     }
 }
 

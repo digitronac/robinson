@@ -5,7 +5,7 @@
         <dd>
             <ul>
 
-                <?php foreach($categories as $category): ?>
+                <?php foreach ($categories as $category): ?>
 
                 <li><a href="<?=$category->getUpdateUrl()?>"><?=$category->getCategory()?></a></li>
 
@@ -13,6 +13,20 @@
 
                 <li><a href="<?=$this->url->get(array('for' => 'admin', 'controller' => 'category', 'action' => 'create'))?>">Dodaj novu kategoriju</a></li>
 
+            </ul>
+        </dd>
+        <dt>Destinacije</dt>
+        <dd>
+            <ul>
+                
+                <?php foreach ($destinations as $destination): ?>
+                
+                <li><a href="<?=$destination->getUpdateUrl()?>"><?=$destination->getDestination()?></a></li>
+                
+                <?php endforeach ?>
+                
+                <li><a href="<?=$this->url->get(array('for' => 'admin', 'controller' => 'destination', 'action' => 'create'))?>">Dodaj novu destinaciju</a></li>
+                
             </ul>
         </dd>
     </dl>

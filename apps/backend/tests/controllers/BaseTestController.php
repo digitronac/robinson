@@ -53,7 +53,7 @@ class BaseTestController extends \Phalcon\Test\FunctionalTestCase
        public function populateTable($table, $records = null)
        {
             // Empty the table first
-            $this->emptyTable($table);
+            $this->truncateTable($table);
 
             $connection = $this->di->get('db');
             $parts = explode('_', $table);
