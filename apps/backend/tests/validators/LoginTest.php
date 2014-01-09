@@ -1,7 +1,13 @@
 <?php
 namespace Robinson\Backend\Tests\Validator;
+// @codingStandardsIgnoreStart
 class LoginTest extends \Phalcon\Test\UnitTestCase
 {
+    /**
+     * Can make validator?
+     * 
+     * @return void
+     */
     public function testCanCreateLoginValidator()
     {
         $validator = new \Robinson\Backend\Validator\Login(include __DIR__ . '/../fixtures/credentials.php');

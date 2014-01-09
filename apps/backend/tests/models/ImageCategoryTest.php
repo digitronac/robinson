@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Backend\Tests\Models;
+// @codingStandardsIgnoreStart
 class ImageCategoryTest extends \Phalcon\Test\UnitTestCase
 {
     /**

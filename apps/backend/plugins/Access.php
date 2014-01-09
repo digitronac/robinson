@@ -2,6 +2,14 @@
 namespace Robinson\Backend\Plugin;
 class Access extends \Phalcon\Mvc\User\Plugin
 {
+    /**
+     * Checks if visitor is allowed to access pages.
+     * 
+     * @param \Phalcon\Events\Event   $event      event
+     * @param \Phalcon\Mvc\Dispatcher $dispatcher dispatcher
+     * 
+     * @return mixed
+     */
     public function beforeExecuteRoute(\Phalcon\Events\Event $event, \Phalcon\Mvc\Dispatcher $dispatcher)
     {
         $auth = $this->getDI()->getShared('session')->get('auth');
@@ -16,7 +24,7 @@ class Access extends \Phalcon\Mvc\User\Plugin
         /* @var $request \Phalcon\Http\Request */
         $request = $this->getDI()->getShared('request');
 
-        if(!$acl->isAllowed($role, $controller, $action))
+        if (!$acl->isAllowed($role, $controller, $action))
         {
             return $this->dispatcher->forward(array
             (

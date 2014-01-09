@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Backend\Tests\Controllers;
+// @codingStandardsIgnoreStart
 class CategoryControllerTest extends BaseTestController
 {
     public function setUp(\Phalcon\DiInterface $di = null, \Phalcon\Config $config = null)

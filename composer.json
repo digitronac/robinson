@@ -7,7 +7,12 @@
         {
             "type": "vcs",
             "url": "https://github.com/digitronac/incubator"
-        }
+        },
+	{
+            "type": "vcs",
+            "url": "https://github.com/digitronac/PHP_CodeSniffer"
+	}
+	
     
     ],
     "require": 
@@ -20,8 +25,10 @@
     {
  	 "mikey179/vfsStream": "1.3.*@dev",
 	 "phalcon/incubator": "dev-develop",
+	 "squizlabs/PHP_CodeSniffer": "dev-master#6e14f59",
          "phpunit/phpunit": "3.7.28",
          "phpunit/dbunit": "1.3.0",
+	 "phpmd/phpmd": "1.5.0",
 	 "sneakybobito/phalcon-stubs": "1.2.3"
     },
     "minimum-stability": "dev"

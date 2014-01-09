@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Backend\Tests\Controllers;
+// @codingStandardsIgnoreStart
 class IndexControllerTest extends BaseTestController
 {
     public function testIndexActionShouldShowLogin()

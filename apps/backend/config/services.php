@@ -126,11 +126,11 @@ $di->setShared('log', function() use ($di)
     $log = new \Phalcon\Logger\Multiple();
     $logDir = APPLICATION_PATH . '/backend/logs/' . date('Y') . '/' . date('m') . '/' . date('d');
     $logFile = $logDir . '/' . 'log.txt';
-    if(!is_file($logFile))
+    if (!is_file($logFile))
     {
         mkdir($logDir, 0775, true);
         
-        if(!is_file($logFile))
+        if (!is_file($logFile))
         {
             touch($logFile);
         }
@@ -142,7 +142,7 @@ $di->setShared('log', function() use ($di)
     $fileLogger->setFormatter($fireFormatter);
     $log->push($fileLogger);
 
-    if(in_array($di->getService('request')->resolve()->getClientAddress(), 
+    if (in_array($di->getService('request')->resolve()->getClientAddress(), 
         $di->getService('config')->resolve()->application->debug->ips->toArray()))
     {
         $fireLogger = new \Phalcon\Logger\Adapter\Firephp();

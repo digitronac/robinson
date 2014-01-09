@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Backend\Tests\Models;
+// @codingStandardsIgnoreStart
 class CategoryTest extends \Phalcon\Test\UnitTestCase
 {
     public function testGetUpdateUrlShouldReturnPath()

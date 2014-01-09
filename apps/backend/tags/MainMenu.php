@@ -2,11 +2,16 @@
 namespace Robinson\Backend\Tag;
 class MainMenu extends \Phalcon\Tag
 {
+    /**
+     * Renders main menu.
+     * 
+     * @return string menu
+     */
     public function mainMenu()
     {
         $dispatcher = $this->retrieveDispatcher();
         
-        if($dispatcher->getControllerName() === 'index' 
+        if ($dispatcher->getControllerName() === 'index' 
             && ($dispatcher->getActionName() === 'index' 
             || $dispatcher->getActionName() === 'dashboard'))
         {
@@ -17,6 +22,8 @@ class MainMenu extends \Phalcon\Tag
     }
             
     /**
+     * Retrieves dispatcher from di.
+     * 
      * @return \Phalcon\Mvc\Dispatcher
      */
     protected function retrieveDispatcher()

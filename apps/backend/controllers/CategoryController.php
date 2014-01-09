@@ -2,17 +2,28 @@
 namespace Robinson\Backend\Controllers;
 class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
 {
+    /**
+     * Page where list of categories is displayed.
+     * 
+     * @return void
+     */
     public function indexAction()
     {
         /* @var $categories \Phalcon\Mvc\Model\Resultset\Simple */
         $categories = \Robinson\Backend\Models\Category::find(array('order' => 'categoryId'));
         $this->view->setVar('categories', $categories);
     }
+    
+    /**
+     * Create new category page.
+     * 
+     * @return mixed
+     */
     public function createAction()
     {
         $isPost = $this->request->isPost();
 
-        if($this->request->isPost())
+        if ($this->request->isPost())
         {
             $category = new \Robinson\Backend\Models\Category();
             $category
@@ -28,13 +39,18 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
         }
     }
     
+    /**
+     * Update existing category.
+     * 
+     * @return void
+     */
     public function updateAction()
     {
         /* @var $category \Robinson\Backend\Models\Category */
         $category = $this->getDI()->get('Robinson\Backend\Models\Category');
         $category = $category->findFirst('categoryId = ' . $this->dispatcher->getParam('id'));   
 
-        if($this->request->isPost())
+        if ($this->request->isPost())
         {
             $category->setCategory($this->request->getPost('category'))
                 ->setDescription($this->request->getPost('description'))
@@ -44,7 +60,7 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
             // files upload
             $files = $this->request->getUploadedFiles();
 
-            foreach($files as $file)
+            foreach ($files as $file)
             {
                 /* @var $imageCategory \Robinson\Backend\Models\ImageCategory */
                 $imageCategory = $this->getDI()->get('Robinson\Backend\Models\ImageCategory');
@@ -52,10 +68,10 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
             }
 
             // sort
-            foreach($category->getImages() as $image)
+            foreach ($category->getImages() as $image)
             {
                 $sort = $this->request->getPost('sort')[$image->getImageCategoryId()];
-                if($sort)
+                if ($sort)
                 {
                     $image->setSort($this->request->getPost('sort')[$image->getImageCategoryId()])->update();
                 }
@@ -71,6 +87,11 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
         $this->view->setVar('category', $category);
     }
     
+    /**
+     * Delete category related image, returns json object.
+     *  
+     * @return \Phalcon\Http\Response
+     */
     public function deleteImageAction()
     {
         $this->view->disable();
