@@ -67,4 +67,37 @@ class DestinationControllerTest extends BaseTestController
         ));
         $this->assertRedirectTo('/admin/destination/update/' . $last->getDestinationId());
     }
+    
+    public function testUpdatePageShouldShowAsExpected()
+    {
+        $this->registerMockSession();
+        $this->dispatch('/admin/destination/update/4');
+        $this->assertAction('update');
+        $this->assertController('destination');
+        $this->assertResponseCode(200);
+        $this->assertResponseContentContains('<textarea class="ckeditor" placeholder="Tekst" required="required" name="description" id="description">description test fixture destination 4</textarea>');
+    }
+    
+    public function testUpdatingDestinationShouldWorkAsExpected()
+    {
+        $this->registerMockSession();
+        $_POST = array
+        (
+            'categoryId' => 1,
+            'destination' => 'updated destination 4',
+            'description' => 'updated description 4',
+            'status' => 0,
+        );
+        $request = $this->getMock('Phalcon\Http\Request', array('isPost'));
+        $request->expects($this->any())
+            ->method('isPost')
+            ->will($this->returnValue(true));
+        $this->getDI()->setShared('request', $request);
+        $this->dispatch('/admin/destination/update/4');
+        $destination = \Robinson\Backend\Models\Destinations::findFirstByDestinationId(4);
+        $this->assertEquals($_POST['categoryId'], $destination->getCategoryId());
+        $this->assertEquals($_POST['destination'], $destination->getDestination());
+        $this->assertEquals($_POST['description'], $destination->getDescription());
+        $this->assertEquals($_POST['status'], $destination->getStatus());
+    }
 }

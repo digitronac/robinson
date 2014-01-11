@@ -55,4 +55,38 @@ class DestinationController extends \Phalcon\Mvc\Controller
         
         $this->view->setVar('categories', $categories);
     }
+    
+    /**
+     * Updates destination by id. Accepts images.
+     * 
+     * @return void
+     */
+    public function updateAction()
+    {
+        /* @var $destination \Robinson\Backend\Models\Destinations */
+        $destination = \Robinson\Backend\Models\Destinations::findFirstByDestinationId($this->dispatcher
+            ->getParam('id'));
+
+        if ($this->request->isPost())
+        {
+            $destination->setCategoryId($this->request->getPost('categoryId'))
+                ->setDestination($this->request->getPost('destination'))
+                ->setDescription($this->request->getPost('description'))
+                ->setStatus($this->request->getPost('status'))
+                ->setUpdatedAt(new \DateTime('now', new \DateTimeZone(date_default_timezone_get())));
+            $destination->update();
+        }
+        
+        $categories = \Robinson\Backend\Models\Category::find(array
+        (
+            'order' => 'categoryId DESC',
+        ));
+        
+        $this->view->categories = $categories;
+        $this->view->destination = $destination;
+        $this->tag->setDefault('categoryId', $destination->getCategoryId());
+        $this->tag->setDefault('destination', $destination->getDestination());
+        $this->tag->setDefault('description', $destination->getDescription());
+        
+    }
 }
