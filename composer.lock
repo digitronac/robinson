@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "d30469b4f3cfc67eb0825f05bdf409d7",
+    "hash": "780463f61653ff00dc159559476acac5",
     "packages": [
         {
             "name": "imagine/imagine",
@@ -65,17 +65,39 @@
     ],
     "packages-dev": [
         {
+            "name": "digitronac/phalcon-ide-stubs",
+            "version": "1.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/digitronac/phalcon-ide-stubs.git",
+                "reference": "73ee9743cba022a29a1f5b77b3b0142b404cbcb7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/digitronac/phalcon-ide-stubs/zipball/73ee9743cba022a29a1f5b77b3b0142b404cbcb7",
+                "reference": "73ee9743cba022a29a1f5b77b3b0142b404cbcb7",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "stubs copied from phalcon-devtools, sorted by tags, for easier ide inclusion",
+            "time": "2014-01-11 19:44:30"
+        },
+        {
             "name": "mikey179/vfsStream",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mikey179/vfsStream.git",
-                "reference": "be8409595280ca4b3bf06e35531a1f1574a5b16b"
+                "reference": "2a5c0827aefd5e553097fa114bd8c141f308f769"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikey179/vfsStream/zipball/be8409595280ca4b3bf06e35531a1f1574a5b16b",
-                "reference": "be8409595280ca4b3bf06e35531a1f1574a5b16b",
+                "url": "https://api.github.com/repos/mikey179/vfsStream/zipball/2a5c0827aefd5e553097fa114bd8c141f308f769",
+                "reference": "2a5c0827aefd5e553097fa114bd8c141f308f769",
                 "shasum": ""
             },
             "require": {
@@ -100,7 +122,7 @@
                 "BSD"
             ],
             "homepage": "http://vfs.bovigo.org/",
-            "time": "2013-12-24 12:00:00"
+            "time": "2014-01-11 11:50:17"
         },
         {
             "name": "pdepend/pdepend",
@@ -142,16 +164,16 @@
         },
         {
             "name": "phalcon/incubator",
-            "version": "dev-develop",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digitronac/incubator.git",
-                "reference": "faee88643e2017031a16b59681d0986b2bd05c6f"
+                "reference": "b2827ef0e8d8ef88540f27846600b11be86f6371"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digitronac/incubator/zipball/faee88643e2017031a16b59681d0986b2bd05c6f",
-                "reference": "faee88643e2017031a16b59681d0986b2bd05c6f",
+                "url": "https://api.github.com/repos/digitronac/incubator/zipball/b2827ef0e8d8ef88540f27846600b11be86f6371",
+                "reference": "b2827ef0e8d8ef88540f27846600b11be86f6371",
                 "shasum": ""
             },
             "require": {
@@ -159,8 +181,7 @@
                 "php": ">=5.3.6"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.28",
-                "sneakybobito/phalcon-stubs": "1.2.3"
+                "phpunit/phpunit": "3.7.28"
             },
             "type": "library",
             "autoload": {
@@ -184,9 +205,9 @@
                 "phalcon"
             ],
             "support": {
-                "source": "https://github.com/digitronac/incubator/tree/develop"
+                "source": "https://github.com/digitronac/incubator/tree/master"
             },
-            "time": "2014-01-08 22:33:18"
+            "time": "2014-01-10 18:23:17"
         },
         {
             "name": "phpmd/phpmd",
@@ -654,34 +675,6 @@
             "time": "2013-07-23 04:42:59"
         },
         {
-            "name": "sneakybobito/phalcon-stubs",
-            "version": "1.2.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/SneakyBobito/phalcon-stubs.git",
-                "reference": "2b8cec25b8034cac4b7e4d1a575126ba450720f9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/SneakyBobito/phalcon-stubs/zipball/2b8cec25b8034cac4b7e4d1a575126ba450720f9",
-                "reference": "2b8cec25b8034cac4b7e4d1a575126ba450720f9",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.9"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "description": "IDE Stubs for phalconphp",
-            "homepage": "https://github.com/SneakyBobito/phalcon-stubs",
-            "keywords": [
-                "ide",
-                "phalcon",
-                "stubs"
-            ],
-            "time": "2013-08-23 18:29:06"
-        },
-        {
             "name": "squizlabs/php_codesniffer",
             "version": "dev-master",
             "source": {
@@ -691,7 +684,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digitronac/PHP_CodeSniffer/zipball/8f1a695328b6739c12e5c5a40fd8cb47e0a1922c",
+                "url": "https://api.github.com/repos/digitronac/PHP_CodeSniffer/zipball/6e14f597fb3aca39d519040ffe9146940aadbb97",
                 "reference": "6e14f59",
                 "shasum": ""
             },

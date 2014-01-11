@@ -23,6 +23,8 @@ class Destinations extends \Phalcon\Mvc\Model
     
     protected $updatedAt;
     
+    protected $categoryId;
+    
     /**
      * Initialization method.
      * 
@@ -55,7 +57,7 @@ class Destinations extends \Phalcon\Mvc\Model
      * 
      * @return \Robinson\Backend\Models\Destinations
      */
-    public function setCategory($destination)
+    public function setDestination($destination)
     {
         $this->destination = $destination;
         return $this;
@@ -167,6 +169,29 @@ class Destinations extends \Phalcon\Mvc\Model
     }
     
     /**
+     * Sets categoryId.
+     * 
+     * @param int $categoryId categoryId
+     * 
+     * @return \Robinson\Backend\Models\Destinations
+     */
+    public function setCategoryId($categoryId)
+    {
+        $this->categoryId = (int) $categoryId;
+        return $this;
+    }
+    
+    /**
+     * Gets categoryId.
+     * 
+     * @return int
+     */
+    public function getCategoryId()
+    {
+        return (int) $this->categoryId;
+    }
+    
+    /**
      * Gets createdAt destination datetime.
      * 
      * @param string $format date format
@@ -198,6 +223,32 @@ class Destinations extends \Phalcon\Mvc\Model
     public static function getStatusMessages()
     {
         return self::$statusMessages;
+    }
+    
+    /**
+     * Persist to database
+     * 
+     * @param array $data      data
+     * @param array $whiteList whitelist
+     * 
+     * @return bool
+     */
+    public function save($data = null, $whiteList = null)
+    {
+        return $this->parentSave($data, $whiteList);
+    }
+    
+    /**
+     * Parents save method.
+     * 
+     * @param array $data      data to be saved
+     * @param array $whiteList fields whitelist
+     * 
+     * @return bool
+     */
+    public function parentSave($data = null, $whiteList = null)
+    {
+        return parent::save($data, $whiteList);
     }
     
     /**

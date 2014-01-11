@@ -15,7 +15,7 @@
                         'style' => (!$category->isVisible()) ? 'text-decoration:line-through' : '', 
                     )) . PHP_EOL ?>
                     
-                    <?php if ($category->getDestinations()): ?>
+                    <?php if ($category->getDestinations()->count()): ?>
                     
                     <h3>Destinacije za kategoriju "<?=$category->getCategory()?>":</h3>
                     <ul class="nav nav-list">
@@ -42,7 +42,7 @@
                 </li>
                 <?php endforeach ?>
 
-                <li><a href="<?=$this->url->get(array('for' => 'admin', 'controller' => 'category', 'action' => 'create'))?>">Dodaj novu kategoriju</a></li>
+                <li><a href="<?=$this->url->get(array('for' => 'admin', 'controller' => 'destination', 'action' => 'create'))?>">Dodaj novu destinaciju</a></li>
 
             </ul>
         </dd>

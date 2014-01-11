@@ -54,11 +54,6 @@ $di['router'] = function() {
     return $router;
 };
 
-$di->set('debug', function()
-{
-    return new \Phalcon\Debug();
-});
-
 /**
  * The URL component is used to generate all kind of urls in the application
  */
@@ -82,4 +77,9 @@ $di['response'] = function()
     $response = new \Phalcon\Http\Response();
     $response->setStatusCode(200, 'OK');
     return $response;
+};
+
+$di['debug'] = function()
+{
+    return new \Phalcon\Debug\Dump();
 };
