@@ -80,7 +80,9 @@ class DestinationController extends \Phalcon\Mvc\Controller
             
             if ($sort)
             {
-                foreach ($destination->images as $image)
+                $images = array();
+                // bug here ? if loop thru $destination->images, then cannot save related images on next update
+                foreach ($destination->getImages() as $image)
                 {
                     $image->setSort($sort[$image->getDestinationImageId()]);
                     $image->update();
@@ -96,10 +98,11 @@ class DestinationController extends \Phalcon\Mvc\Controller
                 $destinationImage = $this->getDI()->get('Robinson\Backend\Models\DestinationImages');
                 $destinationImage->createFromUploadedFile($file, $destination->getDestinationId());
                 $images[] = $destinationImage;
-                $destination->images = $images;
             }
          
-            $destination->update();
+            $destination->images = $images;
+            
+            $destination->save();
             
         }
         
