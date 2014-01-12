@@ -44,7 +44,7 @@
             <?php foreach($destination->getImages() as $image): ?>
             
             <dd>
-                <img data-image-category-id="<?=$image->getDestinationImageId()?>" src="<?=$image->getResizedSrc() ?>" />
+                <img data-destination-image-id="<?=$image->getDestinationImageId()?>" src="<?=$image->getResizedSrc() ?>" />
                 
                 <?=$this->tag->textField(array
                 (
@@ -68,3 +68,27 @@
         </div>
     </form>
 </div>
+<script type="text/javascript">
+    $('document').ready(function()
+    {
+        $('img[data-destination-image-id]').hover(function(e)
+        {
+            $(this).css('border', '5px solid red');
+        }, function()
+        {
+            $(this).css('border', 'none');
+        });
+        $('img[data-destination-image-id]').on('click', function(e)
+        {
+           e.preventDefault();
+           var that = $(this);
+           $.post("<?=$this->url->get(array('for' => 'admin', 'controller' => 'destination', 'action' => 'deleteImage'))?>", {id: $(this).data('destination-image-id')}, function(response)
+           {
+               if(response.response)
+               {
+                   that.parent().remove();
+               }
+           });
+        });
+    });
+</script>

@@ -223,4 +223,61 @@ class DestinationControllerTest extends BaseTestController
         $this->assertEquals('6-testfile.png', $image->getRealFileName());
         $this->assertEquals(6, $image->getSort());
     }
+    
+    public function testReoderingImagesInDestinationShouldWorkAsExpected()
+    {
+        $_POST = array
+        (
+            'sort' => array
+            (
+                5 => 1,
+                4 => 2,
+                3 => 3,
+                2 => 4,
+                1 => 5,
+            ),
+        );
+        
+        $this->registerMockSession();
+        $request = $this->getMock('Phalcon\Http\Request', array('isPost'));
+        $request->expects($this->once())
+            ->method('isPost')
+            ->will($this->returnValue(true));
+        
+        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
+        $mockImagick->expects($this->any())
+            ->method('scaleimage')
+            ->will($this->returnValue(true));
+        $mockImagick->expects($this->any())
+            ->method('writeimage')
+            ->will($this->returnValue(true));
+        $this->getDI()->set('Imagick', $mockImagick);
+        $this->getDI()->setShared('request', $request);
+        
+        
+        $this->dispatch('/admin/destination/update/3');
+        
+        $images = \Robinson\Backend\Models\DestinationImages::findByDestinationId(3);
+        $this->assertCount(5, $images);
+        foreach($images as $image)
+        {
+            $this->assertEquals($_POST['sort'][$image->getDestinationImageId()], $image->getSort());
+        }
+    }
+    
+    public function testDeletingDestinationImageShouldWorkAsExpected()
+    {
+        $this->registerMockSession();
+        $requestMock = $this->getMock('Phalcon\Http\Request', array('getPost'));
+        $requestMock->expects($this->once())
+            ->method('getPost')
+            ->with($this->equalTo('id'))
+            ->will($this->returnValue(3));
+        $this->getDI()->setShared('request', $requestMock);
+        $this->dispatch('/admin/destination/deleteImage');
+        $image = \Robinson\Backend\Models\DestinationImages::findFirst(3);
+        $this->assertFalse($image);
+    }
+    
+    
 }

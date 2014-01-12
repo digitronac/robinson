@@ -75,6 +75,18 @@ class DestinationController extends \Phalcon\Mvc\Controller
                 ->setStatus($this->request->getPost('status'))
                 ->setUpdatedAt(new \DateTime('now', new \DateTimeZone(date_default_timezone_get())));
             
+            // sort?
+            $sort = $this->request->getPost('sort');
+            
+            if ($sort)
+            {
+                foreach ($destination->images as $image)
+                {
+                    $image->setSort($sort[$image->getDestinationImageId()]);
+                    $image->update();
+                }
+            }
+            
             $images = array();
             
             $files = $this->request->getUploadedFiles();
@@ -102,5 +114,17 @@ class DestinationController extends \Phalcon\Mvc\Controller
         $this->tag->setDefault('destination', $destination->getDestination());
         $this->tag->setDefault('description', $destination->getDescription());
         
+    }
+    
+    /**
+     * Deletes destination image. Outputs JSON.
+     * 
+     * @return string json response
+     */
+    public function deleteImageAction()
+    {
+        $image = \Robinson\Backend\Models\DestinationImages::findFirst($this->request->getPost('id'));
+        $this->response->setJsonContent(array('response' => $image->delete()))->setContentType('application/json');
+        return $this->response;
     }
 }

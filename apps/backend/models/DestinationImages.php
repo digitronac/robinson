@@ -128,6 +128,12 @@ class DestinationImages extends \Phalcon\Mvc\Model
         return (int) $this->destinationImageId;
     }
     
+    public function setDestinationImageId($destinationImageId)
+    {
+        $this->destinationImageId = (int) $destinationImageId;
+        return $this;
+    }
+    
     /**
      * Gets destination id.
      * 

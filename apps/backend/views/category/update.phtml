@@ -70,6 +70,14 @@
 <script type="text/javascript">
     $('document').ready(function()
     {
+        $('img[data-image-category-id]').hover(function(e)
+        {
+            $(this).css('border', '5px solid red');
+        }, function()
+        {
+            $(this).css('border', 'none');
+        });
+        
         $('img[data-image-category-id]').on('click', function(e)
         {
            e.preventDefault();
