@@ -1,6 +1,6 @@
 
 <div class="admin destination update">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <div>
             
             <?=$this->tag->select(array
@@ -37,6 +37,31 @@
                 \Robinson\Backend\Models\Destinations::getStatusMessages(),
                 'class' => 'form-control',
             )) . PHP_EOL ?>
+        </div>
+        <dl>
+            <dt>Slike:</dt>
+            
+            <?php foreach($destination->getImages() as $image): ?>
+            
+            <dd>
+                <img data-image-category-id="<?=$image->getDestinationImageId()?>" src="<?=$image->getResizedSrc() ?>" />
+                
+                <?=$this->tag->textField(array
+                (
+                    'sort[' . $image->getDestinationImageId() . ']',
+                    'length' => 2,
+                    'maxsize' => 2,
+                    'size' => 2,
+                    'value' => $image->getSort(),
+                ))?>
+                
+            </dd>
+            
+        <?php endforeach ?>
+            
+        </dl>
+        <div>
+            <input type="file" name="files[]" multiple="multiple" accept="image/jpeg, image/png" />
         </div>
         <div>
             <button class="btn btn-default btn-lg" name="submit">OK</button>

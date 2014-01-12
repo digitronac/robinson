@@ -3,4 +3,5 @@ vendor
 apps/backend/config/application.local.ini
 apps/backend/config/credentials.php
 apps/backend/config/migrations.config.php
+apps/backend/tests/coverage/
 composer.phar

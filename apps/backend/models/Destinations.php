@@ -24,7 +24,7 @@ class Destinations extends \Phalcon\Mvc\Model
     protected $updatedAt;
     
     protected $categoryId;
-    
+     
     /**
      * Initialization method.
      * 
@@ -34,7 +34,7 @@ class Destinations extends \Phalcon\Mvc\Model
     {
         $this->setSource('Destinations');
         $this->hasMany('destinationId', 'Robinson\Backend\Models\DestinationImages', 
-            'destinationId');
+            'destinationId', array('alias' => 'images'));
         $this->belongsTo('categoryId', 'Robinson\Backend\Models\Category', 'categoryId');
     }
     
@@ -126,7 +126,7 @@ class Destinations extends \Phalcon\Mvc\Model
      */
     public function getDestinationId()
     {
-        return $this->destinationId;
+        return (int) $this->destinationId;
     }
     
     /**
@@ -282,7 +282,7 @@ class Destinations extends \Phalcon\Mvc\Model
      */
     public function getImages()
     {
-        return $this->getRelated('Robinson\Backend\Models\DestinationImages', array
+        return $this->getRelated('images', array
         (
             'order' => 'sort ASC',
         ));

@@ -9,6 +9,7 @@ class DestinationControllerTest extends BaseTestController
         $this->populateTable('Category');
      //   $this->populateTable('ImageCategory');
         $this->populateTable('Destinations');
+        $this->populateTable('DestinationImages');
     }
     
     public function testIndexActionShouldWorkAsExpected()
@@ -99,5 +100,127 @@ class DestinationControllerTest extends BaseTestController
         $this->assertEquals($_POST['destination'], $destination->getDestination());
         $this->assertEquals($_POST['description'], $destination->getDescription());
         $this->assertEquals($_POST['status'], $destination->getStatus());
+    }
+    
+    public function testUpdatingDestinationWithNewImagesShouldWorkAsExpected()
+    {
+        $_POST = array
+        (
+            'categoryId' => 1,
+            'destination' => 'update destination with image',
+            'description' => 'update destination with description',
+            'status' => 0,
+        );
+        
+        $this->registerMockSession();
+        $request = $this->getMock('Phalcon\Http\Request', array('isPost', 'getUploadedFiles'));
+        $request->expects($this->once())
+            ->method('isPost')
+            ->will($this->returnValue(true));
+        
+        // mock stuff for upload
+        
+        $fileMock = $this->getMock('Phalcon\Http\Request\File', array('getName', 'moveTo'), array(), 'MockFileRequest', false);
+        $fileMock->expects($this->exactly(2))
+            ->method('getName')
+            ->will($this->returnValue('testfile.png'));
+       $fileMock->expects($this->any())
+            ->method('moveTo')
+            ->will($this->returnValue(true));
+        
+        $request->expects($this->once())
+            ->method('getUploadedFiles')
+            ->will($this->returnValue(array
+            (
+                0 => $fileMock,
+            )));
+        
+        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
+        $mockImagick->expects($this->any())
+            ->method('scaleimage')
+            ->will($this->returnValue(true));
+        $mockImagick->expects($this->any())
+            ->method('writeimage')
+            ->will($this->returnValue(true));
+        
+        $splFileInfoMock = $this->getMock('SplFileInfo', array('isFile'), array(), 'MockSplFileInfo', false);
+        $splFileInfoMock->expects($this->any())
+            ->method('isFile')
+            ->will($this->returnValue(true));
+        
+        $this->getDI()->set('SplFileInfo', $splFileInfoMock);
+        $this->getDI()->setShared('request', $request);
+        
+        $this->getDI()->set('Imagick', $mockImagick);
+        $this->dispatch('/admin/destination/update/4');
+        $this->assertAction('update');
+        $this->assertController('destination');
+        
+        $image = \Robinson\Backend\Models\DestinationImages::findFirstByDestinationId(4);
+        $this->assertEquals('6-testfile.png', $image->getRealFileName());
+        $this->assertEquals(1, $image->getSort());
+    }
+    
+    public function testAddingImagesToDestinationShouldWorkAsExpected()
+    {
+        $_POST = array
+        (
+            'categoryId' => 1,
+            'destination' => 'update destination with image',
+            'description' => 'update destination with description',
+            'status' => 0,
+        );
+        
+        $this->registerMockSession();
+        $request = $this->getMock('Phalcon\Http\Request', array('isPost', 'getUploadedFiles'));
+        $request->expects($this->once())
+            ->method('isPost')
+            ->will($this->returnValue(true));
+        
+        // mock stuff for upload
+        
+        $fileMock = $this->getMock('Phalcon\Http\Request\File', array('getName', 'moveTo'), array(), 'MockFileRequest', false);
+        $fileMock->expects($this->exactly(2))
+            ->method('getName')
+            ->will($this->returnValue('testfile.png'));
+       $fileMock->expects($this->any())
+            ->method('moveTo')
+            ->will($this->returnValue(true));
+        
+        $request->expects($this->once())
+            ->method('getUploadedFiles')
+            ->will($this->returnValue(array
+            (
+                0 => $fileMock,
+            )));
+        
+        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
+        $mockImagick->expects($this->any())
+            ->method('scaleimage')
+            ->will($this->returnValue(true));
+        $mockImagick->expects($this->any())
+            ->method('writeimage')
+            ->will($this->returnValue(true));
+        
+        $splFileInfoMock = $this->getMock('SplFileInfo', array('isFile'), array(), 'MockSplFileInfo', false);
+        $splFileInfoMock->expects($this->any())
+            ->method('isFile')
+            ->will($this->returnValue(true));
+        
+        $this->getDI()->set('SplFileInfo', $splFileInfoMock);
+        $this->getDI()->setShared('request', $request);
+        
+        $this->getDI()->set('Imagick', $mockImagick);
+        $this->dispatch('/admin/destination/update/3');
+        $this->assertAction('update');
+        $this->assertController('destination');
+        
+        $image = \Robinson\Backend\Models\DestinationImages::findFirst(array
+        (
+            'destinationId' => 3,
+            'order' => 'destinationImageId DESC',
+        ));
+        $this->assertEquals('6-testfile.png', $image->getRealFileName());
+        $this->assertEquals(6, $image->getSort());
     }
 }

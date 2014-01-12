@@ -74,7 +74,21 @@ class DestinationController extends \Phalcon\Mvc\Controller
                 ->setDescription($this->request->getPost('description'))
                 ->setStatus($this->request->getPost('status'))
                 ->setUpdatedAt(new \DateTime('now', new \DateTimeZone(date_default_timezone_get())));
+            
+            $images = array();
+            
+            $files = $this->request->getUploadedFiles();
+            foreach ($files as $file)
+            {
+                /* @var $imageCategory \Robinson\Backend\Models\DestinationImages */
+                $destinationImage = $this->getDI()->get('Robinson\Backend\Models\DestinationImages');
+                $destinationImage->createFromUploadedFile($file, $destination->getDestinationId());
+                $images[] = $destinationImage;
+                $destination->images = $images;
+            }
+         
             $destination->update();
+            
         }
         
         $categories = \Robinson\Backend\Models\Category::find(array

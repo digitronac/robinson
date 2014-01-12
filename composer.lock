@@ -168,12 +168,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/digitronac/incubator.git",
-                "reference": "b2827ef0e8d8ef88540f27846600b11be86f6371"
+                "reference": "a1093941cea723bf575d5f35bcad079f446f7686"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digitronac/incubator/zipball/b2827ef0e8d8ef88540f27846600b11be86f6371",
-                "reference": "b2827ef0e8d8ef88540f27846600b11be86f6371",
+                "url": "https://api.github.com/repos/digitronac/incubator/zipball/a1093941cea723bf575d5f35bcad079f446f7686",
+                "reference": "a1093941cea723bf575d5f35bcad079f446f7686",
                 "shasum": ""
             },
             "require": {
@@ -207,7 +207,7 @@
             "support": {
                 "source": "https://github.com/digitronac/incubator/tree/master"
             },
-            "time": "2014-01-10 18:23:17"
+            "time": "2014-01-12 08:03:17"
         },
         {
             "name": "phpmd/phpmd",

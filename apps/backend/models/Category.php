@@ -23,7 +23,6 @@ class Category extends \Phalcon\Mvc\Model
     
     protected $updatedAt;
     
-    
     /**
      * Initializaton method.
      * 
