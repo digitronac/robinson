@@ -9,6 +9,7 @@ class CategoryControllerTest extends BaseTestController
         $this->populateTable('Category');
         $this->populateTable('ImageCategory');
     }
+    
     public function testCategoryCreateShouldExist()
     {
         // logged in
@@ -49,7 +50,7 @@ class CategoryControllerTest extends BaseTestController
         $this->getDI()->setShared('request', $request);
       
         $this->dispatch('/admin/category/create');
-        $this->assertRedirectTo('/admin/index/dashboard');
+        $this->assertRedirectTo('/admin/category/update/2');
         /* @var $categoryModel \Robinson\Backend\Models\Category */
         $categoryModel = \Robinson\Backend\Models\Category::findFirst("category = '$category'");
         $this->assertEquals($category, $categoryModel->getCategory());

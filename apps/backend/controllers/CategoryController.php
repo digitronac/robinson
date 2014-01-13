@@ -34,8 +34,9 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
                 ->setCreatedAt(new \DateTime('now', new \DateTimeZone('Europe/Belgrade')))
                 ->setUpdatedAt(new \DateTime('now', new \DateTimeZone('Europe/Belgrade')))
                 ->save();
-            $this->flash->success('Kategorija snimljena');
-            return $this->response->redirect(array('for' => 'admin', 'controller' => 'index', 'action' => 'dashboard'));
+
+            return $this->response->redirect(array('for' => 'admin-update', 'controller' => 'category', 
+                'action' => 'update', 'id' => $category->getCategoryId()));
         }
     }
     
