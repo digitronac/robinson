@@ -84,7 +84,7 @@ class DestinationController extends \Phalcon\Mvc\Controller
                 // bug here ? if loop thru $destination->images, then cannot save related images on next update
                 foreach ($destination->getImages() as $image)
                 {
-                    $image->setSort($sort[$image->getDestinationImageId()]);
+                    $image->setSort($sort[$image->getImageId()]);
                     $image->update();
                 }
             }
@@ -94,7 +94,7 @@ class DestinationController extends \Phalcon\Mvc\Controller
             $files = $this->request->getUploadedFiles();
             foreach ($files as $file)
             {
-                /* @var $imageCategory \Robinson\Backend\Models\DestinationImages */
+                /* @var $imageCategory \Robinson\Backend\Models\Images\Destination */
                 $destinationImage = $this->getDI()->get('Robinson\Backend\Models\Images\Destination');
                 $destinationImage->createFromUploadedFile($file);
                 $images[] = $destinationImage;

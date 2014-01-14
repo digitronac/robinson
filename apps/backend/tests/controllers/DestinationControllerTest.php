@@ -156,7 +156,7 @@ class DestinationControllerTest extends BaseTestController
         $this->assertAction('update');
         $this->assertController('destination');
         
-        $image = \Robinson\Backend\Models\DestinationImages::findFirstByDestinationId(4);
+        $image = \Robinson\Backend\Models\Images\Destination::findFirstByDestinationId(4);
         $this->assertEquals('6-testfile.png', $image->getRealFileName());
         $this->assertEquals(1, $image->getSort());
     }
@@ -215,7 +215,7 @@ class DestinationControllerTest extends BaseTestController
         $this->assertAction('update');
         $this->assertController('destination');
         
-        $image = \Robinson\Backend\Models\DestinationImages::findFirst(array
+        $image = \Robinson\Backend\Models\Images\Destination::findFirst(array
         (
             'destinationId' => 3,
             'order' => 'destinationImageId DESC',
@@ -257,11 +257,11 @@ class DestinationControllerTest extends BaseTestController
         
         $this->dispatch('/admin/destination/update/3');
         
-        $images = \Robinson\Backend\Models\DestinationImages::findByDestinationId(3);
+        $images = \Robinson\Backend\Models\Images\Destination::findByDestinationId(3);
         $this->assertCount(5, $images);
         foreach($images as $image)
         {
-            $this->assertEquals($_POST['sort'][$image->getDestinationImageId()], $image->getSort());
+            $this->assertEquals($_POST['sort'][$image->getImageId()], $image->getSort());
         }
     }
     
@@ -275,7 +275,7 @@ class DestinationControllerTest extends BaseTestController
             ->will($this->returnValue(3));
         $this->getDI()->setShared('request', $requestMock);
         $this->dispatch('/admin/destination/deleteImage');
-        $image = \Robinson\Backend\Models\DestinationImages::findFirst(3);
+        $image = \Robinson\Backend\Models\Images\Destination::findFirst(3);
         $this->assertFalse($image);
     }
     

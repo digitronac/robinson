@@ -33,7 +33,7 @@ class Destinations extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSource('Destinations');
-        $this->hasMany('destinationId', 'Robinson\Backend\Models\DestinationImages', 
+        $this->hasMany('destinationId', 'Robinson\Backend\Models\Images\Destination', 
             'destinationId', array('alias' => 'images'));
         $this->belongsTo('categoryId', 'Robinson\Backend\Models\Category', 'categoryId');
     }

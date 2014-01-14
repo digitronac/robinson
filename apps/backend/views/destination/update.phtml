@@ -44,11 +44,11 @@
             <?php foreach($destination->getImages() as $image): ?>
             
             <dd>
-                <img data-destination-image-id="<?=$image->getDestinationImageId()?>" src="<?=$image->getResizedSrc() ?>" />
+                <img data-destination-image-id="<?=$image->getImageId()?>" src="<?=$image->getResizedSrc() ?>" />
                 
                 <?=$this->tag->textField(array
                 (
-                    'sort[' . $image->getDestinationImageId() . ']',
+                    'sort[' . $image->getImageId() . ']',
                     'length' => 2,
                     'maxsize' => 2,
                     'size' => 2,
