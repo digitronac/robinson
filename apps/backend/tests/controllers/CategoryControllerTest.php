@@ -269,11 +269,11 @@ class CategoryControllerTest extends BaseTestController
 
         $this->dispatch('/admin/category/update/' . $category->getCategoryId());
         
-        $imageCategories = \Robinson\Backend\Models\ImageCategory::find("categoryId = 1");
+        $imageCategories = \Robinson\Backend\Models\Images\Category::find("categoryId = 1");
       
         foreach($imageCategories as $image)
         {
-            $this->assertEquals($sort[$image->getImageCategoryId()], $image->getSort());
+            $this->assertEquals($sort[$image->getImageId()], $image->getSort());
         }
     }
     
@@ -287,7 +287,7 @@ class CategoryControllerTest extends BaseTestController
             ->will($this->returnValue(3));
         $this->getDI()->setShared('request', $requestMock);
         $this->dispatch('/admin/category/deleteImage');
-        $image = \Robinson\Backend\Models\ImageCategory::findFirst(3);
+        $image = \Robinson\Backend\Models\Images\Category::findFirst(3);
         $this->assertFalse($image);
     }
     
