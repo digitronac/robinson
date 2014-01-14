@@ -42,15 +42,15 @@ class Category extends \Robinson\Backend\Models\Images\Images
     }
     
     /**
-     * Sets imageCategoryId.
+     * Sets categoryId.
      * 
-     * @param int $imageCategoryId imageCategoryId
+     * @param int $categoryId categoryId
      * 
      * @return \Robinson\Backend\Models\Images\Category
      */
-    public function setImageCategoryId($imageCategoryId)
+    public function setCategoryId($categoryId)
     {
-        $this->imageCategoryId = (int) $imageCategoryId;
+        $this->categoryId = (int) $categoryId;
         return $this;
     }
 

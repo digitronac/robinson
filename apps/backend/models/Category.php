@@ -31,7 +31,10 @@ class Category extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSource('Category');
-        $this->hasMany('categoryId', 'Robinson\Backend\Models\ImageCategory', 'categoryId');
+        $this->hasMany('categoryId', 'Robinson\Backend\Models\Images\Category', 'categoryId', array
+        (
+            'alias' => 'images',
+        ));
         $this->hasMany('categoryId', 'Robinson\Backend\Models\Destinations', 'categoryId');
     }
     
@@ -230,7 +233,7 @@ class Category extends \Phalcon\Mvc\Model
      */
     public function getImages()
     {
-        return $this->getRelated('Robinson\Backend\Models\ImageCategory', array
+        return $this->getRelated('images', array
         (
             'order' => 'sort ASC',
         ));

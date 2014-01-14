@@ -31,8 +31,8 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
                 ->setDescription($this->request->getPost('description'))
                 ->setStatus($this->request->getPost('status'));
             $category
-                ->setCreatedAt(new \DateTime('now', new \DateTimeZone('Europe/Belgrade')))
-                ->setUpdatedAt(new \DateTime('now', new \DateTimeZone('Europe/Belgrade')))
+                ->setCreatedAt(new \DateTime('now', new \DateTimeZone(date_default_timezone_get())))
+                ->setUpdatedAt(new \DateTime('now', new \DateTimeZone(date_default_timezone_get())))
                 ->save();
 
             return $this->response->redirect(array('for' => 'admin-update', 'controller' => 'category', 
@@ -56,28 +56,31 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
             $category->setCategory($this->request->getPost('category'))
                 ->setDescription($this->request->getPost('description'))
                 ->setStatus($this->request->getPost('status'))
-                ->setUpdatedAt(new \DateTime('now', new \DateTimeZone('Europe/Belgrade')));
+                ->setUpdatedAt(new \DateTime('now', new \DateTimeZone(date_default_timezone_get())));
      
+            $images = array();
             // files upload
             $files = $this->request->getUploadedFiles();
 
             foreach ($files as $file)
             {
-                /* @var $imageCategory \Robinson\Backend\Models\ImageCategory */
-                $imageCategory = $this->getDI()->get('Robinson\Backend\Models\ImageCategory');
-                $imageCategory->createFromUploadedFile($file, $category->getCategoryId());
+                /* @var $imageCategory \Robinson\Backend\Models\Images\Category */
+                $imageCategory = $this->getDI()->get('Robinson\Backend\Models\Images\Category');
+                $imageCategory->createFromUploadedFile($file);
+                $images[] = $imageCategory;
             }
 
             // sort
             foreach ($category->getImages() as $image)
             {
-                $sort = $this->request->getPost('sort')[$image->getImageCategoryId()];
+                $sort = $this->request->getPost('sort')[$image->getImageId()];
                 if ($sort)
                 {
-                    $image->setSort($this->request->getPost('sort')[$image->getImageCategoryId()])->update();
+                    $image->setSort($this->request->getPost('sort')[$image->getImageId()])->update();
                 }
             }
-
+            
+            $category->images = $images;
             $category->update();
             $category->refresh();
         }
@@ -96,9 +99,9 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
     public function deleteImageAction()
     {
         $this->view->disable();
-        /* @var $images \Robinson\Backend\Models\ImageCategory */ 
-        $images = $this->getDI()->get('Robinson\Backend\Models\ImageCategory');
-        /* @var $image \Robinson\Backend\Models\ImageCategory */
+        /* @var $images \Robinson\Backend\Models\Images\Category */ 
+        $images = $this->getDI()->get('Robinson\Backend\Models\Images\Category');
+        /* @var $image \Robinson\Backend\Models\Images\Category */
         $image = $images->findFirst($this->request->getPost('id'));
         
         $this->response->setJsonContent(array('response' => $image->delete()))->setContentType('application/json');

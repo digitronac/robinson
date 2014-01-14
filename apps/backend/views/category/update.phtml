@@ -42,11 +42,11 @@
             <?php foreach($category->getImages() as $image): ?>
             
             <dd>
-                <img data-image-category-id="<?=$image->getImageCategoryId()?>" src="<?=$image->getResizedSrc() ?>" />
+                <img data-image-category-id="<?=$image->getImageId()?>" src="<?=$image->getResizedSrc() ?>" />
                 
                 <?=$this->tag->textField(array
                 (
-                    'sort[' . $image->getImageCategoryId() . ']',
+                    'sort[' . $image->getImageId() . ']',
                     'length' => 2,
                     'maxsize' => 2,
                     'size' => 2,
