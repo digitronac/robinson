@@ -65,6 +65,13 @@ abstract class Images extends \Phalcon\Mvc\Model
     abstract public function getImageId();
     
     /**
+     * Get id from model to which this model belongs.
+     * 
+     * @return void
+     */
+    abstract public function getBelongsToId();
+    
+    /**
      * Listener for construct event, sets images path.
      * 
      * @return void
@@ -114,7 +121,7 @@ abstract class Images extends \Phalcon\Mvc\Model
      * Sets models imageType. 
      * Must be one of Robinson\Backend\Model\Images\Images constants.
      * 
-     * @param string $imageType one of Robinson\Backend\Model\Images\Images constants.
+     * @param string $imageType one of Robinson\Backend\Models\Images\Images constants.
      * 
      * @return \Robinson\Backend\Models\Images\Images
      * 
@@ -132,6 +139,16 @@ abstract class Images extends \Phalcon\Mvc\Model
     }
     
     /**
+     * Returns type of model.
+     * 
+     * @return string
+     */
+    public function getImageType()
+    {
+        return $this->imageType;
+    }
+    
+    /**
      * Creates and persists model from uploaded file.
      * 
      * @param \Phalcon\Http\Request\File $file uploaded file
@@ -142,10 +159,11 @@ abstract class Images extends \Phalcon\Mvc\Model
     { 
         if (!$this->basePath)
         {
-            throw new \Phalcon\Mvc\Model\Exception('basePath is not set.');
+            throw new \Robinson\Backend\Models\Images\Exception('basePath is not set.');
         }
 
-        $this->filename = $this->getShared('tag')->friendlyTitle(pathinfo($file->getName(), PATHINFO_FILENAME));
+        $this->filename = $this->getDI()->getShared('tag')
+            ->friendlyTitle(pathinfo($file->getName(), PATHINFO_FILENAME));
         $this->extension = pathinfo($file->getName(), PATHINFO_EXTENSION);
         $this->uploadedFile = $file;
       
@@ -178,10 +196,10 @@ abstract class Images extends \Phalcon\Mvc\Model
             throw new \Robinson\Backend\Models\Images\Exception(
                 'imageType property must be set prior to calling save.');
         }
-        
+
         if (null === $this->sort)
         {
-            $this->sort = ((int) self::maximum(array($this->imageType . 'Id = ' . $this->getImageId(), 
+            $this->sort = ((int) self::maximum(array($this->getImageType() . 'Id=' . $this->getBelongsToId(), 
             'column' => 'sort'))) + 1;
         }
         
@@ -189,11 +207,11 @@ abstract class Images extends \Phalcon\Mvc\Model
         {
             $this->createdAt = date('Y-m-d H:i:s');
         }
-        
+
         if (!$this->parentSave($data, $whiteList))
         {
             throw new \Robinson\Backend\Models\Images\Exception(sprintf('Unable to save %s image model.', 
-                $this->type));
+                $this->imageType));
         }
         
         return true;
@@ -212,7 +230,7 @@ abstract class Images extends \Phalcon\Mvc\Model
         {
             if (!$this->uploadedFile->moveTo($this->basePath . '/' . $this->getRealFilename()))
             {
-                throw new \Robinson\Backend\Model\Images\Images(
+                throw new \Robinson\Backend\Models\Images\Exception(
                     sprintf('Unable to move uploaded file to destination "%s".', 
                         $this->basePath . '/' . $this->getRealFilename()));
             }

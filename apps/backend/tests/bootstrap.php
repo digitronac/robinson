@@ -24,4 +24,5 @@ $loader->registerNamespaces(array(
 ));
 
 $loader->register();
-include_once APPLICATION_PATH . '/backend/tests/controllers/BaseTestController.php';
+require_once APPLICATION_PATH . '/backend/tests/controllers/BaseTestController.php';
+require_once APPLICATION_PATH . '/backend/tests/models/BaseTestModel.php';

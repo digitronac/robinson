@@ -95,8 +95,8 @@ class DestinationController extends \Phalcon\Mvc\Controller
             foreach ($files as $file)
             {
                 /* @var $imageCategory \Robinson\Backend\Models\DestinationImages */
-                $destinationImage = $this->getDI()->get('Robinson\Backend\Models\DestinationImages');
-                $destinationImage->createFromUploadedFile($file, $destination->getDestinationId());
+                $destinationImage = $this->getDI()->get('Robinson\Backend\Models\Images\Destination');
+                $destinationImage->createFromUploadedFile($file);
                 $images[] = $destinationImage;
             }
          
@@ -126,7 +126,7 @@ class DestinationController extends \Phalcon\Mvc\Controller
      */
     public function deleteImageAction()
     {
-        $image = \Robinson\Backend\Models\DestinationImages::findFirst($this->request->getPost('id'));
+        $image = \Robinson\Backend\Models\Images\Destination::findFirst($this->request->getPost('id'));
         $this->response->setJsonContent(array('response' => $image->delete()))->setContentType('application/json');
         return $this->response;
     }

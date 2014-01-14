@@ -1,16 +1,26 @@
 <?php
-namespace Robinson\Backend\Models;
+namespace Robinson\Backend\Models\Images;
 class Destination extends \Robinson\Backend\Models\Images\Images
 {
     protected $destinationImageId;
     
     protected $destinationId;
     
+    /**
+     * Gets PK.
+     * 
+     * @return int
+     */
     public function getImageId()
     {
-        return $this->imageId;
+        return (int) $this->destinationImageId;
     }
-
+    
+    /**
+     * Returns path where images are saved.
+     * 
+     * @return string
+     */
     public function getImagesPath()
     {
         if ($this->getDI()->has('config'))
@@ -28,10 +38,30 @@ class Destination extends \Robinson\Backend\Models\Images\Images
     {
         $this->setSource('DestinationImages');
         $this->belongsTo('destinationId', 'Robinson\Backend\Models\Destinations', 'destinationId');
+        $this->setImageType(self::IMAGE_TYPE_DESTINATION);
     }
     
-    public function setDestinationId()
+    /**
+     * Sets destinationId.
+     * 
+     * @param int $destinationId destinationId
+     * 
+     * @return \Robinson\Backend\Models\Destination
+     */
+    public function setDestinationId($destinationId)
     {
-        
+        $this->destinationId = (int) $destinationId;
+        return $this;
     }
+
+    /**
+     * Id to which this model belongs.
+     * 
+     * @return int
+     */
+    public function getBelongsToId()
+    {
+        return $this->destinationId;
+    }
+
 }

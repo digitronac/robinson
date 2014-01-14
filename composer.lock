@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "780463f61653ff00dc159559476acac5",
+    "hash": "9e04650e60705182416213edfc41c9f8",
     "packages": [
         {
             "name": "imagine/imagine",
@@ -130,12 +130,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pdepend/pdepend.git",
-                "reference": "e49e2ff3441e0eea3e5fd43d39a0f9aa368b875d"
+                "reference": "05a9ddf4c9fb9795c8fc9cda09bc5f27af11404b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pdepend/pdepend/zipball/e49e2ff3441e0eea3e5fd43d39a0f9aa368b875d",
-                "reference": "e49e2ff3441e0eea3e5fd43d39a0f9aa368b875d",
+                "url": "https://api.github.com/repos/pdepend/pdepend/zipball/05a9ddf4c9fb9795c8fc9cda09bc5f27af11404b",
+                "reference": "05a9ddf4c9fb9795c8fc9cda09bc5f27af11404b",
                 "shasum": ""
             },
             "require": {
@@ -160,20 +160,20 @@
                 "BSD-3-Clause"
             ],
             "description": "Official version of pdepend to be handled with Composer",
-            "time": "2013-12-04 18:20:11"
+            "time": "2014-01-13 16:01:28"
         },
         {
             "name": "phalcon/incubator",
-            "version": "dev-master",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digitronac/incubator.git",
-                "reference": "a1093941cea723bf575d5f35bcad079f446f7686"
+                "reference": "3b27abd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digitronac/incubator/zipball/a1093941cea723bf575d5f35bcad079f446f7686",
-                "reference": "a1093941cea723bf575d5f35bcad079f446f7686",
+                "url": "https://api.github.com/repos/digitronac/incubator/zipball/cd1635f0c3c15f128b7e73993df130f187d7f1c9",
+                "reference": "3b27abd",
                 "shasum": ""
             },
             "require": {
@@ -181,7 +181,8 @@
                 "php": ">=5.3.6"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.28"
+                "phpunit/phpunit": "3.7.28",
+                "squizlabs/php_codesniffer": "1.*"
             },
             "type": "library",
             "autoload": {
@@ -205,9 +206,9 @@
                 "phalcon"
             ],
             "support": {
-                "source": "https://github.com/digitronac/incubator/tree/master"
+                "source": "https://github.com/digitronac/incubator/tree/develop"
             },
-            "time": "2014-01-12 08:03:17"
+            "time": "2014-01-14 20:41:59"
         },
         {
             "name": "phpmd/phpmd",
