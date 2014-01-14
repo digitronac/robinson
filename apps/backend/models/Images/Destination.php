@@ -46,7 +46,7 @@ class Destination extends \Robinson\Backend\Models\Images\Images
      * 
      * @param int $destinationId destinationId
      * 
-     * @return \Robinson\Backend\Models\Destination
+     * @return \Robinson\Backend\Models\Images\Destination
      */
     public function setDestinationId($destinationId)
     {
