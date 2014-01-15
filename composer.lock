@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "9e04650e60705182416213edfc41c9f8",
+    "hash": "eb55bee0b357f5ca64abf7f436aa3037",
     "packages": [
         {
             "name": "imagine/imagine",
@@ -66,7 +66,7 @@
     "packages-dev": [
         {
             "name": "digitronac/phalcon-ide-stubs",
-            "version": "1.2.4",
+            "version": "1.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digitronac/phalcon-ide-stubs.git",
@@ -164,20 +164,20 @@
         },
         {
             "name": "phalcon/incubator",
-            "version": "dev-develop",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digitronac/incubator.git",
-                "reference": "3b27abd"
+                "reference": "af1d30c47e8d2cfcfdd487a75508a4be4d537df0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digitronac/incubator/zipball/cd1635f0c3c15f128b7e73993df130f187d7f1c9",
-                "reference": "3b27abd",
+                "url": "https://api.github.com/repos/digitronac/incubator/zipball/af1d30c47e8d2cfcfdd487a75508a4be4d537df0",
+                "reference": "af1d30c47e8d2cfcfdd487a75508a4be4d537df0",
                 "shasum": ""
             },
             "require": {
-                "ext-phalcon": "1.2.4",
+                "ext-phalcon": "1.2.5",
                 "php": ">=5.3.6"
             },
             "require-dev": {
@@ -208,7 +208,7 @@
             "support": {
                 "source": "https://github.com/digitronac/incubator/tree/develop"
             },
-            "time": "2014-01-14 20:41:59"
+            "time": "2014-01-15 16:25:22"
         },
         {
             "name": "phpmd/phpmd",
@@ -959,7 +959,7 @@
         "squizlabs/php_codesniffer": 20
     },
     "platform": {
-        "ext-phalcon": "1.2.4",
+        "ext-phalcon": "1.2.5",
         "ext-imagick": "*"
     },
     "platform-dev": [
