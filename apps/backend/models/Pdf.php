@@ -71,7 +71,7 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
         if (!$this->filesystem->exists($html))
         {
             // generate .html
-            $command = sprintf('pdftohtml -noframes -s -zoom 3 %s %s 2>&1', $this->getPdfPath(), $html);
+            $command = $this->getCompiledCommand($html);
             $this->execute($command);
         }
         
@@ -104,12 +104,24 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
     {
         $pdf = $this->getPdfPath();
         
-        if (!$pdf)
+        if (!$this->filesystem->exists($pdf))
         {
-            throw new \Robinson\Backend\Models\Exception(sprintf('Pdf does not exist at location: "%s"'), $pdf);
+            throw new \Robinson\Backend\Models\Exception(sprintf('Pdf does not exist at location: "%s"', $pdf));
         }
         
         return $pdf;
+    }
+    
+    /**
+     * Compiled command to be sent to shell_exec
+     * 
+     * @param string $htmlFileName converted filename
+     * 
+     * @return string command to be executed
+     */
+    public function getCompiledCommand($htmlFileName)
+    {
+        return sprintf('pdftohtml -noframes -s -zoom 3 %s %s 2>&1', $this->getPdfPath(), $htmlFileName);
     }
     
     /**
@@ -133,7 +145,7 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
      */
     protected function getPdfPath()
     {
-        return $this->filesystem->exists($this->baseDir . '/' . $this->package->getPackageId() . '/' . 
-            $this->package->getPdf());
+        return $this->baseDir . '/' . $this->package->getPackageId() . '/' . 
+            $this->package->getPdf();
     }
 }
