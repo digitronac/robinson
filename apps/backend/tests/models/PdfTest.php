@@ -87,6 +87,26 @@ class PdfTest extends \Robinson\Backend\Tests\Models\BaseTestModel
         $this->assertEquals('vfs://pdf/package/1/pdffile-1.pdf.html', $model->getHtmlFile());
     }
     
+    public function testCallingGetHtmlSourceShouldReturnExpectedContent()
+    {
+        $testFs = \org\bovigo\vfs\vfsStream::create(array
+        (
+            'package' => array
+            (
+                '1' => array
+                (
+                    'pdffile-1.pdf' => 'content',
+                    'pdffile-1.pdf.html' => 'html content',
+                ),
+            )
+        ), $this->pdfFolder);
+        
+        $package = \Robinson\Backend\Models\Package::findFirst();
+        $model = $this->getDI()->get('Robinson\Backend\Models\Pdf', array($this->getDI()->getShared('fs'), $package, 
+            $this->getDI()->getShared('config')->application->packagePdfPath));
+        $this->assertEquals('html content', $model->getHtmlSource());
+    }
+    
     public function testCallingGetCompiledCommandShouldWorkAsExpected()
     {
         $testFs = \org\bovigo\vfs\vfsStream::create(array
