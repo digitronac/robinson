@@ -9,6 +9,8 @@ class PackageTest extends \Robinson\Backend\Tests\Models\BaseTestModel
     {
         parent::setUp($di, $config);
         $this->populateTable('packages');
+        $this->pdfFolder = \org\bovigo\vfs\vfsStream::setup('package/pdf');
+        $this->getDI()->getShared('config')->application->packagePdfPath = \org\bovigo\vfs\vfsStream::url('package/pdf');
     }
     
     public function testCanCreateModel()

@@ -38,6 +38,12 @@ class Package extends \Phalcon\Mvc\Model
     protected $uploadedPdf;
     
     /**
+     *
+     * @var \Symfony\Component\Filesystem\Filesystem
+     */
+    protected $filesystem;
+    
+    /**
      * Initialization.
      * 
      * @return void
@@ -51,6 +57,24 @@ class Package extends \Phalcon\Mvc\Model
         ));
     }
     
+    /**
+     * Sets fs service on construct.
+     * 
+     * @return void
+     */
+    public function onConstruct()
+    {
+        if (!$this->filesystem)
+        {
+            $this->filesystem = $this->getDI()->getShared('fs');
+        }
+    }
+    
+    public function getPackageId()
+    {
+        return (int) $this->packageId;
+    }
+
     /**
      * Sets package name.
      * 
@@ -159,6 +183,16 @@ class Package extends \Phalcon\Mvc\Model
     }
     
     /**
+     * Gets pdf base file name.
+     * 
+     * @return string pdf's base file name
+     */
+    public function getPdf()
+    {
+        return $this->pdf;
+    }
+    
+    /**
      * Sets package status.
      * 
      * @param int $status status
@@ -248,10 +282,17 @@ class Package extends \Phalcon\Mvc\Model
     public function afterCreate()
     {
         $destinationFolder = $this->getDI()->getShared('config')->application->packagePdfPath;
-        if (!$this->uploadedPdf->moveTo($this->getDI()->getShared('config')->application->packagePdfPath))
+        $destinationPackageFolder = $destinationFolder . '/' . $this->packageId;
+        
+        if (!$this->filesystem->exists($destinationPackageFolder))
+        {
+            $this->filesystem->mkdir($destinationPackageFolder);
+        }
+        
+        if (!$this->uploadedPdf->moveTo($destinationPackageFolder))
         {
            throw new \Robinson\Backend\Models\Exception(sprintf('Unable to move pdf file "%s" to destination dir "%s"', 
-               $this->uploadedPdf->getName(), $destinationFolder)); 
+               $this->uploadedPdf->getName(), $destinationFolder));
         }
     }
     
@@ -267,4 +308,6 @@ class Package extends \Phalcon\Mvc\Model
     {
         return parent::create($data, $whitelist);
     }
+    
+    
 }
