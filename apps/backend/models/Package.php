@@ -29,6 +29,8 @@ class Package extends \Phalcon\Mvc\Model
     
     protected $updatedAt;
     
+    protected $destinationId;
+    
     /**
      *
      * @var \Phalcon\Http\Request\File  
@@ -50,6 +52,100 @@ class Package extends \Phalcon\Mvc\Model
     }
     
     /**
+     * Sets package name.
+     * 
+     * @param string $package package name
+     * 
+     * @return \Robinson\Backend\Models\Package
+     */
+    public function setPackage($package)
+    {
+        $this->package = $package;
+        return $this;
+    }
+    
+    /**
+     * Gets package name.
+     * 
+     * @return string package name
+     */
+    public function getPackage()
+    {
+        return $this->package;
+    }
+    
+    /**
+     * Sets package description.
+     * 
+     * @param string $description description
+     * 
+     * @return \Robinson\Backend\Models\Package
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+    
+    /**
+     * Gets package description.
+     * 
+     * @return string package description
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    
+    /**
+     * Sets tabs content.
+     * 
+     * @param string $tabs tabs
+     * 
+     * @return \Robinson\Backend\Models\Package
+     */
+    public function setTabs($tabs)
+    {
+        $this->tabs = $tabs;
+        return $this;
+    }
+    
+    /**
+     * Gets tabs.
+     * 
+     * @todo split tabs in array and use "-----" delimiter
+     * 
+     * @return type
+     */
+    public function getTabs()
+    {
+        return $this->tabs;
+    }
+    
+    /**
+     * Sets package starting price.
+     * 
+     * @param int $price package starting price
+     * 
+     * @return \Robinson\Backend\Models\Package
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+        return $this;
+    }
+    
+    /**
+     * Gets package lowest price.
+     * 
+     * @return int price lowest package price
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+    
+    /**
      * Sets pdf.
      * 
      * @param string $pdf pdf path
@@ -63,16 +159,55 @@ class Package extends \Phalcon\Mvc\Model
     }
     
     /**
+     * Sets package status.
+     * 
+     * @param int $status status
+     * 
+     * @return \Robinson\Backend\Models\Package
+     */
+    public function setStatus($status)
+    {
+        $this->status = (int) $status;
+        return $this;
+    }
+
+    /**
+     * Sets uploaded pdf file.
+     * 
+     * @param \Phalcon\Http\Request\File $pdf uploaded pdf
+     * 
+     * @return \Robinson\Backend\Models\Package
+     */
+    public function setUploadedPdf(\Phalcon\Http\Request\File $pdf)
+    {
+        $this->uploadedPdf = $pdf;
+        return $this;
+    }
+    
+    /**
      * Called when new package is created.
      * 
-     * @param array $data data
+     * @param array $data      data
      * @param array $whitelist whitelist
      * 
      * @return void
      */
     public function create($data = null, $whitelist = null)
     {
-        return $this->parentCreate();
+        return $this->parentCreate($data, $whitelist);
+    }
+    
+    /**
+     * Sets package destination.
+     * 
+     * @param \Robinson\Backend\Models\Destinations $destination destination model
+     * 
+     * @return \Robinson\Backend\Models\Package
+     */
+    public function setDestination(\Robinson\Backend\Models\Destinations $destination)
+    {
+        $this->destination = $destination;
+        return $this;
     }
     
     /**
@@ -84,17 +219,24 @@ class Package extends \Phalcon\Mvc\Model
     {
         if (is_null($this->createdAt))
         {
-            $this->createdAt = (new \DateTime('now', date_default_timezone_get()))->format('Y-m-d H:i:s');
+            $this->createdAt = (new \DateTime('now', new \DateTimeZone(date_default_timezone_get())))
+                ->format('Y-m-d H:i:s');
         }
         
         if (is_null($this->updatedAt))
         {
-            $this->updatedAt = (new \DateTime('now', date_default_timezone_get()))->format('Y-m-d H:i:s');
+            $this->updatedAt = (new \DateTime('now', new \DateTimeZone(date_default_timezone_get())))
+                ->format('Y-m-d H:i:s');
         }
         
         if ($this->uploadedPdf instanceof \Phalcon\Http\Request\File)
         {
             $this->setPdf($this->uploadedPdf->getName());
+        }
+        
+        if (is_null($this->status))
+        {
+            $this->status = self::STATUS_INVISIBLE;
         }
     }
     
@@ -105,7 +247,12 @@ class Package extends \Phalcon\Mvc\Model
      */
     public function afterCreate()
     {
-        $this->uploadedPdf->moveTo($this->getDI()->getShared('config')->application->packagePdfPath);
+        $destinationFolder = $this->getDI()->getShared('config')->application->packagePdfPath;
+        if (!$this->uploadedPdf->moveTo($this->getDI()->getShared('config')->application->packagePdfPath))
+        {
+           throw new \Robinson\Backend\Models\Exception(sprintf('Unable to move pdf file "%s" to destination dir "%s"', 
+               $this->uploadedPdf->getName(), $destinationFolder)); 
+        }
     }
     
     /**
@@ -118,6 +265,6 @@ class Package extends \Phalcon\Mvc\Model
      */
     public function parentCreate($data = null, $whitelist = null)
     {
-        return parent::create($data, $whiteList);
+        return parent::create($data, $whitelist);
     }
 }
