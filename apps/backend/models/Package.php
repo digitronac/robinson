@@ -65,9 +65,12 @@ class Package extends \Phalcon\Mvc\Model
     /**
      * Called when new package is created.
      * 
+     * @param array $data data
+     * @param array $whitelist whitelist
+     * 
      * @return void
      */
-    public function create()
+    public function create($data = null, $whitelist = null)
     {
         return $this->parentCreate();
     }

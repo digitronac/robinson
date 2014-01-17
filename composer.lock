@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "7454e87b4d4c9eab6173faee861a333e",
+    "hash": "29344ddff4ceaf89ba9a5b6a0d8f0f01",
     "packages": [
         {
             "name": "imagine/imagine",
@@ -724,16 +724,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "1.5.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digitronac/PHP_CodeSniffer.git",
-                "reference": "bd1e50b8c252c914881dba1dcef089219e430dbd"
+                "reference": "685bd517b83d55c8e9c73b78de86e030681a3def"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digitronac/PHP_CodeSniffer/zipball/bd1e50b8c252c914881dba1dcef089219e430dbd",
-                "reference": "bd1e50b8c252c914881dba1dcef089219e430dbd",
+                "url": "https://api.github.com/repos/digitronac/PHP_CodeSniffer/zipball/685bd517b83d55c8e9c73b78de86e030681a3def",
+                "reference": "685bd517b83d55c8e9c73b78de86e030681a3def",
                 "shasum": ""
             },
             "require": {
@@ -793,7 +793,7 @@
                 "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name%5B%5D=PHP_CodeSniffer",
                 "source": "https://github.com/squizlabs/PHP_CodeSniffer"
             },
-            "time": "2013-12-12 03:08:49"
+            "time": "2014-01-17 10:06:34"
         },
         {
             "name": "symfony/config",
@@ -956,7 +956,8 @@
         "imagine/imagine": 20,
         "symfony/filesystem": 20,
         "mikey179/vfsstream": 20,
-        "phalcon/incubator": 20
+        "phalcon/incubator": 20,
+        "squizlabs/php_codesniffer": 20
     },
     "platform": {
         "ext-phalcon": "1.2.5",
