@@ -1,5 +1,5 @@
 <?php
-namespace Robinson\Backend\Tests\Controllers;
+/*namespace Robinson\Backend\Tests\Controllers;
 // @codingStandardsIgnoreStart
 class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTestController
 {
@@ -55,3 +55,4 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         $this->assertController('package');
     }
 }
+*/

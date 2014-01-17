@@ -1,5 +1,5 @@
 <?php
-namespace Robinson\Backend\Models\Images;
+namespace Robinson\Backend\Tests\Models\Images;
 // @codingStandardsIgnoreStart
 class PackageImage extends \Robinson\Backend\Tests\Models\BaseTestModel
 {
@@ -8,4 +8,12 @@ class PackageImage extends \Robinson\Backend\Tests\Models\BaseTestModel
         parent::setUp($di, $config);
         $this->populateTable('package_images');
     }
+    
+    public function testCanCreateModel()
+    {
+        $model = new \Robinson\Backend\Models\PackageImage();
+        $this->assertInstanceOf('Robinson\Backend\Models\PackageImage', $model);
+    }
+    
+    
 }
