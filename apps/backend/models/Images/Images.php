@@ -29,6 +29,12 @@ abstract class Images extends \Phalcon\Mvc\Model
     protected $uploadedFile;
     
     /**
+     *
+     * @var \Symfony\Component\Filesystem\Filesystem 
+     */
+    protected $filesystem;
+    
+    /**
      * File which will be uploaded. If not upload this property is null.
      * 
      * @var \Phalcon\Http\Request\File
@@ -49,7 +55,6 @@ abstract class Images extends \Phalcon\Mvc\Model
      */
     abstract public function initialize();
     
-   
     /**
      * Returns path to images on filesystem. Should be different for every model.
      * 
@@ -79,6 +84,10 @@ abstract class Images extends \Phalcon\Mvc\Model
     public function onConstruct()
     {
         $this->basePath = $this->getImagesPath();
+        if (!$this->filesystem)
+        {
+            $this->filesystem = $this->getDI()->getShared('fs');
+        }
     }
     
     /**
@@ -249,22 +258,23 @@ abstract class Images extends \Phalcon\Mvc\Model
         {
             throw new \Robinson\Backend\Model\Images\Images('basePath is not set.');
         }
-        
-        if ($this->isFile($this->basePath . '/' . $this->getRealFilename()))
+
+        if ($this->filesystem->exists($this->basePath . '/' . $this->getRealFilename()))
         {
-            $this->unlink($this->basePath . '/' . $this->getRealFilename());
+            $this->filesystem->remove($this->basePath . '/' . $this->getRealFilename());
         }
         
-        $dirIterator = new \DirectoryIterator($this->basePath);
+        $dirIterator = $this->getDI()->get('DirectoryIterator', array($this->basePath));
+        
         while ($dirIterator->valid())
         {
             if ($dirIterator->current()->isDir())
             {
                 $crop = $this->basePath . '/' . $dirIterator->current()->getFilename() . '/' . $this->getRealFilename();
                 
-                if ($this->isFile($crop))
+                if ($this->filesystem->exists($crop))
                 {
-                    $this->unlink($crop);
+                    $this->filesystem->remove($crop);
                 }
             }
             
@@ -316,16 +326,16 @@ abstract class Images extends \Phalcon\Mvc\Model
         
         $cropDir = $this->basePath . '/' . $width . 'x' . $height;
         
-        if (!$this->isDir($cropDir))
+        if (!$this->filesystem->exists($cropDir))
         {
-            $this->mkdir($cropDir);
+            $this->filesystem->mkdir($cropDir);
         }
         
         $cropFile = $cropDir . '/' . $this->getRealFilename();
         
         $public = '/img/' . $this->imageType . '/' . $width . 'x' . $height . '/' . $this->getRealFilename();
         
-        if ($this->isFile($cropFile))
+        if ($this->filesystem->exists($cropFile))
         {
             return $public;
         }
@@ -335,53 +345,5 @@ abstract class Images extends \Phalcon\Mvc\Model
         $imagick->writeimage($cropFile);
         return $public;
         
-    }
-    
-    /**
-     * is_file() wrapper method
-     * 
-     * @param type $file filepath
-     * 
-     * @return bool
-     */
-    protected function isFile($file)
-    {
-       return is_file($file); 
-    }
-    
-    /**
-     * unlink() wrapper
-     * 
-     * @param string $file filepath
-     * 
-     * @return bool
-     */
-    protected function unlink($file)
-    {
-        return unlink($file);
-    }
-    
-    /**
-     * is_dir() wrapper
-     * 
-     * @param string $filename filename
-     * 
-     * @return bool
-     */
-    protected function isDir($filename)
-    {
-        return is_dir($filename);
-    }
-    
-    /**
-     * mkdir() wrapper
-     * 
-     * @param string $pathname pathname
-     * 
-     * @return bool
-     */
-    protected function mkdir($pathname)
-    {
-        return mkdir($pathname, 0755);
     }
 }

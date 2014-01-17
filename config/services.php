@@ -58,18 +58,18 @@ $di['router'] = function() {
  * The URL component is used to generate all kind of urls in the application
  */
 $di['url'] = function() {
-	$url = new UrlResolver();
-	$url->setBaseUri('/');
-	return $url;
+    $url = new UrlResolver();
+    $url->setBaseUri('/');
+    return $url;
 };
 
 /**
  * Start the session the first time some component request the session service
  */
 $di['session'] = function() {
-	$session = new SessionAdapter();
-	$session->start();
-	return $session;
+    $session = new SessionAdapter();
+    $session->start();
+    return $session;
 };
 
 $di['response'] = function()
@@ -82,4 +82,9 @@ $di['response'] = function()
 $di['debug'] = function()
 {
     return new \Phalcon\Debug\Dump();
+};
+
+$di['fs'] = function()
+{
+    return new \Symfony\Component\Filesystem\Filesystem();
 };

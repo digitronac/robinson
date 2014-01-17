@@ -19,7 +19,8 @@
     {
 	 "ext-phalcon": "1.2.5",
 	 "imagine/imagine": "0.6.*@dev",
-	 "ext-imagick": "*"
+	 "ext-imagick": "*",
+	 "symfony/filesystem": "2.5.*@dev"
     },
     "require-dev": 
     {
