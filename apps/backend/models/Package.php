@@ -36,6 +36,20 @@ class Package extends \Phalcon\Mvc\Model
     protected $uploadedPdf;
     
     /**
+     * Initialization.
+     * 
+     * @return void
+     */
+    public function initialize()
+    {
+        $this->setSource('packages');
+        $this->belongsTo('destinationId', 'Robinson\Backend\Models\Destinations', 'destinationId', array
+        (
+            'alias' => 'destination', 
+        ));
+    }
+    
+    /**
      * Sets pdf.
      * 
      * @param string $pdf pdf path

@@ -38,6 +38,11 @@ class Destination extends \Robinson\Backend\Models\Images\Images
     {
         $this->setSource('DestinationImages');
         $this->belongsTo('destinationId', 'Robinson\Backend\Models\Destinations', 'destinationId');
+        $this->hasMany('destinationId', 'Robinson\Backend\Models\Package', array
+        (
+            'alias' => 'packages',
+        ));
+        
         $this->setImageType(self::IMAGE_TYPE_DESTINATION);
     }
     
