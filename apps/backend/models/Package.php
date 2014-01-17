@@ -36,11 +36,34 @@ class Package extends \Phalcon\Mvc\Model
     protected $uploadedPdf;
     
     /**
+     * Sets pdf.
+     * 
+     * @param string $pdf pdf path
+     * 
+     * @return \Robinson\Backend\Models\Package
+     */
+    protected function setPdf($pdf)
+    {
+        $this->pdf = $pdf;
+        return $this;
+    }
+    
+    /**
      * Called when new package is created.
      * 
      * @return void
      */
     public function create()
+    {
+        return $this->parentCreate();
+    }
+    
+    /**
+     * Event which is trigger before calling self::parentCreate.
+     * 
+     * @return void
+     */
+    public function beforeValidationOnCreate()
     {
         if (is_null($this->createdAt))
         {
@@ -52,17 +75,20 @@ class Package extends \Phalcon\Mvc\Model
             $this->updatedAt = (new \DateTime('now', date_default_timezone_get()))->format('Y-m-d H:i:s');
         }
         
-        return $this->parentCreate();
+        if ($this->uploadedPdf instanceof \Phalcon\Http\Request\File)
+        {
+            $this->setPdf($this->uploadedPdf->getName());
+        }
     }
     
     /**
-     * Event which is trigger after calling self::parentCreate.
+     * Moves file to appropriate folder.
      * 
      * @return void
      */
     public function afterCreate()
     {
-        
+        $this->uploadedPdf->moveTo($this->getDI()->getShared('config')->application->packagePdfPath);
     }
     
     /**
