@@ -4,6 +4,7 @@ abstract class Images extends \Phalcon\Mvc\Model
 {
     const IMAGE_TYPE_DESTINATION = 'destination';
     const IMAGE_TYPE_CATEGORY = 'category';
+    const IMAGE_TYPE_PACKAGE = 'package';
     
     /**
      * Allowed types of model.
@@ -14,6 +15,7 @@ abstract class Images extends \Phalcon\Mvc\Model
     (
         self::IMAGE_TYPE_CATEGORY,
         self::IMAGE_TYPE_DESTINATION,
+        self::IMAGE_TYPE_PACKAGE,
     );
     
     protected $basePath;

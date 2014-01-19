@@ -1,6 +1,6 @@
 <?php
 namespace Phalcon\Test\Fixtures;
-// @codeStandardsIgnoreStart
+// @codingStandardsIgnoreStart
 class Packages
 {
     public static function get($records = null)
