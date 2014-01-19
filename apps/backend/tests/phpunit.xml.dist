@@ -10,8 +10,11 @@
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="true">
-    <testsuite name="Testsuite">
+    <testsuite name="Controllers">
         <directory>./</directory>
+    </testsuite>
+    <testsuite name="Models">
+        <directory>./models</directory>
     </testsuite>
     <filter>
         <whitelist>
