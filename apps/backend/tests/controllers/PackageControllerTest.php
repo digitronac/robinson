@@ -1,11 +1,12 @@
 <?php
-/*namespace Robinson\Backend\Tests\Controllers;
+namespace Robinson\Backend\Tests\Controllers;
 // @codingStandardsIgnoreStart
 class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTestController
 {
     protected function setUp(\Phalcon\DiInterface $di = null, \Phalcon\Config $config = null)
     {
         parent::setUp($di, $config);
+        $this->populateTable('packages');
     }
     
     public function testIndexPackageActionShouldExist()
@@ -55,4 +56,3 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         $this->assertController('package');
     }
 }
-*/

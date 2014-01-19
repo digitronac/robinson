@@ -8,7 +8,6 @@ class PdfTest extends \Robinson\Backend\Tests\Models\BaseTestModel
     protected function setUp(\Phalcon\DiInterface $di = null, \Phalcon\Config $config = null)
     {
         parent::setUp($di, $config);
-        $this->populateTable('packages');
         $this->pdfFolder = \org\bovigo\vfs\vfsStream::setup('pdf/package');
         $this->getDI()->getShared('config')->application->packagePdfPath = \org\bovigo\vfs\vfsStream::url('pdf/package');
     }

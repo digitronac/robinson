@@ -130,6 +130,7 @@ $di->setShared('log', function() use ($di)
     $logFile = $logDir . '/' . 'log.txt';
     if (!is_file($logFile))
     {
+        umask(0);
         mkdir($logDir, 0775, true);
         
         if (!is_file($logFile))
@@ -138,11 +139,14 @@ $di->setShared('log', function() use ($di)
         }
     }
     
-    $fileLogger = new \Phalcon\Logger\Adapter\File($logFile);
-    //$jsonFormatter = new \Phalcon\Logger\Formatter\Json();
-    $fireFormatter = new \Phalcon\Logger\Formatter\Firephp();
-    $fileLogger->setFormatter($fireFormatter);
-    $log->push($fileLogger);
+    if ($di->getService('config')->resolve()->application->log->enable)
+    {
+        $fileLogger = new \Phalcon\Logger\Adapter\File($logFile);
+        //$jsonFormatter = new \Phalcon\Logger\Formatter\Json();
+        $fireFormatter = new \Phalcon\Logger\Formatter\Firephp();
+        $fileLogger->setFormatter($fireFormatter);
+        $log->push($fileLogger);
+    }
 
     if (in_array($di->getService('request')->resolve()->getClientAddress(), 
         $di->getService('config')->resolve()->application->debug->ips->toArray()))

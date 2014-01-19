@@ -1,0 +1,56 @@
+
+<div class="admin package create">
+    <form method="post" enctype="multipart/form-data">
+        <div>
+            
+            <select class="form-control" name="destinationId" required="required">
+                
+                <option vlaue="">-- Izaberi destinaciju --</option>
+                
+                <?php foreach($select as $group => $destinations): ?>
+                
+                <!-- group -->
+                <optgroup label="group"><?=$this->escaper->escapeHtml($group)?></optgroup>
+                
+                    <!-- options -->
+                    
+                    <?php foreach($destinations as $destinationId => $destination): ?>
+
+                    <option value="<?=$destinationId?>"><?=$this->escaper->escapeHtml($destination)?></option>
+
+                    <?php endforeach ?>
+                    
+                <?php endforeach ?>
+                    
+            </select>
+           
+        </div>
+        <div>
+            <input class="form-control" type="text" name="package" placeholder="Aranzman" required="required" />
+        </div>
+        <div>
+            <input class="form-control" type="text" name="price" placeholder="Cena od:" required="required" />
+        </div>
+        <div>
+            <textarea name="description" class="ckeditor" placeholder="Tekst" required="required"></textarea>
+        </div>
+        <div>
+            <label for="pdf">Pdf:</label>
+            <input type="file" id="pdf" accept="application/pdf" name="pdf" required="required" />
+        </div>
+        <div>
+            <select class="form-control" name="status" required="required">
+
+                <?php foreach(\Robinson\Backend\Models\Package::getStatusMessages() as $status => $message): ?>
+
+                <option value="<?=$status?>"><?=$message?></option>
+
+                <?php endforeach ?>
+
+            </select>
+        </div>
+        <div>
+            <button class="btn btn-default btn-lg" name="submit">OK</button>
+        </div>
+    </form>
+</div>

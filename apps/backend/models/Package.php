@@ -70,6 +70,11 @@ class Package extends \Phalcon\Mvc\Model
         }
     }
     
+    /**
+     * Gets packageId.
+     * 
+     * @return int
+     */
     public function getPackageId()
     {
         return (int) $this->packageId;
@@ -289,10 +294,10 @@ class Package extends \Phalcon\Mvc\Model
             $this->filesystem->mkdir($destinationPackageFolder);
         }
         
-        if (!$this->uploadedPdf->moveTo($destinationPackageFolder))
+        if (!$this->uploadedPdf->moveTo($destinationPackageFolder . '/' . $this->uploadedPdf->getName()))
         {
            throw new \Robinson\Backend\Models\Exception(sprintf('Unable to move pdf file "%s" to destination dir "%s"', 
-               $this->uploadedPdf->getName(), $destinationFolder));
+               $this->uploadedPdf->getName(), $destinationPackageFolder));
         }
     }
     
@@ -307,6 +312,16 @@ class Package extends \Phalcon\Mvc\Model
     public function parentCreate($data = null, $whitelist = null)
     {
         return parent::create($data, $whitelist);
+    }
+    
+    /**
+     * Returns human readable status text.
+     * 
+     * @return string
+     */
+    public static function getStatusMessages()
+    {
+        return self::$statusMessages;
     }
     
     
