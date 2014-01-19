@@ -36,8 +36,8 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             $package->setPackage($this->request->getPost('package'))
                 ->setDestination($destination)
                 ->setTabs('aaaa')
-                ->setPrice($this->request->get('price'))
-                ->setDescription($this->request->get('description'))
+                ->setPrice($this->request->getPost('price'))
+                ->setDescription($this->request->getPost('description'))
                 ->setUploadedPdf($this->request->getUploadedFiles()[0])
                 ->setStatus($this->request->getPost('status'));
             if (!$package->create())
