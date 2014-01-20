@@ -10,7 +10,7 @@
                 <?php foreach($select as $group => $destinations): ?>
                 
                 <!-- group -->
-                <optgroup label="group"><?=$this->escaper->escapeHtml($group)?></optgroup>
+                <optgroup label="<?=$this->escaper->escapeHtmlAttr($group)?>"><?=$this->escaper->escapeHtml($group)?></optgroup>
                 
                     <!-- options -->
                     

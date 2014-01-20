@@ -80,6 +80,16 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
     public function testUpdatePackageActionShouldExist()
     {
         $this->registerMockSession();
+        
+        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
+        $mockImagick->expects($this->any())
+            ->method('scaleimage')
+            ->will($this->returnValue(true));
+        $mockImagick->expects($this->any())
+            ->method('writeimage')
+            ->will($this->returnValue(true));
+        
+        $this->getDI()->set('Imagick', $mockImagick);
         $this->dispatch('/admin/package/update/1');
         $this->assertAction('update');
         $this->assertController('package');

@@ -56,4 +56,28 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
 
         $this->view->select = $select;
     }
+    
+    /**
+     * Updates existing package.
+     * 
+     * @return void
+     */
+    public function updateAction()
+    {
+        /* @var $package \Robinson\Backend\Models\Package */
+        $package = $this->getDI()->get('Robinson\Backend\Models\Package');
+        /* @var $package \Robinson\Backend\Models\Package */
+        $package = $package->findFirst($this->dispatcher->getParam('id'));
+        
+        $destination = $this->getDI()->get('Robinson\Backend\Models\Destinations');
+        $destinations = $destination->find();
+
+        $this->tag->setDefault('destinationId', $package->getDestination()->getDestination());
+        $this->tag->setDefault('package', $package->getPackage());
+        $this->tag->setDefault('description', $package->getDescription());
+        $this->tag->setDefault('status', $package->getStatus());
+        
+        $this->view->destinations = $destinations;
+        $this->view->package = $package;
+    }
 }

@@ -55,6 +55,10 @@ class Package extends \Phalcon\Mvc\Model
         (
             'alias' => 'destination', 
         ));
+        $this->hasMany('packageId', 'Robinson\Backend\Models\Images\Package', 'packageId', array
+        (
+            'alias' => 'images',
+        ));
     }
     
     /**
@@ -209,6 +213,16 @@ class Package extends \Phalcon\Mvc\Model
         $this->status = (int) $status;
         return $this;
     }
+    
+    /**
+     * Gets package status.
+     * 
+     * @return int
+     */
+    public function getStatus()
+    {
+        return (int) $this->status;
+    }
 
     /**
      * Sets uploaded pdf file.
@@ -312,6 +326,16 @@ class Package extends \Phalcon\Mvc\Model
     public function parentCreate($data = null, $whitelist = null)
     {
         return parent::create($data, $whitelist);
+    }
+    
+    /**
+     * Retrieves destination to which package belongs to.
+     * 
+     * @return \Robinson\Backend\Models\Destinations
+     */
+    public function getDestination()
+    {
+        return $this->getRelated('destination');
     }
     
     /**

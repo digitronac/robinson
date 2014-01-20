@@ -1,0 +1,104 @@
+
+<div class="admin package update">
+    <form method="post" enctype="multipart/form-data">
+        <div>
+            
+            <?=$this->tag->select(array
+            (
+                'destinationId',
+                $destinations,
+                'using' => array('destinationId', 'destination'),
+                'required' => 'required',
+                'class' => 'form-control',
+            )) . PHP_EOL ?>
+        </div>
+        <div>
+            <?=$this->tag->textField(array
+            (
+                'package',
+                'class' => 'form-control',
+                'required' => 'required',
+            )) . PHP_EOL ?>
+        </div>
+        <div>
+            <?=$this->tag->textArea(array
+            (
+                'description',
+                'class' => 'ckeditor',
+                'placeholder' => 'Tekst',
+                'required' => 'required',
+            )) . PHP_EOL ?>
+        </div>
+        <div>
+            <?=$this->tag->selectStatic(array
+            (
+                'status',
+                'required' => 'required',
+                \Robinson\Backend\Models\Package::getStatusMessages(),
+                'class' => 'form-control',
+            )) . PHP_EOL ?>
+        </div>
+        <dl>
+            <dt>Slike:</dt>
+            
+            <?php foreach($package->getImages() as $image): ?>
+            
+            <dd>
+                <img data-package-image-id="<?=$image->getImageId()?>" src="<?=$image->getResizedSrc() ?>" />
+                
+                <?=$this->tag->textField(array
+                (
+                    'sort[' . $image->getImageId() . ']',
+                    'length' => 2,
+                    'maxsize' => 2,
+                    'size' => 2,
+                    'value' => $image->getSort(),
+                ))?>
+                
+            </dd>
+            
+        <?php endforeach ?>
+            
+        </dl>
+        <div>
+            <input type="file" name="files[]" multiple="multiple" accept="image/jpeg, image/png" />
+        </div>
+        <div>
+            <h5>Pdf file: <?=$this->tag->linkTo(array(array
+            (
+                'for' => 'admin-update',
+                'controller' => 'package',
+                'action' => 'pdfPreview',
+                'id' => $package->getPackageId(),
+            ), $package->getPdf(), 'target' => '_blank')); ?>
+            </h5>
+        </div>
+        <div>
+            <button class="btn btn-default btn-lg" name="submit">OK</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $('document').ready(function()
+    {
+        $('img[data-package-image-id]').hover(function(e)
+        {
+            $(this).css('border', '5px solid red');
+        }, function()
+        {
+            $(this).css('border', 'none');
+        });
+        $('img[data-package-image-id]').on('click', function(e)
+        {
+           e.preventDefault();
+           var that = $(this);
+           $.post("<?=$this->url->get(array('for' => 'admin', 'controller' => 'package', 'action' => 'deleteImage'))?>", {id: $(this).data('package-image-id')}, function(response)
+           {
+               if(response.response)
+               {
+                   that.parent().remove();
+               }
+           });
+        });
+    });
+</script>
