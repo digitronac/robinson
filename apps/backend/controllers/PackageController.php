@@ -88,6 +88,17 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
      */
     public function pdfPreviewAction()
     {
+        $this->view->disable();
+        $package = $this->getDI()->get('Robinson\Backend\Models\Package');
+        /* @var $package \Robinson\Backend\Models\Package */
+        $package = $package->findFirst($this->dispatcher->getParam('id'));
         
+        /* @var $pdf \Robinson\Backend\Models\Pdf */
+        $pdf = $this->getDI()->get('Robinson\Backend\Models\Pdf', array
+        (
+            $this->fs, $package, $this->config->application->packagePdfPath,
+        ));
+        
+        echo $pdf->getHtmlDocument($this->config->application->packagePdfWebPath)->saveHTML();
     }
 }

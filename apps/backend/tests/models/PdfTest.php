@@ -86,8 +86,9 @@ class PdfTest extends \Robinson\Backend\Tests\Models\BaseTestModel
         $this->assertEquals('vfs://pdf/package/1/pdffile-1.pdf.html', $model->getHtmlFile());
     }
     
-    public function testCallingGetHtmlSourceShouldReturnExpectedContent()
+    public function testCallingGetHtmlDocumentShouldReturnDomDocumentObject()
     {
+        $config = $this->getDI()->getShared('config');
         $testFs = \org\bovigo\vfs\vfsStream::create(array
         (
             'package' => array
@@ -95,15 +96,15 @@ class PdfTest extends \Robinson\Backend\Tests\Models\BaseTestModel
                 '1' => array
                 (
                     'pdffile-1.pdf' => 'content',
-                    'pdffile-1.pdf.html' => 'html content',
+                    'pdffile-1.pdf.html' => '<html><head><title>title to remove</title></head><body>html content</body></html>',
                 ),
             )
         ), $this->pdfFolder);
         
         $package = \Robinson\Backend\Models\Package::findFirst();
         $model = $this->getDI()->get('Robinson\Backend\Models\Pdf', array($this->getDI()->getShared('fs'), $package, 
-            $this->getDI()->getShared('config')->application->packagePdfPath));
-        $this->assertEquals('html content', $model->getHtmlSource());
+            $config->application->packagePdfPath));
+        $this->assertInstanceOf('DomDocument', $model->getHtmlDocument($config->application->packagePdfWebPath));
     }
     
     public function testCallingGetCompiledCommandShouldWorkAsExpected()

@@ -84,13 +84,24 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
     }
     
     /**
-     * Returns html code of file converted from pdf.
+     * Returns domdocument of pdf file which is parsed for web display.
      * 
-     * @return string html
+     * @param string $baseUri  uri which will be used as href in <base> html element
+     * @param string $version  default 1.0
+     * @param string $encoding default UTF-8
+     * 
+     * @return \DOMDocument
      */
-    public function getHtmlSource()
+    public function getHtmlDocument($baseUri, $version = '1.0', $encoding = 'UTF-8')
     {
-        return file_get_contents($this->getHtmlFile());
+        /* @var $document \DOMDocument */
+        $document = $this->getDI()->get('DomDocument', array($version, $encoding));
+        $document->load($this->getHtmlFile()); 
+        $base = $document->createElement('base');
+        $base->setAttribute('href', $baseUri . '/' . $this->package->getPackageId() . '/');
+        $document->getElementsByTagName('head')->item(0)->appendChild($base);
+        $document->getElementsByTagName('head')->item(0)->removeChild($document->getElementsByTagName('title')->item(0));
+        return $document;
     }
     
     /**
