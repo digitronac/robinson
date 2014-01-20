@@ -80,4 +80,14 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
         $this->view->destinations = $destinations;
         $this->view->package = $package;
     }
+    
+    /**
+     * Displays package PDF preview.
+     * 
+     * @return void
+     */
+    public function pdfPreviewAction()
+    {
+        
+    }
 }
