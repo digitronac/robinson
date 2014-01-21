@@ -114,12 +114,4 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         $this->assertAction('deleteImage');
         $this->assertController('package');
     }
-    
-    public function testDeletePdfActionShouldExist()
-    {
-        $this->registerMockSession();
-        $this->dispatch('/admin/package/deletePdf/1');
-        $this->assertAction('deletePdf');
-        $this->assertController('package');
-    }
 }
