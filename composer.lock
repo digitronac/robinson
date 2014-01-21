@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "29344ddff4ceaf89ba9a5b6a0d8f0f01",
+    "hash": "18b02503d9d61b34471285bf739852b7",
     "packages": [
         {
             "name": "imagine/imagine",
@@ -215,16 +215,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/digitronac/incubator.git",
-                "reference": "af1d30c47e8d2cfcfdd487a75508a4be4d537df0"
+                "reference": "fc46bd0989043b670f13c86eab9ca84e87210b71"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/digitronac/incubator/zipball/af1d30c47e8d2cfcfdd487a75508a4be4d537df0",
-                "reference": "af1d30c47e8d2cfcfdd487a75508a4be4d537df0",
+                "reference": "fc46bd0989043b670f13c86eab9ca84e87210b71",
                 "shasum": ""
             },
             "require": {
-                "ext-phalcon": "1.2.5",
+                "ext-phalcon": ">=1.2.4,<1.3",
                 "php": ">=5.3.6"
             },
             "require-dev": {
@@ -255,7 +255,7 @@
             "support": {
                 "source": "https://github.com/digitronac/incubator/tree/develop"
             },
-            "time": "2014-01-15 16:25:22"
+            "time": "2014-01-21 11:18:17"
         },
         {
             "name": "phpmd/phpmd",

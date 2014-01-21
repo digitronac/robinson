@@ -25,7 +25,7 @@
     "require-dev": 
     {
  	 "mikey179/vfsStream": "1.3.*@dev",
-	 "phalcon/incubator": "dev-master#gaf1d30c",
+	 "phalcon/incubator": "dev-master#fc46bd0989043b670f13c86eab9ca84e87210b71",
 	 "squizlabs/PHP_CodeSniffer": "dev-master#685bd517b83d55c8e9c73b78de86e030681a3def",
          "phpunit/phpunit": "3.7.28",
          "phpunit/dbunit": "1.3.0",
