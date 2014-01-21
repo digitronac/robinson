@@ -107,6 +107,43 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         $this->assertController('package');
     }
     
+    public function testUpdatePackageWithNewImageShouldWorkAsExpected()
+    {
+        $this->registerMockSession();
+        $_POST = array
+        (
+            'destinationId' => 2,
+            'package' => 'test package name 2 :)',
+            'description' => 'test package description 2 :)',
+            'price' => 999,
+            'status' => 1,
+        );
+        
+        $mockImageFile = $this->getMockBuilder('Phalcon\Http\Request\File')
+            ->disableOriginalConstructor()
+            ->setMethods(array('getName'))
+            ->getMock();
+        $mockImageFile->expects($this->exactly(2))
+            ->method('getName')
+            ->will($this->returnValue('packageimagetest.jpg'));
+        
+        $request = $this->getMockBuilder('Phalcon\Http\Request')
+            ->setMethods(array('isPost', 'getUploadedFiles'))
+            ->getMock();
+        $request->expects($this->any())
+            ->method('isPost')
+            ->will($this->returnValue(true));
+        $request->expects($this->once())
+            ->method('getUploadedFiles')
+            ->will($this->returnValue(array
+            (
+                0 => $mockImageFile,
+            )));
+        
+        $this->getDI()->setShared('request', $request);
+        $this->dispatch('/admin/package/update/1');
+    }
+    
     public function testDeleteImageShouldExist()
     {
         $this->registerMockSession();

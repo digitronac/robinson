@@ -243,18 +243,26 @@ class Package extends \Phalcon\Mvc\Model
      * Called when new package is created.
      * 
      * @param array $data      data
-     * @param array $whitelist whitelist
+     * @param array $whiteList whitelist
      * 
      * @return void
      */
-    public function create($data = null, $whitelist = null)
+    public function create($data = null, $whiteList = null)
     {
-        return $this->parentCreate($data, $whitelist);
+        return $this->parentCreate($data, $whiteList);
     }
     
-    public function update($data = null, $whitelist = null)
+    /**
+     * Executed on update.
+     * 
+     * @param array $data      data
+     * @param array $whiteList whitelist
+     * 
+     * @return bool
+     */
+    public function update($data = null, $whiteList = null)
     {
-        return $this->parentUpdate();
+        return $this->parentUpdate($data, $whiteList);
     }
     
     /**
@@ -347,24 +355,24 @@ class Package extends \Phalcon\Mvc\Model
      * Overriden create method.
      * 
      * @param array $data      data
-     * @param array $whitelist data
+     * @param array $whiteList data
      * 
      * @return bool
      */
-    public function parentCreate($data = null, $whitelist = null)
+    public function parentCreate($data = null, $whiteList = null)
     {
-        return parent::create($data, $whitelist);
+        return parent::create($data, $whiteList);
     }
     
     /**
      * Overriden update method.
      * 
      * @param array $data      data
-     * @param array $whitelist data
+     * @param array $whiteList data
      * 
      * @return bool
      */
-    public function parentUpdate($data = null, $whitelist = null)
+    public function parentUpdate($data = null, $whiteList = null)
     {
         return parent::update($data, $whiteList);
     }

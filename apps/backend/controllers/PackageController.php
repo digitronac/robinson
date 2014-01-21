@@ -51,7 +51,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
         $package = $this->getDI()->get('Robinson\Backend\Models\Package');
         /* @var $package \Robinson\Backend\Models\Package */
         $package = $package->findFirst($this->dispatcher->getParam('id'));
-        
+
         if ($this->request->isPost())
         {
             $destination = $this->getDI()->get('Robinson\Backend\Models\Destinations');
@@ -64,6 +64,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             
             $images = array();
             $files = $this->request->getUploadedFiles();
+            
             foreach ($files as $file)
             {
                 if ($file->getKey() === 'pdf')
