@@ -149,12 +149,7 @@ class DestinationControllerTest extends BaseTestController
             ->method('writeimage')
             ->will($this->returnValue(true));
         
-        $splFileInfoMock = $this->getMock('SplFileInfo', array('isFile'), array(), 'MockSplFileInfo', false);
-        $splFileInfoMock->expects($this->any())
-            ->method('isFile')
-            ->will($this->returnValue(true));
-        
-        $this->getDI()->set('SplFileInfo', $splFileInfoMock);
+      
         $this->getDI()->setShared('request', $request);
         
         $this->getDI()->set('Imagick', $mockImagick);
