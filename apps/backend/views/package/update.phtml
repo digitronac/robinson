@@ -3,19 +3,41 @@
     <form method="post" enctype="multipart/form-data">
         <div>
             
-            <?=$this->tag->select(array
+            <select class="form-control" name="destinationId" required="required">
+                
+                <option vlaue="">-- Izaberi destinaciju --</option>
+                
+                <?php foreach($select as $group => $destinations): ?>
+                
+                <!-- group -->
+                <optgroup label="<?=$this->escaper->escapeHtmlAttr($group)?>"><?=$this->escaper->escapeHtml($group)?></optgroup>
+                
+                    <!-- options -->
+                    
+                    <?php foreach($destinations as $destinationId => $destination): ?>
+
+                    <option <?=($defaultDestinationId === $destinationId) ? 'selected="selected" ' : ''?>value="<?=$destinationId?>"><?=$this->escaper->escapeHtml($destination)?></option>
+
+                    <?php endforeach ?>
+                    
+                <?php endforeach ?>
+                    
+            </select>
+           
+        </div>
+        
+        <div>
+            <?=$this->tag->textField(array
             (
-                'destinationId',
-                $destinations,
-                'using' => array('destinationId', 'destination'),
-                'required' => 'required',
+                'package',
                 'class' => 'form-control',
+                'required' => 'required',
             )) . PHP_EOL ?>
         </div>
         <div>
             <?=$this->tag->textField(array
             (
-                'package',
+                'price',
                 'class' => 'form-control',
                 'required' => 'required',
             )) . PHP_EOL ?>

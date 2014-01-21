@@ -44,13 +44,6 @@ class Package extends \Phalcon\Mvc\Model
     protected $filesystem;
     
     /**
-     * Container for images.
-     * 
-     * @var \SplObjectStorage 
-     */
-    protected $imagesContainer;
-    
-    /**
      * Initialization.
      * 
      * @return void
@@ -259,6 +252,11 @@ class Package extends \Phalcon\Mvc\Model
         return $this->parentCreate($data, $whitelist);
     }
     
+    public function update($data = null, $whitelist = null)
+    {
+        return $this->parentUpdate();
+    }
+    
     /**
      * Sets package destination.
      * 
@@ -271,7 +269,7 @@ class Package extends \Phalcon\Mvc\Model
         $this->destination = $destination;
         return $this;
     }
-    
+
     /**
      * Event which is trigger before calling self::parentCreate.
      * 
@@ -309,17 +307,6 @@ class Package extends \Phalcon\Mvc\Model
      */
     public function beforeValidationOnUpdate()
     {
-        if ($this->imagesContainer->count())
-        {
-            $images = array();
-            foreach ($this->imagesContainer as $image)
-            {
-                array_push($images, $image);
-            }
-            
-            $this->images = $images;
-        }
-
         $this->updatedAt = (new \DateTime('now', new \DateTimeZone(date_default_timezone_get())))
             ->format('Y-m-d H:i:s');
         
@@ -344,6 +331,11 @@ class Package extends \Phalcon\Mvc\Model
             $this->filesystem->mkdir($destinationPackageFolder);
         }
         
+        if (!$this->uploadedPdf)
+        {
+            return;
+        }
+        
         if (!$this->uploadedPdf->moveTo($destinationPackageFolder . '/' . $this->uploadedPdf->getName()))
         {
            throw new \Robinson\Backend\Models\Exception(sprintf('Unable to move pdf file "%s" to destination dir "%s"', 
@@ -362,6 +354,19 @@ class Package extends \Phalcon\Mvc\Model
     public function parentCreate($data = null, $whitelist = null)
     {
         return parent::create($data, $whitelist);
+    }
+    
+    /**
+     * Overriden update method.
+     * 
+     * @param array $data      data
+     * @param array $whitelist data
+     * 
+     * @return bool
+     */
+    public function parentUpdate($data = null, $whitelist = null)
+    {
+        return parent::update($data, $whiteList);
     }
     
     /**

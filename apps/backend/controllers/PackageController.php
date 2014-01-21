@@ -9,23 +9,6 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
      */
     public function createAction()
     {
-        $categories = \Robinson\Backend\Models\Category::find(array
-        (
-            'order' => 'category',
-        ));
-        
-        // build select
-        $select = array();
-        foreach ($categories as $category)
-        {
-            $select[$category->getCategory()] = array();
-            
-            foreach ($category->getDestinations() as $destination)
-            {
-                $select[$category->getCategory()][$destination->getDestinationId()] = $destination->getDestination();
-            }
-        }
-        
         // create pdf
         if ($this->request->isPost())
         {
@@ -54,7 +37,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             ));
         }
 
-        $this->view->select = $select;
+        $this->view->select = $this->buildDestinationMultiSelectData();
     }
     
     /**
@@ -93,25 +76,29 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 $packageImage = $this->getDI()->get('Robinson\Backend\Models\Images\Package');
                 $packageImage->createFromUploadedFile($file)
                     ->setTitle('package');
-                $packageImage->setPackageId(1);
-                $packageImage->create();
-                $images[] = $packageImage;
-             //   $package->addImage($packageImage);
+
+               $images[] = $packageImage;
             }
             
-            $package->images = $images;
-            $package->update();
+            if ($images)
+            {
+                $package->images = $images;
+            }
+            
+            if (!$package->update())
+            {
+                throw new \Phalcon\Exception('Unable to update package #' . $package->getPackageId());
+            }
         }
         
-        $destination = $this->getDI()->get('Robinson\Backend\Models\Destinations');
-        $destinations = $destination->find();
-
         $this->tag->setDefault('destinationId', $package->getDestination()->getDestination());
         $this->tag->setDefault('package', $package->getPackage());
+        $this->tag->setDefault('price', $package->getPrice());
         $this->tag->setDefault('description', $package->getDescription());
         $this->tag->setDefault('status', $package->getStatus());
+        $this->view->defaultDestinationId = $package->getDestination()->getDestinationId();
         
-        $this->view->destinations = $destinations;
+        $this->view->select = $this->buildDestinationMultiSelectData();
         $this->view->package = $package;
     }
     
@@ -134,5 +121,33 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
         ));
         
         echo $pdf->getHtmlDocument($this->config->application->packagePdfWebPath)->saveHTML();
+    }
+    
+    /**
+     * Builds data to be used in multi select form element.
+     * 
+     * @return array
+     */
+    protected function buildDestinationMultiSelectData()
+    {
+        $categories = \Robinson\Backend\Models\Category::find(array
+        (
+            'order' => 'category',
+        ));
+        
+        
+        // build select
+        $select = array();
+        foreach ($categories as $category)
+        {
+            $select[$category->getCategory()] = array();
+            
+            foreach ($category->getDestinations() as $destination)
+            {
+                $select[$category->getCategory()][$destination->getDestinationId()] = $destination->getDestination();
+            }
+        }
+        
+        return $select;
     }
 }

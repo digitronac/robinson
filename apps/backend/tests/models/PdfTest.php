@@ -9,7 +9,8 @@ class PdfTest extends \Robinson\Backend\Tests\Models\BaseTestModel
     {
         parent::setUp($di, $config);
         $this->pdfFolder = \org\bovigo\vfs\vfsStream::setup('pdf/package');
-        $this->getDI()->getShared('config')->application->packagePdfPath = \org\bovigo\vfs\vfsStream::url('pdf/package');
+        $this->getDI()->getShared('config')->application->packagePdfPath = 
+            \org\bovigo\vfs\vfsStream::url('pdf/package');
     }
     
     public function testCanCreateModel()
