@@ -72,6 +72,10 @@
                 'id' => $package->getPackageId(),
             ), $package->getPdf(), 'target' => '_blank')); ?>
             </h5>
+            <div>
+                <label for="pdf">Zameni pdf:</label>
+                <input type="file" name="pdf" accept="application/pdf" />
+            </div>
         </div>
         <div>
             <button class="btn btn-default btn-lg" name="submit">OK</button>

@@ -3,11 +3,16 @@ namespace Robinson\Backend\Tests\Controllers;
 // @codingStandardsIgnoreStart
 class CategoryControllerTest extends BaseTestController
 {
+    protected $categoryImagesFolder;
+    
     public function setUp(\Phalcon\DiInterface $di = null, \Phalcon\Config $config = null)
     {
         parent::setUp($di, $config);
         $this->populateTable('Category');
         $this->populateTable('ImageCategory');
+        // setup fs
+        $this->categoryImagesFolder = \org\bovigo\vfs\vfsStream::setup('img/category');
+        $this->getDI()->getShared('config')->application->categoryImagesPath = \org\bovigo\vfs\vfsStream::url('img/category');
     }
     
     public function testCategoryCreateShouldExist()

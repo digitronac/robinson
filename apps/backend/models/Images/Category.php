@@ -25,7 +25,7 @@ class Category extends \Robinson\Backend\Models\Images\Images
     {
         if ($this->getDI()->has('config'))
         {
-            return realpath($this->getDI()->getShared('config')->application->categoryImagesPath);
+            return $this->getDI()->getShared('config')->application->categoryImagesPath;
         }
     }
 

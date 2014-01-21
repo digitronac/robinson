@@ -130,7 +130,7 @@ abstract class Images extends \Phalcon\Mvc\Model
     
     /**
      * Sets models imageType. 
-     * Must be one of Robinson\Backend\Model\Images\Images constants.
+     * Must be one of Robinson\Backend\Models\Images\Images constants.
      * 
      * @param string $imageType one of Robinson\Backend\Models\Images\Images constants.
      * 
@@ -143,7 +143,7 @@ abstract class Images extends \Phalcon\Mvc\Model
         if (!in_array($imageType, self::$allowedTypes))
         {
             throw new \Robinson\Backend\Models\Images\Exception(
-                'imageType must be one of Robinson\Backend\Model\Images\Images.');
+                'imageType must be one of Robinson\Backend\Models\Images\Images.');
         }
         $this->imageType = $imageType;
         return $this;
@@ -231,7 +231,7 @@ abstract class Images extends \Phalcon\Mvc\Model
     /**
      * Called after successful save.
      * 
-     * @throws \Robinson\Backend\Model\Images\Images
+     * @throws \Robinson\Backend\Models\Images\Images
      * @return void
      */
     public function afterSave()
@@ -252,13 +252,13 @@ abstract class Images extends \Phalcon\Mvc\Model
      * Deletes image from db and filesystem.
      * 
      * @return bool
-     * @throws \Robinson\Backend\Model\Images\Images if basePath is not set
+     * @throws \Robinson\Backend\Models\Images\Images if basePath is not set
      */
     public function delete()
     {
         if (!$this->basePath)
         {
-            throw new \Robinson\Backend\Model\Images\Images('basePath is not set.');
+            throw new \Robinson\Backend\Models\Images\Exception('basePath is not set.');
         }
 
         if ($this->filesystem->exists($this->basePath . '/' . $this->getRealFilename()))

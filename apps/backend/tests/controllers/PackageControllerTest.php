@@ -3,14 +3,25 @@ namespace Robinson\Backend\Tests\Controllers;
 // @codingStandardsIgnoreStart
 class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTestController
 {
-    protected $pdfFolder;
+    protected $vfsfs;
     
     protected function setUp(\Phalcon\DiInterface $di = null, \Phalcon\Config $config = null)
     {
         parent::setUp($di, $config);
         $this->populateTable('packages');
-        $this->pdfFolder = \org\bovigo\vfs\vfsStream::setup('pdf/package');
+        $this->vfsfs = \org\bovigo\vfs\vfsStream::setup('root', null, array
+        (
+            'pdf' => array
+            (
+                'package' => array(),
+            ),
+            'img' => array
+            (
+                'package' => array(),
+            ),
+        ));
         $this->getDI()->getShared('config')->application->packagePdfPath = \org\bovigo\vfs\vfsStream::url('pdf/package');
+        $this->getDI()->getShared('config')->application->packageImagesPath = \org\bovigo\vfs\vfsStream::url('img/package');
     }
     
     public function testIndexPackageActionShouldExist()

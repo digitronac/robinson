@@ -44,6 +44,13 @@ class Package extends \Phalcon\Mvc\Model
     protected $filesystem;
     
     /**
+     * Container for images.
+     * 
+     * @var \SplObjectStorage 
+     */
+    protected $imagesContainer;
+    
+    /**
      * Initialization.
      * 
      * @return void
@@ -72,6 +79,8 @@ class Package extends \Phalcon\Mvc\Model
         {
             $this->filesystem = $this->getDI()->getShared('fs');
         }
+        
+        $this->imagesContainer = new \SplObjectStorage();
     }
     
     /**
@@ -294,11 +303,38 @@ class Package extends \Phalcon\Mvc\Model
     }
     
     /**
+     * Event which is trigger before calling self::parentUpdate.
+     * 
+     * @return void
+     */
+    public function beforeValidationOnUpdate()
+    {
+        if ($this->imagesContainer->count())
+        {
+            $images = array();
+            foreach ($this->imagesContainer as $image)
+            {
+                array_push($images, $image);
+            }
+            
+            $this->images = $images;
+        }
+
+        $this->updatedAt = (new \DateTime('now', new \DateTimeZone(date_default_timezone_get())))
+            ->format('Y-m-d H:i:s');
+        
+        if ($this->uploadedPdf instanceof \Phalcon\Http\Request\File)
+        {
+            $this->setPdf($this->uploadedPdf->getName());
+        }
+    }
+    
+    /**
      * Moves file to appropriate folder.
      * 
      * @return void
      */
-    public function afterCreate()
+    public function afterSave()
     {
         $destinationFolder = $this->getDI()->getShared('config')->application->packagePdfPath;
         $destinationPackageFolder = $destinationFolder . '/' . $this->packageId;
@@ -336,6 +372,19 @@ class Package extends \Phalcon\Mvc\Model
     public function getDestination()
     {
         return $this->getRelated('destination');
+    }
+    
+    /**
+     * Adds image to package.
+     * 
+     * @param \Robinson\Backend\Models\Images\Package $packageImage image to be added
+     * 
+     * @return \Robinson\Backend\Models\Package
+     */
+    public function addImage(\Robinson\Backend\Models\Images\Package $packageImage)
+    {
+        $this->imagesContainer->attach($packageImage);
+        return $this;
     }
     
     /**

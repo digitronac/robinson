@@ -3,6 +3,8 @@ namespace Robinson\Backend\Tests\Controllers;
 //@codingStandardsIgnoreStart
 class DestinationControllerTest extends BaseTestController
 {
+    protected $destinationImagesFolder;
+    
     public function setUp(\Phalcon\DiInterface $di = null, \Phalcon\Config $config = null)
     {
         parent::setUp($di, $config);
@@ -10,6 +12,10 @@ class DestinationControllerTest extends BaseTestController
      //   $this->populateTable('ImageCategory');
         $this->populateTable('Destinations');
         $this->populateTable('DestinationImages');
+        
+        // setup fs
+        $this->destinationImagesFolder = \org\bovigo\vfs\vfsStream::setup('img/destination');
+        $this->getDI()->getShared('config')->application->destinationImagesPath = \org\bovigo\vfs\vfsStream::url('img/destination');
     }
     
     public function testIndexActionShouldWorkAsExpected()

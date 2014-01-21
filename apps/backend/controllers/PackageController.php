@@ -69,6 +69,40 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
         /* @var $package \Robinson\Backend\Models\Package */
         $package = $package->findFirst($this->dispatcher->getParam('id'));
         
+        if ($this->request->isPost())
+        {
+            $destination = $this->getDI()->get('Robinson\Backend\Models\Destinations');
+            $destination = $destination->findFirst($this->request->getPost('destinationId'));
+            $package->setPackage($this->request->getPost('package'))
+                ->setDestination($destination)
+                ->setPrice($this->request->getPost('price'))
+                ->setDescription($this->request->getPost('description'))
+                ->setStatus($this->request->getPost('status'));
+            
+            $images = array();
+            $files = $this->request->getUploadedFiles();
+            foreach ($files as $file)
+            {
+                if ($file->getKey() === 'pdf')
+                { 
+                    $package->setUploadedPdf($file);
+                    continue;
+                }
+                
+                /* @var $packageImage \Robinson\Backend\Models\Images\Package */
+                $packageImage = $this->getDI()->get('Robinson\Backend\Models\Images\Package');
+                $packageImage->createFromUploadedFile($file)
+                    ->setTitle('package');
+                $packageImage->setPackageId(1);
+                $packageImage->create();
+                $images[] = $packageImage;
+             //   $package->addImage($packageImage);
+            }
+            
+            $package->images = $images;
+            $package->update();
+        }
+        
         $destination = $this->getDI()->get('Robinson\Backend\Models\Destinations');
         $destinations = $destination->find();
 

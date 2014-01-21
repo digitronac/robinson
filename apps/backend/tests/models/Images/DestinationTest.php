@@ -18,7 +18,7 @@ class DestinationTest extends \Robinson\Backend\Tests\Models\BaseTestModel
     }
     
     /**
-     * @expectedExceptionMessage imageType must be one of Robinson\Backend\Model\Images\Images.
+     * @expectedExceptionMessage imageType must be one of Robinson\Backend\Models\Images\Images.
      * @expectedException Robinson\Backend\Models\Images\Exception
      */
     public function testSettingWrongImageTypeShouldRaiseException()

@@ -25,7 +25,7 @@ class Destination extends \Robinson\Backend\Models\Images\Images
     {
         if ($this->getDI()->has('config'))
         {
-            return realpath($this->getDI()->getShared('config')->application->destinationImagesPath);
+            return $this->getDI()->getShared('config')->application->destinationImagesPath;
         }
     }
 
