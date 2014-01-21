@@ -236,15 +236,17 @@ abstract class Images extends \Phalcon\Mvc\Model
      */
     public function afterSave()
     {
-        // save to filesystem (we need id for that)
-        if ($this->uploadedFile instanceof \Phalcon\Http\Request\File)
+        // no image attached? pass...
+        if (!$this->uploadedFile)
         {
-            if (!$this->uploadedFile->moveTo($this->basePath . '/' . $this->getRealFilename()))
-            {
-                throw new \Robinson\Backend\Models\Images\Exception(
-                    sprintf('Unable to move uploaded file to destination "%s".', 
-                        $this->basePath . '/' . $this->getRealFilename()));
-            }
+           return; 
+        }
+        
+        if (!$this->uploadedFile->moveTo($this->basePath . '/' . $this->getRealFilename()))
+        {
+            throw new \Robinson\Backend\Models\Images\Exception(
+                sprintf('Unable to move uploaded file to destination "%s".', 
+                    $this->basePath . '/' . $this->getRealFilename()));
         }
     }
     
