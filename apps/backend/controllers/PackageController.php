@@ -124,6 +124,18 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
     }
     
     /**
+     * Deletes package image. Outputs JSON.
+     * 
+     * @return string JSON response
+     */
+    public function deleteImageAction()
+    {
+        $image = \Robinson\Backend\Models\Images\Package::findFirst($this->request->getPost('id'));
+        $this->response->setJsonContent(array('response' => $image->delete()))->setContentType('application/json');
+        return $this->response;
+    }
+    
+    /**
      * Builds data to be used in multi select form element.
      * 
      * @return array
