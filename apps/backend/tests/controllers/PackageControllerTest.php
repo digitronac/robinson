@@ -9,6 +9,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
     {
         parent::setUp($di, $config);
         $this->populateTable('packages');
+        $this->populateTable('package_images');
         $this->vfsfs = \org\bovigo\vfs\vfsStream::setup('root', null, array
         (
             'pdf' => array
@@ -121,11 +122,14 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         
         $mockImageFile = $this->getMockBuilder('Phalcon\Http\Request\File')
             ->disableOriginalConstructor()
-            ->setMethods(array('getName'))
+            ->setMethods(array('getName', 'moveTo'))
             ->getMock();
         $mockImageFile->expects($this->exactly(2))
             ->method('getName')
             ->will($this->returnValue('packageimagetest.jpg'));
+        $mockImageFile->expects($this->once())
+            ->method('moveTo')
+            ->will($this->returnValue(true));
         
         $request = $this->getMockBuilder('Phalcon\Http\Request')
             ->setMethods(array('isPost', 'getUploadedFiles'))
@@ -139,6 +143,15 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             (
                 0 => $mockImageFile,
             )));
+        
+        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
+        $mockImagick->expects($this->any())
+            ->method('scaleimage')
+            ->will($this->returnValue(true));
+        $mockImagick->expects($this->any())
+            ->method('writeimage')
+            ->will($this->returnValue(true));
+        $this->getDI()->set('Imagick', $mockImagick);
         
         $this->getDI()->setShared('request', $request);
         $this->dispatch('/admin/package/update/1');
