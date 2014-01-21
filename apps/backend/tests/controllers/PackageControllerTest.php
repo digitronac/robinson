@@ -155,6 +155,75 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         
         $this->getDI()->setShared('request', $request);
         $this->dispatch('/admin/package/update/1');
+        
+        $package = \Robinson\Backend\Models\Package::findFirst();
+        $this->assertEquals(2, $package->getDestination()->getDestinationId());
+        $this->assertEquals('test package name 2 :)', $package->getPackage());
+        $this->assertEquals('test package description 2 :)', $package->getDescription());
+        $this->assertEquals(999, $package->getPrice());
+        $this->assertEquals(\Robinson\Backend\Models\Package::STATUS_VISIBLE, $package->getStatus());
+        $image = \Robinson\Backend\Models\Images\Package::findFirst(6);
+        $this->assertEquals('6-packageimagetest.jpg', $image->getRealFileName());
+    }
+    
+    public function testUpdatePackageWithNewPdfShouldWorkAsExpected()
+    {
+        $this->registerMockSession();
+        $_POST = array
+        (
+            'destinationId' => 2,
+            'package' => 'test package name 2 :)',
+            'description' => 'test package description 2 :)',
+            'price' => 999,
+            'status' => 1,
+        );
+        
+        $mockPdfFile = $this->getMockBuilder('Phalcon\Http\Request\File')
+            ->disableOriginalConstructor()
+            ->setMethods(array('getName', 'moveTo', 'getKey'))
+            ->getMock();
+        $mockPdfFile->expects($this->exactly(2))
+            ->method('getName')
+            ->will($this->returnValue('packagepdftest.pdf'));
+        $mockPdfFile->expects($this->once())
+            ->method('moveTo')
+            ->will($this->returnValue(true));
+        $mockPdfFile->expects($this->once())
+            ->method('getKey')
+            ->will($this->returnValue('pdf'));
+        
+        $request = $this->getMockBuilder('Phalcon\Http\Request')
+            ->setMethods(array('isPost', 'getUploadedFiles'))
+            ->getMock();
+        $request->expects($this->any())
+            ->method('isPost')
+            ->will($this->returnValue(true));
+        $request->expects($this->once())
+            ->method('getUploadedFiles')
+            ->will($this->returnValue(array
+            (
+                0 => $mockPdfFile,
+            )));
+        
+        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
+        $mockImagick->expects($this->any())
+            ->method('scaleimage')
+            ->will($this->returnValue(true));
+        $mockImagick->expects($this->any())
+            ->method('writeimage')
+            ->will($this->returnValue(true));
+        $this->getDI()->set('Imagick', $mockImagick);
+        
+        $this->getDI()->setShared('request', $request);
+        $this->dispatch('/admin/package/update/1');
+        
+        $package = \Robinson\Backend\Models\Package::findFirst();
+        $this->assertEquals(2, $package->getDestination()->getDestinationId());
+        $this->assertEquals('test package name 2 :)', $package->getPackage());
+        $this->assertEquals('test package description 2 :)', $package->getDescription());
+        $this->assertEquals(999, $package->getPrice());
+        $this->assertEquals(\Robinson\Backend\Models\Package::STATUS_VISIBLE, $package->getStatus());
+        $this->assertEquals('packagepdftest.pdf', $package->getPdf());
     }
     
     public function testDeleteImageShouldExist()

@@ -241,7 +241,7 @@ abstract class Images extends \Phalcon\Mvc\Model
         {
            return; 
         }
-        
+
         if (!$this->uploadedFile->moveTo($this->basePath . '/' . $this->getRealFilename()))
         {
             throw new \Robinson\Backend\Models\Images\Exception(

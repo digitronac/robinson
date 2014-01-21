@@ -387,6 +387,14 @@ class Package extends \Phalcon\Mvc\Model
         return $this->getRelated('destination');
     }
     
+    public function getImages()
+    {
+        return $this->getRelated('images', array
+        (
+            'order' => 'sort ASC',
+        ));
+    }
+    
     /**
      * Adds image to package.
      * 

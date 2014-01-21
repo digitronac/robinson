@@ -51,7 +51,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
         $package = $this->getDI()->get('Robinson\Backend\Models\Package');
         /* @var $package \Robinson\Backend\Models\Package */
         $package = $package->findFirst($this->dispatcher->getParam('id'));
-
+        
         if ($this->request->isPost())
         {
             $destination = $this->getDI()->get('Robinson\Backend\Models\Destinations');
@@ -61,6 +61,24 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 ->setPrice($this->request->getPost('price'))
                 ->setDescription($this->request->getPost('description'))
                 ->setStatus($this->request->getPost('status'));
+            
+            // sort?
+            $sort = $this->request->getPost('sort');
+            
+            if ($sort)
+            {
+                $images = \Robinson\Backend\Models\Images\Package::find(array
+                (
+                    'packageId' => $package->getPackageId(),
+                ));
+
+                // bug here ? if loop thru $destination->images, then cannot save related images on next update
+                foreach ($images as $image)
+                {
+                    $image->setSort($sort[$image->getImageId()]);
+                    $image->update();
+                }
+            }
             
             $images = array();
             $files = $this->request->getUploadedFiles();
@@ -86,10 +104,12 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 $package->images = $images;
             }
             
+            
             if (!$package->update())
             {
                 throw new \Phalcon\Exception('Unable to update package #' . $package->getPackageId());
             }
+           
         }
         
         $this->tag->setDefault('destinationId', $package->getDestination()->getDestination());
