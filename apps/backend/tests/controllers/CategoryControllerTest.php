@@ -302,11 +302,4 @@ class CategoryControllerTest extends BaseTestController
         $this->dispatch('/admin/category/index');
         $this->assertResponseCode(200);
     }
-    
-    public function tearDown()
-    {
-        $this->truncateTable('ImageCategory');
-        $this->truncateTable('Category');
-        parent::tearDown();
-    }
 }

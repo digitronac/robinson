@@ -17,6 +17,7 @@ $jsManager->collection('mainjs')
 <html>
 	<head>
 		<?=$this->tag->getTitle() . PHP_EOL ?>
+                <meta charset="utf-8" />
                 <?=$this->assets->outputCss() . PHP_EOL ?>
                 <?=$this->assets->outputJs() . PHP_EOL ?>
                 <?=$jsManager->outputJs('mainjs') . PHP_EOL ?>

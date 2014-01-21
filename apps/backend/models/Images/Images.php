@@ -327,7 +327,6 @@ abstract class Images extends \Phalcon\Mvc\Model
         }
         
         $cropDir = $this->basePath . '/' . $width . 'x' . $height;
-        
         if (!$this->filesystem->exists($cropDir))
         {
             $this->filesystem->mkdir($cropDir);

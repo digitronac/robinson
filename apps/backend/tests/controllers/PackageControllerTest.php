@@ -20,8 +20,9 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                 'package' => array(),
             ),
         ));
-        $this->getDI()->getShared('config')->application->packagePdfPath = \org\bovigo\vfs\vfsStream::url('pdf/package');
-        $this->getDI()->getShared('config')->application->packageImagesPath = \org\bovigo\vfs\vfsStream::url('img/package');
+        
+        $this->getDI()->getShared('config')->application->packagePdfPath = \org\bovigo\vfs\vfsStream::url('root/pdf/package');
+        $this->getDI()->getShared('config')->application->packageImagesPath = \org\bovigo\vfs\vfsStream::url('root/img/package');
     }
     
     public function testIndexPackageActionShouldExist()

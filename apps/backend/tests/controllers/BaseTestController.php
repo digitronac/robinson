@@ -55,7 +55,7 @@ class BaseTestController extends \Phalcon\Test\FunctionalTestCase
             // Empty the table first
             $this->truncateTable($table);
 
-            $connection = $this->di->get('db');
+            $connection = $this->di->getShared('db');
             $parts = explode('_', $table);
             $suffix = '';
 
