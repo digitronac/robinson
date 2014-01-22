@@ -67,17 +67,14 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             
             if ($sort)
             {
-                $images = \Robinson\Backend\Models\Images\Package::find(array
-                (
-                    'packageId' => $package->getPackageId(),
-                ));
-
-                // bug here ? if loop thru $destination->images, then cannot save related images on next update
-                foreach ($images as $image)
-                {
-                    $image->setSort($sort[$image->getImageId()]);
-                    $image->update();
-                }
+                $this->sort($package, $sort);
+            }
+            
+            // titles?
+            $titles = $this->request->getPost('title');
+            if ($titles)
+            {
+                $this->setImageTitles($package, $titles);
             }
             
             $images = array();
@@ -182,5 +179,51 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
         }
         
         return $select;
+    }
+    
+    /**
+     * Sorts package images order.
+     * 
+     * @param \Robinson\Backend\Models\Package $package package model
+     * @param array $sort new order
+     * 
+     * @return true
+     */
+    protected function sort(\Robinson\Backend\Models\Package $package, array $sort)
+    {
+        $images = \Robinson\Backend\Models\Images\Package::find(array
+        (
+            'packageId' => $package->getPackageId(),
+        ));
+
+        foreach ($images as $image)
+        {
+            $image->setSort($sort[$image->getImageId()]);
+            $image->update();
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Sets image titles.
+     * 
+     * @param \Robinson\Backend\Models\Package $package package model
+     * @param array $titles new titles
+     */
+    protected function setImageTitles(\Robinson\Backend\Models\Package $package, array $titles)
+    {
+        $images = \Robinson\Backend\Models\Images\Package::find(array
+        (
+            'packageId' => $package->getPackageId(),
+        ));
+
+        foreach ($images as $image)
+        {
+            $image->setTitle($titles[$image->getImageId()]);
+            $image->update();
+        }
+        
+        return true;
     }
 }
