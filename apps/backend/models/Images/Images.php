@@ -86,10 +86,20 @@ abstract class Images extends \Phalcon\Mvc\Model
     public function onConstruct()
     {
         $this->basePath = $this->getImagesPath();
+        
         if (!$this->filesystem)
         {
             $this->filesystem = $this->getDI()->getShared('fs');
         }
+        
+        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
+        (
+            'beforeValidationOnCreate' => array
+            (
+                'field' => 'createdAt',
+                'format' => 'Y-m-d H:i:s',
+            ),
+        )));
     }
     
     /**
@@ -213,12 +223,7 @@ abstract class Images extends \Phalcon\Mvc\Model
             $this->sort = ((int) self::maximum(array($this->getImageType() . 'Id=' . $this->getBelongsToId(), 
             'column' => 'sort'))) + 1;
         }
-        
-        if (null === $this->createdAt)
-        {
-            $this->createdAt = date('Y-m-d H:i:s');
-        }
-
+       
         if (!$this->parentSave($data, $whiteList))
         {
             throw new \Robinson\Backend\Models\Images\Exception(sprintf('Unable to save %s image model.', 
