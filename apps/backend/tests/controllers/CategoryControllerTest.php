@@ -302,4 +302,4 @@ class CategoryControllerTest extends BaseTestController
         $this->dispatch('/admin/category/index');
         $this->assertResponseCode(200);
     }
-}
+} 
