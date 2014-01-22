@@ -36,7 +36,7 @@ class Destination extends \Robinson\Backend\Models\Images\Images
      */
     public function initialize()
     {
-        $this->setSource('DestinationImages');
+        $this->setSource('destination_images');
         $this->belongsTo('destinationId', 'Robinson\Backend\Models\Destinations', 'destinationId');
         $this->hasMany('destinationId', 'Robinson\Backend\Models\Package', array
         (

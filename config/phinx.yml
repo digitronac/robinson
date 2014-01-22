@@ -1,0 +1,24 @@
+paths:
+    migrations: %%PHINX_CONFIG_DIR%%/../data/migrations
+        
+environments:
+    default_migration_table: phinxlog
+    default_database: development
+    production:
+        adapter: mysql
+        name: robinson_production
+        port: 3306
+                
+    development:
+        adapter: mysql
+        host: localhost
+        name: robinson_development
+        
+        port: 3306
+                    
+    testing:
+        adapter: mysql
+        host: localhost
+        name: robinson_testing
+        
+        port: 3306

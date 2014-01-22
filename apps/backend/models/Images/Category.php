@@ -13,7 +13,7 @@ class Category extends \Robinson\Backend\Models\Images\Images
      */
     public function getImageId()
     {
-        return (int) $this->imageCategoryId;
+        return (int) $this->categoryImageId;
     }
     
     /**
@@ -36,7 +36,7 @@ class Category extends \Robinson\Backend\Models\Images\Images
      */
     public function initialize()
     {
-        $this->setSource('ImageCategory');
+        $this->setSource('category_images');
         $this->belongsTo('categoryId', 'Robinson\Backend\Models\Category', 'categoryId');
         $this->setImageType(self::IMAGE_TYPE_CATEGORY);
     }

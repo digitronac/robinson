@@ -6,9 +6,9 @@ class IndexControllerTest extends BaseTestController
     public function setUp(\Phalcon\DiInterface $di = null, \Phalcon\Config $config = null)
     {
         parent::setUp($di, $config);
-        $this->populateTable('Category');
-        $this->populateTable('ImageCategory');
-        $this->populateTable('Destinations');
+        $this->populateTable('categories');
+        $this->populateTable('category_images');
+        $this->populateTable('destinations');
     }
     
     public function testIndexActionShouldShowLogin()

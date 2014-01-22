@@ -10,6 +10,10 @@
         },
 	{
             "type": "vcs",
+            "url": "https://github.com/digitronac/phinx"
+	},
+	{
+            "type": "vcs",
             "url": "https://github.com/digitronac/PHP_CodeSniffer"
 	}
 	
@@ -30,7 +34,8 @@
          "phpunit/phpunit": "3.7.28",
          "phpunit/dbunit": "1.3.0",
 	 "phpmd/phpmd": "1.5.0",
-	 "digitronac/phalcon-ide-stubs": "1.2.5"
+	 "digitronac/phalcon-ide-stubs": "1.2.5",
+         "robmorgan/phinx": "dev-0.2.x-dev#918878c4be987dee7f5931eda60e2b68ba34e565"
     },
     "minimum-stability": "dev"
 }   

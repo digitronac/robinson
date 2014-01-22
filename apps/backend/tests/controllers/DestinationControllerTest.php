@@ -8,10 +8,10 @@ class DestinationControllerTest extends BaseTestController
     public function setUp(\Phalcon\DiInterface $di = null, \Phalcon\Config $config = null)
     {
         parent::setUp($di, $config);
-        $this->populateTable('Category');
+        $this->populateTable('categories');
      //   $this->populateTable('ImageCategory');
-        $this->populateTable('Destinations');
-        $this->populateTable('DestinationImages');
+        $this->populateTable('destinations');
+        $this->populateTable('destination_images');
         
         // setup fs
         $this->destinationImagesFolder = \org\bovigo\vfs\vfsStream::setup('img/destination');

@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b96988444774f73e94aba786e045bc7d",
+    "hash": "4c814ffac022c8aeb62a1c9b21dfe546",
     "packages": [
         {
             "name": "imagine/imagine",
@@ -723,6 +723,63 @@
             "time": "2013-07-23 04:42:59"
         },
         {
+            "name": "robmorgan/phinx",
+            "version": "dev-0.2.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/digitronac/phinx.git",
+                "reference": "918878c4be987dee7f5931eda60e2b68ba34e565"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/digitronac/phinx/zipball/918878c4be987dee7f5931eda60e2b68ba34e565",
+                "reference": "918878c4be987dee7f5931eda60e2b68ba34e565",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/class-loader": "2.*",
+                "symfony/config": "2.*",
+                "symfony/console": "2.*",
+                "symfony/yaml": "2.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "bin": [
+                "bin/phinx"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Phinx": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rob Morgan",
+                    "email": "robbym@gmail.com",
+                    "homepage": "http://robmorgan.id.au"
+                }
+            ],
+            "description": "Phinx makes it ridiculously easy to manage the database migrations for your PHP app.",
+            "homepage": "http://phinx.org",
+            "keywords": [
+                "database",
+                "database migrations",
+                "db",
+                "migrations",
+                "phinx"
+            ],
+            "support": {
+                "source": "https://github.com/digitronac/phinx/tree/0.2.x-dev"
+            },
+            "time": "2013-07-19 14:08:46"
+        },
+        {
             "name": "squizlabs/php_codesniffer",
             "version": "dev-master",
             "source": {
@@ -796,6 +853,56 @@
             "time": "2014-01-17 10:06:34"
         },
         {
+            "name": "symfony/class-loader",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/ClassLoader",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/ClassLoader.git",
+                "reference": "7ccd928e3af41d8c5d9a8fc5182fbfc9fb261132"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/7ccd928e3af41d8c5d9a8fc5182fbfc9fb261132",
+                "reference": "7ccd928e3af41d8c5d9a8fc5182fbfc9fb261132",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "symfony/finder": "~2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\ClassLoader\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony ClassLoader Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-01-07 13:29:57"
+        },
+        {
             "name": "symfony/config",
             "version": "dev-master",
             "target-dir": "Symfony/Component/Config",
@@ -842,6 +949,59 @@
             "description": "Symfony Config Component",
             "homepage": "http://symfony.com",
             "time": "2014-01-07 13:29:57"
+        },
+        {
+            "name": "symfony/console",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/Console",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Console.git",
+                "reference": "62a18a52e66662bc4bf1edf0b9916b97caad3418"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/62a18a52e66662bc4bf1edf0b9916b97caad3418",
+                "reference": "62a18a52e66662bc4bf1edf0b9916b97caad3418",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "symfony/event-dispatcher": "~2.1"
+            },
+            "suggest": {
+                "symfony/event-dispatcher": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Console\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Console Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-01-07 15:22:10"
         },
         {
             "name": "symfony/dependency-injection",
@@ -957,7 +1117,8 @@
         "symfony/filesystem": 20,
         "mikey179/vfsstream": 20,
         "phalcon/incubator": 20,
-        "squizlabs/php_codesniffer": 20
+        "squizlabs/php_codesniffer": 20,
+        "robmorgan/phinx": 20
     },
     "platform": {
         "ext-phalcon": "1.2.5",
