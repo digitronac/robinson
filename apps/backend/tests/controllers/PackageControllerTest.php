@@ -370,6 +370,20 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
     public function testPdfPreviewActionShouldWorkAsExpected()
     {
         $this->registerMockSession();
+        \org\bovigo\vfs\vfsStream::create(array
+        (
+            'pdf' => array
+            (
+                'package' => array
+                (
+                    1 => array
+                    (
+                        'pdffile-1.pdf.html' => '<html><head><title>title</title></head><body></body></html>',
+                    ),
+                )
+            ),
+        ), $this->vfsfs);
         $this->dispatch('/admin/package/pdfPreview/1');
+        $this->assertEquals('<html><head><base href="/pdf/package/1/"></head><body></body></html>', trim($this->getContent()));
     }
 }
