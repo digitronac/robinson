@@ -59,6 +59,33 @@ class Package extends \Phalcon\Mvc\Model
         (
             'alias' => 'images',
         ));
+        
+        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
+        (
+            'beforeValidationOnCreate' => array
+            (
+                'field' => 'createdAt',
+                'format' => 'Y-m-d H:i:s',
+            ),
+        )));
+            
+        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
+        (
+            'beforeValidationOnCreate' => array
+            (
+                'field' => 'updatedAt',
+                'format' => 'Y-m-d H:i:s',
+            ),
+        )));
+            
+        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
+        (
+            'beforeValidationOnUpdate' => array
+            (
+                'field' => 'updatedAt',
+                'format' => 'Y-m-d H:i:s',
+            ),
+        )));
     }
     
     /**
@@ -285,18 +312,6 @@ class Package extends \Phalcon\Mvc\Model
      */
     public function beforeValidationOnCreate()
     {
-        if (is_null($this->createdAt))
-        {
-            $this->createdAt = (new \DateTime('now', new \DateTimeZone(date_default_timezone_get())))
-                ->format('Y-m-d H:i:s');
-        }
-        
-        if (is_null($this->updatedAt))
-        {
-            $this->updatedAt = (new \DateTime('now', new \DateTimeZone(date_default_timezone_get())))
-                ->format('Y-m-d H:i:s');
-        }
-        
         if ($this->uploadedPdf instanceof \Phalcon\Http\Request\File)
         {
             $this->setPdf($this->uploadedPdf->getName());
@@ -314,10 +329,7 @@ class Package extends \Phalcon\Mvc\Model
      * @return void
      */
     public function beforeValidationOnUpdate()
-    {
-        $this->updatedAt = (new \DateTime('now', new \DateTimeZone(date_default_timezone_get())))
-            ->format('Y-m-d H:i:s');
-        
+    {   
         if ($this->uploadedPdf instanceof \Phalcon\Http\Request\File)
         {
             $this->setPdf($this->uploadedPdf->getName());
