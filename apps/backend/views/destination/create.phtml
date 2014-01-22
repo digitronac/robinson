@@ -22,7 +22,7 @@
         <div>
             <select class="form-control" name="status" required="required">
 
-                <?php foreach(\Robinson\Backend\Models\Destinations::getStatusMessages() as $status => $message): ?>
+                <?php foreach(\Robinson\Backend\Models\Destination::getStatusMessages() as $status => $message): ?>
 
                 <option value="<?=$status?>"><?=$message?></option>
 

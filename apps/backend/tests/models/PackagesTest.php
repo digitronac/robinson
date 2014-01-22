@@ -32,7 +32,7 @@ class PackageTest extends \Robinson\Backend\Tests\Models\BaseTestModel
             ->method('moveTo')
             ->will($this->returnValue(true));
         
-        $destination = $this->getDI()->get('Robinson\Backend\Models\Destinations');
+        $destination = $this->getDI()->get('Robinson\Backend\Models\Destination');
         $destination = $destination->findFirst(1);
         /* @var $model \Robinson\Backend\Models\Package */
         $model = $this->getDI()->get('Robinson\Backend\Models\Package');

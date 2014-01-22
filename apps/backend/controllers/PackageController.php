@@ -12,7 +12,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
         // create pdf
         if ($this->request->isPost())
         {
-            $destination = $this->getDI()->get('Robinson\Backend\Models\Destinations');
+            $destination = $this->getDI()->get('Robinson\Backend\Models\Destination');
             $destination = $destination->findFirst($this->request->getPost('destinationId'));
             /* @var $package \Robinson\Backend\Models\Package */
             $package = $this->getDI()->get('Robinson\Backend\Models\Package');
@@ -54,7 +54,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
         
         if ($this->request->isPost())
         {
-            $destination = $this->getDI()->get('Robinson\Backend\Models\Destinations');
+            $destination = $this->getDI()->get('Robinson\Backend\Models\Destination');
             $destination = $destination->findFirst($this->request->getPost('destinationId'));
             $package->setPackage($this->request->getPost('package'))
                 ->setDestination($destination)

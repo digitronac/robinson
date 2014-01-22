@@ -1,6 +1,6 @@
 <?php
 namespace Robinson\Backend\Models;
-class Destinations extends \Phalcon\Mvc\Model
+class Destination extends \Phalcon\Mvc\Model
 {
     const STATUS_INVISIBLE = 0;
     const STATUS_VISIBLE = 1;
@@ -55,7 +55,7 @@ class Destinations extends \Phalcon\Mvc\Model
      * 
      * @param string $destination destination name
      * 
-     * @return \Robinson\Backend\Models\Destinations
+     * @return \Robinson\Backend\Models\Destination
      */
     public function setDestination($destination)
     {
@@ -68,7 +68,7 @@ class Destinations extends \Phalcon\Mvc\Model
      * 
      * @param string $description description
      * 
-     * @return \Robinson\Backend\Models\Destinations
+     * @return \Robinson\Backend\Models\Destination
      */
     public function setDescription($description)
     {
@@ -91,7 +91,7 @@ class Destinations extends \Phalcon\Mvc\Model
      * 
      * @param int $status category status
      * 
-     * @return \Robinson\Backend\Models\Destinations
+     * @return \Robinson\Backend\Models\Destination
      */
     public function setStatus($status)
     {
@@ -134,7 +134,7 @@ class Destinations extends \Phalcon\Mvc\Model
      * 
      * @param int $id id
      * 
-     * @return \Robinson\Backend\Models\Destinations
+     * @return \Robinson\Backend\Models\Destination
      */
     public function setDestinationId($id)
     {
@@ -160,7 +160,7 @@ class Destinations extends \Phalcon\Mvc\Model
      * 
      * @param \DateTime $datetime datetime object which will be used for setting datetime
      * 
-     * @return \Robinson\Backend\Models\Destinations
+     * @return \Robinson\Backend\Models\Destination
      */
     public function setUpdatedAt(\DateTime $datetime)
     {
@@ -173,7 +173,7 @@ class Destinations extends \Phalcon\Mvc\Model
      * 
      * @param int $categoryId categoryId
      * 
-     * @return \Robinson\Backend\Models\Destinations
+     * @return \Robinson\Backend\Models\Destination
      */
     public function setCategoryId($categoryId)
     {

@@ -51,7 +51,7 @@ class Package extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSource('packages');
-        $this->belongsTo('destinationId', 'Robinson\Backend\Models\Destinations', 'destinationId', array
+        $this->belongsTo('destinationId', 'Robinson\Backend\Models\Destination', 'destinationId', array
         (
             'alias' => 'destination', 
         ));
@@ -268,11 +268,11 @@ class Package extends \Phalcon\Mvc\Model
     /**
      * Sets package destination.
      * 
-     * @param \Robinson\Backend\Models\Destinations $destination destination model
+     * @param \Robinson\Backend\Models\Destination $destination destination model
      * 
      * @return \Robinson\Backend\Models\Package
      */
-    public function setDestination(\Robinson\Backend\Models\Destinations $destination)
+    public function setDestination(\Robinson\Backend\Models\Destination $destination)
     {
         $this->destination = $destination;
         return $this;
@@ -380,7 +380,7 @@ class Package extends \Phalcon\Mvc\Model
     /**
      * Retrieves destination to which package belongs to.
      * 
-     * @return \Robinson\Backend\Models\Destinations
+     * @return \Robinson\Backend\Models\Destination
      */
     public function getDestination()
     {

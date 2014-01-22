@@ -67,8 +67,8 @@ class DestinationControllerTest extends BaseTestController
         
         $this->getDI()->setShared('request', $request);
         $this->dispatch('/admin/destination/create');
-        /* @var $last \Robinson\Backend\Models\Destinations */
-        $last = \Robinson\Backend\Models\Destinations::findFirst(array
+        /* @var $last \Robinson\Backend\Models\Destination */
+        $last = \Robinson\Backend\Models\Destination::findFirst(array
         (
             'order' => 'destinationId DESC',
         ));
@@ -101,7 +101,7 @@ class DestinationControllerTest extends BaseTestController
             ->will($this->returnValue(true));
         $this->getDI()->setShared('request', $request);
         $this->dispatch('/admin/destination/update/4');
-        $destination = \Robinson\Backend\Models\Destinations::findFirstByDestinationId(4);
+        $destination = \Robinson\Backend\Models\Destination::findFirstByDestinationId(4);
         $this->assertEquals($_POST['categoryId'], $destination->getCategoryId());
         $this->assertEquals($_POST['destination'], $destination->getDestination());
         $this->assertEquals($_POST['description'], $destination->getDescription());

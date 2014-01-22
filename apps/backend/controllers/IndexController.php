@@ -67,7 +67,7 @@ class IndexController extends ControllerBase
         $this->view->setVar('categories', $categories);
         
         /* @var $destinations \Phalcon\Mvc\Model\Resultset\Simple */
-        $destinations = \Robinson\Backend\Models\Destinations::find(array
+        $destinations = \Robinson\Backend\Models\Destination::find(array
         (
             'limit' => 5,
             'status' => 1,

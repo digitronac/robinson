@@ -26,8 +26,8 @@ class DestinationController extends \Phalcon\Mvc\Controller
     {
         if ($this->request->isPost())
         {
-            /* @var $destination \Robinson\Backend\Models\Destinations */
-            $destination = $this->getDI()->get('Robinson\Backend\Models\Destinations');
+            /* @var $destination \Robinson\Backend\Models\Destination */
+            $destination = $this->getDI()->get('Robinson\Backend\Models\Destination');
             $destination->setCategoryId($this->request->getPost('categoryId'))
                 ->setDestination($this->request->getPost('destination'))
                 ->setDescription($this->request->getPost('description'))
@@ -63,8 +63,8 @@ class DestinationController extends \Phalcon\Mvc\Controller
      */
     public function updateAction()
     {
-        /* @var $destination \Robinson\Backend\Models\Destinations */
-        $destination = \Robinson\Backend\Models\Destinations::findFirstByDestinationId($this->dispatcher
+        /* @var $destination \Robinson\Backend\Models\Destination */
+        $destination = \Robinson\Backend\Models\Destination::findFirstByDestinationId($this->dispatcher
             ->getParam('id'));
 
         if ($this->request->isPost())

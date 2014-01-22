@@ -35,7 +35,7 @@ class Category extends \Phalcon\Mvc\Model
         (
             'alias' => 'images',
         ));
-        $this->hasMany('categoryId', 'Robinson\Backend\Models\Destinations', 'categoryId', array
+        $this->hasMany('categoryId', 'Robinson\Backend\Models\Destination', 'categoryId', array
         (
             'alias' => 'destinations',
         ));
