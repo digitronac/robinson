@@ -205,7 +205,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             (
                 0 => $mockPdfFile,
             )));
-        
+         
         $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
         $mockImagick->expects($this->any())
             ->method('scaleimage')
