@@ -185,7 +185,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
      * Sorts package images order.
      * 
      * @param \Robinson\Backend\Models\Package $package package model
-     * @param array $sort new order
+     * @param array                            $sort    new order
      * 
      * @return true
      */
@@ -209,7 +209,9 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
      * Sets image titles.
      * 
      * @param \Robinson\Backend\Models\Package $package package model
-     * @param array $titles new titles
+     * @param array                            $titles  new titles
+     * 
+     * @return bool
      */
     protected function setImageTitles(\Robinson\Backend\Models\Package $package, array $titles)
     {
