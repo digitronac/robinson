@@ -26,14 +26,10 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
         if ($this->request->isPost())
         {
             $category = new \Robinson\Backend\Models\Category();
-            $category
-                ->setCategory($this->request->getPost('category'))
+            $category->setCategory($this->request->getPost('category'))
                 ->setDescription($this->request->getPost('description'))
-                ->setStatus($this->request->getPost('status'));
-            $category
-                ->setCreatedAt(new \DateTime('now', new \DateTimeZone(date_default_timezone_get())))
-                ->setUpdatedAt(new \DateTime('now', new \DateTimeZone(date_default_timezone_get())))
-                ->save();
+                ->setStatus($this->request->getPost('status'))
+                ->create();
 
             return $this->response->redirect(array('for' => 'admin-update', 'controller' => 'category', 
                 'action' => 'update', 'id' => $category->getCategoryId()));
@@ -55,8 +51,7 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
         {
             $category->setCategory($this->request->getPost('category'))
                 ->setDescription($this->request->getPost('description'))
-                ->setStatus($this->request->getPost('status'))
-                ->setUpdatedAt(new \DateTime('now', new \DateTimeZone(date_default_timezone_get())));
+                ->setStatus($this->request->getPost('status'));
      
             $images = array();
             // files upload

@@ -35,10 +35,38 @@ class Category extends \Phalcon\Mvc\Model
         (
             'alias' => 'images',
         ));
+        
         $this->hasMany('categoryId', 'Robinson\Backend\Models\Destination', 'categoryId', array
         (
             'alias' => 'destinations',
         ));
+        
+        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
+        (
+            'beforeValidationOnCreate' => array
+            (
+                'field' => 'createdAt',
+                'format' => 'Y-m-d H:i:s',
+            ),
+        )));
+            
+        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
+        (
+            'beforeValidationOnCreate' => array
+            (
+                'field' => 'updatedAt',
+                'format' => 'Y-m-d H:i:s',
+            ),
+        )));
+            
+        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
+        (
+            'beforeValidationOnUpdate' => array
+            (
+                'field' => 'updatedAt',
+                'format' => 'Y-m-d H:i:s',
+            ),
+        )));
     }
     
     /**
@@ -121,7 +149,7 @@ class Category extends \Phalcon\Mvc\Model
     {
         return ($this->getStatus() === self::STATUS_VISIBLE);
     }
-   
+    
     /**
      * Gets categoryId.
      * 
@@ -142,32 +170,6 @@ class Category extends \Phalcon\Mvc\Model
     public function setCategoryId($id)
     {
         $this->categoryId = (int) $id;
-        return $this;
-    }
-    
-    /**
-     * Sets datetime when category was created.
-     * 
-     * @param \DateTime $datetime datetime object whcih will be used for setting datetime
-     * 
-     * @return \Robinson\Backend\Models\Category
-     */
-    public function setCreatedAt(\DateTime $datetime)
-    {
-        $this->createdAt = $datetime->format('Y-m-d H:i:s');
-        return $this;
-    }
-    
-    /**
-     * Sets datetime when category was last updated.
-     * 
-     * @param \DateTime $datetime datetime object whcih will be used for setting datetime
-     * 
-     * @return \Robinson\Backend\Models\Category
-     */
-    public function setUpdatedAt(\DateTime $datetime)
-    {
-        $this->updatedAt = $datetime->format('Y-m-d H:i:s');
         return $this;
     }
     
