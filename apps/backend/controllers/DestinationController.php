@@ -31,12 +31,10 @@ class DestinationController extends \Phalcon\Mvc\Controller
             $destination->setCategoryId($this->request->getPost('categoryId'))
                 ->setDestination($this->request->getPost('destination'))
                 ->setDescription($this->request->getPost('description'))
-                ->setStatus($this->request->getPost('status'))
-                ->setCreatedAt(new \DateTime('now', new \DateTimeZone('Europe/Belgrade')))
-                ->setUpdatedAt(new \DateTime('now', new \DateTimeZone('Europe/Belgrade')));
+                ->setStatus($this->request->getPost('status'));
             
             // redirect to update upon successful save
-            if ($destination->save())
+            if ($destination->create())
             {
                 return $this->response->redirect(array
                 (
@@ -72,8 +70,7 @@ class DestinationController extends \Phalcon\Mvc\Controller
             $destination->setCategoryId($this->request->getPost('categoryId'))
                 ->setDestination($this->request->getPost('destination'))
                 ->setDescription($this->request->getPost('description'))
-                ->setStatus($this->request->getPost('status'))
-                ->setUpdatedAt(new \DateTime('now', new \DateTimeZone(date_default_timezone_get())));
+                ->setStatus($this->request->getPost('status'));
             
             // sort?
             $sort = $this->request->getPost('sort');
@@ -102,7 +99,7 @@ class DestinationController extends \Phalcon\Mvc\Controller
          
             $destination->images = $images;
             
-            $destination->save();
+            $destination->update();
             
         }
         

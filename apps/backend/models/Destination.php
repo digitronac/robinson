@@ -36,6 +36,33 @@ class Destination extends \Phalcon\Mvc\Model
         $this->hasMany('destinationId', 'Robinson\Backend\Models\Images\Destination', 
             'destinationId', array('alias' => 'images'));
         $this->belongsTo('categoryId', 'Robinson\Backend\Models\Category', 'categoryId');
+        
+        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
+        (
+            'beforeValidationOnCreate' => array
+            (
+                'field' => 'createdAt',
+                'format' => 'Y-m-d H:i:s',
+            ),
+        )));
+            
+        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
+        (
+            'beforeValidationOnCreate' => array
+            (
+                'field' => 'updatedAt',
+                'format' => 'Y-m-d H:i:s',
+            ),
+        )));
+            
+        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
+        (
+            'beforeValidationOnUpdate' => array
+            (
+                'field' => 'updatedAt',
+                'format' => 'Y-m-d H:i:s',
+            ),
+        )));
     }
     
     /**
@@ -139,32 +166,6 @@ class Destination extends \Phalcon\Mvc\Model
     public function setDestinationId($id)
     {
         $this->destinationId = (int) $id;
-        return $this;
-    }
-    
-    /**
-     * Sets datetime when destination was created.
-     * 
-     * @param \DateTime $datetime datetime object whcih will be used for setting datetime
-     * 
-     * @return \Robinson\Backend\Models\Destination
-     */
-    public function setCreatedAt(\DateTime $datetime)
-    {
-        $this->createdAt = $datetime->format('Y-m-d H:i:s');
-        return $this;
-    }
-    
-    /**
-     * Sets datetime when destination was last updated.
-     * 
-     * @param \DateTime $datetime datetime object which will be used for setting datetime
-     * 
-     * @return \Robinson\Backend\Models\Destination
-     */
-    public function setUpdatedAt(\DateTime $datetime)
-    {
-        $this->updatedAt = $datetime->format('Y-m-d H:i:s');
         return $this;
     }
     
