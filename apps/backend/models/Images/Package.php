@@ -57,6 +57,11 @@ class Package extends \Robinson\Backend\Models\Images\Images
         $this->setImageType(self::IMAGE_TYPE_PACKAGE);
     }
     
+    /**
+     * Executed on construct.
+     * 
+     * @return bool
+     */
     public function onConstruct()
     {
         $this->setImageType(self::IMAGE_TYPE_PACKAGE);
