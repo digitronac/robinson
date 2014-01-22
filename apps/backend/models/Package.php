@@ -387,25 +387,17 @@ class Package extends \Phalcon\Mvc\Model
         return $this->getRelated('destination');
     }
     
+    /**
+     * Returns images sorted by sort.
+     * 
+     * @return \Phalcon\Mvc\Model\Resultset\Simple
+     */
     public function getImages()
     {
         return $this->getRelated('images', array
         (
             'order' => 'sort ASC',
         ));
-    }
-    
-    /**
-     * Adds image to package.
-     * 
-     * @param \Robinson\Backend\Models\Images\Package $packageImage image to be added
-     * 
-     * @return \Robinson\Backend\Models\Package
-     */
-    public function addImage(\Robinson\Backend\Models\Images\Package $packageImage)
-    {
-        $this->imagesContainer->attach($packageImage);
-        return $this;
     }
     
     /**

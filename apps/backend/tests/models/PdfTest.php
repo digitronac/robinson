@@ -62,9 +62,18 @@ class PdfTest extends \Robinson\Backend\Tests\Models\BaseTestModel
     public function testCallingGetHtmlOnNonExistingFileShouldThrowException()
     {
         $package = \Robinson\Backend\Models\Package::findFirst();
-        $model = $this->getDI()->get('Robinson\Backend\Models\Pdf', array($this->getDI()->getShared('fs'), $package, 
-            $this->getDI()->getShared('config')->application->packagePdfPath));
-        $model->getHtmlFile();
+        $mockModel = $this->getMockBuilder('Robinson\Backend\Models\Pdf')
+            ->setConstructorArgs(array
+            (
+                $this->getDI()->getShared('fs'), $package, 
+                $this->getDI()->getShared('config')->application->packagePdfPath
+            ))
+            ->setMethods(array('execute'))
+            ->getMock();
+        $mockModel->expects($this->once())
+            ->method('execute')
+            ->will($this->returnValue(true));
+        $mockModel->getHtmlFile();
     }
    
     public function testCallingGetHtmlOnExistingFileShouldThrowException()
