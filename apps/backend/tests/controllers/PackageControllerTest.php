@@ -366,4 +366,10 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         $this->assertAction('deleteImage');
         $this->assertController('package');
     }
+    
+    public function testPdfPreviewActionShouldWorkAsExpected()
+    {
+        $this->registerMockSession();
+        $this->dispatch('/admin/package/pdfPreview/1');
+    }
 }
