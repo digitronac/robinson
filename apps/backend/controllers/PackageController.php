@@ -91,7 +91,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 /* @var $packageImage \Robinson\Backend\Models\Images\Package */
                 $packageImage = $this->getDI()->get('Robinson\Backend\Models\Images\Package');
                 $packageImage->createFromUploadedFile($file)
-                    ->setTitle('package');
+                    ->setTitle($file->getName());
 
                $images[] = $packageImage;
             }

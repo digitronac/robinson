@@ -25,7 +25,7 @@ class Package extends \Robinson\Backend\Models\Images\Images
      */
     public function getImageId()
     {
-        return $this->packageImageId;
+        return (int) $this->packageImageId;
     }
     
     /**

@@ -124,7 +124,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             ->disableOriginalConstructor()
             ->setMethods(array('getName', 'moveTo'))
             ->getMock();
-        $mockImageFile->expects($this->exactly(2))
+        $mockImageFile->expects($this->exactly(3))
             ->method('getName')
             ->will($this->returnValue('packageimagetest.jpg'));
         $mockImageFile->expects($this->once())
@@ -164,6 +164,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         $this->assertEquals(\Robinson\Backend\Models\Package::STATUS_VISIBLE, $package->getStatus());
         $image = \Robinson\Backend\Models\Images\Package::findFirst(6);
         $this->assertEquals('6-packageimagetest.jpg', $image->getRealFileName());
+        $this->assertEquals('packageimagetest.jpg', $image->getTitle());
     }
     
     public function testUpdatePackageWithNewPdfShouldWorkAsExpected()
@@ -242,7 +243,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             ->disableOriginalConstructor()
             ->setMethods(array('getName', 'moveTo'))
             ->getMock();
-        $mockImageFile->expects($this->exactly(2))
+        $mockImageFile->expects($this->exactly(3))
             ->method('getName')
             ->will($this->returnValue('packageimagetest.jpg'));
         $mockImageFile->expects($this->once())
@@ -300,6 +301,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         // image set?
         $image = \Robinson\Backend\Models\Images\Package::findFirst(6);
         $this->assertEquals('6-packageimagetest.jpg', $image->getRealFileName());
+        $this->assertEquals('packageimagetest.jpg', $image->getTitle());
     }
     
     public function testSortingPackageImagesShouldWorkAsExpected()
@@ -357,6 +359,150 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         {
             $this->assertEquals($_POST['sort'][$image->getImageId()], $image->getSort());
         }
+    }
+    
+    public function testChangingTitlesOnImagesShouldWorkAsExpected()
+    {
+        $this->registerMockSession();
+        $_POST = array
+        (
+            'destinationId' => 2,
+            'package' => 'test package name 2 :)',
+            'description' => 'test package description 2 :)',
+            'price' => 999,
+            'status' => 1,
+            'title' => array
+            (
+                1 => 'image 1',
+                2 => 'image 2',
+                3 => 'image 3',
+                4 => 'image 4',
+                5 => 'image 5',
+            ),
+        );
+        
+       
+        $request = $this->getMockBuilder('Phalcon\Http\Request')
+            ->setMethods(array('isPost'))
+            ->getMock();
+        $request->expects($this->any())
+            ->method('isPost')
+            ->will($this->returnValue(true));
+        
+        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
+        $mockImagick->expects($this->any())
+            ->method('scaleimage')
+            ->will($this->returnValue(true));
+        $mockImagick->expects($this->any())
+            ->method('writeimage')
+            ->will($this->returnValue(true));
+        $this->getDI()->set('Imagick', $mockImagick);
+        
+        $this->getDI()->setShared('request', $request);
+        $this->dispatch('/admin/package/update/1');
+        
+        $package = \Robinson\Backend\Models\Package::findFirst();
+        $this->assertEquals(2, $package->getDestination()->getDestinationId());
+        $this->assertEquals('test package name 2 :)', $package->getPackage());
+        $this->assertEquals('test package description 2 :)', $package->getDescription());
+        $this->assertEquals(999, $package->getPrice());
+        $this->assertEquals(\Robinson\Backend\Models\Package::STATUS_VISIBLE, $package->getStatus());
+        $images = \Robinson\Backend\Models\Images\Package::find(array
+        (
+            'packageId' => 1,
+        ));
+        
+        foreach ($images as $image)
+        {
+            $this->assertEquals($_POST['title'][$image->getImageId()], $image->getTitle());
+        }
+    }
+    
+    public function testChangingTitlesOnImagesWithNewImageUploadShouldWorkAsExpected()
+    {
+        $this->registerMockSession();
+        $_POST = array
+        (
+            'destinationId' => 2,
+            'package' => 'test package name 2 :)',
+            'description' => 'test package description 2 :)',
+            'price' => 999,
+            'status' => 1,
+            'title' => array
+            (
+                1 => 'image 1',
+                2 => 'image 2',
+                3 => 'image 3',
+                4 => 'image 4',
+                5 => 'image 5',
+            ),
+        );
+        
+        
+        // new image
+        
+        $mockImageFile = $this->getMockBuilder('Phalcon\Http\Request\File')
+            ->disableOriginalConstructor()
+            ->setMethods(array('getName', 'moveTo'))
+            ->getMock();
+        $mockImageFile->expects($this->exactly(3))
+            ->method('getName')
+            ->will($this->returnValue('newpngimage.png'));
+        $mockImageFile->expects($this->once())
+            ->method('moveTo')
+            ->will($this->returnValue(true));
+       
+        // request
+        $request = $this->getMockBuilder('Phalcon\Http\Request')
+            ->setMethods(array('isPost', 'getUploadedFiles'))
+            ->getMock();
+        $request->expects($this->any())
+            ->method('isPost')
+            ->will($this->returnValue(true));
+        $request->expects($this->once())
+            ->method('getUploadedFiles')
+            ->will($this->returnValue(array
+            (
+                0 => $mockImageFile,
+            )));
+        
+        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
+        $mockImagick->expects($this->any())
+            ->method('scaleimage')
+            ->will($this->returnValue(true));
+        $mockImagick->expects($this->any())
+            ->method('writeimage')
+            ->will($this->returnValue(true));
+        $this->getDI()->set('Imagick', $mockImagick);
+        
+        $this->getDI()->setShared('request', $request);
+        $this->dispatch('/admin/package/update/1');
+        
+        $package = \Robinson\Backend\Models\Package::findFirst();
+        $this->assertEquals(2, $package->getDestination()->getDestinationId());
+        $this->assertEquals('test package name 2 :)', $package->getPackage());
+        $this->assertEquals('test package description 2 :)', $package->getDescription());
+        $this->assertEquals(999, $package->getPrice());
+        $this->assertEquals(\Robinson\Backend\Models\Package::STATUS_VISIBLE, $package->getStatus());
+        $images = \Robinson\Backend\Models\Images\Package::find(array
+        (
+            'packageId' => 1,
+        ));
+        
+        foreach ($images as $image)
+        {
+            // new image, do not check changed title
+            if($image->getImageId() === 6)
+            {
+                continue;
+            }
+            $this->assertEquals($_POST['title'][$image->getImageId()], $image->getTitle());
+        }
+
+        // image set?
+        $image = \Robinson\Backend\Models\Images\Package::findFirst(6);
+        $this->assertEquals('6-newpngimage.png', $image->getRealFileName());
+        $this->assertEquals('newpngimage.png', $image->getTitle());
     }
     
     public function testDeleteImageShouldExist()
