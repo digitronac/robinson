@@ -6,8 +6,8 @@ class CategoryTest extends \Robinson\Backend\Tests\Models\BaseTestModel
     protected function setUp(\Phalcon\DiInterface $di = null, \Phalcon\Config $config = null)
     {
         parent::setUp($di, $config);
-        $this->populateTable('Category');
-        $this->populateTable('ImageCategory');
+        $this->populateTable('categories');
+        $this->populateTable('category_images');
     }
     public function testCallingImageIdShouldWorkAsExpected()
     {

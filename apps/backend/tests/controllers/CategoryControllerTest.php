@@ -8,8 +8,8 @@ class CategoryControllerTest extends BaseTestController
     public function setUp(\Phalcon\DiInterface $di = null, \Phalcon\Config $config = null)
     {
         parent::setUp($di, $config);
-        $this->populateTable('Category');
-        $this->populateTable('ImageCategory');
+        $this->populateTable('categories');
+        $this->populateTable('category_images');
         // setup fs
         $this->categoryImagesFolder = \org\bovigo\vfs\vfsStream::setup('img/category');
         $this->getDI()->getShared('config')->application->categoryImagesPath = \org\bovigo\vfs\vfsStream::url('img/category');

@@ -1,9 +1,9 @@
 <?php
 namespace Phalcon\Test\Fixtures;
-class ImageCategory
+class CategoryImages
 {
     /**
-     * Creates ImageCategory fixtures.
+     * Creates CategoryImages fixtures.
      * 
      * @param array $records records
      * 

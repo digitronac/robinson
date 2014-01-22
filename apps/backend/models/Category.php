@@ -30,7 +30,7 @@ class Category extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->setSource('Category');
+        $this->setSource('categories');
         $this->hasMany('categoryId', 'Robinson\Backend\Models\Images\Category', 'categoryId', array
         (
             'alias' => 'images',

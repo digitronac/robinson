@@ -1,9 +1,9 @@
 <?php
 namespace Phalcon\Test\Fixtures;
-class Category
+class Categories
 {
     /**
-     * Gets category fixtures.
+     * Gets categories fixtures.
      * 
      * @param array $records records
      * 

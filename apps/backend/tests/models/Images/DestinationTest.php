@@ -7,8 +7,8 @@ class DestinationTest extends \Robinson\Backend\Tests\Models\BaseTestModel
     {
         parent::setUp($di, $config);
   
-        $this->populateTable('Destinations');
-        $this->populateTable('DestinationImages');
+        $this->populateTable('destinations');
+        $this->populateTable('destination_images');
     }
     
     public function testCreatingModelShouldCreateDestinationObject()
@@ -87,7 +87,7 @@ class DestinationTest extends \Robinson\Backend\Tests\Models\BaseTestModel
     
     public function testSavingRecordShouldWorkAsExpected()
     {
-        $this->truncateTable('DestinationImages');
+        $this->truncateTable('destination_images');
         $model = $this->makeModel();
         $model->setImageType(\Robinson\Backend\Models\Images\Images::IMAGE_TYPE_DESTINATION)
             ->setSort(1)
