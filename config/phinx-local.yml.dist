@@ -1,0 +1,7 @@
+environments:
+    development:
+        user: root
+        pass: password
+    testing:
+        user: root
+        pass: password
