@@ -132,12 +132,6 @@ $di->setShared('log', function() use ($di)
     
     if ($di->getService('config')->resolve()->application->log->enable)
     {
-        $fileLogger = new \Phalcon\Logger\Adapter\File($logFile);
-        //$jsonFormatter = new \Phalcon\Logger\Formatter\Json();
-        $fireFormatter = new \Phalcon\Logger\Formatter\Firephp();
-        $fileLogger->setFormatter($fireFormatter);
-        $log->push($fileLogger);
-        
         if (!is_file($logFile))
         {
             umask(0);
@@ -148,6 +142,12 @@ $di->setShared('log', function() use ($di)
                 touch($logFile);
             }
         }
+        
+        $fileLogger = new \Phalcon\Logger\Adapter\File($logFile);
+        //$jsonFormatter = new \Phalcon\Logger\Formatter\Json();
+        $fireFormatter = new \Phalcon\Logger\Formatter\Firephp();
+        $fileLogger->setFormatter($fireFormatter);
+        $log->push($fileLogger);  
     }
 
     if (in_array($di->getService('request')->resolve()->getClientAddress(), 

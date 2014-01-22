@@ -77,6 +77,13 @@
                     'value' => $image->getSort(),
                 ))?>
                 
+                <?=$this->tag->textField(array
+                (
+                    'title[' . $image->getImageId() . ']',
+                    'size' => 20,
+                    'value' => $image->getTitle(),
+                ))?>
+                
             </dd>
             
         <?php endforeach ?>
