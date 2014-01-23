@@ -165,7 +165,6 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             'order' => 'category',
         ));
         
-        
         // build select
         $select = array();
         foreach ($categories as $category)

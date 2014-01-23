@@ -3,26 +3,7 @@
     <form method="post" enctype="multipart/form-data">
         <div>
             
-            <select class="form-control" name="destinationId" required="required">
-                
-                <option value="">-- Izaberi destinaciju --</option>
-                
-                <?php foreach($select as $group => $destinations): ?>
-                
-                <!-- group -->
-                <optgroup label="<?=$this->escaper->escapeHtmlAttr($group)?>"><?=$this->escaper->escapeHtml($group)?></optgroup>
-                
-                    <!-- options -->
-                    
-                    <?php foreach($destinations as $destinationId => $destination): ?>
-
-                    <option <?=($defaultDestinationId === $destinationId) ? 'selected="selected" ' : ''?>value="<?=$destinationId?>"><?=$this->escaper->escapeHtml($destination)?></option>
-
-                    <?php endforeach ?>
-                    
-                <?php endforeach ?>
-                    
-            </select>
+<?=(new \Robinson\Backend\Tag\MultiSelect('destinationId', $select, '-- Izaberi destinatciju --', $defaultDestinationId))?>
            
         </div>
         
