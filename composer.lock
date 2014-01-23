@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "4c814ffac022c8aeb62a1c9b21dfe546",
+    "hash": "c4cc6866e93fba186a15c0df55b5ff90",
     "packages": [
         {
             "name": "imagine/imagine",
@@ -785,12 +785,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/digitronac/PHP_CodeSniffer.git",
-                "reference": "685bd517b83d55c8e9c73b78de86e030681a3def"
+                "reference": "e1d066241476f478a0766ef19e1e8b350ae5c8c6"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/digitronac/PHP_CodeSniffer/zipball/685bd517b83d55c8e9c73b78de86e030681a3def",
-                "reference": "685bd517b83d55c8e9c73b78de86e030681a3def",
+                "reference": "e1d066241476f478a0766ef19e1e8b350ae5c8c6",
                 "shasum": ""
             },
             "require": {
@@ -850,7 +850,7 @@
                 "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name%5B%5D=PHP_CodeSniffer",
                 "source": "https://github.com/squizlabs/PHP_CodeSniffer"
             },
-            "time": "2014-01-17 10:06:34"
+            "time": "2014-01-23 18:05:27"
         },
         {
             "name": "symfony/class-loader",

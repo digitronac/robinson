@@ -256,7 +256,7 @@ abstract class Images extends \Phalcon\Mvc\Model
                     $this->basePath . '/' . $this->getRealFilename()));
         }
         
-        if(!$this->getDI()->getShared('config')->application->watermark->enable)
+        if (!$this->getDI()->getShared('config')->application->watermark->enable)
         {
             return;
         }
@@ -364,6 +364,13 @@ abstract class Images extends \Phalcon\Mvc\Model
         
     }
     
+    /**
+     * Applies watermark to image.
+     * 
+     * @param string $destination path where watermarked image will be saved
+     * 
+     * @return bool
+     */
     protected function applyWatermark($destination)
     {
         return $this->getDI()->getShared('watermark')->filter(array

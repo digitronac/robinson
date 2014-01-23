@@ -2,6 +2,11 @@
 namespace Robinson\Backend\Controllers;
 class PackageController extends \Robinson\Backend\Controllers\ControllerBase
 {
+    /**
+     * Index page, lists packages.
+     * 
+     * @return void
+     */
     public function indexAction()
     {
         $this->view->packages = array();

@@ -76,10 +76,15 @@ class IndexController extends ControllerBase
         $this->view->setVar('destinations', $destinations);
     }
     
+    /**
+     * Destroys sesion and redirects to index.
+     * 
+     * @return \Phalcon\Http\Response
+     */
     public function logoutAction()
     {
         $this->session->destroy();
-        $this->response->redirect(array
+        return $this->response->redirect(array
         (
             'for' => 'admin',
             'controller' => 'index',
