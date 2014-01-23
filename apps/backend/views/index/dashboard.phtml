@@ -15,7 +15,7 @@
 
             </ul>
         </dd>
-        <dt>Destinacije</dt>
+        <dt><h4>Destinacije</h4></dt>
         <dd>
             <ul>
                 
@@ -26,6 +26,38 @@
                 <?php endforeach ?>
                 
                 <li><a href="<?=$this->url->get(array('for' => 'admin', 'controller' => 'destination', 'action' => 'create'))?>">Dodaj novu destinaciju</a></li>
+            </ul>
+        </dd>
+        <dt><h4>Aranzmani</h4></dt>
+        <dd>
+            <ul>
+                
+                <?php foreach ($packages as $package): ?>
+                
+                <li><?=$this->tag->linkTo(array
+                (
+                    array
+                    (
+                        'for' => 'admin-update',
+                        'controller' => 'package',
+                        'action' => 'update',
+                        'id' => $package->getPackageId(),
+                    ),
+                    $package->getPackage(),
+                ));?></li>
+                
+                <?php endforeach ?>
+                
+                <li><?=$this->tag->linkTo(array
+                (
+                    array
+                    (
+                        'for' => 'admin',
+                        'controller' => 'package',
+                        'action' => 'create',
+                    ),
+                    'Dodaj novu destinaciju'
+                ))?></li>
                 
             </ul>
         </dd>

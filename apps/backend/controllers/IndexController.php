@@ -74,6 +74,14 @@ class IndexController extends ControllerBase
             'order' => 'destinationId DESC',
         ));
         $this->view->setVar('destinations', $destinations);
+        
+        $packages = \Robinson\Backend\Models\Package::find(array
+        (
+            'limit' => 5,
+            'status' => 1,
+            'order' => 'packageId DESC',
+        ));
+        $this->view->packages = $packages;
     }
     
     /**
