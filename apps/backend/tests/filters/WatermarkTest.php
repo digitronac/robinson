@@ -1,11 +1,11 @@
 <?php
 namespace Robinson\Backend\Tests\Filter;
 // @codingStandardsIgnoreStart
-class WatermarkTest extends \Phalcon\Test\UnitTestCase
+class WatermarkTest extends \Robinson\Backend\Tests\Models\BaseTestModel
 {
     protected $vfs;
     
-    protected function setUp(\Phalcon\DiInterface $di = null, \Phalcon\Config $config = null)
+    public function setUp(\Phalcon\DiInterface $di = null, \Phalcon\Config $config = null)
     {
         parent::setUp($di, $config);
         
@@ -20,8 +20,8 @@ class WatermarkTest extends \Phalcon\Test\UnitTestCase
                 ),
             ),
         ));
-        
-        $this->getDI()->getShared('config')->applicaton->watermark->watermark = \org\bovigo\vfs\vfsStream::url('root/img/assets/watermark.png');
+
+        $this->getDI()->getShared('config')->application->watermark->watermark = \org\bovigo\vfs\vfsStream::url('root/img/assets/watermark.png');
     }
     
     public function testCreatingFilterShouldWork()
@@ -38,9 +38,9 @@ class WatermarkTest extends \Phalcon\Test\UnitTestCase
     public function testCallingFilterShouldIncreaseByteSize()
     {
         $watermark = $this->makeImagickWatermark();
-        $originalsize = strlen(file_get_contents(\org\bovigo\vfs\vfsStream::url('root/img/assets/image/image-to-watermarked.jpg')));
+        $originalsize = strlen(file_get_contents(\org\bovigo\vfs\vfsStream::url('root/img/assets/image-to-be-watermarked.jpg')));
         $watermark->filter(\org\bovigo\vfs\vfsStream::url('img/assets/image-to-be-watermarked.jpg'));
-        $newsize = strlen(file_get_contents(\org\bovigo\vfs\vfsStream::url('root/img/assets/image/image-to-watermarked.jpg')));
+        $newsize = strlen(file_get_contents(\org\bovigo\vfs\vfsStream::url('root/img/assets/image-to-be-watermarked.jpg')));
         $this->assertGreaterThan($newsize, $originalsize);
     }
     
