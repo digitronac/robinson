@@ -109,12 +109,11 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
            
         }
         
-        $this->tag->setDefault('destinationId', $package->getDestination()->getDestination());
+        $this->tag->setDefault('destinationId', $package->getDestination()->getDestinationId());
         $this->tag->setDefault('package', $package->getPackage());
         $this->tag->setDefault('price', $package->getPrice());
         $this->tag->setDefault('description', $package->getDescription());
         $this->tag->setDefault('status', $package->getStatus());
-        $this->view->defaultDestinationId = $package->getDestination()->getDestinationId();
         
         $this->view->select = $this->buildDestinationMultiSelectData();
         $this->view->package = $package;
