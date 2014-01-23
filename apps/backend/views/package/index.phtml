@@ -1,0 +1,46 @@
+
+<div class="admin package index">
+    <form>
+<?=(new \Robinson\Backend\Tag\MultiSelect('destinationId', $select, '-- Izaberi destinatciju --')) . PHP_EOL ?>
+    </form>
+    <p><?=$this->tag->linkTo(array(array
+    (
+        'for' => 'admin',
+        'controller' => 'package',
+        'action' => 'create',
+    ), 'Dodaj novi aranzman'))?></p>
+    <div>
+        <?php if($packages): ?>
+        
+        <h3>Aranzmani:</h3>
+        
+        <ul>
+            
+            <?php foreach ($packages as $package): ?>
+            
+            <li><?=$this->tag->linkTo(array
+            (
+                array
+                (
+                    'for' => 'admin-update',
+                    'controller' => 'package',
+                    'action' => 'update',
+                    'id' => $package->getPackageId(),
+                ), 
+                $package->getPackage(),
+                'style' => ($package->isNotVisible()) ? 'text-decoration: line-through' : '',
+            ))?></li>
+            
+            <?php endforeach ?>
+            
+        </ul>
+        
+        <?php endif ?>
+    </div>
+</div>
+<script type="text/javascript">
+    $('select').on('change', function(elem)
+    {
+        $('form').trigger('submit');
+    });
+</script>

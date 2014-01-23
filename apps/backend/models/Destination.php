@@ -145,6 +145,16 @@ class Destination extends \Phalcon\Mvc\Model
     {
         return ($this->getStatus() === self::STATUS_VISIBLE);
     }
+    
+    /**
+     * Not visible?
+     * 
+     * @return type
+     */
+    public function isNotVisible()
+    {
+        return ($this->getStatus() === self::STATUS_INVISIBLE);
+    }
    
     /**
      * Gets destinationId.
