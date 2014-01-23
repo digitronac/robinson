@@ -15,7 +15,6 @@ class DestinationController extends \Phalcon\Mvc\Controller
         ));
         
         $this->view->setVar('categories', $categories);
-        $this->view->select = $this->buildDestinationMultiSelectData();
     }
     
     /**
@@ -127,32 +126,5 @@ class DestinationController extends \Phalcon\Mvc\Controller
         $image = \Robinson\Backend\Models\Images\Destination::findFirst($this->request->getPost('id'));
         $this->response->setJsonContent(array('response' => $image->delete()))->setContentType('application/json');
         return $this->response;
-    }
-    
-    /**
-     * Builds data to be used in multi select form element.
-     * 
-     * @return array
-     */
-    protected function buildDestinationMultiSelectData()
-    {
-        $categories = \Robinson\Backend\Models\Category::find(array
-        (
-            'order' => 'category',
-        ));
-        
-        // build select
-        $select = array();
-        foreach ($categories as $category)
-        {
-            $select[$category->getCategory()] = array();
-            
-            foreach ($category->getDestinations() as $destination)
-            {
-                $select[$category->getCategory()][$destination->getDestinationId()] = $destination->getDestination();
-            }
-        }
-        
-        return $select;
     }
 }
