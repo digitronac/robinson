@@ -16,7 +16,7 @@ class WatermarkTest extends \Robinson\Backend\Tests\Models\BaseTestModel
                 'assets' => array
                 (
                     'watermark.png' => file_get_contents($this->getDI()->getShared('config')->application->watermark->watermark),
-                    'image-to-be-watermarked.jpg' => file_get_contents(APPLICATION_PATH . '/backend/tests/fixtures/files/image-to-be-watermarked.jpg'),
+                    'image-to-be-watermarked.jpg' => file_get_contents(APPLICATION_PATH . '/backend/tests/_setup/watermark/image-to-be-watermarked.jpg'),
                 ),
             ),
         ));
@@ -35,13 +35,25 @@ class WatermarkTest extends \Robinson\Backend\Tests\Models\BaseTestModel
         $this->assertInstanceOf('Robinson\Backend\Filter\Watermark', $watermark);
     }
     
-    public function testCallingFilterShouldIncreaseByteSize()
+    public function testCallingFilterShouldCreatedWatermarkedImage()
     {
+        $expectedWatermarkedFile = APPLICATION_PATH . '/backend/tests/_setup/watermark/expected_watermarked.jpg';
         $watermark = $this->makeImagickWatermark();
-        $originalsize = strlen(file_get_contents(\org\bovigo\vfs\vfsStream::url('root/img/assets/image-to-be-watermarked.jpg')));
-        $watermark->filter(\org\bovigo\vfs\vfsStream::url('img/assets/image-to-be-watermarked.jpg'));
-        $newsize = strlen(file_get_contents(\org\bovigo\vfs\vfsStream::url('root/img/assets/image-to-be-watermarked.jpg')));
-        $this->assertGreaterThan($newsize, $originalsize);
+        $imagick = $this->getMockBuilder('Imagick')
+            ->setMethods(array('getfilename'))
+            ->getMock();
+        $imagick->expects($this->once())
+            ->method('getfilename')
+            ->will($this->returnValue($expectedWatermarkedFile));
+        
+        $imagick->readimageblob(file_get_contents($this->getMockImageFileToBeWatermarked()));
+        $originalsize = strlen(file_get_contents($this->getMockImageFileToBeWatermarked()));
+        $watermark->filter($imagick);
+        $newsize = strlen(file_get_contents($expectedWatermarkedFile));
+        $this->assertTrue(is_file($expectedWatermarkedFile));
+        unlink($expectedWatermarkedFile);
+        $this->assertGreaterThan($originalsize, $newsize);
+        
     }
     
     /**
@@ -55,5 +67,10 @@ class WatermarkTest extends \Robinson\Backend\Tests\Models\BaseTestModel
         (
             new \Imagick($this->getDI()->getShared('config')->application->watermark->watermark))
         );
+    }
+    
+    protected function getMockImageFileToBeWatermarked()
+    {
+        return \org\bovigo\vfs\vfsStream::url('root/img/assets/image-to-be-watermarked.jpg');
     }
 }
