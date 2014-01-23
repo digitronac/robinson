@@ -15,7 +15,8 @@ class DestinationTabs
             {
                 $type = 1;
             }
-            $data[] = sprintf($template, $i, "title-{$i}", "description-{$i}", $type, 1, "2014-01-17 1{$i}:00:00", "2014-01-17 1{$i}:00:00'");
+            
+            $data[] = sprintf($template, $i, "title-{$i}", "description-{$i}", $type, 1, "2014-01-17 1{$i}:00:00", "2014-01-17 1{$i}:00:00");
             //$data[] = "($i, 'package{$i}', 'description{$i}', 999, 'pdffile-1.pdf', 0, '2014-01-17 1{$i}:00:00', '2014-01-17 1{$i}:00:00', 1)";
         }
         
