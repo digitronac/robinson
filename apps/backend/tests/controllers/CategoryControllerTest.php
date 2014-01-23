@@ -154,6 +154,14 @@ class CategoryControllerTest extends BaseTestController
             (
                 0 => $fileMock,
             )));
+        
+        $categoryImage = $this->getMockBuilder('Robinson\Backend\Models\Images\Category')
+            ->setMethods(array('applyWatermark'))
+            ->getMock();
+        $categoryImage->expects($this->once())
+            ->method('applyWatermark')
+            ->will($this->returnValue(true));
+        $this->getDI()->set('Robinson\Backend\Models\Images\Category', $categoryImage);
             
         $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
         $mockImagick->expects($this->any())

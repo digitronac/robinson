@@ -2,28 +2,7 @@
 <div class="admin package create">
     <form method="post" enctype="multipart/form-data">
         <div>
-            
-            <select class="form-control" name="destinationId" required="required">
-                
-                <option vlaue="">-- Izaberi destinaciju --</option>
-                
-                <?php foreach($select as $group => $destinations): ?>
-                
-                <!-- group -->
-                <optgroup label="<?=$this->escaper->escapeHtmlAttr($group)?>"><?=$this->escaper->escapeHtml($group)?></optgroup>
-                
-                    <!-- options -->
-                    
-                    <?php foreach($destinations as $destinationId => $destination): ?>
-
-                    <option value="<?=$destinationId?>"><?=$this->escaper->escapeHtml($destination)?></option>
-
-                    <?php endforeach ?>
-                    
-                <?php endforeach ?>
-                    
-            </select>
-           
+<?=(new \Robinson\Backend\Tag\MultiSelect('destinationId', $select, '-- Izaberi destinatciju --'))?>
         </div>
         <div>
             <input class="form-control" type="text" name="package" placeholder="Aranzman" required="required" />

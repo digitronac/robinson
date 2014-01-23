@@ -153,6 +153,14 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             ->will($this->returnValue(true));
         $this->getDI()->set('Imagick', $mockImagick);
         
+        $packageImage = $this->getMockBuilder('Robinson\Backend\Models\Images\Package')
+            ->setMethods(array('applyWatermark'))
+            ->getMock();
+        $packageImage->expects($this->once())
+            ->method('applyWatermark')
+            ->will($this->returnValue(true));
+        $this->getDI()->set('Robinson\Backend\Models\Images\Package', $packageImage);
+        
         $this->getDI()->setShared('request', $request);
         $this->dispatch('/admin/package/update/1');
         
@@ -286,6 +294,14 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             ->method('writeimage')
             ->will($this->returnValue(true));
         $this->getDI()->set('Imagick', $mockImagick);
+        
+        $packageImage = $this->getMockBuilder('Robinson\Backend\Models\Images\Package')
+            ->setMethods(array('applyWatermark'))
+            ->getMock();
+        $packageImage->expects($this->once())
+            ->method('applyWatermark')
+            ->will($this->returnValue(true));
+        $this->getDI()->set('Robinson\Backend\Models\Images\Package', $packageImage);
         
         $this->getDI()->setShared('request', $request);
         $this->dispatch('/admin/package/update/1');
@@ -474,6 +490,14 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             ->method('writeimage')
             ->will($this->returnValue(true));
         $this->getDI()->set('Imagick', $mockImagick);
+        
+        $packageImage = $this->getMockBuilder('Robinson\Backend\Models\Images\Package')
+            ->setMethods(array('applyWatermark'))
+            ->getMock();
+        $packageImage->expects($this->once())
+            ->method('applyWatermark')
+            ->will($this->returnValue(true));
+        $this->getDI()->set('Robinson\Backend\Models\Images\Package', $packageImage);
         
         $this->getDI()->setShared('request', $request);
         $this->dispatch('/admin/package/update/1');

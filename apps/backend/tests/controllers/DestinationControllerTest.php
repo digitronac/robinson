@@ -149,6 +149,14 @@ class DestinationControllerTest extends BaseTestController
             ->method('writeimage')
             ->will($this->returnValue(true));
         
+        $destinationImage = $this->getMockBuilder('Robinson\Backend\Models\Images\Destination')
+            ->setMethods(array('applyWatermark'))
+            ->getMock();
+        $destinationImage->expects($this->once())
+            ->method('applyWatermark')
+            ->will($this->returnValue(true));
+        $this->getDI()->set('Robinson\Backend\Models\Images\Destination', $destinationImage);
+        
       
         $this->getDI()->setShared('request', $request);
         
@@ -204,6 +212,14 @@ class DestinationControllerTest extends BaseTestController
             ->will($this->returnValue(true));
         
         $this->getDI()->setShared('request', $request);
+        
+        $destinationImage = $this->getMockBuilder('Robinson\Backend\Models\Images\Destination')
+            ->setMethods(array('applyWatermark'))
+            ->getMock();
+        $destinationImage->expects($this->once())
+            ->method('applyWatermark')
+            ->will($this->returnValue(true));
+        $this->getDI()->set('Robinson\Backend\Models\Images\Destination', $destinationImage);
         
         $this->getDI()->set('Imagick', $mockImagick);
         $this->dispatch('/admin/destination/update/3');

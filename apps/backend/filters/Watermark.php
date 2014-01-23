@@ -20,19 +20,21 @@ class Watermark implements \Phalcon\Filter\UserFilterInterface
     /**
      * Applies watermark to given image.
      * 
-     * @param \Imagick $imagickFile Imagick file to watermark
+     * @param array $args filter arguments, should contain "destinationFile" and "imagickFile" keys
      * 
      * @return bool true on success
      */
-    public function filter($imagickFile)
+    public function filter($args)
     {
-        if (!$imagickFile instanceof \Imagick)
-        {
-            throw new \InvalidArgumentException('$imagickFile passed to Watermark filter must be of Imagick instance.');
-        }
+        /* @var $imagickFile \Imagick */
+        $imagickFile = $args['imagickFile'];
+        $destination = $args['destinationFile'];
         
-        $imagickFile->compositeimage($this->watermark, \Imagick::COMPOSITE_OVER, 0, 0);
-        return $imagickFile->writeimage($imagickFile->getfilename());
+        $centerwidth = (abs($imagickFile->getimagewidth() - $this->watermark->getimagewidth())) / 2;
+        $centerheight = (abs($imagickFile->getimageheight() - $this->watermark->getimageheight())) / 2;
+        
+        $imagickFile->compositeimage($this->watermark, \Imagick::COMPOSITE_OVER, $centerwidth, $centerheight);
+        return $imagickFile->writeimage($destination);
     }
 
 }

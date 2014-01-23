@@ -38,17 +38,16 @@ class WatermarkTest extends \Robinson\Backend\Tests\Models\BaseTestModel
     public function testCallingFilterShouldCreatedWatermarkedImage()
     {
         $expectedWatermarkedFile = APPLICATION_PATH . '/backend/tests/_setup/watermark/expected_watermarked.jpg';
-        $watermark = $this->makeImagickWatermark();
-        $imagick = $this->getMockBuilder('Imagick')
-            ->setMethods(array('getfilename'))
-            ->getMock();
-        $imagick->expects($this->once())
-            ->method('getfilename')
-            ->will($this->returnValue($expectedWatermarkedFile));
         
+        $watermark = $this->makeImagickWatermark();
+        $imagick = new \Imagick();
         $imagick->readimageblob(file_get_contents($this->getMockImageFileToBeWatermarked()));
         $originalsize = strlen(file_get_contents($this->getMockImageFileToBeWatermarked()));
-        $watermark->filter($imagick);
+        $watermark->filter(array
+        (
+            'imagickFile' => $imagick,
+            'destinationFile' => $expectedWatermarkedFile,
+        ));
         $newsize = strlen(file_get_contents($expectedWatermarkedFile));
         $this->assertTrue(is_file($expectedWatermarkedFile));
         unlink($expectedWatermarkedFile);
