@@ -247,12 +247,21 @@ abstract class Images extends \Phalcon\Mvc\Model
            return; 
         }
 
-        if (!$this->uploadedFile->moveTo($this->basePath . '/' . $this->getRealFilename()))
+        $destination = $this->basePath . '/' . $this->getRealFilename();
+        
+        if (!$this->uploadedFile->moveTo($destination))
         {
             throw new \Robinson\Backend\Models\Images\Exception(
                 sprintf('Unable to move uploaded file to destination "%s".', 
                     $this->basePath . '/' . $this->getRealFilename()));
         }
+        
+        if(!$this->getDI()->getShared('config')->application->watermark->enable)
+        {
+            return;
+        }
+        
+        $this->applyWatermark($destination);
     }
     
     /**
@@ -353,5 +362,10 @@ abstract class Images extends \Phalcon\Mvc\Model
         $imagick->writeimage($cropFile);
         return $public;
         
+    }
+    
+    protected function applyWatermark($destination)
+    {
+        return $this->getDI()->getShared('watermark')->filter(new \Imagick($destination));
     }
 }
