@@ -1,5 +1,16 @@
 <ul class="nav">
+    <li><?=$this->tag->linkTo(array
+    (
+        array
+        (
+            'for' => 'admin',
+            'controller' => 'index',
+            'action' => 'logout',
+        ),
+        'Log out',
+    ))?></li>
     <li><a href="<?=$this->url->get(array('for' => 'admin', 'controller' => 'index', 'action' => 'dashboard'))?>">Kontrolna strana</a></li>
     <li><a href="<?=$this->url->get(array('for' => 'admin', 'controller' => 'category', 'action' => 'index'))?>">Kategorije</a></li>
     <li><a href="<?=$this->url->get(array('for' => 'admin', 'controller' => 'destination', 'action' => 'index'))?>">Destinacije</a></li>
+    <li><a href="<?=$this->url->get(array('for' => 'admin', 'controller' => 'package', 'action' => 'index'))?>">Aranzmani</a></li>
 </ul>

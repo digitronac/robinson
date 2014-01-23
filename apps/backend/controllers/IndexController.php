@@ -62,7 +62,7 @@ class IndexController extends ControllerBase
         (
             'limit' => 5, 
             'status' => 1, 
-            'order' => 'categoryId DESC'
+            'order' => 'categoryId DESC',
         ));
         $this->view->setVar('categories', $categories);
         
@@ -74,6 +74,17 @@ class IndexController extends ControllerBase
             'order' => 'destinationId DESC',
         ));
         $this->view->setVar('destinations', $destinations);
+    }
+    
+    public function logoutAction()
+    {
+        $this->session->destroy();
+        $this->response->redirect(array
+        (
+            'for' => 'admin',
+            'controller' => 'index',
+            'action' => 'index',
+        ));
     }
 }
 
