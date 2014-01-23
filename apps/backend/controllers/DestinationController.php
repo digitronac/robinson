@@ -9,12 +9,25 @@ class DestinationController extends \Phalcon\Mvc\Controller
      */
     public function indexAction()
     {
+        $this->view->destinations = array();
+        
+        if ($this->request->hasQuery('categoryId'))
+        {
+            $destinations = $this->getDI()->get('Robinson\Backend\Models\Destination');
+            $this->view->destinations = $destinations->find(array
+            (
+                'categoryId' => $this->request->getQuery('categoryId'),
+                'order' => 'destinationId DESC',
+            ));
+            $this->tag->setDefault('categoryId', $this->request->getQuery('categoryId'));
+        }
+        
         $categories = \Robinson\Backend\Models\Category::find(array
         (
             'order' => 'categoryId DESC',
         ));
         
-        $this->view->setVar('categories', $categories);
+        $this->view->categories = $categories;
     }
     
     /**
