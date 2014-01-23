@@ -18,7 +18,13 @@ class PackageTest extends \Robinson\Backend\Tests\Models\BaseTestModel
     
     public function testSavingRecordShouldWorkAsExpected()
     {
-        $model = $this->getDI()->get('Robinson\Backend\Models\Images\Package');
+        $model = $this->getMockBuilder('Robinson\Backend\Models\Images\Package')
+            ->setMethods(array('applyWatermark'))
+            ->getMock();
+        $model->expects($this->once())
+            ->method('applyWatermark')
+            ->will($this->returnValue(true));
+        
         $model->setImageType(\Robinson\Backend\Models\Images\Images::IMAGE_TYPE_PACKAGE)
             ->setTitle('test image title')
             ->setPackageId(1);

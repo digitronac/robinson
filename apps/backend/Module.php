@@ -17,22 +17,24 @@ class Module implements ModuleDefinitionInterface
          */
         public function registerAutoloaders()
         {
-                if (!defined('MODULE_PATH'))
-                {
-                    define('MODULE_PATH', __DIR__);
-                }
+            if (!defined('MODULE_PATH'))
+            {
+                define('MODULE_PATH', __DIR__);
+            }
 
-                $loader = new Loader();
+            $loader = new Loader();
 
-                $loader->registerNamespaces(array(
-                        'Robinson\Backend\Controllers' => __DIR__ . '/controllers/',
-                        'Robinson\Backend\Models' => __DIR__ . '/models/',
-                        'Robinson\Backend\Plugin' => __DIR__ . '/plugins/',
-                        'Robinson\Backend\Validator' => __DIR__ . '/validators/',
-                        'Robinson\Backend\Tag' => __DIR__ . '/tags/',
-                ));
+            $loader->registerNamespaces(array
+            (
+                'Robinson\Backend\Controllers' => __DIR__ . '/controllers/',
+                'Robinson\Backend\Models' => __DIR__ . '/models/',
+                'Robinson\Backend\Plugin' => __DIR__ . '/plugins/',
+                'Robinson\Backend\Validator' => __DIR__ . '/validators/',
+                'Robinson\Backend\Tag' => __DIR__ . '/tags/',
+                'Robinson\Backend\Filter' => __DIR__ . '/filters/',
+            ));
 
-                $loader->register();
+            $loader->register();
         }
 
         /**

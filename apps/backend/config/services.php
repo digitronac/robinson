@@ -161,4 +161,11 @@ $di->setShared('log', function() use ($di)
     return $log;
 });
 
+$di['watermark'] = function() use ($di)
+{
+    $filter = new \Robinson\Backend\Filter\Watermark(new \Imagick($di->getShared('config')
+        ->application->watermark->watermark));
+    return $filter;
+};
+
 return $di;
