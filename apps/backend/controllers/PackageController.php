@@ -41,7 +41,6 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             $package = $this->getDI()->get('Robinson\Backend\Models\Package');
             $package->setPackage($this->request->getPost('package'))
                 ->setDestination($destination)
-                ->setTabs('aaaa')
                 ->setPrice($this->request->getPost('price'))
                 ->setDescription($this->request->getPost('description'))
                 ->setUploadedPdf($this->request->getUploadedFiles()[0])

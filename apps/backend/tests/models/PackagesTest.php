@@ -38,7 +38,6 @@ class PackageTest extends \Robinson\Backend\Tests\Models\BaseTestModel
         $model = $this->getDI()->get('Robinson\Backend\Models\Package');
         $model->setPackage($packageName = 'ourtestpackage');
         $model->setDescription($description = 'our package description');
-        $model->setTabs($tabs = 'tabs test');
         $model->setPrice($price = 55);
         $model->setDestination($destination);
         $model->setUploadedPdf($file);
@@ -53,7 +52,6 @@ class PackageTest extends \Robinson\Backend\Tests\Models\BaseTestModel
         $this->assertInstanceOf('Robinson\Backend\Models\Package', $package);
         $this->assertEquals($packageName, $package->getPackage());
         $this->assertEquals($description, $package->getDescription());
-        $this->assertEquals($tabs, $package->getTabs());
         $this->assertEquals($price, $package->getPrice());
     }
 }

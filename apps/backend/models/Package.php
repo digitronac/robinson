@@ -17,8 +17,6 @@ class Package extends \Phalcon\Mvc\Model
     
     protected $description;
     
-    protected $tabs;
-    
     protected $price;
     
     protected $pdf;
@@ -157,19 +155,6 @@ class Package extends \Phalcon\Mvc\Model
     public function getDescription()
     {
         return $this->description;
-    }
-    
-    /**
-     * Sets tabs content.
-     * 
-     * @param string $tabs tabs
-     * 
-     * @return \Robinson\Backend\Models\Package
-     */
-    public function setTabs($tabs)
-    {
-        $this->tabs = $tabs;
-        return $this;
     }
     
     /**
