@@ -2,6 +2,24 @@
 namespace Robinson\Backend\Controllers;
 class PackageController extends \Robinson\Backend\Controllers\ControllerBase
 {
+    public function indexAction()
+    {
+        $this->view->packages = array();
+        
+        if ($this->request->hasQuery('destinationId'))
+        {
+            $packages = $this->getDI()->get('Robinson\Backend\Models\Package');
+            $this->view->packages = $packages->find(array
+            (
+                'destinationId' => $this->request->getQuery('destinationId'), 
+                'order' => 'destinationId DESC',
+            ));
+            
+            $this->tag->setDefault('destinationId', $this->request->getQuery('destinationId'));
+        }
+        
+        $this->view->select = $this->buildDestinationMultiSelectData();
+    }
     /**
      * Creates new package.
      * 
