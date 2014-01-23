@@ -18,12 +18,18 @@
             
             <?php foreach ($packages as $package): ?>
             
-            <li><?=$this->tag->linkTo(array(array(
-                'for' => 'admin-update',
-                'controller' => 'package',
-                'action' => 'update',
-                'id' => $package->getPackageId(),
-            ), $package->getPackage()))?></li>
+            <li><?=$this->tag->linkTo(array
+            (
+                array
+                (
+                    'for' => 'admin-update',
+                    'controller' => 'package',
+                    'action' => 'update',
+                    'id' => $package->getPackageId(),
+                ), 
+                $package->getPackage(),
+                'style' => ($package->isNotVisible()) ? 'text-decoration: line-through' : '',
+            ))?></li>
             
             <?php endforeach ?>
             

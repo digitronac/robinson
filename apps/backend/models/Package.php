@@ -252,6 +252,16 @@ class Package extends \Phalcon\Mvc\Model
     {
         return (int) $this->status;
     }
+    
+    /**
+     * Status helper method.
+     * 
+     * @return bool 
+     */
+    public function isNotVisible()
+    {
+        return ($this->getStatus() === self::STATUS_INVISIBLE);
+    }
 
     /**
      * Sets uploaded pdf file.
