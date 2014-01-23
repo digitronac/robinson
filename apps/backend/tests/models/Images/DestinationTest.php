@@ -123,6 +123,12 @@ class DestinationTest extends \Robinson\Backend\Tests\Models\BaseTestModel
      */
     protected function makeModel()
     {
-        return $this->getDI()->get('Robinson\Backend\Models\Images\Destination');
+        $model = $this->getMockBuilder('Robinson\Backend\Models\Images\Destination')
+            ->setMethods(array('applyWatermark'))
+            ->getMock();
+        $model->expects($this->any())
+            ->method('applyWatermark')
+            ->will($this->returnValue(true));
+        return $model;
     }
 }
