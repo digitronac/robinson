@@ -28,8 +28,6 @@ abstract class Images extends \Phalcon\Mvc\Model
     
     protected $sort;
     
-    protected $uploadedFile;
-    
     /**
      *
      * @var \Symfony\Component\Filesystem\Filesystem 
@@ -41,7 +39,7 @@ abstract class Images extends \Phalcon\Mvc\Model
      * 
      * @var \Phalcon\Http\Request\File
      */
-    protected $uploadFile;
+    protected $uploadedFile;
     
     /**
      * Type of model, can be one of \Robinson\Backend\Models\Images\Images constants.
@@ -223,6 +221,12 @@ abstract class Images extends \Phalcon\Mvc\Model
             $this->sort = ((int) self::maximum(array($this->getImageType() . 'Id=' . $this->getBelongsToId(), 
             'column' => 'sort'))) + 1;
         }
+        
+        
+        /* @var $im \Imagick */
+        $im = $this->getDI()->get('Imagick', array($this->uploadedFile->getTempName()));
+        $this->width = $im->getimagewidth();
+        $this->height = $im->getimageheight();
        
         if (!$this->parentSave($data, $whiteList))
         {
