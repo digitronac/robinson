@@ -47,6 +47,16 @@ class Destination extends \Robinson\Backend\Models\Tabs\Tabs
         return (int) $this->destinationId;
     }
     
+    /**
+     * Returns tab title based on tab type.
+     * 
+     * @return string title
+     */
+    public function resolveTypeToTitle()
+    {
+        return ($this->getDI()->getShared('config')->application->destination->tabs->toArray()[$this->getType()]);
+    }
+    
     
 
 }

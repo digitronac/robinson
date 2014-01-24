@@ -28,4 +28,12 @@ class Destination extends \Robinson\Backend\Tests\Models\BaseTestModel
         $this->assertEquals($type, $destinationTab->getType());
         $this->assertEquals($destinationId, $destinationTab->getDestinationId());
     }
+    
+    public function testResolveTypeToTitleShouldWorkAsExpected()
+    {
+        $model = new \Robinson\Backend\Models\Tabs\Destination();
+        $model->setType(\Robinson\Backend\Models\Tabs\Destination::TYPE_APARTMENT);
+        $expected = $this->getDI()->getShared('config')->application->destination->tabs->toArray()[\Robinson\Backend\Models\Tabs\Destination::TYPE_APARTMENT];
+        $this->assertEquals($expected, $model->resolveTypeToTitle());
+    }
 }

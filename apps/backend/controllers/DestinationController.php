@@ -46,6 +46,15 @@ class DestinationController extends \Phalcon\Mvc\Controller
                 ->setDescription($this->request->getPost('description'))
                 ->setStatus($this->request->getPost('status'));
             
+            foreach ($this->request->getPost('tabs') as $tabType => $tabDescription)
+            {
+                $destinationTab = new \Robinson\Backend\Models\Tabs\Destination();
+                $destinationTab->setType($tabType)
+                    ->setTitle($destinationTab->resolveTypeToTitle())
+                    ->setDescription($tabDescription)
+                    ->create();
+            }
+            
             // redirect to update upon successful save
             if ($destination->create())
             {
