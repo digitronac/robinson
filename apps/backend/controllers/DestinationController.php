@@ -45,7 +45,6 @@ class DestinationController extends \Phalcon\Mvc\Controller
                 ->setDestination($this->request->getPost('destination'))
                 ->setDescription($this->request->getPost('description'))
                 ->setStatus($this->request->getPost('status'));
-            $this->debug->dump($this->request->getPost('tabs'));
             
             $destinationTabs = array();
             foreach ($this->request->getPost('tabs') as $tabType => $tabDescription)

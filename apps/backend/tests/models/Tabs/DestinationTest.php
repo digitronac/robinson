@@ -20,7 +20,7 @@ class Destination extends \Robinson\Backend\Tests\Models\BaseTestModel
         
         $destinationTab = \Robinson\Backend\Models\Tabs\Destination::findFirst(array
         (
-            'order' => 'destinationId DESC',
+            'order' => 'destinationTabId DESC',
         ));
         
         $this->assertEquals($title, $destinationTab->getTitle());

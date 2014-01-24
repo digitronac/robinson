@@ -70,6 +70,22 @@ class DestinationControllerTest extends BaseTestController
         (
             'order' => 'destinationId DESC',
         ));
+        
+        // assert tabs
+        $this->assertGreaterThan(0, $last->getTabs()->count());
+        foreach($last->getTabs() as $tab)
+        {
+            if ($tab->getType() === \Robinson\Backend\Models\Tabs\Destination::TYPE_APARTMENT)
+            {
+                $this->assertEquals('Neki lep tekst za apartmane', $tab->getDescription());
+            }
+            
+            if ($tab->getType() === \Robinson\Backend\Models\Tabs\Destination::TYPE_EXCURSION)
+            {
+                $this->assertEquals('Neki tekst za ekskurzije?', $tab->getDescription());
+            }
+        }
+        
         $this->assertRedirectTo('/admin/destination/update/' . $last->getDestinationId());
     }
     
