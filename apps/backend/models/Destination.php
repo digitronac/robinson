@@ -319,11 +319,13 @@ class Destination extends \Phalcon\Mvc\Model
     /**
      * Gets related tabs.
      * 
+     * @param array $params additional params
+     * 
      * @return \Phalcon\Mvc\Model\Resultset\Simple
      */
-    public function getTabs()
+    public function getTabs(array $params = null)
     {
-        return $this->getRelated('tabs');
+        return $this->getRelated('tabs', $params);
     }
     
     /**

@@ -97,6 +97,31 @@ class DestinationController extends \Phalcon\Mvc\Controller
                 ->setDescription($this->request->getPost('description'))
                 ->setStatus($this->request->getPost('status'));
             
+            $destinationTabs = array();
+            
+            foreach ($this->request->getPost('tabs') as $tabType => $tabDescription)
+            {
+                $tab = $destination->getTabs(array
+                (
+                    'type = :type:',
+                    'bind' => array
+                    (
+                        'type' => $tabType,
+                    ),
+                ))->getFirst();
+                
+                if (!$tabDescription)
+                {
+                    $tab->delete();
+                    continue;
+                }
+                
+                $tab->setDescription($tabDescription);
+                $destinationTabs[] = $tab;
+            }
+            
+            $destination->setTabs($destinationTabs);
+            
             // sort?
             $sort = $this->request->getPost('sort');
             

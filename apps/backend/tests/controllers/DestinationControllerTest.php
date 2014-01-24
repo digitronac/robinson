@@ -12,6 +12,7 @@ class DestinationControllerTest extends BaseTestController
      //   $this->populateTable('ImageCategory');
         $this->populateTable('destinations');
         $this->populateTable('destination_images');
+        $this->populateTable('destination_tabs');
         
         // setup fs
         $this->destinationImagesFolder = \org\bovigo\vfs\vfsStream::setup('img/destination');
