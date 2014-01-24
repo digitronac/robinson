@@ -12,6 +12,7 @@ class DestinationControllerTest extends BaseTestController
      //   $this->populateTable('ImageCategory');
         $this->populateTable('destinations');
         $this->populateTable('destination_images');
+        $this->populateTable('destination_tabs');
         
         // setup fs
         $this->destinationImagesFolder = \org\bovigo\vfs\vfsStream::setup('img/destination');
@@ -40,30 +41,29 @@ class DestinationControllerTest extends BaseTestController
     {
         $this->registerMockSession();
         
-        $request = $this->getMock('Phalcon\Http\Request', array('isPost', 'getPost'));
+        $categoryId = 1;
+        $destination = 'test destination';
+        $description = 'test description';
+        $status = 1;
+        
+        $_POST = array
+        (
+            'categoryId' => $categoryId,
+            'destination' => $destination,
+            'description' => $description,
+            'status' => $status,
+            'tabs' => array
+            (
+                \Robinson\Backend\Models\Tabs\Destination::TYPE_APARTMENT => 'Neki lep tekst za apartmane',
+                2 => '',
+                \Robinson\Backend\Models\Tabs\Destination::TYPE_EXCURSION => 'Neki tekst za ekskurzije?',
+            ),
+        );
+
+        $request = $this->getMock('Phalcon\Http\Request', array('isPost'));
         $request->expects($this->once())
             ->method('isPost')
             ->will($this->returnValue(true));
-        $categoryId = 1;
-        $request->expects($this->at(1))
-            ->method('getPost')
-            ->with($this->equalTo('categoryId'))
-            ->will($this->returnValue($categoryId));
-        $destination = 'test destination';
-        $request->expects($this->at(2))
-            ->method('getPost')
-            ->with($this->equalTo('destination'))
-            ->will($this->returnValue($destination));
-        $description = 'test description';
-        $request->expects($this->at(3))
-            ->method('getPost')
-            ->with($this->equalTo('description'))
-            ->will($this->returnValue($description));
-        $status = 1;
-        $request->expects($this->at(4))
-            ->method('getPost')
-            ->with($this->equalTo('status'))
-            ->will($this->returnValue($status));
         
         $this->getDI()->setShared('request', $request);
         $this->dispatch('/admin/destination/create');
@@ -72,6 +72,22 @@ class DestinationControllerTest extends BaseTestController
         (
             'order' => 'destinationId DESC',
         ));
+        
+        // assert tabs
+        $this->assertGreaterThan(0, $last->getTabs()->count());
+        foreach($last->getTabs() as $tab)
+        {
+            if ($tab->getType() === \Robinson\Backend\Models\Tabs\Destination::TYPE_APARTMENT)
+            {
+                $this->assertEquals('Neki lep tekst za apartmane', $tab->getDescription());
+            }
+            
+            if ($tab->getType() === \Robinson\Backend\Models\Tabs\Destination::TYPE_EXCURSION)
+            {
+                $this->assertEquals('Neki tekst za ekskurzije?', $tab->getDescription());
+            }
+        }
+        
         $this->assertRedirectTo('/admin/destination/update/' . $last->getDestinationId());
     }
     
@@ -94,6 +110,12 @@ class DestinationControllerTest extends BaseTestController
             'destination' => 'updated destination 4',
             'description' => 'updated description 4',
             'status' => 0,
+            'tabs' => array
+            (
+                \Robinson\Backend\Models\Tabs\Destination::TYPE_APARTMENT => '',
+                \Robinson\Backend\Models\Tabs\Destination::TYPE_EXCURSION => 'Neki tekst za ekskurzije?',
+                \Robinson\Backend\Models\Tabs\Destination::TYPE_HOTEL => 'Neki gotivan hotel',
+            ),
         );
         $request = $this->getMock('Phalcon\Http\Request', array('isPost'));
         $request->expects($this->any())
@@ -106,6 +128,21 @@ class DestinationControllerTest extends BaseTestController
         $this->assertEquals($_POST['destination'], $destination->getDestination());
         $this->assertEquals($_POST['description'], $destination->getDescription());
         $this->assertEquals($_POST['status'], $destination->getStatus());
+        
+        // assert tabs
+        $this->assertEquals(2, $destination->getTabs()->count());
+        foreach($destination->getTabs() as $tab)
+        {
+            if ($tab->getType() === \Robinson\Backend\Models\Tabs\Destination::TYPE_HOTEL)
+            {
+                $this->assertEquals('Neki gotivan hotel', $tab->getDescription());
+            }
+            
+            if ($tab->getType() === \Robinson\Backend\Models\Tabs\Destination::TYPE_EXCURSION)
+            {
+                $this->assertEquals('Neki tekst za ekskurzije?', $tab->getDescription());
+            }
+        }
     }
     
     public function testUpdatingDestinationWithNewImagesShouldWorkAsExpected()
@@ -116,6 +153,12 @@ class DestinationControllerTest extends BaseTestController
             'destination' => 'update destination with image',
             'description' => 'update destination with description',
             'status' => 0,
+            'tabs' => array
+            (
+                1 => '123',
+                2 => '456',
+                3 => '567',
+            ),
         );
         
         $this->registerMockSession();
@@ -168,6 +211,21 @@ class DestinationControllerTest extends BaseTestController
         $image = \Robinson\Backend\Models\Images\Destination::findFirstByDestinationId(4);
         $this->assertEquals('6-testfile.png', $image->getRealFileName());
         $this->assertEquals(1, $image->getSort());
+        
+        $destination = \Robinson\Backend\Models\Destination::findFirst(4);
+        
+        // assert tabs
+        $this->assertEquals(3, $destination->getTabs()->count());
+        foreach($destination->getTabs() as $tab)
+        {
+            foreach($_POST['tabs'] as $tabType => $desc)
+            {
+                if($tabType === $tab->getType())
+                {
+                    $this->assertEquals($desc, $tab->getDescription());
+                }
+            }
+        }
     }
     
     public function testAddingImagesToDestinationShouldWorkAsExpected()
@@ -178,6 +236,11 @@ class DestinationControllerTest extends BaseTestController
             'destination' => 'update destination with image',
             'description' => 'update destination with description',
             'status' => 0,
+            'tabs' => array
+            (
+                1 => 'dasdsadsadsa',
+                2 => 'dsadsadsdsa',
+            ),
         );
         
         $this->registerMockSession();
@@ -233,6 +296,21 @@ class DestinationControllerTest extends BaseTestController
         ));
         $this->assertEquals('6-testfile.png', $image->getRealFileName());
         $this->assertEquals(6, $image->getSort());
+        
+        $destination = \Robinson\Backend\Models\Destination::findFirst(3);
+        
+        // assert tabs
+        $this->assertEquals(3, $destination->getTabs()->count());
+        foreach($destination->getTabs() as $tab)
+        {
+            foreach($_POST['tabs'] as $tabType => $desc)
+            {
+                if($tabType === $tab->getType())
+                {
+                    $this->assertEquals($desc, $tab->getDescription());
+                }
+            }
+        }
     }
     
     public function testReoderingImagesInDestinationShouldWorkAsExpected()
@@ -246,6 +324,12 @@ class DestinationControllerTest extends BaseTestController
                 3 => 3,
                 2 => 4,
                 1 => 5,
+            ),
+            'tabs' => array
+            (
+                1 => 'test',
+                2 => 'test 2',
+                3 => 'test 3',
             ),
         );
         
@@ -263,6 +347,7 @@ class DestinationControllerTest extends BaseTestController
             ->method('writeimage')
             ->will($this->returnValue(true));
         $this->getDI()->set('Imagick', $mockImagick);
+        
         $this->getDI()->setShared('request', $request);
         
         
@@ -288,6 +373,113 @@ class DestinationControllerTest extends BaseTestController
         $this->dispatch('/admin/destination/deleteImage');
         $image = \Robinson\Backend\Models\Images\Destination::findFirst(3);
         $this->assertFalse($image);
+    }
+    
+    public function testEnteringNewTabShouldWorkAsExpected()
+    {
+        $_POST = array
+        (
+            'categoryId' => 1,
+            'destination' => 'update destination with image',
+            'description' => 'update destination with description',
+            'status' => 0,
+            'tabs' => array
+            (
+                1 => '123',
+                2 => '456',
+                3 => '567',
+            ),
+        );
+        
+        $this->registerMockSession();
+        $request = $this->getMock('Phalcon\Http\Request', array('isPost'));
+        $request->expects($this->once())
+            ->method('isPost')
+            ->will($this->returnValue(true));
+        
+        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
+        $mockImagick->expects($this->any())
+            ->method('scaleimage')
+            ->will($this->returnValue(true));
+        $mockImagick->expects($this->any())
+            ->method('writeimage')
+            ->will($this->returnValue(true));
+        
+        $this->getDI()->setShared('request', $request);
+        
+        $this->getDI()->set('Imagick', $mockImagick);
+        $this->dispatch('/admin/destination/update/2');
+        $this->assertAction('update');
+        $this->assertController('destination');
+        
+        $destination = \Robinson\Backend\Models\Destination::findFirst(2);
+        
+        // assert tabs
+        $this->assertEquals(3, $destination->getTabs()->count());
+        foreach($destination->getTabs() as $tab)
+        {
+            foreach($_POST['tabs'] as $tabType => $desc)
+            {
+                if($tabType === $tab->getType())
+                {
+                    $this->assertEquals($desc, $tab->getDescription());
+                }
+            }
+        }
+       
+    }
+    
+    public function testNotEnteringDescriptionForTabWhichDidntExistInFirstPlaceShouldWorkAsExpected()
+    {
+        $_POST = array
+        (
+            'categoryId' => 1,
+            'destination' => 'update destination with image',
+            'description' => 'update destination with description',
+            'status' => 0,
+            'tabs' => array
+            (
+                1 => '123',
+                2 => '456',
+                3 => '',
+            ),
+        );
+        
+        $this->registerMockSession();
+        $request = $this->getMock('Phalcon\Http\Request', array('isPost'));
+        $request->expects($this->once())
+            ->method('isPost')
+            ->will($this->returnValue(true));
+        
+        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
+        $mockImagick->expects($this->any())
+            ->method('scaleimage')
+            ->will($this->returnValue(true));
+        $mockImagick->expects($this->any())
+            ->method('writeimage')
+            ->will($this->returnValue(true));
+        
+        $this->getDI()->setShared('request', $request);
+        
+        $this->getDI()->set('Imagick', $mockImagick);
+        $this->dispatch('/admin/destination/update/2');
+        $this->assertAction('update');
+        $this->assertController('destination');
+        
+        $destination = \Robinson\Backend\Models\Destination::findFirst(2);
+        
+        // assert tabs
+        $this->assertEquals(2, $destination->getTabs()->count());
+        foreach($destination->getTabs() as $tab)
+        {
+            foreach($_POST['tabs'] as $tabType => $desc)
+            {
+                if($tabType === $tab->getType())
+                {
+                    $this->assertEquals($desc, $tab->getDescription());
+                }
+            }
+        }
     }
     
     

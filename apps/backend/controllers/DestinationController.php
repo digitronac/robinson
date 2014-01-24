@@ -46,6 +46,24 @@ class DestinationController extends \Phalcon\Mvc\Controller
                 ->setDescription($this->request->getPost('description'))
                 ->setStatus($this->request->getPost('status'));
             
+            $destinationTabs = array();
+            foreach ($this->request->getPost('tabs') as $tabType => $tabDescription)
+            {
+                // not added, pass
+                if (!$tabDescription)
+                {
+                    continue;
+                }
+                
+                $destinationTab = new \Robinson\Backend\Models\Tabs\Destination();
+                $destinationTab->setType($tabType)
+                    ->setTitle($destinationTab->resolveTypeToTitle())
+                    ->setDescription($tabDescription);
+                $destinationTabs[] = $destinationTab;
+            }
+            
+            $destination->setTabs($destinationTabs);
+            
             // redirect to update upon successful save
             if ($destination->create())
             {
@@ -65,6 +83,8 @@ class DestinationController extends \Phalcon\Mvc\Controller
         ));
         
         $this->view->setVar('categories', $categories);
+        
+        $this->view->tabs = $this->getDI()->getShared('config')->application->destination->tabs->toArray();
     }
     
     /**
@@ -84,6 +104,47 @@ class DestinationController extends \Phalcon\Mvc\Controller
                 ->setDestination($this->request->getPost('destination'))
                 ->setDescription($this->request->getPost('description'))
                 ->setStatus($this->request->getPost('status'));
+            
+            $destinationTabs = array();
+            
+            foreach ($this->request->getPost('tabs') as $tabType => $tabDescription)
+            {
+                $tabDescription = trim($tabDescription);
+                $tab = $destination->getTabs(array
+                (
+                    'type = :type:',
+                    'bind' => array
+                    (
+                        'type' => $tabType,
+                    ),
+                ))->getFirst();
+                
+                // new tab
+                if (!$tab && $tabDescription)
+                {
+                   $tab = new \Robinson\Backend\Models\Tabs\Destination();
+                   $tab->setType($tabType)
+                       ->setTitle($tab->resolveTypeToTitle());
+                }
+       
+                // deleted tab
+                if ($tab && !$tabDescription)
+                {
+                    $tab->delete();
+                    continue;
+                }
+              
+                // never existed and wasnt entered
+                if (!$tab && !$tabDescription)
+                {
+                    continue;
+                }
+                
+                $tab->setDescription($tabDescription);
+                $destinationTabs[] = $tab;
+            }
+            
+            $destination->setTabs($destinationTabs);
             
             // sort?
             $sort = $this->request->getPost('sort');
@@ -123,6 +184,13 @@ class DestinationController extends \Phalcon\Mvc\Controller
         
         $this->view->categories = $categories;
         $this->view->destination = $destination;
+        $this->view->tabs = $this->getDI()->getShared('config')->application->destination->tabs->toArray();
+        
+        $tabs = $destination->getTabs();
+        foreach ($tabs as $tab)
+        {
+            $this->tag->setDefault('tabs[' . $tab->getType() . ']', $tab->getDescription());
+        }
         $this->tag->setDefault('categoryId', $destination->getCategoryId());
         $this->tag->setDefault('destination', $destination->getDestination());
         $this->tag->setDefault('description', $destination->getDescription());
