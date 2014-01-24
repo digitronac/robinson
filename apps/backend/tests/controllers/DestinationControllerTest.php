@@ -40,37 +40,28 @@ class DestinationControllerTest extends BaseTestController
     {
         $this->registerMockSession();
         
-        $_POST = array();
-        $_POST['tabs'] = array
-        (
-            \Robinson\Backend\Models\Tabs\Destination::TYPE_APARTMENT => 'Neki lep tekst za apartmane',
-            \Robinson\Backend\Models\Tabs\Destination::TYPE_EXCURSION => 'Neki tekst za ekskurzije?',
-        );
+        $categoryId = 1;
+        $destination = 'test destination';
+        $description = 'test description';
+        $status = 1;
         
-        $request = $this->getMock('Phalcon\Http\Request', array('isPost', 'getPost'));
+        $_POST = array
+        (
+            'categoryId' => $categoryId,
+            'destination' => $destination,
+            'description' => $description,
+            'status' => $status,
+            'tabs' => array
+            (
+                \Robinson\Backend\Models\Tabs\Destination::TYPE_APARTMENT => 'Neki lep tekst za apartmane',
+                \Robinson\Backend\Models\Tabs\Destination::TYPE_EXCURSION => 'Neki tekst za ekskurzije?',
+            ),
+        );
+
+        $request = $this->getMock('Phalcon\Http\Request', array('isPost'));
         $request->expects($this->once())
             ->method('isPost')
             ->will($this->returnValue(true));
-        $categoryId = 1;
-        $request->expects($this->at(1))
-            ->method('getPost')
-            ->with($this->equalTo('categoryId'))
-            ->will($this->returnValue($categoryId));
-        $destination = 'test destination';
-        $request->expects($this->at(2))
-            ->method('getPost')
-            ->with($this->equalTo('destination'))
-            ->will($this->returnValue($destination));
-        $description = 'test description';
-        $request->expects($this->at(3))
-            ->method('getPost')
-            ->with($this->equalTo('description'))
-            ->will($this->returnValue($description));
-        $status = 1;
-        $request->expects($this->at(4))
-            ->method('getPost')
-            ->with($this->equalTo('status'))
-            ->will($this->returnValue($status));
         
         $this->getDI()->setShared('request', $request);
         $this->dispatch('/admin/destination/create');
