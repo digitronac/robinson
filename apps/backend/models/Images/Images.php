@@ -246,12 +246,14 @@ abstract class Images extends \Phalcon\Mvc\Model
             'column' => 'sort'))) + 1;
         }
         
+        if ($this->uploadedFile)
+        {
+            /* @var $im \Imagick */
+            $im = $this->getDI()->get('Imagick', array($this->uploadedFile->getTempName()));
+            $this->width = $im->getimagewidth();
+            $this->height = $im->getimageheight();
+        }
         
-        /* @var $im \Imagick */
-        $im = $this->getDI()->get('Imagick', array($this->uploadedFile->getTempName()));
-        $this->width = $im->getimagewidth();
-        $this->height = $im->getimageheight();
-       
         if (!$this->parentSave($data, $whiteList))
         {
             throw new \Robinson\Backend\Models\Images\Exception(sprintf('Unable to save %s image model.', 
@@ -431,7 +433,7 @@ abstract class Images extends \Phalcon\Mvc\Model
     {
         return $this->getDI()->getShared('watermark')->filter(array
         (
-            'imagickFile' => new \Imagick($destination),
+            'imagickFile' => $this->getDI()->get('Imagick', array($destination)),
             'destinationFile' => $destination,
         ));
     }
