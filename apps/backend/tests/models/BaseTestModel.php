@@ -53,4 +53,29 @@ class BaseTestModel extends \Phalcon\Test\ModelTestCase
             $connection->execute($sql);
         }
     }
+    
+    protected function mockWorkingImagick()
+   {
+       $mockImagick = $this->getMockBuilder('Imagick')
+           ->setMethods(array('scaleimage', 'writeimage', 'getimageheight', 'getimagewidth', 'compositeimage',))
+           ->disableOriginalConstructor()
+           ->getMock();
+       
+        $mockImagick->expects($this->any())
+            ->method('scaleimage')
+            ->will($this->returnValue(true));
+        $mockImagick->expects($this->any())
+            ->method('writeimage')
+            ->will($this->returnValue(true));
+        $mockImagick->expects($this->any())
+            ->method('getimagewidth')
+            ->will($this->returnValue(640));
+        $mockImagick->expects($this->any())
+            ->method('getimageheight')
+            ->will($this->returnValue(480));
+        $mockImagick->expects($this->any())
+            ->method('compositeimage')
+            ->will($this->returnValue(true));
+        return $mockImagick;
+   }
 }

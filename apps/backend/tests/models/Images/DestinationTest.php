@@ -63,6 +63,7 @@ class DestinationTest extends \Robinson\Backend\Tests\Models\BaseTestModel
         $file->expects($this->exactly(2))
             ->method('getName')
             ->will($this->returnValue('testfile.png'));
+        $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         $model->setBasePath(__DIR__)
         ->createFromUploadedFile($file)
         ->save();
@@ -92,6 +93,8 @@ class DestinationTest extends \Robinson\Backend\Tests\Models\BaseTestModel
         $model->setImageType(\Robinson\Backend\Models\Images\Images::IMAGE_TYPE_DESTINATION)
             ->setSort(1)
             ->setDestinationId(1);
+        
+        $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         
         $file = $this->getMockBuilder('Phalcon\Http\Request\File')
             ->enableOriginalClone()

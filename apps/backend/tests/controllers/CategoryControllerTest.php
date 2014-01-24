@@ -94,15 +94,8 @@ class CategoryControllerTest extends BaseTestController
         
         $this->getDI()->setShared('request', $request);
         
-        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
-        $mockImagick->expects($this->any())
-            ->method('scaleimage')
-            ->will($this->returnValue(true));
-        $mockImagick->expects($this->any())
-            ->method('writeimage')
-            ->will($this->returnValue(true));
-        
-        $this->getDI()->set('Imagick', $mockImagick);
+    
+        $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         
         $this->dispatch('/admin/category/update/' . $category->getCategoryId());
         $updatedCategory = \Robinson\Backend\Models\Category::findFirst("category = '" . $category->getCategory() . " updated!'");
@@ -158,21 +151,13 @@ class CategoryControllerTest extends BaseTestController
         $categoryImage = $this->getMockBuilder('Robinson\Backend\Models\Images\Category')
             ->setMethods(array('applyWatermark'))
             ->getMock();
-        $categoryImage->expects($this->once())
+        $categoryImage->expects($this->any())
             ->method('applyWatermark')
             ->will($this->returnValue(true));
         $this->getDI()->set('Robinson\Backend\Models\Images\Category', $categoryImage);
-            
-        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
-        $mockImagick->expects($this->any())
-            ->method('scaleimage')
-            ->will($this->returnValue(true));
-        $mockImagick->expects($this->any())
-            ->method('writeimage')
-            ->will($this->returnValue(true));
  
         $this->getDI()->setShared('request', $request);
-        $this->getDI()->set('Imagick', $mockImagick);
+        $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         $this->dispatch('/admin/category/update/' . $category->getCategoryId());
         
         $this->assertResponseContentContains('<dt>Slike:</dt>
@@ -191,12 +176,16 @@ class CategoryControllerTest extends BaseTestController
     
     public function testCategoryUpdateChangingOrderShouldWorkAsExpected()
     {
+        $_POST = array();
         $this->registerMockSession();
         /* @var $category \Robinson\Backend\Models\Category */
         $category = \Robinson\Backend\Models\Category::findFirstByCategoryId(1);
         
-        $sort = array
+        $_POST['sort'] = array
         (
+            'category' => $category->getCategory() . ' updated!',
+            'description' => $category->getDescription() . ' updated!',
+            'status' => $category->getStatus(),
             1 => 2,
             2 => 1,
             3 => 4,
@@ -204,81 +193,13 @@ class CategoryControllerTest extends BaseTestController
             5 => 3,
         );
         
-        $request = $this->getMock('Phalcon\Http\Request', array('getPost', 'isPost'));
-        $request->expects($this->at(4))
-            ->method('getPost')
-            ->with($this->equalTo('sort'))
-            ->will($this->returnValue($sort));
-        $request->expects($this->at(5))
-            ->method('getPost')
-            ->with($this->equalTo('sort'))
-            ->will($this->returnValue($sort));
-        $request->expects($this->at(6))
-            ->method('getPost')
-            ->with($this->equalTo('sort'))
-            ->will($this->returnValue($sort));
-        $request->expects($this->at(7))
-            ->method('getPost')
-            ->with($this->equalTo('sort'))
-            ->will($this->returnValue($sort));
-        $request->expects($this->at(8))
-            ->method('getPost')
-            ->with($this->equalTo('sort'))
-            ->will($this->returnValue($sort));
-        $request->expects($this->at(9))
-            ->method('getPost')
-            ->with($this->equalTo('sort'))
-            ->will($this->returnValue($sort));
-        $request->expects($this->at(10))
-            ->method('getPost')
-            ->with($this->equalTo('sort'))
-            ->will($this->returnValue($sort));
-        $request->expects($this->at(11))
-            ->method('getPost')
-            ->with($this->equalTo('sort'))
-            ->will($this->returnValue($sort));
-        $request->expects($this->at(12))
-            ->method('getPost')
-            ->with($this->equalTo('sort'))
-            ->will($this->returnValue($sort));
-         $request->expects($this->at(13))
-            ->method('getPost')
-            ->with($this->equalTo('sort'))
-            ->will($this->returnValue($sort));
-        
-        $request->expects($this->at(1))
-            ->method('getPost')
-            ->with($this->equalTo('category'))
-            ->will($this->returnValue($category->getCategory() . ' updated!'));
-        
-        $request->expects($this->at(2))
-            ->method('getPost')
-            ->with($this->equalTo('description'))
-            ->will($this->returnValue($category->getDescription() . ' updated!'));
-        
-        $request->expects($this->at(3))
-            ->method('getPost')
-            ->with($this->equalTo('status'))
-            ->will($this->returnValue($category->getStatus(\Robinson\Backend\Models\Category::STATUS_INVISIBLE)));
- 
+        $request = $this->getMock('Phalcon\Http\Request', array('isPost'));
         $request->expects($this->any())
             ->method('isPost')
             ->will($this->returnValue(true));
-        
-        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
-        $mockImagick->expects($this->any())
-            ->method('scaleimage')
-            ->will($this->returnValue(true));
-        $mockImagick->expects($this->any())
-            ->method('writeimage')
-            ->will($this->returnValue(true));
-        $splFileInfoMock = $this->getMock('SplFileInfo', array('isFile'), array(), 'MockSplFileInfo', false);
-        $splFileInfoMock->expects($this->any())
-            ->method('isFile')
-            ->will($this->returnValue(true));
-        $this->getDI()->set('SplFileInfo', $splFileInfoMock);
+
         $this->getDI()->setShared('request', $request);
-        $this->getDI()->set('Imagick', $mockImagick);
+        $this->getDI()->set('Imagick', $this->mockWorkingImagick());
 
         $this->dispatch('/admin/category/update/' . $category->getCategoryId());
         
@@ -286,7 +207,7 @@ class CategoryControllerTest extends BaseTestController
       
         foreach($imageCategories as $image)
         {
-            $this->assertEquals($sort[$image->getImageId()], $image->getSort());
+            $this->assertEquals($_POST['sort'][$image->getImageId()], $image->getSort());
         }
     }
     

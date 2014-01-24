@@ -21,7 +21,7 @@ class PackageTest extends \Robinson\Backend\Tests\Models\BaseTestModel
         $model = $this->getMockBuilder('Robinson\Backend\Models\Images\Package')
             ->setMethods(array('applyWatermark'))
             ->getMock();
-        $model->expects($this->once())
+        $model->expects($this->any())
             ->method('applyWatermark')
             ->will($this->returnValue(true));
         
@@ -42,7 +42,7 @@ class PackageTest extends \Robinson\Backend\Tests\Models\BaseTestModel
             ->will($this->returnValue('testfile.png'));
         $model->setBasePath(__DIR__)
         ->createFromUploadedFile($file);
-        
+        $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         $model->save();
         
         $image = \Robinson\Backend\Models\Images\Package::findFirst(array

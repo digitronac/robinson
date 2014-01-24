@@ -168,7 +168,6 @@ class DestinationControllerTest extends BaseTestController
             ->will($this->returnValue(true));
         
         // mock stuff for upload
-        
         $fileMock = $this->getMock('Phalcon\Http\Request\File', array('getName', 'moveTo'), array(), 'MockFileRequest', false);
         $fileMock->expects($this->exactly(2))
             ->method('getName')
@@ -184,18 +183,10 @@ class DestinationControllerTest extends BaseTestController
                 0 => $fileMock,
             )));
         
-        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
-        $mockImagick->expects($this->any())
-            ->method('scaleimage')
-            ->will($this->returnValue(true));
-        $mockImagick->expects($this->any())
-            ->method('writeimage')
-            ->will($this->returnValue(true));
-        
         $destinationImage = $this->getMockBuilder('Robinson\Backend\Models\Images\Destination')
             ->setMethods(array('applyWatermark'))
             ->getMock();
-        $destinationImage->expects($this->once())
+        $destinationImage->expects($this->any())
             ->method('applyWatermark')
             ->will($this->returnValue(true));
         $this->getDI()->set('Robinson\Backend\Models\Images\Destination', $destinationImage);
@@ -203,7 +194,7 @@ class DestinationControllerTest extends BaseTestController
       
         $this->getDI()->setShared('request', $request);
         
-        $this->getDI()->set('Imagick', $mockImagick);
+        $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         $this->dispatch('/admin/destination/update/4');
         $this->assertAction('update');
         $this->assertController('destination');
@@ -266,25 +257,17 @@ class DestinationControllerTest extends BaseTestController
                 0 => $fileMock,
             )));
         
-        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
-        $mockImagick->expects($this->any())
-            ->method('scaleimage')
-            ->will($this->returnValue(true));
-        $mockImagick->expects($this->any())
-            ->method('writeimage')
-            ->will($this->returnValue(true));
-        
         $this->getDI()->setShared('request', $request);
         
         $destinationImage = $this->getMockBuilder('Robinson\Backend\Models\Images\Destination')
             ->setMethods(array('applyWatermark'))
             ->getMock();
-        $destinationImage->expects($this->once())
+        $destinationImage->expects($this->any())
             ->method('applyWatermark')
             ->will($this->returnValue(true));
         $this->getDI()->set('Robinson\Backend\Models\Images\Destination', $destinationImage);
         
-        $this->getDI()->set('Imagick', $mockImagick);
+        $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         $this->dispatch('/admin/destination/update/3');
         $this->assertAction('update');
         $this->assertController('destination');
@@ -339,14 +322,7 @@ class DestinationControllerTest extends BaseTestController
             ->method('isPost')
             ->will($this->returnValue(true));
         
-        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
-        $mockImagick->expects($this->any())
-            ->method('scaleimage')
-            ->will($this->returnValue(true));
-        $mockImagick->expects($this->any())
-            ->method('writeimage')
-            ->will($this->returnValue(true));
-        $this->getDI()->set('Imagick', $mockImagick);
+        $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         
         $this->getDI()->setShared('request', $request);
         

@@ -94,15 +94,8 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
     {
         $this->registerMockSession();
         
-        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
-        $mockImagick->expects($this->any())
-            ->method('scaleimage')
-            ->will($this->returnValue(true));
-        $mockImagick->expects($this->any())
-            ->method('writeimage')
-            ->will($this->returnValue(true));
-        
-        $this->getDI()->set('Imagick', $mockImagick);
+     
+        $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         $this->dispatch('/admin/package/update/1');
         $this->assertAction('update');
         $this->assertController('package');
@@ -144,19 +137,13 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                 0 => $mockImageFile,
             )));
         
-        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
-        $mockImagick->expects($this->any())
-            ->method('scaleimage')
-            ->will($this->returnValue(true));
-        $mockImagick->expects($this->any())
-            ->method('writeimage')
-            ->will($this->returnValue(true));
-        $this->getDI()->set('Imagick', $mockImagick);
+        
+        $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         
         $packageImage = $this->getMockBuilder('Robinson\Backend\Models\Images\Package')
             ->setMethods(array('applyWatermark'))
             ->getMock();
-        $packageImage->expects($this->once())
+        $packageImage->expects($this->any())
             ->method('applyWatermark')
             ->will($this->returnValue(true));
         $this->getDI()->set('Robinson\Backend\Models\Images\Package', $packageImage);
@@ -214,14 +201,8 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                 0 => $mockPdfFile,
             )));
          
-        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
-        $mockImagick->expects($this->any())
-            ->method('scaleimage')
-            ->will($this->returnValue(true));
-        $mockImagick->expects($this->any())
-            ->method('writeimage')
-            ->will($this->returnValue(true));
-        $this->getDI()->set('Imagick', $mockImagick);
+       
+        $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         
         $this->getDI()->setShared('request', $request);
         $this->dispatch('/admin/package/update/1');
@@ -286,19 +267,13 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                 1 => $mockImageFile,
             )));
         
-        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
-        $mockImagick->expects($this->any())
-            ->method('scaleimage')
-            ->will($this->returnValue(true));
-        $mockImagick->expects($this->any())
-            ->method('writeimage')
-            ->will($this->returnValue(true));
-        $this->getDI()->set('Imagick', $mockImagick);
+        
+        $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         
         $packageImage = $this->getMockBuilder('Robinson\Backend\Models\Images\Package')
             ->setMethods(array('applyWatermark'))
             ->getMock();
-        $packageImage->expects($this->once())
+        $packageImage->expects($this->any())
             ->method('applyWatermark')
             ->will($this->returnValue(true));
         $this->getDI()->set('Robinson\Backend\Models\Images\Package', $packageImage);
@@ -348,14 +323,8 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             ->method('isPost')
             ->will($this->returnValue(true));
         
-        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
-        $mockImagick->expects($this->any())
-            ->method('scaleimage')
-            ->will($this->returnValue(true));
-        $mockImagick->expects($this->any())
-            ->method('writeimage')
-            ->will($this->returnValue(true));
-        $this->getDI()->set('Imagick', $mockImagick);
+       
+        $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         
         $this->getDI()->setShared('request', $request);
         $this->dispatch('/admin/package/update/1');
@@ -405,14 +374,8 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             ->method('isPost')
             ->will($this->returnValue(true));
         
-        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
-        $mockImagick->expects($this->any())
-            ->method('scaleimage')
-            ->will($this->returnValue(true));
-        $mockImagick->expects($this->any())
-            ->method('writeimage')
-            ->will($this->returnValue(true));
-        $this->getDI()->set('Imagick', $mockImagick);
+        
+        $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         
         $this->getDI()->setShared('request', $request);
         $this->dispatch('/admin/package/update/1');
@@ -482,19 +445,13 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                 0 => $mockImageFile,
             )));
         
-        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
-        $mockImagick->expects($this->any())
-            ->method('scaleimage')
-            ->will($this->returnValue(true));
-        $mockImagick->expects($this->any())
-            ->method('writeimage')
-            ->will($this->returnValue(true));
-        $this->getDI()->set('Imagick', $mockImagick);
+        
+        $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         
         $packageImage = $this->getMockBuilder('Robinson\Backend\Models\Images\Package')
             ->setMethods(array('applyWatermark'))
             ->getMock();
-        $packageImage->expects($this->once())
+        $packageImage->expects($this->any())
             ->method('applyWatermark')
             ->will($this->returnValue(true));
         $this->getDI()->set('Robinson\Backend\Models\Images\Package', $packageImage);
