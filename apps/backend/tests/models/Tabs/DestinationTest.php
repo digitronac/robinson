@@ -5,8 +5,8 @@ class Destination extends \Robinson\Backend\Tests\Models\BaseTestModel
 {
     public function testCanCreateModel()
     {
-        $model = $this->getDI()->get('Robinson\Models\Tabs\Destination');
-        $this->assertInstanceOf('Robinson\Models\Tabs\Destination');
+        $model = $this->getDI()->get('Robinson\Backend\Models\Tabs\Destination');
+        $this->assertInstanceOf('Robinson\Backend\Models\Tabs\Destination', $model);
     }
     
     public function testCreatingDestinationTabShouldWorkAsExpected()
