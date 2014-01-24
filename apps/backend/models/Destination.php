@@ -35,6 +35,12 @@ class Destination extends \Phalcon\Mvc\Model
         $this->setSource('destinations');
         $this->hasMany('destinationId', 'Robinson\Backend\Models\Images\Destination', 
             'destinationId', array('alias' => 'images'));
+        
+        $this->hasMany('destinationId', 'Robinson\Backend\Models\Tabs\Destination', 'destinationId', array
+        (
+            'alias' => 'tabs',
+        ));
+        
         $this->belongsTo('categoryId', 'Robinson\Backend\Models\Category', 'categoryId');
         
         $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
@@ -307,5 +313,16 @@ class Destination extends \Phalcon\Mvc\Model
     public function getCategory()
     {
         return $this->getRelated('Robinson\Backend\Models\Category');
+    }
+    
+    
+    /**
+     * Gets related tabs.
+     * 
+     * @return \Phalcon\Mvc\Model\Resultset\Simple
+     */
+    public function getTabs()
+    {
+        return $this->getRelated('tabs');
     }
 }

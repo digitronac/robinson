@@ -40,6 +40,13 @@ class DestinationControllerTest extends BaseTestController
     {
         $this->registerMockSession();
         
+        $_POST = array();
+        $_POST['tabs'] = array
+        (
+            \Robinson\Backend\Models\Tabs\Destination::TYPE_APARTMENT => 'Neki lep tekst za apartmane',
+            \Robinson\Backend\Models\Tabs\Destination::TYPE_EXCURSION => 'Neki tekst za ekskurzije?',
+        );
+        
         $request = $this->getMock('Phalcon\Http\Request', array('isPost', 'getPost'));
         $request->expects($this->once())
             ->method('isPost')
@@ -94,6 +101,11 @@ class DestinationControllerTest extends BaseTestController
             'destination' => 'updated destination 4',
             'description' => 'updated description 4',
             'status' => 0,
+            'tabs' => array
+            (
+                \Robinson\Backend\Models\Tabs\Destination::TYPE_APARTMENT => '',
+                \Robinson\Backend\Models\Tabs\Destination::TYPE_EXCURSION => 'Neki tekst za ekskurzije?',
+            ),
         );
         $request = $this->getMock('Phalcon\Http\Request', array('isPost'));
         $request->expects($this->any())
@@ -106,6 +118,21 @@ class DestinationControllerTest extends BaseTestController
         $this->assertEquals($_POST['destination'], $destination->getDestination());
         $this->assertEquals($_POST['description'], $destination->getDescription());
         $this->assertEquals($_POST['status'], $destination->getStatus());
+        
+        // assert tabs
+        $this->assertGreaterThan(0, $destination->getTabs()->count());
+        foreach($destination->getTabs() as $tab)
+        {
+            if ($tab->getType() === \Robinson\Backend\Models\Tabs\Destination::TYPE_APARTMENT)
+            {
+                $this->assertEmpty($tab->getDescription());
+            }
+            
+            if ($tab->getType() === \Robinson\Backend\Models\Tabs\Destination::TYPE_EXCURSION)
+            {
+                $this->assertEquals('Neki tekst za ekskurzije?', $tab->getDescription());
+            }
+        }
     }
     
     public function testUpdatingDestinationWithNewImagesShouldWorkAsExpected()
