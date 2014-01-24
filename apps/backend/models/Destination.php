@@ -325,4 +325,17 @@ class Destination extends \Phalcon\Mvc\Model
     {
         return $this->getRelated('tabs');
     }
+    
+    /**
+     * Sets related tabs.
+     * 
+     * @param array $tabs array of related tabs
+     * 
+     * @return \Robinson\Backend\Models\Destination
+     */
+    public function setTabs(array $tabs)
+    {
+        $this->tabs = $tabs;
+        return $this;
+    }
 }
