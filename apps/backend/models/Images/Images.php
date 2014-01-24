@@ -255,13 +255,6 @@ abstract class Images extends \Phalcon\Mvc\Model
                 sprintf('Unable to move uploaded file to destination "%s".', 
                     $this->basePath . '/' . $this->getRealFilename()));
         }
-        
-        if (!$this->getDI()->getShared('config')->application->watermark->enable)
-        {
-            return;
-        }
-        
-        $this->applyWatermark($destination);
     }
     
     /**
@@ -360,6 +353,14 @@ abstract class Images extends \Phalcon\Mvc\Model
         $imagick = $this->getDI()->get('Imagick', array($this->basePath . '/' . $this->getRealFilename()));
         $imagick->scaleimage($width, $height);
         $imagick->writeimage($cropFile);
+        
+        if (!$this->getDI()->getShared('config')->application->watermark->enable)
+        {
+            return $public;
+        }
+        
+        $this->applyWatermark($cropFile);
+        
         return $public;
         
     }
