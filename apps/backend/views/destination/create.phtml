@@ -19,6 +19,18 @@
         <div>
             <textarea name="description" class="ckeditor" placeholder="Tekst" required="required"></textarea>
         </div>
+        
+        <div>
+            <select class="form-control" name="status" required="required">
+
+                <?php foreach(\Robinson\Backend\Models\Destination::getStatusMessages() as $status => $message): ?>
+
+                <option value="<?=$status?>"><?=$message?></option>
+
+                <?php endforeach ?>
+
+            </select>
+        </div>
         <div>
             <h3>Tabovi:</h3>
             
@@ -30,17 +42,6 @@
             </div>
             
             <?php endforeach ?>
-        </div>
-        <div>
-            <select class="form-control" name="status" required="required">
-
-                <?php foreach(\Robinson\Backend\Models\Destination::getStatusMessages() as $status => $message): ?>
-
-                <option value="<?=$status?>"><?=$message?></option>
-
-                <?php endforeach ?>
-
-            </select>
         </div>
         <div>
             <button class="btn btn-default btn-lg" name="submit">OK</button>
