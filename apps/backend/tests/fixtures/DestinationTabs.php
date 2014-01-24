@@ -16,6 +16,22 @@ class DestinationTabs
             //$data[] = "($i, 'package{$i}', 'description{$i}', 999, 'pdffile-1.pdf', 0, '2014-01-17 1{$i}:00:00', '2014-01-17 1{$i}:00:00', 1)";
         }
         
+        for ($i = 4; $i <= 6; $i++)
+        {
+            $type = $i - 3;
+            
+            $data[] = sprintf($template, $i, "title-{$i}", "description-{$i}", $type, 3, "2014-01-17 1{$i}:00:00", "2014-01-17 1{$i}:00:00");
+            //$data[] = "($i, 'package{$i}', 'description{$i}', 999, 'pdffile-1.pdf', 0, '2014-01-17 1{$i}:00:00', '2014-01-17 1{$i}:00:00', 1)";
+        }
+        
+        for ($i = 7; $i <= 8; $i++)
+        {
+            $type = $i - 6;
+            
+            $data[] = sprintf($template, $i, "title-{$i}", "description-{$i}", $type, 2, "2014-01-17 1{$i}:00:00", "2014-01-17 1{$i}:00:00");
+            //$data[] = "($i, 'package{$i}', 'description{$i}', 999, 'pdffile-1.pdf', 0, '2014-01-17 1{$i}:00:00', '2014-01-17 1{$i}:00:00', 1)";
+        }
+        
         return $data;
     }
 }

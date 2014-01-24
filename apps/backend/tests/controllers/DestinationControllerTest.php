@@ -55,6 +55,7 @@ class DestinationControllerTest extends BaseTestController
             'tabs' => array
             (
                 \Robinson\Backend\Models\Tabs\Destination::TYPE_APARTMENT => 'Neki lep tekst za apartmane',
+                2 => '',
                 \Robinson\Backend\Models\Tabs\Destination::TYPE_EXCURSION => 'Neki tekst za ekskurzije?',
             ),
         );
@@ -113,6 +114,7 @@ class DestinationControllerTest extends BaseTestController
             (
                 \Robinson\Backend\Models\Tabs\Destination::TYPE_APARTMENT => '',
                 \Robinson\Backend\Models\Tabs\Destination::TYPE_EXCURSION => 'Neki tekst za ekskurzije?',
+                \Robinson\Backend\Models\Tabs\Destination::TYPE_HOTEL => 'Neki gotivan hotel',
             ),
         );
         $request = $this->getMock('Phalcon\Http\Request', array('isPost'));
@@ -128,12 +130,12 @@ class DestinationControllerTest extends BaseTestController
         $this->assertEquals($_POST['status'], $destination->getStatus());
         
         // assert tabs
-        $this->assertGreaterThan(0, $destination->getTabs()->count());
+        $this->assertEquals(2, $destination->getTabs()->count());
         foreach($destination->getTabs() as $tab)
         {
-            if ($tab->getType() === \Robinson\Backend\Models\Tabs\Destination::TYPE_APARTMENT)
+            if ($tab->getType() === \Robinson\Backend\Models\Tabs\Destination::TYPE_HOTEL)
             {
-                $this->assertEmpty($tab->getDescription());
+                $this->assertEquals('Neki gotivan hotel', $tab->getDescription());
             }
             
             if ($tab->getType() === \Robinson\Backend\Models\Tabs\Destination::TYPE_EXCURSION)
@@ -151,6 +153,12 @@ class DestinationControllerTest extends BaseTestController
             'destination' => 'update destination with image',
             'description' => 'update destination with description',
             'status' => 0,
+            'tabs' => array
+            (
+                1 => '123',
+                2 => '456',
+                3 => '567',
+            ),
         );
         
         $this->registerMockSession();
@@ -203,6 +211,21 @@ class DestinationControllerTest extends BaseTestController
         $image = \Robinson\Backend\Models\Images\Destination::findFirstByDestinationId(4);
         $this->assertEquals('6-testfile.png', $image->getRealFileName());
         $this->assertEquals(1, $image->getSort());
+        
+        $destination = \Robinson\Backend\Models\Destination::findFirst(4);
+        
+        // assert tabs
+        $this->assertEquals(3, $destination->getTabs()->count());
+        foreach($destination->getTabs() as $tab)
+        {
+            foreach($_POST['tabs'] as $tabType => $desc)
+            {
+                if($tabType === $tab->getType())
+                {
+                    $this->assertEquals($desc, $tab->getDescription());
+                }
+            }
+        }
     }
     
     public function testAddingImagesToDestinationShouldWorkAsExpected()
@@ -213,6 +236,11 @@ class DestinationControllerTest extends BaseTestController
             'destination' => 'update destination with image',
             'description' => 'update destination with description',
             'status' => 0,
+            'tabs' => array
+            (
+                1 => 'dasdsadsadsa',
+                2 => 'dsadsadsdsa',
+            ),
         );
         
         $this->registerMockSession();
@@ -268,6 +296,21 @@ class DestinationControllerTest extends BaseTestController
         ));
         $this->assertEquals('6-testfile.png', $image->getRealFileName());
         $this->assertEquals(6, $image->getSort());
+        
+        $destination = \Robinson\Backend\Models\Destination::findFirst(3);
+        
+        // assert tabs
+        $this->assertEquals(3, $destination->getTabs()->count());
+        foreach($destination->getTabs() as $tab)
+        {
+            foreach($_POST['tabs'] as $tabType => $desc)
+            {
+                if($tabType === $tab->getType())
+                {
+                    $this->assertEquals($desc, $tab->getDescription());
+                }
+            }
+        }
     }
     
     public function testReoderingImagesInDestinationShouldWorkAsExpected()
@@ -281,6 +324,12 @@ class DestinationControllerTest extends BaseTestController
                 3 => 3,
                 2 => 4,
                 1 => 5,
+            ),
+            'tabs' => array
+            (
+                1 => 'test',
+                2 => 'test 2',
+                3 => 'test 3',
             ),
         );
         
@@ -298,6 +347,7 @@ class DestinationControllerTest extends BaseTestController
             ->method('writeimage')
             ->will($this->returnValue(true));
         $this->getDI()->set('Imagick', $mockImagick);
+        
         $this->getDI()->setShared('request', $request);
         
         
@@ -323,6 +373,113 @@ class DestinationControllerTest extends BaseTestController
         $this->dispatch('/admin/destination/deleteImage');
         $image = \Robinson\Backend\Models\Images\Destination::findFirst(3);
         $this->assertFalse($image);
+    }
+    
+    public function testEnteringNewTabShouldWorkAsExpected()
+    {
+        $_POST = array
+        (
+            'categoryId' => 1,
+            'destination' => 'update destination with image',
+            'description' => 'update destination with description',
+            'status' => 0,
+            'tabs' => array
+            (
+                1 => '123',
+                2 => '456',
+                3 => '567',
+            ),
+        );
+        
+        $this->registerMockSession();
+        $request = $this->getMock('Phalcon\Http\Request', array('isPost'));
+        $request->expects($this->once())
+            ->method('isPost')
+            ->will($this->returnValue(true));
+        
+        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
+        $mockImagick->expects($this->any())
+            ->method('scaleimage')
+            ->will($this->returnValue(true));
+        $mockImagick->expects($this->any())
+            ->method('writeimage')
+            ->will($this->returnValue(true));
+        
+        $this->getDI()->setShared('request', $request);
+        
+        $this->getDI()->set('Imagick', $mockImagick);
+        $this->dispatch('/admin/destination/update/2');
+        $this->assertAction('update');
+        $this->assertController('destination');
+        
+        $destination = \Robinson\Backend\Models\Destination::findFirst(2);
+        
+        // assert tabs
+        $this->assertEquals(3, $destination->getTabs()->count());
+        foreach($destination->getTabs() as $tab)
+        {
+            foreach($_POST['tabs'] as $tabType => $desc)
+            {
+                if($tabType === $tab->getType())
+                {
+                    $this->assertEquals($desc, $tab->getDescription());
+                }
+            }
+        }
+       
+    }
+    
+    public function testNotEnteringDescriptionForTabWhichDidntExistInFirstPlaceShouldWorkAsExpected()
+    {
+        $_POST = array
+        (
+            'categoryId' => 1,
+            'destination' => 'update destination with image',
+            'description' => 'update destination with description',
+            'status' => 0,
+            'tabs' => array
+            (
+                1 => '123',
+                2 => '456',
+                3 => '',
+            ),
+        );
+        
+        $this->registerMockSession();
+        $request = $this->getMock('Phalcon\Http\Request', array('isPost'));
+        $request->expects($this->once())
+            ->method('isPost')
+            ->will($this->returnValue(true));
+        
+        $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
+        $mockImagick->expects($this->any())
+            ->method('scaleimage')
+            ->will($this->returnValue(true));
+        $mockImagick->expects($this->any())
+            ->method('writeimage')
+            ->will($this->returnValue(true));
+        
+        $this->getDI()->setShared('request', $request);
+        
+        $this->getDI()->set('Imagick', $mockImagick);
+        $this->dispatch('/admin/destination/update/2');
+        $this->assertAction('update');
+        $this->assertController('destination');
+        
+        $destination = \Robinson\Backend\Models\Destination::findFirst(2);
+        
+        // assert tabs
+        $this->assertEquals(2, $destination->getTabs()->count());
+        foreach($destination->getTabs() as $tab)
+        {
+            foreach($_POST['tabs'] as $tabType => $desc)
+            {
+                if($tabType === $tab->getType())
+                {
+                    $this->assertEquals($desc, $tab->getDescription());
+                }
+            }
+        }
     }
     
     

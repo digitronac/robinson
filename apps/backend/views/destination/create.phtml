@@ -20,6 +20,18 @@
             <textarea name="description" class="ckeditor" placeholder="Tekst" required="required"></textarea>
         </div>
         <div>
+            <h3>Tabovi:</h3>
+            
+            <?php foreach($tabs as $type => $title): ?>
+            
+            <div>
+                <label for="tab-<?=$type?>"><?=$title?></label>
+                <textarea name="tabs[<?=$type?>]" class="ckeditor" placeholder="<?=$this->escaper->escapeHtmlAttr($title)?>"></textarea>
+            </div>
+            
+            <?php endforeach ?>
+        </div>
+        <div>
             <select class="form-control" name="status" required="required">
 
                 <?php foreach(\Robinson\Backend\Models\Destination::getStatusMessages() as $status => $message): ?>
