@@ -28,6 +28,10 @@ abstract class Images extends \Phalcon\Mvc\Model
     
     protected $sort;
     
+    protected $width;
+    
+    protected $height;
+    
     /**
      *
      * @var \Symfony\Component\Filesystem\Filesystem 
@@ -121,6 +125,26 @@ abstract class Images extends \Phalcon\Mvc\Model
     {
         $this->sort = (int) $sort;
         return $this;
+    }
+    
+    /**
+     * Gets width.
+     * 
+     * @return int
+     */
+    public function getWidth()
+    {
+        return (int) $this->width;
+    }
+    
+    /**
+     * Gets height.
+     * 
+     * @return int
+     */
+    public function getHeight()
+    {
+        return (int) $this->height;
     }
     
     /**
@@ -339,34 +363,61 @@ abstract class Images extends \Phalcon\Mvc\Model
                 'imageType must be set prior to calling getResizedSrc()');
         }
         
-        $cropDir = $this->basePath . '/' . $width . 'x' . $height;
+        $dimensions = $this->sanitizeCropWidthAndHeight(array
+        (
+            'width' => $width,
+            'height' => $height,
+        ));
+        
+        $cropDir = $this->basePath . '/' . $dimensions['width'] . 'x' . $dimensions['height'];
+        $cropFile = $cropDir . '/' . $this->getRealFilename();
+        
         if (!$this->filesystem->exists($cropDir))
         {
             $this->filesystem->mkdir($cropDir);
         }
-        
-        $cropFile = $cropDir . '/' . $this->getRealFilename();
-        
-        $public = '/img/' . $this->imageType . '/' . $width . 'x' . $height . '/' . $this->getRealFilename();
-        
+       
         if ($this->filesystem->exists($cropFile))
         {
-            return $public;
+            return $this->compileImgPath($dimensions['width'], $dimensions['height']);
         }
 
         $imagick = $this->getDI()->get('Imagick', array($this->basePath . '/' . $this->getRealFilename()));
-        $imagick->scaleimage($width, $height);
+        $imagick->scaleimage($dimensions['width'], $dimensions['height']);
         $imagick->writeimage($cropFile);
         
+        // return before watermarking
         if (!$this->getDI()->getShared('config')->application->watermark->enable)
         {
-            return $public;
+            return $this->compileImgPath($dimensions['width'], $dimensions['height']);
         }
         
         $this->applyWatermark($cropFile);
         
-        return $public;
+        return $this->compileImgPath($dimensions['width'], $dimensions['height']);
         
+    }
+    
+    /**
+     * Sanitizes with and height if too large. 
+     * 
+     * @param array $dimensions dimensions array, should contain width and height
+     * 
+     * @return array
+     */
+    protected function sanitizeCropWidthAndHeight(array $dimensions)
+    {
+        if ($dimensions['width'] > $this->getWidth())
+        {
+            $dimensions['width'] = $this->getWidth();
+        }
+        
+        if ($dimensions['height'] > $this->getHeight())
+        {
+            $dimensions['height'] = $this->getHeight();
+        }
+        
+        return $dimensions;
     }
     
     /**
@@ -383,5 +434,24 @@ abstract class Images extends \Phalcon\Mvc\Model
             'imagickFile' => new \Imagick($destination),
             'destinationFile' => $destination,
         ));
+    }
+    
+    /**
+     * Compiles path to image (relative or absolute)
+     * 
+     * @param int    $width  width
+     * @param int    $height height
+     * @param string $type   relative|absolute
+     * 
+     * @return string
+     */
+    protected function compileImgPath($width, $height, $type = 'relative')
+    {
+        $baseImagePath = $this->imageType . '/' . $width . 'x' . $height . '/' . $this->getRealFilename();
+        
+        if ($type === 'relative')
+        {
+            return '/img/' . $baseImagePath;
+        }
     }
 }
