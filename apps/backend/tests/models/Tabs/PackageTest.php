@@ -14,7 +14,7 @@ class Package extends \Robinson\Backend\Tests\Models\BaseTestModel
         $model = new \Robinson\Backend\Models\Tabs\Package();
         $model->setTitle($title = 'test tab title')
             ->setDescription($description = 'test tab description')
-            ->setType($type = \Robinson\Backend\Models\Tabs\Package::TYPE_TRIP_PROGRAMME)
+            ->setType($type = \Robinson\Backend\Models\Tabs\Package::TYPE_PROGRAMME)
             ->setPackageId($packageId = 1);
         $this->assertTrue($model->create());
         
@@ -32,8 +32,8 @@ class Package extends \Robinson\Backend\Tests\Models\BaseTestModel
     public function testResolveTypeToTitleShouldWorkAsExpected()
     {
         $model = new \Robinson\Backend\Models\Tabs\Package();
-        $model->setType(\Robinson\Backend\Models\Tabs\Package::TYPE_TRIP_PROGRAMME);
-        $expected = $this->getDI()->getShared('config')->application->package->tabs->toArray()[\Robinson\Backend\Models\Tabs\Package::TYPE_TRIP_PROGRAMME];
+        $model->setType(\Robinson\Backend\Models\Tabs\Package::TYPE_PROGRAMME);
+        $expected = $this->getDI()->getShared('config')->application->package->tabs->toArray()[\Robinson\Backend\Models\Tabs\Package::TYPE_PROGRAMME];
         $this->assertEquals($expected, $model->resolveTypeToTitle());
     }
 }
