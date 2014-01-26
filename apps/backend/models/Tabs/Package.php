@@ -23,11 +23,6 @@ class Package extends \Robinson\Backend\Models\Tabs\Tabs
         (
             'alias' => 'package',
         ));
-        
-        $this->belongsTo('packageId', 'Robinson\Backend\Models\Tabs\Package', 'packageId', array
-        (
-            'alias' => 'tabs',
-        ));
     }
     
     /**
