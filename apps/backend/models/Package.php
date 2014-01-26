@@ -421,5 +421,57 @@ class Package extends \Phalcon\Mvc\Model
         return self::$statusMessages;
     }
     
+    /**
+     * Updates package tabs.
+     * 
+     * @param array $tabsData tabs data, recieved from form data
+     * 
+     * @return \Robinson\Backend\Models\Package fluent interface
+     */
+    public function updateTabs(array $tabsData)
+    {
+        $tabs = array();
+        foreach ($tabsData as $type => $description)
+        {
+            $description = trim($description);
+            $tab = $this->getTabs(array
+            (
+                'type = :type:',
+                'bind' => array
+                (
+                    'type' => $type,
+                ),
+            ))->getFirst();
+            
+               
+            // no tab , no description -> skip
+            if (!$tab && !$description)
+            {
+                continue;
+            }
+
+            // no description, tab exists -> delete tab
+            if ($tab && !$description)
+            {
+                $tab->delete();
+                continue;
+            }
+
+            // new tab -> create
+            if (!$tab && $description)
+            {
+               $tab = new \Robinson\Backend\Models\Tabs\Package();
+               $tab->setType($type)
+                   ->setTitle($tab->resolveTypeToTitle());
+            }
+
+            $tab->setDescription($description);
+            $tabs[] = $tab;
+        }
+        
+        $this->tabs = $tabs;
+        return $this;
+    }
+    
     
 }

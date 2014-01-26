@@ -90,6 +90,26 @@
             </div>
         </div>
         <div>
+            <h3>Tabovi:</h3>
+            
+            <?php foreach($tabs as $type => $title): ?>
+            
+            <div>
+                <label for="tab-<?=$type?>"><?=$title?></label>
+                
+                <?=\Phalcon\Tag::textArea(array
+                (
+                    'tabs[' . $type . ']',
+                    'placeholder' => $title,
+                    'class' => 'ckeditor',
+                )) . PHP_EOL?>
+                
+            </div>
+            
+            <?php endforeach ?>
+            
+        </div>
+        <div>
             <button class="btn btn-default btn-lg" name="submit">OK</button>
         </div>
     </form>

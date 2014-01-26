@@ -10,6 +10,8 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         parent::setUp($di, $config);
         $this->populateTable('packages');
         $this->populateTable('package_images');
+        $this->populateTable('package_tabs');
+        
         $this->vfsfs = \org\bovigo\vfs\vfsStream::setup('root', null, array
         (
             'pdf' => array
@@ -133,7 +135,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         $this->assertController('package');
     }
     
-    public function testUpdatePackageWithNewImageShouldWorkAsExpected()
+    public function testUpdatePackageWithNewImageAndTabsShouldWorkAsExpected()
     {
         $this->registerMockSession();
         $_POST = array
@@ -143,6 +145,11 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             'description' => 'test package description 2 :)',
             'price' => 999,
             'status' => 1,
+            'tabs' => array
+            (
+                1 => 'test 1',
+                2 => 'test 2',
+            ),
         );
         
         $mockImageFile = $this->getMockBuilder('Phalcon\Http\Request\File')
@@ -192,9 +199,23 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         $image = \Robinson\Backend\Models\Images\Package::findFirst(6);
         $this->assertEquals('6-packageimagetest.jpg', $image->getRealFileName());
         $this->assertEquals('packageimagetest.jpg', $image->getTitle());
+        
+        // assert tabs
+        $this->assertGreaterThan(0, $package->getTabs()->count());
+        
+        foreach ($package->getTabs() as $tab)
+        {
+             foreach ($_POST['tabs'] as $type => $description)
+             {
+                 if($tab->getType() === $type)
+                 {
+                     $this->assertEquals($description, $tab->getDescription());
+                 }
+             }
+         }
     }
     
-    public function testUpdatePackageWithNewPdfShouldWorkAsExpected()
+    public function testUpdatePackageWithNewPdfAndTabsShouldWorkAsExpected()
     {
         $this->registerMockSession();
         $_POST = array
@@ -204,6 +225,12 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             'description' => 'test package description 2 :)',
             'price' => 999,
             'status' => 1,
+            'tabs' => array
+            (
+                1 => 'tab1',
+                3 => 'tab3',
+                4 => 'tab4',
+            ),
         );
         
         $mockPdfFile = $this->getMockBuilder('Phalcon\Http\Request\File')
@@ -246,9 +273,23 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         $this->assertEquals(999, $package->getPrice());
         $this->assertEquals(\Robinson\Backend\Models\Package::STATUS_VISIBLE, $package->getStatus());
         $this->assertEquals('packagepdftest.pdf', $package->getPdf());
+        
+        // assert tabs
+        $this->assertGreaterThan(0, $package->getTabs()->count());
+        
+        foreach ($package->getTabs() as $tab)
+        {
+             foreach ($_POST['tabs'] as $type => $description)
+             {
+                 if($tab->getType() === $type)
+                 {
+                     $this->assertEquals($description, $tab->getDescription());
+                 }
+             }
+         }
     }
     
-    public function testUpdatePackageWithNewPdfAndImageShouldWorkAsExpected()
+    public function testUpdatePackageWithNewPdfAndImageAndTabShouldWorkAsExpected()
     {
         $this->registerMockSession();
         $_POST = array
@@ -258,6 +299,10 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             'description' => 'test package description 2 :)',
             'price' => 999,
             'status' => 1,
+            'tabs' => array
+            (
+                1 => 'tab',
+            ),
         );
         
         $mockImageFile = $this->getMockBuilder('Phalcon\Http\Request\File')
@@ -325,9 +370,23 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         $image = \Robinson\Backend\Models\Images\Package::findFirst(6);
         $this->assertEquals('6-packageimagetest.jpg', $image->getRealFileName());
         $this->assertEquals('packageimagetest.jpg', $image->getTitle());
+        
+        // assert tabs
+        $this->assertGreaterThan(0, $package->getTabs()->count());
+        
+        foreach ($package->getTabs() as $tab)
+        {
+             foreach ($_POST['tabs'] as $type => $description)
+             {
+                 if($tab->getType() === $type)
+                 {
+                     $this->assertEquals($description, $tab->getDescription());
+                 }
+             }
+         }
     }
     
-    public function testSortingPackageImagesShouldWorkAsExpected()
+    public function testSortingPackageImagesAndAddingNewTabShouldWorkAsExpected()
     {
         $this->registerMockSession();
         $_POST = array
@@ -344,6 +403,10 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                 3 => 4,
                 4 => 5,
                 5 => 6,
+            ),
+            'tabs' => array
+            (
+                1 => 'tab1',
             ),
         );
         
@@ -376,9 +439,23 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         {
             $this->assertEquals($_POST['sort'][$image->getImageId()], $image->getSort());
         }
+        
+        // assert tabs
+        $this->assertGreaterThan(0, $package->getTabs()->count());
+        
+        foreach ($package->getTabs() as $tab)
+        {
+             foreach ($_POST['tabs'] as $type => $description)
+             {
+                 if($tab->getType() === $type)
+                 {
+                     $this->assertEquals($description, $tab->getDescription());
+                 }
+             }
+         }
     }
     
-    public function testChangingTitlesOnImagesShouldWorkAsExpected()
+    public function testChangingTitlesOnImagesAndAddingTabsShouldWorkAsExpected()
     {
         $this->registerMockSession();
         $_POST = array
@@ -395,6 +472,11 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                 3 => 'image 3',
                 4 => 'image 4',
                 5 => 'image 5',
+            ),
+            'tabs' => array
+            (
+                1 => 'aaa1',
+                2 => '',
             ),
         );
         
@@ -427,6 +509,20 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         {
             $this->assertEquals($_POST['title'][$image->getImageId()], $image->getTitle());
         }
+        
+        // assert tabs
+        $this->assertGreaterThan(0, $package->getTabs()->count());
+        
+        foreach ($package->getTabs() as $tab)
+        {
+             foreach ($_POST['tabs'] as $type => $description)
+             {
+                 if($tab->getType() === $type)
+                 {
+                     $this->assertEquals($description, $tab->getDescription());
+                 }
+             }
+         }
     }
     
     public function testChangingTitlesOnImagesWithNewImageUploadShouldWorkAsExpected()
@@ -446,6 +542,10 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                 3 => 'image 3',
                 4 => 'image 4',
                 5 => 'image 5',
+            ),
+            'tabs' => array
+            (
+                1 => 'newtab',
             ),
         );
         
@@ -516,6 +616,74 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         $image = \Robinson\Backend\Models\Images\Package::findFirst(6);
         $this->assertEquals('6-newpngimage.png', $image->getRealFileName());
         $this->assertEquals('newpngimage.png', $image->getTitle());
+        
+        // assert tabs
+        $this->assertGreaterThan(0, $package->getTabs()->count());
+        
+        foreach ($package->getTabs() as $tab)
+        {
+             foreach ($_POST['tabs'] as $type => $description)
+             {
+                 if($tab->getType() === $type)
+                 {
+                     $this->assertEquals($description, $tab->getDescription());
+                 }
+             }
+         }
+    }
+    
+    public function testUpdatingExistingTabsShouldWorkAsExpected()
+    {
+        $this->registerMockSession();
+        $_POST = array
+        (
+            'destinationId' => 1,
+            'package' => 'test package name 4 :)',
+            'description' => 'test package description 4 :)',
+            'price' => 999,
+            'status' => 1,
+            'tabs' => array
+            (
+                1 => 'newtab',
+                2 => '',
+                3 => '',
+            ),
+        );
+       
+        // request
+        $request = $this->getMockBuilder('Phalcon\Http\Request')
+            ->setMethods(array('isPost'))
+            ->getMock();
+        $request->expects($this->any())
+            ->method('isPost')
+            ->will($this->returnValue(true));
+        
+        $this->getDI()->setShared('request', $request);
+        $this->dispatch('/admin/package/update/4');
+        
+        $package = \Robinson\Backend\Models\Package::findFirst(4);
+        $this->assertEquals(1, $package->getDestination()->getDestinationId());
+        $this->assertEquals('test package name 4 :)', $package->getPackage());
+        $this->assertEquals('test package description 4 :)', $package->getDescription());
+        $this->assertEquals(999, $package->getPrice());
+        $this->assertEquals(\Robinson\Backend\Models\Package::STATUS_VISIBLE, $package->getStatus());
+    
+        // assert tabs
+        $this->assertGreaterThan(0, $package->getTabs()->count());
+        
+        foreach ($package->getTabs() as $tab)
+        {
+             foreach ($_POST['tabs'] as $type => $description)
+             {
+                 if($tab->getType() === $type)
+                 {
+                     $this->assertEquals($description, $tab->getDescription());
+                 }
+             }
+         }
+         
+         // two were deleted
+         $this->assertCount(1, $package->getTabs());
     }
     
     public function testDeleteImageShouldExist()

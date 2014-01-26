@@ -49,6 +49,11 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             $tabs = array();
             foreach ($this->request->getPost('tabs') as $type => $description)
             {
+                if (!$description)
+                {
+                    continue;
+                }
+                
                 $tab = new \Robinson\Backend\Models\Tabs\Package();
                 $tab->setDescription($description)
                     ->setType($type)
@@ -98,6 +103,8 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 ->setDescription($this->request->getPost('description'))
                 ->setStatus($this->request->getPost('status'));
             
+            $package->updateTabs($this->request->getPost('tabs'));
+            
             // sort?
             $sort = $this->request->getPost('sort');
             
@@ -137,12 +144,19 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 $package->images = $images;
             }
             
-            
             if (!$package->update())
             {
                 throw new \Phalcon\Exception('Unable to update package #' . $package->getPackageId());
             }
            
+        }
+        
+        $this->view->tabs = $this->getDI()->getShared('config')->application->destination->tabs->toArray();
+        
+        $tabs = $package->getTabs();
+        foreach ($tabs as $tab)
+        {
+            $this->tag->setDefault('tabs[' . $tab->getType() . ']', $tab->getDescription());
         }
         
         $this->tag->setDefault('destinationId', $package->getDestination()->getDestinationId());
