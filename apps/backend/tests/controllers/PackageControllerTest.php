@@ -59,6 +59,12 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             'description' => 'test package description :)',
             'price' => 99,
             'status' => 0,
+            'tabs' => array
+            (
+                1 => 'trlalalala',
+                2 => 'test text',
+                3 => 'test 3 text',
+            ),
         );
         
         // mock stuff for upload
@@ -88,6 +94,32 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
        $this->dispatch('/admin/package/create');
        $this->assertAction('create');
        $this->assertRedirectTo('/admin/package/update/6');
+       
+        /* @var $last \Robinson\Backend\Models\Package */
+        $last = \Robinson\Backend\Models\Package::findFirst(array
+        (
+            'order' => 'packageId DESC',
+        ));
+        
+        // assert tabs
+        $this->assertGreaterThan(0, $last->getTabs()->count());
+        foreach ($last->getTabs() as $tab)
+        {
+             if ($tab->getType() === \Robinson\Backend\Models\Tabs\Package::TYPE_PROGRAMME)
+             {
+                 $this->assertEquals('trlalalala', $tab->getDescription());
+             }
+
+             if ($tab->getType() === \Robinson\Backend\Models\Tabs\Package::TYPE_CONDITIONS)
+             {
+                 $this->assertEquals('test text', $tab->getDescription());
+             }
+             
+             if ($tab->getType() === \Robinson\Backend\Models\Tabs\Package::TYPE_AVIO)
+             {
+                 $this->assertEquals('test 3 text', $tab->getDescription());
+             }
+         }
     }
     
     public function testUpdatePackageActionShouldExist()

@@ -57,6 +57,10 @@ class Package extends \Phalcon\Mvc\Model
         (
             'alias' => 'images',
         ));
+        $this->hasMany('packageId', 'Robinson\Backend\Models\Tabs\Package', 'packageId', array
+        (
+            'alias' => 'tabs',
+        ));
         
         $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
         (
@@ -155,18 +159,6 @@ class Package extends \Phalcon\Mvc\Model
     public function getDescription()
     {
         return $this->description;
-    }
-    
-    /**
-     * Gets tabs.
-     * 
-     * @todo split tabs in array and use "-----" delimiter
-     * 
-     * @return type
-     */
-    public function getTabs()
-    {
-        return $this->tabs;
     }
     
     /**
@@ -405,6 +397,18 @@ class Package extends \Phalcon\Mvc\Model
         (
             'order' => 'sort ASC',
         ));
+    }
+    
+    /**
+     * Gets package tabs.
+     * 
+     * @param array $params additional criteria
+     * 
+     * @return \Phalcon\Mvc\Model\Resultset\Simple
+     */
+    public function getTabs(array $params = null)
+    {
+        return $this->getRelated('tabs', $params);
     }
     
     /**

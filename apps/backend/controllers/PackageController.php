@@ -46,6 +46,18 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 ->setUploadedPdf($this->request->getUploadedFiles()[0])
                 ->setStatus($this->request->getPost('status'));
             
+            $tabs = array();
+            foreach ($this->request->getPost('tabs') as $type => $description)
+            {
+                $tab = new \Robinson\Backend\Models\Tabs\Package();
+                $tab->setDescription($description)
+                    ->setType($type)
+                    ->setTitle($tab->resolveTypeToTitle());
+                $tabs[] = $tab;
+            }
+            
+            $package->tabs = $tabs;
+            
             if (!$package->create())
             {
                 throw new \Phalcon\Exception('Unable to create new package.');
