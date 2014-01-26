@@ -45,6 +45,24 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 ->setDescription($this->request->getPost('description'))
                 ->setUploadedPdf($this->request->getUploadedFiles()[0])
                 ->setStatus($this->request->getPost('status'));
+            
+            $tabs = array();
+            foreach ($this->request->getPost('tabs') as $type => $description)
+            {
+                if (!$description)
+                {
+                    continue;
+                }
+                
+                $tab = new \Robinson\Backend\Models\Tabs\Package();
+                $tab->setDescription($description)
+                    ->setType($type)
+                    ->setTitle($tab->resolveTypeToTitle());
+                $tabs[] = $tab;
+            }
+            
+            $package->tabs = $tabs;
+            
             if (!$package->create())
             {
                 throw new \Phalcon\Exception('Unable to create new package.');
@@ -59,6 +77,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             ));
         }
 
+        $this->view->tabs = $this->getDI()->getShared('config')->application->package->tabs->toArray();
         $this->view->select = $this->buildDestinationMultiSelectData();
     }
     
@@ -83,6 +102,8 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 ->setPrice($this->request->getPost('price'))
                 ->setDescription($this->request->getPost('description'))
                 ->setStatus($this->request->getPost('status'));
+            
+            $package->updateTabs($this->request->getPost('tabs'));
             
             // sort?
             $sort = $this->request->getPost('sort');
@@ -123,12 +144,19 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 $package->images = $images;
             }
             
-            
             if (!$package->update())
             {
                 throw new \Phalcon\Exception('Unable to update package #' . $package->getPackageId());
             }
            
+        }
+        
+        $this->view->tabs = $this->getDI()->getShared('config')->application->destination->tabs->toArray();
+        
+        $tabs = $package->getTabs();
+        foreach ($tabs as $tab)
+        {
+            $this->tag->setDefault('tabs[' . $tab->getType() . ']', $tab->getDescription());
         }
         
         $this->tag->setDefault('destinationId', $package->getDestination()->getDestinationId());
