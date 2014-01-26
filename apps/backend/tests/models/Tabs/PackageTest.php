@@ -26,7 +26,7 @@ class Package extends \Robinson\Backend\Tests\Models\BaseTestModel
         $this->assertEquals($title, $packageTab->getTitle());
         $this->assertEquals($description, $packageTab->getDescription());
         $this->assertEquals($type, $packageTab->getType());
-        $this->assertEquals($packageId, $packageTab->getDestinationId());
+        $this->assertEquals($packageId, $packageTab->getPackageId());
     }
     
     public function testResolveTypeToTitleShouldWorkAsExpected()
