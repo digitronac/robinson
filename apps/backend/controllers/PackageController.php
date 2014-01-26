@@ -45,6 +45,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 ->setDescription($this->request->getPost('description'))
                 ->setUploadedPdf($this->request->getUploadedFiles()[0])
                 ->setStatus($this->request->getPost('status'));
+            
             if (!$package->create())
             {
                 throw new \Phalcon\Exception('Unable to create new package.');
@@ -59,6 +60,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             ));
         }
 
+        $this->view->tabs = $this->getDI()->getShared('config')->application->package->tabs->toArray();
         $this->view->select = $this->buildDestinationMultiSelectData();
     }
     
