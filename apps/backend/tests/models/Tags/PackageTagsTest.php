@@ -15,4 +15,11 @@ class PackageTagTest extends \Robinson\Backend\Tests\Models\BaseTestModel
         $model = $this->getDI()->get('Robinson\Backend\Models\Tags\Package');
         $this->assertInstanceOf('Robinson\Backend\Models\Tags\Package', $model);
     }
+    
+    public function testCanAddTag()
+    {
+        /* @var $tag \Robinson\Backend\Models\Tags\Package */
+        $tag = $this->getDI()->get('Robinson\Backend\Models\Tags\Package');
+        
+    }
 }

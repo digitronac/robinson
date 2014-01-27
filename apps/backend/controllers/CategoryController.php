@@ -16,13 +16,11 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
     
     /**
      * Create new category page.
-     * 
+     *
      * @return mixed
      */
     public function createAction()
     {
-        $isPost = $this->request->isPost();
-
         if ($this->request->isPost())
         {
             $category = new \Robinson\Backend\Models\Category();
@@ -35,17 +33,17 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
                 'action' => 'update', 'id' => $category->getCategoryId()));
         }
     }
-    
+
     /**
      * Update existing category.
-     * 
+     *
      * @return void
      */
     public function updateAction()
     {
         /* @var $category \Robinson\Backend\Models\Category */
         $category = $this->getDI()->get('Robinson\Backend\Models\Category');
-        $category = $category->findFirst('categoryId = ' . $this->dispatcher->getParam('id'));   
+        $category = $category->findFirst('categoryId = ' . $this->dispatcher->getParam('id'));
 
         if ($this->request->isPost())
         {
@@ -57,6 +55,7 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
             // files upload
             $files = $this->request->getUploadedFiles();
 
+            /* @var $file \Phalcon\Http\Request\File */
             foreach ($files as $file)
             {
                 /* @var $imageCategory \Robinson\Backend\Models\Images\Category */
@@ -79,10 +78,9 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
             $category->update();
             $category->refresh();
         }
-        
+
         $this->tag->setDefault('status', $category->getStatus());
         $this->tag->setDefault('description', $category->getDescription());
-        
         $this->view->setVar('category', $category);
     }
     

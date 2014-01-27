@@ -34,6 +34,29 @@ abstract class Tag extends \Phalcon\Mvc\Model
     }
     
     /**
+     * Sets tag title.
+     * 
+     * @param string $tag
+     * 
+     * @return \Robinson\Backend\Models\Tags
+     */
+    public function setTag($tag)
+    {
+        $this->tag = $tag;
+        return $this;
+    }
+    
+    /**
+     * Gets tag title.
+     * 
+     * @return string
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
+    
+    /**
      * Resolves tag type to tag title from configuration.
      * 
      * @param int $type tag type

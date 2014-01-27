@@ -35,12 +35,12 @@ class Category extends \Phalcon\Mvc\Model
         (
             'alias' => 'images',
         ));
-        
+
         $this->hasMany('categoryId', 'Robinson\Backend\Models\Destination', 'categoryId', array
         (
             'alias' => 'destinations',
         ));
-        
+
         $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
         (
             'beforeValidationOnCreate' => array
@@ -49,7 +49,7 @@ class Category extends \Phalcon\Mvc\Model
                 'format' => 'Y-m-d H:i:s',
             ),
         )));
-            
+
         $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
         (
             'beforeValidationOnCreate' => array
@@ -58,7 +58,7 @@ class Category extends \Phalcon\Mvc\Model
                 'format' => 'Y-m-d H:i:s',
             ),
         )));
-            
+
         $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
         (
             'beforeValidationOnUpdate' => array
@@ -68,12 +68,12 @@ class Category extends \Phalcon\Mvc\Model
             ),
         )));
     }
-    
+
     /**
      * Getter method for category name.
-     *  
+     *
      * @param bool $escapeHtml flag
-     * 
+     *
      * @return string
      */
     public function getCategory($escapeHtml = true)
