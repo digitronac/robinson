@@ -33,17 +33,17 @@ class CategoryControllerTest extends BaseTestController
         
         $request = $this->getMock('Phalcon\Http\Request', array('getPost', 'isPost'));
    
-        $request->expects($this->at(2))
+        $request->expects($this->at(1))
             ->method('getPost')
             ->with($this->equalTo('category'))
             ->will($this->returnValue($category));
         
-        $request->expects($this->at(3))
+        $request->expects($this->at(2))
             ->method('getPost')
             ->with($this->equalTo('description'))
             ->will($this->returnValue($description));
         
-        $request->expects($this->at(4))
+        $request->expects($this->at(3))
             ->method('getPost')
             ->with($this->equalTo('status'))
             ->will($this->returnValue($status));

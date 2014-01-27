@@ -6,8 +6,6 @@ abstract class Tag extends \Phalcon\Mvc\Model
     
     protected $type;
     
-    protected $packageId;
-    
     protected $createdAt;
     
     /**
@@ -18,17 +16,18 @@ abstract class Tag extends \Phalcon\Mvc\Model
     abstract function initialize();
     
     /**
-     * Method which is executed on creation.
+     * Method which is executed on construction.
      * 
      * @return void
      */
-    public function onCreate()
+    public function onConstruct()
     {
         $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
         (
             'beforeValidationOnCreate' => array
             (
-                'createdAt' => date('Y-m-d H:i:s'),
+                'field' => 'createdAt',
+                'format' => 'Y-m-d H:i:s',
             ),
         )));
     }
@@ -36,7 +35,7 @@ abstract class Tag extends \Phalcon\Mvc\Model
     /**
      * Sets tag title.
      * 
-     * @param string $tag
+     * @param string $tag tag
      * 
      * @return \Robinson\Backend\Models\Tags
      */
@@ -54,6 +53,29 @@ abstract class Tag extends \Phalcon\Mvc\Model
     public function getTag()
     {
         return $this->tag;
+    }
+
+    /**
+     * Sets tag type.
+     *
+     * @param int $type type
+     *
+     * @return $this
+     */
+    public function setType($type)
+    {
+        $this->type = (int) $type;
+        return $this;
+    }
+
+    /**
+     * Gets tag type.
+     *
+     * @return int
+     */
+    public function getType()
+    {
+        return (int) $this->type;
     }
     
     /**

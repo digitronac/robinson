@@ -53,13 +53,20 @@ class Package extends \Phalcon\Mvc\Model
         (
             'alias' => 'destination', 
         ));
+
         $this->hasMany('packageId', 'Robinson\Backend\Models\Images\Package', 'packageId', array
         (
             'alias' => 'images',
         ));
+
         $this->hasMany('packageId', 'Robinson\Backend\Models\Tabs\Package', 'packageId', array
         (
             'alias' => 'tabs',
+        ));
+
+        $this->hasMany('packageId', 'Robinson\Backend\Models\Tags\Package', 'packageId', array
+        (
+           'alias' => 'tags',
         ));
         
         $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array

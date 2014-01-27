@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "f278a8f08b3071803dba24ad44531819",
+    "hash": "857efea4ddb556744187f03c82333e3b",
     "packages": [
         {
             "name": "imagine/imagine",
@@ -172,31 +172,6 @@
             "time": "2014-01-11 11:50:17"
         },
         {
-            "name": "pdepend/pdepend",
-            "version": "1.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pdepend/pdepend.git",
-                "reference": "6fcfb7666c95f341b42f02c94a47b3a51ed484e0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pdepend/pdepend/zipball/6fcfb7666c95f341b42f02c94a47b3a51ed484e0",
-                "reference": "6fcfb7666c95f341b42f02c94a47b3a51ed484e0",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.3"
-            },
-            "bin": [
-                "src/bin/pdepend"
-            ],
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "description": "Official version of pdepend to be handled with Composer",
-            "time": "2013-07-25 19:23:48"
-        },
-        {
             "name": "phalcon/incubator",
             "version": "dev-master",
             "source": {
@@ -243,36 +218,6 @@
                 "source": "https://github.com/digitronac/incubator/tree/develop"
             },
             "time": "2014-01-21 15:12:54"
-        },
-        {
-            "name": "phpmd/phpmd",
-            "version": "1.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpmd/phpmd.git",
-                "reference": "692b7b1b64518091b2b1bea91b489dbb13598c07"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phpmd/phpmd/zipball/692b7b1b64518091b2b1bea91b489dbb13598c07",
-                "reference": "692b7b1b64518091b2b1bea91b489dbb13598c07",
-                "shasum": ""
-            },
-            "require": {
-                "pdepend/pdepend": ">=1.1.1",
-                "php": ">=5.3.0"
-            },
-            "bin": [
-                "src/bin/phpmd"
-            ],
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                "../../pdepend/pdepend/src/main/php",
-                "src/main/php"
-            ],
-            "description": "Official version of PHPMD handled with Composer.",
-            "time": "2013-07-26 14:47:02"
         },
         {
             "name": "phpunit/dbunit",
