@@ -14,7 +14,7 @@ class PackageTags
             foreach(\Phalcon\DI::getDefault()->getShared('config')->application->package->tags as $type => $tag)
             {
                 $i = $i+$j;
-                $data[] = sprintf($template, $i, "{$tag}-{$i}", 1, 3, "2014-01-17 1{$i}:00:00");
+                $data[] = sprintf($template, $i, "{$tag}", 1, $i, "2014-01-17 1{$i}:00:00");
                 $j++;
             }
         }

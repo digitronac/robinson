@@ -765,6 +765,11 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                 2 => '',
                 3 => '',
             ),
+            'tags' => array
+            (
+                2 => 'Last minute',
+            ),
+
         );
 
         // request
@@ -776,6 +781,8 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             ->will($this->returnValue(true));
 
         $this->getDI()->setShared('request', $request);
-        $this->dispatch('/admin/package/update/4');
+        $this->dispatch('/admin/package/update/3');
+        $package = \Robinson\Backend\Models\Package::findFirst(3);
+        $this->assertCount(1, $package->getTags());
     }
 }

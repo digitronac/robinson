@@ -500,43 +500,18 @@ class Package extends \Phalcon\Mvc\Model
      */
     public function updateTags(array $tagsData)
     {
+        foreach ($this->getTags() as $tag)
+        {
+            $tag->delete();
+        }
+
         $tags = array();
         foreach ($tagsData as $type => $title)
         {
-            $tag = $this->getTabs(array
-            (
-                'type = :type:',
-                'bind' => array
-                (
-                    'type' => $type,
-                ),
-            ))->getFirst();
-
-            if ($tag && !$title)
-            {
-                $tag->delete();
-                continue;
-            }
-
-            if (!$tag)
-            {
-                if (!$title)
-                {
-                    continue;
-                }
-
-                $tag = new \Robinson\Backend\Models\Tags\Package();
-                $tag->setType($type);
-            }
-
-            $tag->setTag($title);
+            $tag = new \Robinson\Backend\Models\Tags\Package();
+            $tag->setTag($title)
+                ->setType($type);
             $tags[] = $tag;
-        }
-
-        // no tags, nothing to do ...
-        if (!$tags)
-        {
-            return $this;
         }
 
         $this->tags = $tags;
