@@ -110,6 +110,28 @@
             
         </div>
         <div>
+            <header><h3>Tagovi:</h3></header>
+            <ul>
+
+                <?php foreach($tags as $type => $tag): ?>
+
+                    <li>
+
+                        <?=\Phalcon\Tag::checkField(array
+                            (
+                                'tags[' . $type . ']',
+                                'value' => $tag,
+                                'id' => 'tag-' . $type,
+                            ))?>
+
+                        <label for="tag-<?=$type?>"><?=$tag?></label>
+                    </li>
+
+                <?php endforeach ?>
+
+            </ul>
+        </div>
+        <div>
             <button class="btn btn-default btn-lg" name="submit">OK</button>
         </div>
     </form>

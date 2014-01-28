@@ -5,3 +5,4 @@ apps/backend/config/credentials.php
 apps/backend/tests/coverage/
 composer.phar
 config/phinx-local.yml
+.idea/

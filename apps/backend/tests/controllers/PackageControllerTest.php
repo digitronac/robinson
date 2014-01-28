@@ -11,6 +11,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         $this->populateTable('packages');
         $this->populateTable('package_images');
         $this->populateTable('package_tabs');
+        $this->populateTable('package_tags');
         
         $this->vfsfs = \org\bovigo\vfs\vfsStream::setup('root', null, array
         (
@@ -67,6 +68,11 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                 2 => 'test text',
                 3 => 'test 3 text',
             ),
+            'tags' => array
+            (
+                1 => 'First minute',
+                2 => 'Last minute',
+            ),
         );
         
         // mock stuff for upload
@@ -121,7 +127,19 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
              {
                  $this->assertEquals('test 3 text', $tab->getDescription());
              }
-         }
+        }
+
+        $this->assertCount(2, $last->getTags());
+        foreach ($last->getTags() as $tag)
+        {
+            foreach ($_POST['tags'] as $type => $title)
+            {
+                if($tag->getType() === $type)
+                {
+                    $this->assertEquals($title, $tag->getTag());
+                }
+            }
+        }
     }
     
     public function testUpdatePackageActionShouldExist()
@@ -135,7 +153,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         $this->assertController('package');
     }
     
-    public function testUpdatePackageWithNewImageAndTabsShouldWorkAsExpected()
+    public function testUpdatePackageWithNewImageTabsAndTagsShouldWorkAsExpected()
     {
         $this->registerMockSession();
         $_POST = array
@@ -149,6 +167,11 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             (
                 1 => 'test 1',
                 2 => 'test 2',
+            ),
+            'tags' => array
+            (
+                1 => 'First minute',
+                2 => 'Last minute',
             ),
         );
         
@@ -213,6 +236,18 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                  }
              }
          }
+
+        // tag check
+        foreach ($package->getTags() as $tag)
+        {
+            foreach ($_POST['tags'] as $type => $title)
+            {
+                if($tag->getType() === $type)
+                {
+                    $this->assertEquals($title, $tag->getTag());
+                }
+            }
+        }
     }
     
     public function testUpdatePackageWithNewPdfAndTabsShouldWorkAsExpected()
@@ -712,5 +747,42 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         ), $this->vfsfs);
         $this->dispatch('/admin/package/pdfPreview/1');
         $this->assertEquals('<html><head><base href="/pdf/package/1/"></head><body></body></html>', trim($this->getContent()));
+    }
+
+    public function testUnsettingTagShouldWorkAsExpected()
+    {
+        $this->registerMockSession();
+        $_POST = array
+        (
+            'destinationId' => 1,
+            'package' => 'test package name 4 :)',
+            'description' => 'test package description 4 :)',
+            'price' => 999,
+            'status' => 1,
+            'tabs' => array
+            (
+                1 => 'newtab',
+                2 => '',
+                3 => '',
+            ),
+            'tags' => array
+            (
+                2 => 'Last minute',
+            ),
+
+        );
+
+        // request
+        $request = $this->getMockBuilder('Phalcon\Http\Request')
+            ->setMethods(array('isPost'))
+            ->getMock();
+        $request->expects($this->any())
+            ->method('isPost')
+            ->will($this->returnValue(true));
+
+        $this->getDI()->setShared('request', $request);
+        $this->dispatch('/admin/package/update/3');
+        $package = \Robinson\Backend\Models\Package::findFirst(3);
+        $this->assertCount(1, $package->getTags());
     }
 }

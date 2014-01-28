@@ -53,13 +53,20 @@ class Package extends \Phalcon\Mvc\Model
         (
             'alias' => 'destination', 
         ));
+
         $this->hasMany('packageId', 'Robinson\Backend\Models\Images\Package', 'packageId', array
         (
             'alias' => 'images',
         ));
+
         $this->hasMany('packageId', 'Robinson\Backend\Models\Tabs\Package', 'packageId', array
         (
             'alias' => 'tabs',
+        ));
+
+        $this->hasMany('packageId', 'Robinson\Backend\Models\Tags\Package', 'packageId', array
+        (
+           'alias' => 'tags',
         ));
         
         $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
@@ -410,6 +417,18 @@ class Package extends \Phalcon\Mvc\Model
     {
         return $this->getRelated('tabs', $params);
     }
+
+    /**
+     * Gets package tags.
+     *
+     * @param array $params additional criteria params
+     *
+     * @return \Phalcon\Mvc\Model\ResultsetInterface
+     */
+    public function getTags(array $params = null)
+    {
+        return $this->getRelated('tags', $params);
+    }
     
     /**
      * Returns human readable status text.
@@ -424,7 +443,7 @@ class Package extends \Phalcon\Mvc\Model
     /**
      * Updates package tabs.
      * 
-     * @param array $tabsData tabs data, recieved from form data
+     * @param array $tabsData tabs data, received from form data
      * 
      * @return \Robinson\Backend\Models\Package fluent interface
      */
@@ -468,10 +487,37 @@ class Package extends \Phalcon\Mvc\Model
             $tab->setDescription($description);
             $tabs[] = $tab;
         }
-        
         $this->tabs = $tabs;
         return $this;
     }
-    
+
+    /**
+     * Updates package tags.
+     *
+     * @param array $tagsData tags, recieved from form
+     *
+     * @return $this
+     */
+    public function updateTags(array $tagsData)
+    {
+        foreach ($this->getTags() as $tag)
+        {
+            $tag->delete();
+        }
+
+        $tags = array();
+        foreach ($tagsData as $type => $title)
+        {
+            $tag = new \Robinson\Backend\Models\Tags\Package();
+            $tag->setTag($title)
+                ->setType($type);
+            $tags[] = $tag;
+        }
+
+        $this->tags = $tags;
+
+        return $this;
+    }
+
     
 }
