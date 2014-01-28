@@ -126,8 +126,9 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
              {
                  $this->assertEquals('test 3 text', $tab->getDescription());
              }
-         }
+        }
 
+        $this->assertCount(2, $last->getTags());
         foreach ($last->getTags() as $tag)
         {
             foreach ($_POST['tags'] as $type => $title)

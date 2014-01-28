@@ -25,9 +25,11 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
         
         $this->view->select = $this->buildDestinationMultiSelectData();
     }
+
     /**
      * Creates new package.
-     * 
+     *
+     * @throws \Phalcon\Exception if package cannot be created
      * @return void
      */
     public function createAction()
@@ -45,7 +47,8 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 ->setDescription($this->request->getPost('description'))
                 ->setUploadedPdf($this->request->getUploadedFiles()[0])
                 ->setStatus($this->request->getPost('status'));
-            
+
+            // add tabs, if any
             $tabs = array();
             foreach ($this->request->getPost('tabs') as $type => $description)
             {
@@ -60,9 +63,21 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                     ->setTitle($tab->resolveTypeToTitle());
                 $tabs[] = $tab;
             }
-            
+
             $package->tabs = $tabs;
-            
+
+            // add tags, if any
+            $tags = array();
+            foreach ($this->request->getPost('tags') as $type => $tag)
+            {
+                $tag = new \Robinson\Backend\Models\Tabs\Package();
+                $tag->setType($type)
+                    ->setTitle($tag);
+                $tags[] = $tag;
+            }
+
+            $package->tags = $tags;
+
             if (!$package->create())
             {
                 throw new \Phalcon\Exception('Unable to create new package.');
@@ -77,13 +92,16 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             ));
         }
 
+        $this->view->tags = $this->getDI()->getShared('config')->application->package->tags->toArray();
         $this->view->tabs = $this->getDI()->getShared('config')->application->package->tabs->toArray();
         $this->view->select = $this->buildDestinationMultiSelectData();
     }
-    
+
     /**
      * Updates existing package.
-     * 
+     *
+     * @throws \Phalcon\Exception if package cannot be updated
+     *
      * @return void
      */
     public function updateAction()
@@ -151,20 +169,26 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
            
         }
         
-        $this->view->tabs = $this->getDI()->getShared('config')->application->destination->tabs->toArray();
-        
         $tabs = $package->getTabs();
         foreach ($tabs as $tab)
         {
             $this->tag->setDefault('tabs[' . $tab->getType() . ']', $tab->getDescription());
         }
-        
+
+        foreach ($package->getTags() as $tag)
+        {
+            $this->tag->setDefault('tags[' . $tag->getType() . ']', $tag->getTag());
+        }
+
         $this->tag->setDefault('destinationId', $package->getDestination()->getDestinationId());
         $this->tag->setDefault('package', $package->getPackage());
         $this->tag->setDefault('price', $package->getPrice());
         $this->tag->setDefault('description', $package->getDescription());
         $this->tag->setDefault('status', $package->getStatus());
-        
+
+        $this->view->tabs = $this->getDI()->getShared('config')->application->package->tabs->toArray();
+        $this->view->tags = $this->getDI()->getShared('config')->application->package->tags->toArray();
+
         $this->view->select = $this->buildDestinationMultiSelectData();
         $this->view->package = $package;
     }
