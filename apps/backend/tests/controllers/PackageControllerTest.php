@@ -242,7 +242,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             {
                 if($tag->getType() === $type)
                 {
-                    $this->assertEquals($title, $tag->getTitle());
+                    $this->assertEquals($title, $tag->getTag());
                 }
             }
         }

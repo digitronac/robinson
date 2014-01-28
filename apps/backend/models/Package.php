@@ -417,6 +417,18 @@ class Package extends \Phalcon\Mvc\Model
     {
         return $this->getRelated('tabs', $params);
     }
+
+    /**
+     * Gets package tags.
+     *
+     * @param array $params additional criteria params
+     *
+     * @return \Phalcon\Mvc\Model\ResultsetInterface
+     */
+    public function getTags(array $params = null)
+    {
+        return $this->getRelated('tags', $params);
+    }
     
     /**
      * Returns human readable status text.
@@ -479,6 +491,6 @@ class Package extends \Phalcon\Mvc\Model
         $this->tabs = $tabs;
         return $this;
     }
-    
+
     
 }
