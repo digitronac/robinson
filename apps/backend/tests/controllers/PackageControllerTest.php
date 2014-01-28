@@ -67,6 +67,11 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                 2 => 'test text',
                 3 => 'test 3 text',
             ),
+            'tags' => array
+            (
+                1 => 'First minute',
+                2 => 'Last minute',
+            ),
         );
         
         // mock stuff for upload
@@ -122,6 +127,17 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                  $this->assertEquals('test 3 text', $tab->getDescription());
              }
          }
+
+        foreach ($last->getTags() as $tag)
+        {
+            foreach ($_POST['tags'] as $type => $title)
+            {
+                if($tag->getType() === $type)
+                {
+                    $this->assertEquals($title, $tag->getTitle());
+                }
+            }
+        }
     }
     
     public function testUpdatePackageActionShouldExist()
@@ -222,11 +238,11 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         // tag check
         foreach ($package->getTags() as $tag)
         {
-            foreach ($_POST['tags'] as $type => $description)
+            foreach ($_POST['tags'] as $type => $title)
             {
                 if($tag->getType() === $type)
                 {
-                    $this->assertEquals($description, $tag->getDescription());
+                    $this->assertEquals($title, $tag->getTitle());
                 }
             }
         }
