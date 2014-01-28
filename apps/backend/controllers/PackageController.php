@@ -50,13 +50,14 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
 
             // add tabs, if any
             $tabs = array();
+
             foreach ($this->request->getPost('tabs') as $type => $description)
             {
                 if (!$description)
                 {
                     continue;
                 }
-                
+
                 $tab = new \Robinson\Backend\Models\Tabs\Package();
                 $tab->setDescription($description)
                     ->setType($type)
@@ -67,16 +68,21 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             $package->tabs = $tabs;
 
             // add tags, if any
-            $tags = array();
-            foreach ($this->request->getPost('tags') as $type => $tag)
+            $tags = ($this->request->getPost('tags')) ? $this->request->getPost('tags') : array();
+            foreach ($tags as $type => $title)
             {
-                $tag = new \Robinson\Backend\Models\Tabs\Package();
+                if (!$title)
+                {
+                    continue;
+                }
+
+                $tag = new \Robinson\Backend\Models\Tags\Package();
                 $tag->setType($type)
-                    ->setTitle($tag);
-                $tags[] = $tag;
+                    ->setTag($title);
+                $newtags[] = $tag;
             }
 
-            $package->tags = $tags;
+            $package->tags = $newtags;
 
             if (!$package->create())
             {
@@ -120,7 +126,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 ->setPrice($this->request->getPost('price'))
                 ->setDescription($this->request->getPost('description'))
                 ->setStatus($this->request->getPost('status'));
-            
+
             $package->updateTabs($this->request->getPost('tabs'));
             
             // sort?
@@ -137,6 +143,11 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             {
                 $this->setImageTitles($package, $titles);
             }
+
+
+            // tags
+            $tags = ($this->request->getPost('tags')) ?: array();
+            $package->updateTags($tags);
             
             $images = array();
             $files = $this->request->getUploadedFiles();

@@ -37,7 +37,7 @@ abstract class Tag extends \Phalcon\Mvc\Model
      * 
      * @param string $tag tag
      * 
-     * @return \Robinson\Backend\Models\Tags
+     * @return $this
      */
     public function setTag($tag)
     {

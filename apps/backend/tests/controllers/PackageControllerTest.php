@@ -11,6 +11,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         $this->populateTable('packages');
         $this->populateTable('package_images');
         $this->populateTable('package_tabs');
+        $this->populateTable('package_tags');
         
         $this->vfsfs = \org\bovigo\vfs\vfsStream::setup('root', null, array
         (
@@ -135,7 +136,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             {
                 if($tag->getType() === $type)
                 {
-                    $this->assertEquals($title, $tag->getTitle());
+                    $this->assertEquals($title, $tag->getTag());
                 }
             }
         }
@@ -746,5 +747,35 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         ), $this->vfsfs);
         $this->dispatch('/admin/package/pdfPreview/1');
         $this->assertEquals('<html><head><base href="/pdf/package/1/"></head><body></body></html>', trim($this->getContent()));
+    }
+
+    public function testUnsettingTagShouldWorkAsExpected()
+    {
+        $this->registerMockSession();
+        $_POST = array
+        (
+            'destinationId' => 1,
+            'package' => 'test package name 4 :)',
+            'description' => 'test package description 4 :)',
+            'price' => 999,
+            'status' => 1,
+            'tabs' => array
+            (
+                1 => 'newtab',
+                2 => '',
+                3 => '',
+            ),
+        );
+
+        // request
+        $request = $this->getMockBuilder('Phalcon\Http\Request')
+            ->setMethods(array('isPost'))
+            ->getMock();
+        $request->expects($this->any())
+            ->method('isPost')
+            ->will($this->returnValue(true));
+
+        $this->getDI()->setShared('request', $request);
+        $this->dispatch('/admin/package/update/4');
     }
 }

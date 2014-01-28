@@ -443,7 +443,7 @@ class Package extends \Phalcon\Mvc\Model
     /**
      * Updates package tabs.
      * 
-     * @param array $tabsData tabs data, recieved from form data
+     * @param array $tabsData tabs data, received from form data
      * 
      * @return \Robinson\Backend\Models\Package fluent interface
      */
@@ -487,8 +487,60 @@ class Package extends \Phalcon\Mvc\Model
             $tab->setDescription($description);
             $tabs[] = $tab;
         }
-        
         $this->tabs = $tabs;
+        return $this;
+    }
+
+    /**
+     * Updates package tags.
+     *
+     * @param array $tagsData tags, recieved from form
+     *
+     * @return $this
+     */
+    public function updateTags(array $tagsData)
+    {
+        $tags = array();
+        foreach ($tagsData as $type => $title)
+        {
+            $tag = $this->getTabs(array
+            (
+                'type = :type:',
+                'bind' => array
+                (
+                    'type' => $type,
+                ),
+            ))->getFirst();
+
+            if ($tag && !$title)
+            {
+                $tag->delete();
+                continue;
+            }
+
+            if (!$tag)
+            {
+                if (!$title)
+                {
+                    continue;
+                }
+
+                $tag = new \Robinson\Backend\Models\Tags\Package();
+                $tag->setType($type);
+            }
+
+            $tag->setTag($title);
+            $tags[] = $tag;
+        }
+
+        // no tags, nothing to do ...
+        if (!$tags)
+        {
+            return $this;
+        }
+
+        $this->tags = $tags;
+
         return $this;
     }
 
