@@ -135,7 +135,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         $this->assertController('package');
     }
     
-    public function testUpdatePackageWithNewImageAndTabsShouldWorkAsExpected()
+    public function testUpdatePackageWithNewImageTabsAndTagsShouldWorkAsExpected()
     {
         $this->registerMockSession();
         $_POST = array
@@ -149,6 +149,11 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             (
                 1 => 'test 1',
                 2 => 'test 2',
+            ),
+            'tags' => array
+            (
+                1 => 'First minute',
+                2 => 'Last minute',
             ),
         );
         
@@ -213,6 +218,18 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                  }
              }
          }
+
+        // tag check
+        foreach ($package->getTags() as $tag)
+        {
+            foreach ($_POST['tags'] as $type => $description)
+            {
+                if($tag->getType() === $type)
+                {
+                    $this->assertEquals($description, $tag->getDescription());
+                }
+            }
+        }
     }
     
     public function testUpdatePackageWithNewPdfAndTabsShouldWorkAsExpected()
