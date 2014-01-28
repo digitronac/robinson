@@ -38,7 +38,7 @@ class Package extends Tag
     /**
      * Sets packageId.
      *
-     * @param $packageId packageId
+     * @param int $packageId packageId
      *
      * @return $this
      */
@@ -49,6 +49,8 @@ class Package extends Tag
     }
 
     /**
+     * Gets package id.
+     *
      * @return int
      */
     public function getPackageId()
