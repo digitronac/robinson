@@ -1,88 +1,102 @@
 
 <div class="admin destination update">
     <form method="post" enctype="multipart/form-data">
-        <div>
-            
-            <?=$this->tag->select(array
-            (
-                'categoryId',
-                $categories,
-                'using' => array('categoryId', 'category'),
-                'required' => 'required',
-                'class' => 'form-control',
-            )) . PHP_EOL ?>
-        </div>
-        <div>
-            <?=$this->tag->textField(array
-            (
-                'destination',
-                'class' => 'form-control',
-                'required' => 'required',
-            )) . PHP_EOL ?>
-        </div>
-        <div>
-            <?=$this->tag->textArea(array
-            (
-                'description',
-                'class' => 'ckeditor',
-                'placeholder' => 'Tekst',
-                'required' => 'required',
-            )) . PHP_EOL ?>
-        </div>
-        <div>
-            <?=$this->tag->selectStatic(array
-            (
-                'status',
-                'required' => 'required',
-                \Robinson\Backend\Models\Destination::getStatusMessages(),
-                'class' => 'form-control',
-            )) . PHP_EOL ?>
-        </div>
-        <dl>
-            <dt>Slike:</dt>
-            
-            <?php foreach($destination->getImages() as $image): ?>
-            
-            <dd>
-                <img data-destination-image-id="<?=$image->getImageId()?>" src="<?=$image->getResizedSrc() ?>" />
-                
+        <fieldset>
+            <legend for="category">Osnovni podaci</legend>
+            <div>
+                <label>Kategorija destinacije</label>
+                <?=$this->tag->select(array
+                (
+                    'categoryId',
+                    $categories,
+                    'using' => array('categoryId', 'category'),
+                    'required' => 'required',
+                    'class' => 'form-control',
+                    'id' => 'category',
+                )) . PHP_EOL ?>
+            </div>
+            <div>
+                <label for="destination">Destinacija</label>
                 <?=$this->tag->textField(array
                 (
-                    'sort[' . $image->getImageId() . ']',
-                    'length' => 2,
-                    'maxsize' => 2,
-                    'size' => 2,
-                    'value' => $image->getSort(),
-                ))?>
-                
-            </dd>
-            
-        <?php endforeach ?>
-            
-        </dl>
-        <div>
-            <input type="file" name="files[]" multiple="multiple" accept="image/jpeg, image/png" />
-        </div>
-        <div>
-            <h3>Tabovi:</h3>
-            
-            <?php foreach($tabs as $type => $title): ?>
-            
-            <div>
-                <label for="tab-<?=$type?>"><?=$title?></label>
-                
-                <?=\Phalcon\Tag::textArea(array
-                (
-                    'tabs[' . $type . ']',
-                    'placeholder' => $title,
-                    'class' => 'ckeditor',
-                )) . PHP_EOL?>
-                
+                    'destination',
+                    'class' => 'form-control',
+                    'required' => 'required',
+                    'id' => 'destination',
+                )) . PHP_EOL ?>
             </div>
-            
+            <div>
+                <label for="description">Opis</label>
+                <?=$this->tag->textArea(array
+                (
+                    'description',
+                    'class' => 'ckeditor',
+                    'placeholder' => 'Tekst',
+                    'required' => 'required',
+                    'id' => 'description',
+                )) . PHP_EOL ?>
+            </div>
+            <div>
+                <label for="visibility">Vidljivost</label>
+                <?=$this->tag->selectStatic(array
+                (
+                    'status',
+                    'required' => 'required',
+                    \Robinson\Backend\Models\Destination::getStatusMessages(),
+                    'class' => 'form-control',
+                )) . PHP_EOL ?>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Slike</legend>
+
+            <ul>
+                <?php foreach($destination->getImages() as $image): ?>
+
+                <li>
+                    <img data-destination-image-id="<?=$image->getImageId()?>" src="<?=$image->getResizedSrc() ?>" />
+
+                    <?=$this->tag->textField(array
+                    (
+                        'sort[' . $image->getImageId() . ']',
+                        'length' => 2,
+                        'maxsize' => 2,
+                        'size' => 2,
+                        'value' => $image->getSort(),
+                    ))?>
+
+                </li>
+
             <?php endforeach ?>
-            
-        </div>
+
+            </ul>
+
+            <div>
+                <input type="file" name="files[]" multiple="multiple" accept="image/jpeg, image/png" />
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Tabovi</legend>
+            <div>
+                
+                <?php foreach($tabs as $type => $title): ?>
+
+                <div>
+                    <label for="tab-<?=$type?>"><?=$title?></label>
+
+                    <?=\Phalcon\Tag::textArea(array
+                    (
+                        'tabs[' . $type . ']',
+                        'placeholder' => $title,
+                        'class' => 'ckeditor',
+                    )) . PHP_EOL?>
+
+                </div>
+
+                <?php endforeach ?>
+
+            </div>
+        </fieldset>
         <div>
             <button class="btn btn-default btn-lg" name="submit">OK</button>
         </div>
