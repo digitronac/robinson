@@ -1,68 +1,78 @@
 
 <div class="admin package create">
     <form method="post" enctype="multipart/form-data">
-        <div>
-<?=(new \Robinson\Backend\Tag\MultiSelect('destinationId', $select, '-- Izaberi destinatciju --'))?>
-        </div>
-        <div>
-            <input class="form-control" type="text" name="package" placeholder="Aranzman" required="required" />
-        </div>
-        <div>
-            <input class="form-control" type="text" name="price" placeholder="Cena od:" required="required" />
-        </div>
-        <div>
-            <textarea name="description" class="ckeditor" placeholder="Tekst" required="required"></textarea>
-        </div>
-        <div>
-            <label for="pdf">Pdf:</label>
-            <input type="file" id="pdf" accept="application/pdf" name="pdf" required="required" />
-        </div>
-        <div>
-            <select class="form-control" name="status" required="required">
+        <fieldset>
+            <legend>Osnovni podaci</legend>
 
-                <?php foreach(\Robinson\Backend\Models\Package::getStatusMessages() as $status => $message): ?>
-
-                <option value="<?=$status?>"><?=$message?></option>
-
-                <?php endforeach ?>
-
-            </select>
-        </div>
-        <div>
-            <h3>Tabovi:</h3>
-            
-            <?php foreach ($tabs as $type => $title): ?>
-            
             <div>
-                <label for="tab-<?=$type?>"><?=$title?></label>
-                <textarea name="tabs[<?=$type?>]" class="ckeditor" placeholder="<?=$this->escaper->escapeHtmlAttr($title)?>"></textarea>
+    <?=(new \Robinson\Backend\Tag\MultiSelect('destinationId', $select, '-- Izaberi destinatciju --'))?>
             </div>
-            
-            <?php endforeach ?>
+            <div>
+                <input class="form-control" type="text" name="package" placeholder="Aranzman" required="required" />
+            </div>
+            <div>
+                <input class="form-control" type="text" name="price" placeholder="Cena od:" required="required" />
+            </div>
+            <div>
+                <textarea name="description" class="ckeditor" required="required">Opis</textarea>
+            </div>
+            <div>
+                <select class="form-control" name="status" required="required">
 
-        </div>
-        <div>
-            <header><h3>Tagovi:</h3></header>
-            <ul>
+                    <?php foreach(\Robinson\Backend\Models\Package::getStatusMessages() as $status => $message): ?>
 
-                <?php foreach($tags as $type => $tag): ?>
+                        <option value="<?=$status?>"><?=$message?></option>
 
-                    <li>
+                    <?php endforeach ?>
 
-                        <?=\Phalcon\Tag::checkField(array
-                        (
-                            'tags[' . $type . ']',
-                            'value' => $tag,
-                            'id' => 'tag-' . $type,
-                        ))?>
+                </select>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Pdf</legend>
+            <div class="file">
+                <input type="file" id="pdf" accept="application/pdf" name="pdf" required="required" />
+            </div>
+        </fieldset>
+        <fieldset>
+            <div>
+                <legend>Tabovi</legend>
 
-                        <label for="tag-<?=$type?>"><?=$tag?></label>
-                    </li>
+                <?php foreach ($tabs as $type => $title): ?>
+
+                <div>
+                    <label for="tab-<?=$type?>"><?=$title?></label>
+                    <textarea name="tabs[<?=$type?>]" class="ckeditor" placeholder="<?=$this->escaper->escapeHtmlAttr($title)?>"></textarea>
+                </div>
 
                 <?php endforeach ?>
 
-            </ul>
-        </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Tagovi</legend>
+            <div class="tags">
+                <ul>
+
+                    <?php foreach($tags as $type => $tag): ?>
+
+                        <li>
+
+                            <?=\Phalcon\Tag::checkField(array
+                            (
+                                'tags[' . $type . ']',
+                                'value' => $tag,
+                                'id' => 'tag-' . $type,
+                            ))?>
+
+                            <label for="tag-<?=$type?>"><?=$tag?></label>
+                        </li>
+
+                    <?php endforeach ?>
+
+                </ul>
+            </div>
+        </fieldset>
         <div>
             <button class="btn btn-default btn-lg" name="submit">OK</button>
         </div>

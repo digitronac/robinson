@@ -168,4 +168,11 @@ $di['watermark'] = function() use ($di)
     return $filter;
 };
 
+$di['assets'] = function() use ($di)
+{
+    $assets = new \Phalcon\Assets\Manager();
+   // $assets->addCss('css/css.css');
+    return $assets;
+};
+
 return $di;

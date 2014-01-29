@@ -1,0 +1,5 @@
+*{margin:0;padding:0}
+.admin{clear:left}
+.admin fieldset{padding:0 20px;margin:10px 0}
+.admin div {margin-top:30px}
+.admin div.cke_inner, .admin div.file, .admin div.tags{margin-top:0}

@@ -1,16 +1,26 @@
-<?php 
-$this->assets
-    ->addJs('http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', false, false)
-    ->addJs('http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js', false, false)
+<?php
+$this->assets->collection('bootstrap-js')
+    ->addJs('http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js', false, false);
+$this->assets->collection('bootstrap-css')
     ->addCss('http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css', false, false);
 
-$jsManager = new \Phalcon\Assets\Manager();
-$jsManager->collection('mainjs')
-    ->addJs('_ckeditor/ckeditor.js', true, true)
-    ->addJs('_ckeditor/adapters/jquery.js', true, true)
+$this->assets->collection('css')
+    ->addCss('css/css.css')
+    ->setTargetPath('min/final-backend.css')
+    ->setTargetUri('min/final-backend.css')
+    ->addFilter(new \Phalcon\Assets\Filters\Cssmin());
+
+$this->assets
+    ->collection('jquery')
+    ->addJs('http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', false, false);
+
+
+$this->assets->collection('ckeditor')
+    ->addJs('_ckeditor/ckeditor.js')
+    ->addJs('_ckeditor/adapters/jquery.js')
     ->join(false)
-    ->setTargetPath('js/js.js')
-    ->setTargetUri('js/js.js')
+    ->setTargetPath('min/ckeditor-backend.js')
+    ->setTargetUri('min/ckeditor-backend.js')
     ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
 ?>
 <!DOCTYPE html>
@@ -18,9 +28,13 @@ $jsManager->collection('mainjs')
 	<head>
 		<?=$this->tag->getTitle() . PHP_EOL ?>
                 <meta charset="utf-8" />
-                <?=$this->assets->outputCss() . PHP_EOL ?>
-                <?=$this->assets->outputJs() . PHP_EOL ?>
-                <?=$jsManager->outputJs('mainjs') . PHP_EOL ?>
+
+                <?=$this->assets->outputJs('jquery') . PHP_EOL ?>
+                <?=$this->assets->outputJs('bootstrap-js')?>
+                <?=$this->assets->outputCss('bootstrap-css')?>
+                <?=$this->assets->outputJs('ckeditor') . PHP_EOL ?>
+                <?=$this->assets->outputCss('css') . PHP_EOL ?>
+
                 <script type="text/javascript">
                     $('.ckeditor').ckeditor();
                 </script>
