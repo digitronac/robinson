@@ -1,6 +1,7 @@
 
 <div class="admin destination index">
     <form>
+
         <?=$this->tag->select(array
         (
             'categoryId',
@@ -8,6 +9,7 @@
             'using' => array('categoryId', 'category'),
             'useEmpty' => true,
             'emptyText' => '-- Izaberi kategoriju --',
+            'class' => 'form-control',
         ))?>
     </form>
     
