@@ -5,8 +5,8 @@ $this->assets->collection('bootstrap-css')
     ->addCss('http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css', false, false);
 
 $this->assets->collection('css')
-    ->addCss('css/css.css')
-    ->setTargetPath('min/final-backend.css')
+    ->addCss(APPLICATION_PATH . '/../public/css/css.css')
+    ->setTargetPath(APPLICATION_PATH . '/../public/min/final-backend.css')
     ->setTargetUri('min/final-backend.css')
     ->addFilter(new \Phalcon\Assets\Filters\Cssmin());
 
@@ -19,7 +19,7 @@ $this->assets->collection('ckeditor')
     ->addJs('_ckeditor/ckeditor.js')
     ->addJs('_ckeditor/adapters/jquery.js')
     ->join(false)
-    ->setTargetPath('min/ckeditor-backend.js')
+    ->setTargetPath(APPLICATION_PATH . '/../public/min/ckeditor-backend.js')
     ->setTargetUri('min/ckeditor-backend.js')
     ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
 ?>
