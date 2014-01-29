@@ -1,22 +1,28 @@
 <div class="admin category create">
     <form method="post">
-        <div>
-            <input class="form-control" type="text" name="category" placeholder="Kategorija" required="required" />
-        </div>
-        <div>
-            <textarea name="description" class="ckeditor" placeholder="Tekst" required="required"></textarea>
-        </div>
-        <div>
-            <select class="form-control" name="status" required="required">
+        <fieldset>
+            <legend>Osnovni podaci</legend>
+            <div>
+                <label for="category">Kategorija</label>
+                <input class="form-control" type="text" name="category" placeholder="Kategorija" required="required" />
+            </div>
+            <div>
+                <label for="description">Opis</label>
+                <textarea name="description" class="ckeditor" placeholder="Tekst" required="required"></textarea>
+            </div>
+            <div>
+                <label for="visibility">Vidljivost</label>
+                <select class="form-control" name="status" required="required">
 
-                <?php foreach(\Robinson\Backend\Models\Category::getStatusMessages() as $status => $message): ?>
+                    <?php foreach(\Robinson\Backend\Models\Category::getStatusMessages() as $status => $message): ?>
 
-                <option value="<?=$status?>"><?=$message?></option>
+                    <option value="<?=$status?>"><?=$message?></option>
 
-                <?php endforeach ?>
+                    <?php endforeach ?>
 
-            </select>
-        </div>
+                </select>
+            </div>
+        </fieldset>
         <div>
             <button class="btn btn-default btn-lg" name="submit">OK</button>
         </div>

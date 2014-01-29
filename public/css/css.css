@@ -1,0 +1,8 @@
+*, div, legend{margin:0;padding:0}
+ul li{list-style-position: inside}
+.no-margin{margin:0 !important}
+
+.admin{clear:left;margin:0 20px}
+.admin fieldset{padding:0 20px;margin:10px 0}
+.admin div {margin-top:30px}
+.admin div.cke_inner, .admin div.file, .admin div.tags, .admin div#cke_description{margin-top:0}

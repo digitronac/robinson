@@ -1,48 +1,57 @@
 
 <div class="admin destination create">
     <form method="post">
-        <div>
-            <select class="form-control" name="categoryId" required="required">
-                <option value="">-- Izaberi kategoriju --</option>
-                
-                <?php foreach($categories as $category): ?>
-                
-                <option value="<?=$category->getCategoryId()?>"><?=$category->getCategory()?></option>
-                
+        <fieldset>
+            <legend>Osnovni podaci</legend>
+                <div>
+                    <label for="category">Kategorija destinacije</label>
+                    <select class="form-control" name="categoryId" id="category" required="required">
+                        <option value="">-- Izaberi kategoriju --</option>
+
+                        <?php foreach($categories as $category): ?>
+
+                        <option value="<?=$category->getCategoryId()?>"><?=$category->getCategory()?></option>
+
+                        <?php endforeach ?>
+
+                    </select>
+                </div>
+                <div>
+                    <label for="destination">Destinacija</label>
+                    <input class="form-control" type="text" id="destination" name="destination" placeholder="Destinacija" required="required" />
+                </div>
+                <div>
+                    <label for="description">Opis</label>
+                    <textarea id="description" name="description" class="ckeditor" placeholder="Tekst" required="required">Opis</textarea>
+                </div>
+
+                <div>
+                    <label for="status">Vidljivost</label>
+                    <select class="form-control" name="status" id="status" required="required">
+
+                        <?php foreach(\Robinson\Backend\Models\Destination::getStatusMessages() as $status => $message): ?>
+
+                        <option value="<?=$status?>"><?=$message?></option>
+
+                        <?php endforeach ?>
+
+                    </select>
+                </div>
+        </fieldset>
+        <fieldset>
+            <legend>Tabovi</legend>
+            <div class="no-margin">
+
+                <?php foreach($tabs as $type => $title): ?>
+
+                <div>
+                    <label for="tab-<?=$type?>"><?=$title?></label>
+                    <textarea name="tabs[<?=$type?>]" class="ckeditor" placeholder="<?=$this->escaper->escapeHtmlAttr($title)?>"></textarea>
+                </div>
+
                 <?php endforeach ?>
-                
-            </select>
-        </div>
-        <div>
-            <input class="form-control" type="text" name="destination" placeholder="Destinacija" required="required" />
-        </div>
-        <div>
-            <textarea name="description" class="ckeditor" placeholder="Tekst" required="required"></textarea>
-        </div>
-        
-        <div>
-            <select class="form-control" name="status" required="required">
-
-                <?php foreach(\Robinson\Backend\Models\Destination::getStatusMessages() as $status => $message): ?>
-
-                <option value="<?=$status?>"><?=$message?></option>
-
-                <?php endforeach ?>
-
-            </select>
-        </div>
-        <div>
-            <h3>Tabovi:</h3>
-            
-            <?php foreach($tabs as $type => $title): ?>
-            
-            <div>
-                <label for="tab-<?=$type?>"><?=$title?></label>
-                <textarea name="tabs[<?=$type?>]" class="ckeditor" placeholder="<?=$this->escaper->escapeHtmlAttr($title)?>"></textarea>
             </div>
-            
-            <?php endforeach ?>
-        </div>
+        </fieldset>
         <div>
             <button class="btn btn-default btn-lg" name="submit">OK</button>
         </div>

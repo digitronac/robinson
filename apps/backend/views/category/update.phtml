@@ -1,63 +1,72 @@
 <div class="admin category update">
     <form method="post" enctype="multipart/form-data">
-        <div>
-            
-            <?=$this->tag->textField(array
-            (
-                'category',
-                'placeholder' => 'Kategorija',
-                'required' => 'required',
-                'value' => $category->getCategory(),
-                'class' => 'form-control',
-            ))
-            ?>
-
-        </div>
-        <div>
-            <?=$this->tag->textArea(array
-            (
-                'description',
-                'placeholder' => 'Tekst',
-                'required' => 'required',
-                'class' => 'ckeditor form-control',
-            ))
-            ?>
-
-        </div>
-        <div>
-            
-            <?=$this->tag->selectStatic(array
-            (
-                'status',
-                'required' => 'required',
-                 \Robinson\Backend\Models\Category::getStatusMessages(),
-                'class' => 'form-control',
-            ))
-            ?>
-            
-        </div>
-        <dl>
-            <dt>Slike:</dt>
-            
-            <?php foreach($category->getImages() as $image): ?>
-            
-            <dd>
-                <img data-image-category-id="<?=$image->getImageId()?>" src="<?=$image->getResizedSrc() ?>" />
-                
+        <fieldset>
+            <legend>Osnovni podaci</legend>
+            <div>
+                <label for="category">Kategorija</label>
                 <?=$this->tag->textField(array
                 (
-                    'sort[' . $image->getImageId() . ']',
-                    'length' => 2,
-                    'maxsize' => 2,
-                    'size' => 2,
-                    'value' => $image->getSort(),
-                ))?>
-                
-            </dd>
-            
-        <?php endforeach ?>
-            
-        </dl>
+                    'category',
+                    'placeholder' => 'Kategorija',
+                    'required' => 'required',
+                    'value' => $category->getCategory(),
+                    'class' => 'form-control',
+                    'id' => 'category',
+                ))
+                ?>
+
+            </div>
+            <div>
+                <label for="description">Opis</label>
+                <?=$this->tag->textArea(array
+                (
+                    'description',
+                    'placeholder' => 'Tekst',
+                    'required' => 'required',
+                    'class' => 'ckeditor form-control',
+                    'id' => 'description',
+                ))
+                ?>
+
+            </div>
+            <div>
+                <label for="visibility">Vidljivost</label>
+                <?=$this->tag->selectStatic(array
+                (
+                    'status',
+                    'required' => 'required',
+                     \Robinson\Backend\Models\Category::getStatusMessages(),
+                    'class' => 'form-control',
+                    'id' => 'visibility',
+                ))
+                ?>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Slike</legend>
+            <ul>
+
+                <?php foreach($category->getImages() as $image): ?>
+
+                <li>
+                    <img data-image-category-id="<?=$image->getImageId()?>" src="<?=$image->getResizedSrc() ?>" />
+
+                    <?=$this->tag->textField(array
+                    (
+                        'sort[' . $image->getImageId() . ']',
+                        'length' => 2,
+                        'maxsize' => 2,
+                        'size' => 2,
+                        'value' => $image->getSort(),
+                    ))?>
+
+                </li>
+
+            <?php endforeach ?>
+
+            </ul>
+        </fieldset>
+
         <div>
             <input type="file" name="files[]" multiple="multiple" accept="image/jpeg, image/png" />
         </div>

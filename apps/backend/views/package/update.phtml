@@ -1,136 +1,153 @@
 
 <div class="admin package update">
     <form method="post" enctype="multipart/form-data">
-        <div>
-            
-<?=(new \Robinson\Backend\Tag\MultiSelect('destinationId', $select, '-- Izaberi destinatciju --'))?>
-           
-        </div>
-        
-        <div>
-            <?=$this->tag->textField(array
-            (
-                'package',
-                'class' => 'form-control',
-                'required' => 'required',
-            )) . PHP_EOL ?>
-        </div>
-        <div>
-            <?=$this->tag->textField(array
-            (
-                'price',
-                'class' => 'form-control',
-                'required' => 'required',
-            )) . PHP_EOL ?>
-        </div>
-        <div>
-            <?=$this->tag->textArea(array
-            (
-                'description',
-                'class' => 'ckeditor',
-                'placeholder' => 'Tekst',
-                'required' => 'required',
-            )) . PHP_EOL ?>
-        </div>
-        <div>
-            <?=$this->tag->selectStatic(array
-            (
-                'status',
-                'required' => 'required',
-                \Robinson\Backend\Models\Package::getStatusMessages(),
-                'class' => 'form-control',
-            )) . PHP_EOL ?>
-        </div>
-        <dl>
-            <dt>Slike:</dt>
-            
-            <?php foreach ($package->getImages() as $image): ?>
-            
-            <dd>
-                <img data-package-image-id="<?=$image->getImageId()?>" src="<?=$image->getResizedSrc() ?>" />
-                
-                <?=$this->tag->textField(array
-                (
-                    'sort[' . $image->getImageId() . ']',
-                    'length' => 2,
-                    'maxsize' => 2,
-                    'size' => 2,
-                    'value' => $image->getSort(),
-                    'required' => 'required',
-                ))?>
-                
-                <?=$this->tag->textField(array
-                (
-                    'title[' . $image->getImageId() . ']',
-                    'size' => 60,
-                    'value' => $image->getTitle(),
-                    'required' => 'required',
-                ))?>
-                
-            </dd>
-            
-        <?php endforeach ?>
-            
-        </dl>
-        <div>
-            <input type="file" name="files[]" multiple="multiple" accept="image/jpeg, image/png" />
-        </div>
-        <div>
-            <h5>Pdf file: <?=$this->tag->linkTo(array(array
-            (
-                'for' => 'admin-update',
-                'controller' => 'package',
-                'action' => 'pdfPreview',
-                'id' => $package->getPackageId(),
-            ), $package->getPdf(), 'target' => '_blank')); ?>
-            </h5>
+        <fieldset>
+            <legend>Osnovni podaci</legend>
             <div>
-                <label for="pdf">Zameni pdf:</label>
-                <input type="file" name="pdf" accept="application/pdf" />
+            <label>Destinacija aranzmana</label>
+    <?=(new \Robinson\Backend\Tag\MultiSelect('destinationId', $select, '-- Izaberi destinatciju --'))?>
+
             </div>
-        </div>
-        <div>
-            <h3>Tabovi:</h3>
-            
-            <?php foreach($tabs as $type => $title): ?>
-            
+
             <div>
-                <label for="tab-<?=$type?>"><?=$title?></label>
-                
-                <?=\Phalcon\Tag::textArea(array
+                <label for="package">Naziv aranzmana</label>
+                <?=$this->tag->textField(array
                 (
-                    'tabs[' . $type . ']',
-                    'placeholder' => $title,
+                    'package',
+                    'class' => 'form-control',
+                    'required' => 'required',
+                    'id' => 'package',
+                )) . PHP_EOL ?>
+            </div>
+            <div>
+                <label for="price">Cena od</label>
+                <?=$this->tag->textField(array
+                (
+                    'price',
+                    'class' => 'form-control',
+                    'required' => 'required',
+                    'id' => 'price',
+                )) . PHP_EOL ?>
+            </div>
+            <div>
+                <label for="description">Opis</label>
+                <?=$this->tag->textArea(array
+                (
+                    'description',
                     'class' => 'ckeditor',
-                )) . PHP_EOL?>
-                
+                    'placeholder' => 'Tekst',
+                    'required' => 'required',
+                    'id' => 'description',
+                )) . PHP_EOL ?>
             </div>
-            
-            <?php endforeach ?>
-            
-        </div>
-        <div>
-            <header><h3>Tagovi:</h3></header>
+            <div>
+                <label for="visibility">Vidljivost</label>
+                <?=$this->tag->selectStatic(array
+                (
+                    'status',
+                    'required' => 'required',
+                    \Robinson\Backend\Models\Package::getStatusMessages(),
+                    'class' => 'form-control',
+                    'id' => 'visibility',
+                )) . PHP_EOL ?>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Slike i pdf</legend>
             <ul>
+                <?php foreach ($package->getImages() as $image): ?>
 
-                <?php foreach($tags as $type => $tag): ?>
+                <li>
+                    <img data-package-image-id="<?=$image->getImageId()?>" src="<?=$image->getResizedSrc() ?>" />
 
-                    <li>
+                    <?=$this->tag->textField(array
+                    (
+                        'sort[' . $image->getImageId() . ']',
+                        'length' => 2,
+                        'maxsize' => 2,
+                        'size' => 2,
+                        'value' => $image->getSort(),
+                        'required' => 'required',
+                    ))?>
 
-                        <?=\Phalcon\Tag::checkField(array
-                            (
-                                'tags[' . $type . ']',
-                                'value' => $tag,
-                                'id' => 'tag-' . $type,
-                            ))?>
+                    <?=$this->tag->textField(array
+                    (
+                        'title[' . $image->getImageId() . ']',
+                        'size' => 60,
+                        'value' => $image->getTitle(),
+                        'required' => 'required',
+                    ))?>
 
-                        <label for="tag-<?=$type?>"><?=$tag?></label>
-                    </li>
+                </li>
 
                 <?php endforeach ?>
 
             </ul>
-        </div>
+
+            <div>
+                <input type="file" name="files[]" multiple="multiple" accept="image/jpeg, image/png" />
+            </div>
+            <div>
+                <h5>Pdf file: <?=$this->tag->linkTo(array(array
+                (
+                    'for' => 'admin-update',
+                    'controller' => 'package',
+                    'action' => 'pdfPreview',
+                    'id' => $package->getPackageId(),
+                ), $package->getPdf(), 'target' => '_blank')); ?>
+                </h5>
+                <div>
+                    <label for="pdf">Zameni pdf:</label>
+                    <input type="file" name="pdf" accept="application/pdf" />
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Tabovi</legend>
+            <div>
+
+                <?php foreach($tabs as $type => $title): ?>
+
+                <div>
+                    <label for="tab-<?=$type?>"><?=$title?></label>
+
+                    <?=\Phalcon\Tag::textArea(array
+                    (
+                        'tabs[' . $type . ']',
+                        'placeholder' => $title,
+                        'class' => 'ckeditor',
+                    )) . PHP_EOL?>
+
+                </div>
+
+                <?php endforeach ?>
+
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Tagovi</legend>
+            <div class="tags">
+                <ul>
+
+                    <?php foreach($tags as $type => $tag): ?>
+
+                        <li>
+
+                            <?=\Phalcon\Tag::checkField(array
+                                (
+                                    'tags[' . $type . ']',
+                                    'value' => $tag,
+                                    'id' => 'tag-' . $type,
+                                ))?>
+
+                            <label for="tag-<?=$type?>"><?=$tag?></label>
+                        </li>
+
+                    <?php endforeach ?>
+
+                </ul>
+            </div>
+        </fieldset>
         <div>
             <button class="btn btn-default btn-lg" name="submit">OK</button>
         </div>

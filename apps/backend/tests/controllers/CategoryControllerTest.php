@@ -160,11 +160,7 @@ class CategoryControllerTest extends BaseTestController
         $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         $this->dispatch('/admin/category/update/' . $category->getCategoryId());
         
-        $this->assertResponseContentContains('<dt>Slike:</dt>
-            
-                        
-            <dd>
-                <img');
+        $this->assertResponseContentContains('<legend>Slike</legend>');
         
         $updatedCategory = \Robinson\Backend\Models\Category::findFirst("category = '" . $category->getCategory() . " updated!'");
         
