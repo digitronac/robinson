@@ -4,7 +4,8 @@
         <fieldset>
             <legend>Osnovni podaci</legend>
                 <div>
-                    <select class="form-control" name="categoryId" required="required">
+                    <label for="category">Kategorija destinacije</label>
+                    <select class="form-control" name="categoryId" id="category" required="required">
                         <option value="">-- Izaberi kategoriju --</option>
 
                         <?php foreach($categories as $category): ?>
@@ -16,10 +17,12 @@
                     </select>
                 </div>
                 <div>
-                    <input class="form-control" type="text" name="destination" placeholder="Destinacija" required="required" />
+                    <label for="destination">Destinacija</label>
+                    <input class="form-control" type="text" id="destination" name="destination" placeholder="Destinacija" required="required" />
                 </div>
                 <div>
-                    <textarea name="description" class="ckeditor" placeholder="Tekst" required="required">Opis</textarea>
+                    <label for="description">Opis</label>
+                    <textarea id="description" name="description" class="ckeditor" placeholder="Tekst" required="required">Opis</textarea>
                 </div>
 
                 <div>

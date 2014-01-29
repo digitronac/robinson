@@ -5,19 +5,24 @@
             <legend>Osnovni podaci</legend>
 
             <div>
+                <label>Destinacija aranzmana</label>
     <?=(new \Robinson\Backend\Tag\MultiSelect('destinationId', $select, '-- Izaberi destinatciju --'))?>
             </div>
             <div>
-                <input class="form-control" type="text" name="package" placeholder="Aranzman" required="required" />
+                <label for="package">Aranzman</label>
+                <input class="form-control" id="package" type="text" name="package" placeholder="Aranzman" required="required" />
             </div>
             <div>
-                <input class="form-control" type="text" name="price" placeholder="Cena od:" required="required" />
+                <label for="price">Cena</label>
+                <input class="form-control" id="price" type="text" name="price" placeholder="Cena od:" required="required" />
             </div>
             <div>
-                <textarea name="description" class="ckeditor" required="required">Opis</textarea>
+                <label for="description">Opis</label>
+                <textarea name="description" id="description" class="ckeditor" required="required">Opis</textarea>
             </div>
             <div>
-                <select class="form-control" name="status" required="required">
+                <label for="visibility">Vidljivost</label>
+                <select id="visibility" class="form-control" name="status" required="required">
 
                     <?php foreach(\Robinson\Backend\Models\Package::getStatusMessages() as $status => $message): ?>
 

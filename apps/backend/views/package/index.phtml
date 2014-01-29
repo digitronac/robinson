@@ -3,12 +3,7 @@
     <form>
 <?=(new \Robinson\Backend\Tag\MultiSelect('destinationId', $select, '-- Izaberi destinatciju --')) . PHP_EOL ?>
     </form>
-    <p><?=$this->tag->linkTo(array(array
-    (
-        'for' => 'admin',
-        'controller' => 'package',
-        'action' => 'create',
-    ), 'Dodaj novi aranzman'))?></p>
+
     <div>
         <?php if($packages): ?>
         
@@ -37,6 +32,12 @@
         
         <?php endif ?>
     </div>
+    <p><?=$this->tag->linkTo(array(array
+            (
+                'for' => 'admin',
+                'controller' => 'package',
+                'action' => 'create',
+            ), 'Dodaj novi aranzman'))?></p>
 </div>
 <script type="text/javascript">
     $('select').on('change', function(elem)
