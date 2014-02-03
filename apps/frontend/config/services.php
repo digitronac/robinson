@@ -7,13 +7,11 @@ $di->setShared('config', function() use ($config)
 
 $di->set('dispatcher', function() use ($di)
 {
-    $access = new \Robinson\Backend\Plugin\Access($di);
     /* @var $eventsManger \Phalcon\Events\Manager */
     $eventsManager = $di->getShared('eventsManager');
-    $eventsManager->attach('dispatch', $access);
 
     $dispatcher = new \Phalcon\Mvc\Dispatcher();
-    $dispatcher->setDefaultNamespace("Robinson\Backend\Controllers\\");
+    $dispatcher->setDefaultNamespace("Robinson\Frontend\Controllers\\");
     $dispatcher->setEventsManager($eventsManager);
     // For frontend's module.php: $dispatcher->setDefaultNamespace("Frontend\Controllers\\");
     return $dispatcher;
@@ -25,7 +23,7 @@ $di->set('dispatcher', function() use ($di)
 $di['view'] = function()
 {
     $view = new \Phalcon\Mvc\View();
-    $view->setViewsDir(APPLICATION_PATH . '/backend/views/');
+    $view->setViewsDir(APPLICATION_PATH . '/frontend/views/');
     return $view;
 };
 
@@ -127,7 +125,7 @@ $di->setShared('acl', function() use ($di)
 $di->setShared('log', function() use ($di)
 {
     $log = new \Phalcon\Logger\Multiple();
-    $logDir = APPLICATION_PATH . '/backend/logs/' . date('Y') . '/' . date('m') . '/' . date('d');
+    $logDir = APPLICATION_PATH . '/frontend/logs/' . date('Y') . '/' . date('m') . '/' . date('d');
     $logFile = $logDir . '/' . 'log.txt';
     
     if ($di->getService('config')->resolve()->application->log->enable)

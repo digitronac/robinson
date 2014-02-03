@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="./bootstrap.php"
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         verbose="true"
+         colors="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         syntaxCheck="true">
+    <testsuite name="Backend">
+        <directory>./</directory>
+    </testsuite>
+    <testsuite name="Controllers">
+        <directory>./controllers</directory>
+    </testsuite>
+    <testsuite name="Models">
+        <directory>./models</directory>
+    </testsuite>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./../../backend</directory>
+        </whitelist>
+    </filter>
+</phpunit>

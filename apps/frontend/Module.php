@@ -10,73 +10,66 @@ use Phalcon\Loader,
 class Module implements ModuleDefinitionInterface
 {
 
-	/**
-	 * Registers the module auto-loader
-	 */
-	public function registerAutoloaders()
-	{
+    /**
+     * Registers the module auto-loader.
+     *
+     * @return void
+     */
+    public function registerAutoloaders($di)
+    {
+        if (!defined('MODULE_PATH'))
+        {
+            define('MODULE_PATH', __DIR__);
+        }
 
-		$loader = new Loader();
+        $loader = new Loader();
 
-		$loader->registerNamespaces(array(
-			'Robinson\Frontend\Controllers' => __DIR__ . '/controllers/',
-			'Robinson\Frontend\Models' => __DIR__ . '/models/',
-		));
+        $loader->registerNamespaces(
+            array
+            (
+                'Robinson\Frontend\Controllers' => __DIR__ . '/controllers/',
+                'Robinson\Frontend\Models'      => __DIR__ . '/models/',
+                'Robinson\Frontend\Plugin'      => __DIR__ . '/plugins/',
+                'Robinson\Frontend\Validator'   => __DIR__ . '/validators/',
+                'Robinson\Frontend\Tag'         => __DIR__ . '/tags/',
+                'Robinson\Frontend\Filter'      => __DIR__ . '/filters/',
+            )
+        );
 
-		$loader->register();
-	}
+        $loader->register();
+    }
 
-	/**
-	 * Registers the module-only services
-	 *
-	 * @param \Phalcon\DI $di
-	 */
-	public function registerServices($di)
-	{
+    /**
+     * Registers the module-only services
+     *
+     * @param Phalcon\DI $di di
+     *
+     * @return \Phalcon\DI
+     */
+    public function registerServices($di)
+    {
+        $config = new \Phalcon\Config\Adapter\Ini(MODULE_PATH . '/config/application.ini');
+        if (is_file(MODULE_PATH . '/config/application.local.ini'))
+        {
+            $local = (new \Phalcon\Config\Adapter\Ini(__DIR__ . '/config/application.local.ini'));
+            $config->merge($local);
+        }
+        $config = $config->get(APPLICATION_ENV);
 
-		/**
-		 * Read configuration
-		 */
-		$config = include __DIR__ . "/config/config.php";
-                
-                $di->set('dispatcher', function() use ($di)
-                {
-                    $dispatcher = new \Phalcon\Mvc\Dispatcher();
-                    $dispatcher->setDefaultNamespace("Frontend\Controllers\\");
-    // For frontend's module.php: $dispatcher->setDefaultNamespace("Frontend\Controllers\\");
-                    return $dispatcher;
-                });
+        include APPLICATION_PATH . '/frontend/config/services.php';
 
-		/**
-		 * Setting up the view component
-		 */
-		$di['view'] = function() {
-			$view = new View();
-			$view->setViewsDir(__DIR__ . '/views/');
-			return $view;
-		};
+        // listen for exceptions if debug ip
+        if (in_array(
+            $di->getService('request')->resolve()->getClientAddress(),
+            $di->getService('config')->resolve()->application->debug->ips->toArray()
+        )
+        )
+        {
+            (new \Phalcon\Debug())->listen();
+        }
 
-		/**
-		 * Database connection is created based in the parameters defined in the configuration file
-		 */
-		$di['db'] = function() use ($config) {
-			return new DbAdapter(array(
-				"host" => $config->database->host,
-				"username" => $config->database->username,
-				"password" => $config->database->password,
-				"dbname" => $config->database->name
-			));
-		};
-                
-                // This function will 'divide' parts of the application with the correct url:
-                $di->set('url', function() use ($di) 
-                {
-                    $url = new \Phalcon\Mvc\Url();
-                    $url->setBaseUri("/");
-                    // For frontend module.php:  $url->setBaseUri("/");
-                    return $url;
-                });
-                
-	}
+        return $di;
+
+    }
 
 }

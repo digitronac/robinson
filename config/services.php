@@ -88,3 +88,4 @@ $di['fs'] = function()
 {
     return new \Symfony\Component\Filesystem\Filesystem();
 };
+
