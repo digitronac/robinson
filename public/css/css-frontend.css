@@ -75,7 +75,10 @@ body{color:white;font-family: 'Open Sans', sans-serif}
 .customSelect {
     /* This is the default class that is used */
     /* Put whatever custom styles you want here */
-    background:white;width:100%;text-align:left;padding:10px;color:black;margin-top:10px;
+    background-color:white;width:100%;text-align:left;padding:10px;color:black;margin-top:10px;
+    background-image: url("../img/assets/select.png");
+    background-position: right 20px bottom 12px;
+    background-repeat: no-repeat;
 }
 
 .customSelect.customSelectHover {

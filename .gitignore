@@ -1,6 +1,7 @@
 nbproject
 vendor
 apps/backend/config/application.local.ini
+apps/frontend/config/application.local.ini
 apps/backend/config/credentials.php
 apps/backend/tests/coverage/
 composer.phar
