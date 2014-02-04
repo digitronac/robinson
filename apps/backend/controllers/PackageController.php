@@ -44,6 +44,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             $package->setPackage($this->request->getPost('package'))
                 ->setDestination($destination)
                 ->setPrice($this->request->getPost('price'))
+                ->setType($this->request->getPost('type', null, 0))
                 ->setDescription($this->request->getPost('description'))
                 ->setUploadedPdf($this->request->getUploadedFiles()[0])
                 ->setStatus($this->request->getPost('status'));
@@ -125,6 +126,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             $package->setPackage($this->request->getPost('package'))
                 ->setDestination($destination)
                 ->setPrice($this->request->getPost('price'))
+                ->setType($this->request->getPost('type', null, 0))
                 ->setDescription($this->request->getPost('description'))
                 ->setStatus($this->request->getPost('status'));
 
@@ -192,6 +194,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             $this->tag->setDefault('tags[' . $tag->getType() . ']', $tag->getTag());
         }
 
+        $this->tag->setDefault('type', $package->getType());
         $this->tag->setDefault('destinationId', $package->getDestination()->getDestinationId());
         $this->tag->setDefault('package', $package->getPackage());
         $this->tag->setDefault('price', $package->getPrice());
