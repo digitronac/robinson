@@ -14,6 +14,13 @@ class Package extends \Phalcon\Mvc\Model
         self::STATUS_INVISIBLE => 'nevidljiv',
         self::STATUS_VISIBLE => 'vidljiv',
     );
+
+    protected static $types = array
+    (
+        self::TYPE_UNDEFINED => 'nedefinisan',
+        self::TYPE_APARTMENT => 'apartman',
+        self::TYPE_HOTEL => 'hotel',
+    );
     
     protected $packageId;
     
@@ -467,6 +474,16 @@ class Package extends \Phalcon\Mvc\Model
     public static function getStatusMessages()
     {
         return self::$statusMessages;
+    }
+
+    /**
+     * Returns human readable type text.
+     *
+     * @return string
+     */
+    public static function getTypeMessages()
+    {
+        return self::$types;
     }
     
     /**
