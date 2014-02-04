@@ -4,6 +4,10 @@ class Package extends \Phalcon\Mvc\Model
 {
     const STATUS_INVISIBLE = 0;
     const STATUS_VISIBLE = 1;
+
+    const TYPE_UNDEFINED = 0;
+    const TYPE_APARTMENT = 1;
+    const TYPE_HOTEL = 2;
     
     protected static $statusMessages = array
     (
@@ -28,6 +32,8 @@ class Package extends \Phalcon\Mvc\Model
     protected $updatedAt;
     
     protected $destinationId;
+
+    protected $type = self::TYPE_UNDEFINED;
     
     /**
      *
@@ -392,10 +398,33 @@ class Package extends \Phalcon\Mvc\Model
     {
         return $this->getRelated('destination');
     }
-    
+
+    /**
+     * Get package type.
+     *
+     * @return int
+     */
+    public function getType()
+    {
+        return (int) $this->type;
+    }
+
+    /**
+     * Set package type.
+     *
+     * @param int $type package type
+     *
+     * @return $this
+     */
+    public function setType($type)
+    {
+        $this->type = (int) $type;
+        return $this;
+    }
+
     /**
      * Returns images sorted by sort.
-     * 
+     *
      * @return \Phalcon\Mvc\Model\Resultset\Simple
      */
     public function getImages()
@@ -405,12 +434,12 @@ class Package extends \Phalcon\Mvc\Model
             'order' => 'sort ASC',
         ));
     }
-    
+
     /**
      * Gets package tabs.
-     * 
+     *
      * @param array $params additional criteria
-     * 
+     *
      * @return \Phalcon\Mvc\Model\Resultset\Simple
      */
     public function getTabs(array $params = null)
