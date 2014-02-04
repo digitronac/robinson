@@ -62,9 +62,9 @@ body{color:white;font-family: 'Open Sans', sans-serif}
 #main-section .inner-site #select-wrap {width:520px;background:#de1a28;padding:15px 15px 30px 15px;position:relative;top:170px;margin:0 auto}
 #main-section .inner-site #low-price{float:right;margin-top:200px; font-size:30px}
 #main-section .inner-site .big-price{font-size:52px; letter-spacing: -7px; font-weight: lighter}
-#main-section .inner-site #low-price #top-low-price {width:120px;padding:0px 10px 10px 10px;background:white;line-height: 150%}
+#main-section .inner-site #low-price #top-low-price {padding:10px 10px 10px 10px;background:white;line-height: 150%}
 #main-section .inner-site #low-price a {;color:#333333;text-decoration:none}
-#main-section .inner-site #low-price #bottom-low-price {width:120px; padding:10px; margin-top:10px}
+#main-section .inner-site #low-price #bottom-low-price {padding:10px; margin-top:10px}
 #main-section .inner-site #low-price #bottom-low-price a {color:white;font-size:25px;font-weight:bold}
 #main-section .inner-site #low-price #bottom-low-price a:hover {text-decoration:underline}
 #select{text-align:center}
