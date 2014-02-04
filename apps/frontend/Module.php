@@ -28,7 +28,7 @@ class Module implements ModuleDefinitionInterface
             array
             (
                 'Robinson\Frontend\Controllers' => __DIR__ . '/controllers/',
-                'Robinson\Frontend\Models'      => __DIR__ . '/models/',
+                'Robinson\Frontend\Model'      => __DIR__ . '/models/',
                 'Robinson\Frontend\Plugin'      => __DIR__ . '/plugins/',
                 'Robinson\Frontend\Validator'   => __DIR__ . '/validators/',
                 'Robinson\Frontend\Tag'         => __DIR__ . '/tags/',
