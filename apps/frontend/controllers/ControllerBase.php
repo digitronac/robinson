@@ -6,15 +6,20 @@ use Phalcon\Mvc\Controller;
 
 class ControllerBase extends Controller
 {
-    protected $destinations;
-
     public function initialize()
     {
-        $this->destinations = \Robinson\Frontend\Model\Destination::find(
+        $this->view->destinations = \Robinson\Frontend\Model\Destination::find(
             array
             (
                 'condition' => 'status = ' . \Robinson\Frontend\Model\Destination::STATUS_VISIBLE,
-                'order' => 'destination DESC',
+                'order' => 'destination ASC',
+            )
+        );
+        $this->view->lowPricePackage = \Robinson\Frontend\Model\Package::findFirst(
+            array
+            (
+                'condition' => 'status = ' . \Robinson\Frontend\Model\Destination::STATUS_VISIBLE . ' AND price != 0',
+                'order' => 'price ASC',
             )
         );
         \Phalcon\Tag::setTitle('robinson.rs');

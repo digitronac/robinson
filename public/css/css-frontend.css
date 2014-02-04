@@ -47,11 +47,53 @@ table {
     border-spacing: 0;
 }
 
+body{color:white;font-family: 'Open Sans', sans-serif}
 #header{width:100%;height:120px}
 .robinson-background{background:#de1a28}
 #header .inner-site{position:relative}
+#header #social {margin-top:30px}
+#header #logo {padding-top:15px}
+#header #contact-info {margin-top:30px}
 .inner-site{width:1170px;margin:0 auto}
 #social{position:absolute;left:0}
 #logo{text-align:center}
 #contact-info{position:absolute;top:0;right:0}
 #main-section{background: url("../img/assets/header-img.jpg") center no-repeat; height:539px;width:100%}
+#main-section .inner-site #select-wrap {width:520px;background:#de1a28;padding:15px 15px 30px 15px;position:relative;top:170px;margin:0 auto}
+#main-section .inner-site #low-price{float:right;margin-top:200px; font-size:30px}
+#main-section .inner-site .big-price{font-size:52px; letter-spacing: -7px; font-weight: lighter}
+#main-section .inner-site #low-price #top-low-price {width:120px;padding:0px 10px 10px 10px;background:white;line-height: 150%}
+#main-section .inner-site #low-price a {;color:#333333;text-decoration:none}
+#main-section .inner-site #low-price #bottom-low-price {width:120px; padding:10px; margin-top:10px}
+#main-section .inner-site #low-price #bottom-low-price a {color:white;font-size:25px;font-weight:bold}
+#main-section .inner-site #low-price #bottom-low-price a:hover {text-decoration:underline}
+#select{text-align:center}
+#select h3{text-align:left;font-size:26px}
+#destination-selection{color:black}
+
+/* custom select */
+.customSelect {
+    /* This is the default class that is used */
+    /* Put whatever custom styles you want here */
+    background:white;width:100%;text-align:left;padding:10px;color:black;margin-top:10px;
+}
+
+.customSelect.customSelectHover {
+    /* Styles for when the select box is hovered */
+    color:black;
+}
+
+.customSelect.customSelectOpen {
+    /* Styles for when the select box is open */
+    color:black;
+}
+
+.customSelect.customSelectFocus {
+    /* Styles for when the select box is in focus */
+    color:black;
+}
+
+.customSelectInner {
+    /* You can style the inner box too */
+    color:black;
+}

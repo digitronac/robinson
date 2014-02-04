@@ -39,5 +39,27 @@ class Destination extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSource('destinations');
+
+        $this->hasMany('destinationId', 'Robinson\Frontend\Model\Package', 'destinationId', array
+        (
+            'alias' => 'packages',
+        ));
+    }
+
+    /**
+     * Getter method for destination name.
+     *
+     * @param bool $escapeHtml flag
+     *
+     * @return string
+     */
+    public function getDestination($escapeHtml = true)
+    {
+        return $this->getDI()->getShared('escaper')->escapeHtml($this->destination);
+    }
+
+    public function getUri()
+    {
+        return '';
     }
 }

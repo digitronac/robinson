@@ -21,6 +21,7 @@ $this->assets->collection('css')
 	<head>
 		<?=$this->tag->getTitle() . PHP_EOL ?>
         <meta charset="utf-8" />
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,700,800,600' rel='stylesheet' type='text/css' />
         <?=$this->assets->outputCss('css') . PHP_EOL ?>
 	</head>
 	<body>
@@ -33,22 +34,52 @@ $this->assets->collection('css')
                     <a href="/"><img src="img/assets/logo.png" alt="robinson turisticka agencija" /></a>
                 </div>
                 <div id="contact-info">
-                    Kontakt: 011/334-67-76 <br />
-                    011/323-60-55
+                    Kontakt: <strong style="font-weight:bold">011/334-67-76</strong> <br /><br />
+                    <strong style="margin-left:67px;font-weight:bold">011/323-60-55</strong>
                 </div>
             </div>
         </div>
         <div id="main-section">
             <div class="inner-site">
-                <div id="select">
+                <div id="select-wrap">
+                    <div id="select">
 
-                    <?=$this->tag->select
+                        <h3>Više od <strong style="font-weight:bold">1800</strong> ponuda</h3>
 
+                        <?=$this->tag->select(array
+                        (
+                           'destination',
+                           $destinations,
+                           'using' => array('destinationId', 'destination'),
+                           'id' => 'destination-selection',
+                           'useEmpty' => true,
+                           'emptyText' => 'Izaberi destinaciju!',
+                        ))?>
+
+                    </div>
+                </div>
+                <div id="low-price">
+                    <div id="top-low-price">
+                        <a href="<?=$lowPricePackage->getUri()?>">
+                            od <br />
+                            <span class="big-price"><strong style="font-weight: bold"><?=$lowPricePackage->getPrice()?></strong> &euro;</span>
+                        </a>
+                    </div>
+                    <div id="bottom-low-price" class="robinson-background">
+                        <a href="<?=$lowPricePackage->getUri()?>"><?=$lowPricePackage->destination->getDestination()?></a>
+                    </div>
                 </div>
             </div>
         </div>
         <div id="main-nav"></div>
 		<?php echo $this->getContent() . PHP_EOL ?>
         <?=$this->assets->outputJs('javascript-footer') . PHP_EOL ?>
+
+        <script type="text/javascript">
+            $(document).ready(function()
+            {
+               $('#select select').customSelect();
+            });
+        </script>
 	</body>
 </html>
