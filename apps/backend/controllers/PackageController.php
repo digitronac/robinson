@@ -82,7 +82,10 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 $newtags[] = $tag;
             }
 
-            $package->tags = $newtags;
+            if ($newtags)
+            {
+                $package->tags = $newtags;
+            }
 
             if (!$package->create())
             {
