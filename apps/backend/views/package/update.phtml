@@ -8,7 +8,15 @@
     <?=(new \Robinson\Backend\Tag\MultiSelect('destinationId', $select, '-- Izaberi destinatciju --'))?>
 
             </div>
-
+            <div>
+                <label>Tip aranzmana</label>
+                <?=$this->tag->selectStatic(array
+                (
+                    'type',
+                    \Robinson\Backend\Models\Package::getTypeMessages(),
+                    'class' => 'form-control',
+                )) . PHP_EOL ?>
+            </div>
             <div>
                 <label for="package">Naziv aranzmana</label>
                 <?=$this->tag->textField(array
