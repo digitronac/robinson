@@ -23,8 +23,10 @@ class AddTypeFieldToPackages extends AbstractMigration
     public function up()
     {
         $sql = <<<HEREDOC
+        SET FOREIGN_KEY_CHECKS = 0;
 ALTER TABLE `packages`
   ADD COLUMN `type` TINYINT UNSIGNED DEFAULT 0  NOT NULL AFTER `destinationId`;
+  SET FOREIGN_KEY_CHECKS = 1;
 HEREDOC;
         $this->query($sql);
 
@@ -35,6 +37,12 @@ HEREDOC;
      */
     public function down()
     {
-        
+        $sql = <<<HEREDOC
+        SET FOREIGN_KEY_CHECKS = 0;
+ALTER TABLE `packages`
+  DROP COLUMN `type`;
+  SET FOREIGN_KEY_CHECKS = 1;
+HEREDOC;
+
     }
 }
