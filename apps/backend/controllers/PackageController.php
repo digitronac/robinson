@@ -69,6 +69,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
 
             // add tags, if any
             $tags = ($this->request->getPost('tags')) ? $this->request->getPost('tags') : array();
+            $newtags = array();
             foreach ($tags as $type => $title)
             {
                 if (!$title)
@@ -82,10 +83,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 $newtags[] = $tag;
             }
 
-            if ($newtags)
-            {
-                $package->tags = $newtags;
-            }
+            $package->tags = $newtags;
 
             if (!$package->create())
             {
