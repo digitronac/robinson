@@ -88,6 +88,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
 
             if (!$package->create())
             {
+                $this->log->log(implode(';', $package->getMessages()), \Phalcon\Logger::ERROR);
                 throw new \Phalcon\Exception('Unable to create new package.');
             }
             
@@ -114,6 +115,8 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
      */
     public function updateAction()
     {
+        set_time_limit(300);
+        
         /* @var $package \Robinson\Backend\Models\Package */
         $package = $this->getDI()->get('Robinson\Backend\Models\Package');
         /* @var $package \Robinson\Backend\Models\Package */
@@ -130,7 +133,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 ->setDescription($this->request->getPost('description'))
                 ->setStatus($this->request->getPost('status'));
 
-            $package->updateTabs($this->request->getPost('tabs'));
+            $package->updateTabs($this->request->getPost('tabs', null, array()));
             
             // sort?
             $sort = $this->request->getPost('sort');
