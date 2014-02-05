@@ -131,7 +131,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 ->setDescription($this->request->getPost('description'))
                 ->setStatus($this->request->getPost('status'));
 
-            $package->updateTabs($this->request->getPost('tabs'));
+            $package->updateTabs($this->request->getPost('tabs', null, array()));
             
             // sort?
             $sort = $this->request->getPost('sort');
