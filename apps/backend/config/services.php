@@ -124,7 +124,7 @@ $di->setShared('acl', function() use ($di)
     return $acl;
 });
 
-$di->setShared('log', function() use ($di)
+$di['log'] = function() use ($di)
 {
     $log = new \Phalcon\Logger\Multiple();
     $logDir = APPLICATION_PATH . '/backend/logs/' . date('Y') . '/' . date('m') . '/' . date('d');
@@ -159,7 +159,7 @@ $di->setShared('log', function() use ($di)
         $log->push($fireLogger);
     }
     return $log;
-});
+};
 
 $di['watermark'] = function() use ($di)
 {
