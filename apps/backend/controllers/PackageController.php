@@ -181,6 +181,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             
             if (!$package->update())
             {
+                $this->log->log(implode(';', $package->getMessages()), \Phalcon\Logger::ERROR);
                 throw new \Phalcon\Exception('Unable to update package #' . $package->getPackageId());
             }
            
