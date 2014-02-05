@@ -256,7 +256,7 @@ abstract class Images extends \Phalcon\Mvc\Model
         
         if (!$this->parentSave($data, $whiteList))
         {
-            throw new \Robinson\Backend\Models\Images\Exception(sprintf('Unable to save %s image model.', 
+            throw new \Robinson\Backend\Models\Images\Exception(sprintf('Unable to save %s image model.',
                 $this->imageType));
         }
         
@@ -359,6 +359,7 @@ abstract class Images extends \Phalcon\Mvc\Model
      */
     public function getResizedSrc($width = 300, $height = 0)
     {
+        $width = 800;
         if (!$this->imageType)
         {
             throw new \Robinson\Backend\Models\Images\Exception(
