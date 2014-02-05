@@ -359,7 +359,6 @@ abstract class Images extends \Phalcon\Mvc\Model
      */
     public function getResizedSrc($width = 300, $height = 0)
     {
-        $width = 800;
         if (!$this->imageType)
         {
             throw new \Robinson\Backend\Models\Images\Exception(
