@@ -115,6 +115,8 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
      */
     public function updateAction()
     {
+        set_time_limit(300);
+        
         /* @var $package \Robinson\Backend\Models\Package */
         $package = $this->getDI()->get('Robinson\Backend\Models\Package');
         /* @var $package \Robinson\Backend\Models\Package */

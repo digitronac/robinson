@@ -94,6 +94,7 @@ class DestinationController extends \Phalcon\Mvc\Controller
      */
     public function updateAction()
     {
+        set_time_limit(300);
         /* @var $destination \Robinson\Backend\Models\Destination */
         $destination = \Robinson\Backend\Models\Destination::findFirstByDestinationId($this->dispatcher
             ->getParam('id'));

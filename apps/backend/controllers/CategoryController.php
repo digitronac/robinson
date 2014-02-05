@@ -41,6 +41,7 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
      */
     public function updateAction()
     {
+        set_time_limit(300);
         /* @var $category \Robinson\Backend\Models\Category */
         $category = $this->getDI()->get('Robinson\Backend\Models\Category');
         $category = $category->findFirst('categoryId = ' . $this->dispatcher->getParam('id'));
