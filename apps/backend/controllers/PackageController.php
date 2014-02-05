@@ -284,7 +284,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
     {
         $images = \Robinson\Backend\Models\Images\Package::find(array
         (
-            'packageId' => $package->getPackageId(),
+            'packageId = ' . $package->getPackageId(),
         ));
 
         foreach ($images as $image)
@@ -308,7 +308,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
     {
         $images = \Robinson\Backend\Models\Images\Package::find(array
         (
-            'packageId' => $package->getPackageId(),
+            'packageId = ' . $package->getPackageId(),
         ));
 
         foreach ($images as $image)

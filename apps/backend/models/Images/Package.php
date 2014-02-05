@@ -104,4 +104,14 @@ class Package extends \Robinson\Backend\Models\Images\Images
         return $this;
     }
 
+    /**
+     * Gets package id.
+     *
+     * @return int
+     */
+    public function getPackageId()
+    {
+        return (int) $this->packageId;
+    }
+
 }
