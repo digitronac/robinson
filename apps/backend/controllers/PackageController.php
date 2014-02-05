@@ -88,9 +88,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
 
             if (!$package->create())
             {
-                print_r($package->getMessages());
                 $this->log->log(implode(';', $package->getMessages()), \Phalcon\Logger::ERROR);
-                die();
                 throw new \Phalcon\Exception('Unable to create new package.');
             }
             
