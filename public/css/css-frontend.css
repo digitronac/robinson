@@ -63,13 +63,21 @@ body{color:white;font-family: 'Open Sans', sans-serif}
 #main-section .inner-site #low-price{float:right;margin-top:200px; font-size:30px}
 #main-section .inner-site .big-price{font-size:52px; letter-spacing: -7px; font-weight: lighter}
 #main-section .inner-site #low-price #top-low-price {padding:10px 10px 10px 10px;background:white;line-height: 150%}
-#main-section .inner-site #low-price a {;color:#333333;text-decoration:none}
+#main-section .inner-site #low-price a {color:#333333;text-decoration:none}
 #main-section .inner-site #low-price #bottom-low-price {padding:10px; margin-top:10px}
 #main-section .inner-site #low-price #bottom-low-price a {color:white;font-size:25px;font-weight:bold}
 #main-section .inner-site #low-price #bottom-low-price a:hover {text-decoration:underline}
 #select{text-align:center}
 #select h3{text-align:left;font-size:26px}
 #destination-selection{color:black}
+#main-nav{width:100%;background:white;height:60px}
+#main-nav ul{margin:0 auto}
+#main-nav ul li{display:inline-block}
+#main-nav ul li a{color:#333333;float:left;width:120px;height:70px;padding:20px 20px 20px 20px; border-right:2px solid black;text-decoration: none}
+#main-nav ul li a#main-link-2{padding-top:25px}
+#main-nav ul li#home-link{width:80px;height:70px}
+#main-nav ul li#home-link a{width:100%;height:100%;display:inline-block;padding:0}
+#main-nav ul li#home-link a img{position:relative;top:25px;left:25px}
 
 /* custom select */
 .customSelect {
@@ -79,6 +87,7 @@ body{color:white;font-family: 'Open Sans', sans-serif}
     background-image: url("../img/assets/select.png");
     background-position: right 20px bottom 12px;
     background-repeat: no-repeat;
+    font-size:18px;
 }
 
 .customSelect.customSelectHover {
@@ -99,4 +108,5 @@ body{color:white;font-family: 'Open Sans', sans-serif}
 .customSelectInner {
     /* You can style the inner box too */
     color:black;
+    width:100% !important;
 }

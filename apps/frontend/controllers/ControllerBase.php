@@ -11,15 +11,22 @@ class ControllerBase extends Controller
         $this->view->destinations = \Robinson\Frontend\Model\Destination::find(
             array
             (
-                'condition' => 'status = ' . \Robinson\Frontend\Model\Destination::STATUS_VISIBLE,
+                'status = ' . \Robinson\Frontend\Model\Destination::STATUS_VISIBLE,
                 'order' => 'destination ASC',
             )
         );
         $this->view->lowPricePackage = \Robinson\Frontend\Model\Package::findFirst(
             array
             (
-                'condition' => 'status = ' . \Robinson\Frontend\Model\Destination::STATUS_VISIBLE . ' AND price != 0',
+                'status = ' . \Robinson\Frontend\Model\Destination::STATUS_VISIBLE . ' AND price != 0',
                 'order' => 'price ASC',
+            )
+        );
+        $this->view->categories = \Robinson\Frontend\Model\Category::find(
+            array
+            (
+                'status = ' . \Robinson\Frontend\Model\Category::STATUS_VISIBLE,
+                'order' => 'category ASC',
             )
         );
         \Phalcon\Tag::setTitle('robinson.rs');
