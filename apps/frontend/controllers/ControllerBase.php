@@ -26,7 +26,8 @@ class ControllerBase extends Controller
             array
             (
                 'status = ' . \Robinson\Frontend\Model\Category::STATUS_VISIBLE,
-                'order' => 'category ASC',
+                'order' => 'categoryId ASC',
+                'limit' => 8,
             )
         );
         \Phalcon\Tag::setTitle('robinson.rs');

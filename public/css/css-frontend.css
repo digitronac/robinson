@@ -70,13 +70,13 @@ body{color:white;font-family: 'Open Sans', sans-serif}
 #select{text-align:center}
 #select h3{text-align:left;font-size:26px}
 #destination-selection{color:black}
-#main-nav{width:100%;background:white;height:60px}
+#main-nav{width:100%;background:white;height:70px;border-bottom:5px solid #de1a28}
 #main-nav ul{margin:0 auto}
 #main-nav ul li{display:inline-block}
-#main-nav ul li a{color:#333333;float:left;width:120px;height:70px;padding:20px 20px 20px 20px; border-right:2px solid black;text-decoration: none}
-#main-nav ul li a#main-link-2{padding-top:25px}
+#main-nav ul li a{color:#333333;float:left;width:120px;height:70px;padding:20px 20px 20px 20px;
+    background: url("../img/assets/link-separator.png") center right no-repeat;text-decoration: none;line-height:125%}
 #main-nav ul li#home-link{width:80px;height:70px}
-#main-nav ul li#home-link a{width:100%;height:100%;display:inline-block;padding:0}
+#main-nav ul li#home-link a{width:100%;height:100%;display:inline-block;padding:0;background:none}
 #main-nav ul li#home-link a img{position:relative;top:25px;left:25px}
 
 /* custom select */
@@ -109,4 +109,25 @@ body{color:white;font-family: 'Open Sans', sans-serif}
     /* You can style the inner box too */
     color:black;
     width:100% !important;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+html[xmlns] .clearfix {
+    display: block;
+}
+
+* html .clearfix {
+    height: 1%;
 }

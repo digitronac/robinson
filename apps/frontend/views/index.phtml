@@ -78,7 +78,7 @@ $this->assets->collection('css')
 
                     <?php foreach($categories as $key => $category): ?>
 
-                    <li><a id="main-link-<?=$key?>" href=""><?=$category->getCategory()?></a></li>
+                    <li><a id="main-link-<?=$key?>" href="<?=$category->getUri()?>"><?=$category->getCategory()?></a></li>
 
                     <?php endforeach ?>
 

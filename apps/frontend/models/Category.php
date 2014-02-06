@@ -44,4 +44,10 @@ class Category extends \Phalcon\Mvc\Model
     {
         return $this->getDI()->getShared('escaper')->escapeHtml($this->category);
     }
+
+    public function getUri()
+    {
+        $filter = new \Robinson\Frontend\Filter\Unaccent();
+        return '/' . $this->getDI()->getShared('tag')->friendlyTitle($filter->filter($this->category)) . '/' . $this->categoryId;
+    }
 }

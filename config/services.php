@@ -25,7 +25,17 @@ $di['router'] = function() {
 
         $router->setDefaultModule("frontend");
         $router->setDefaultNamespace("Robinson\Frontend\Controllers");
-       
+
+        // add frontend
+        $router->add('/([A-Z][a-z][0-9]\-)/:int', array
+        (
+            'module' => 'frontend',
+            'namespace' => 'Robinson\Frontend\Controllers\\',
+            'controller' => 'category',
+            'action' => 'index',
+        ))
+        ->setName('category');
+
         // add backend
         $router->add('/admin', array
         (
