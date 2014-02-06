@@ -40,6 +40,11 @@ class Destination extends \Phalcon\Mvc\Model
     {
         $this->setSource('destinations');
 
+        $this->belongsTo('categoryId', 'Robinson\Frontend\Model\Category', 'categoryId', array
+        (
+           'alias' => 'category',
+        ));
+
         $this->hasMany('destinationId', 'Robinson\Frontend\Model\Package', 'destinationId', array
         (
             'alias' => 'packages',
@@ -60,6 +65,12 @@ class Destination extends \Phalcon\Mvc\Model
 
     public function getUri()
     {
-        return '';
+        $filter = new \Robinson\Frontend\Filter\Unaccent();
+        return '/' . $filter->filter(\Phalcon\Tag::friendlyTitle($this->category->getCategory())) . '/' . $filter->filter(\Phalcon\Tag::friendlyTitle($this->destination)) . '/' . $this->destinationId;
+    }
+
+    public function getDestinationId()
+    {
+        return (int) $this->destinationId;
     }
 }

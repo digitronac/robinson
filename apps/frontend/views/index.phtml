@@ -46,15 +46,17 @@ $this->assets->collection('css')
 
                         <h3>Više od <strong style="font-weight:bold">1800</strong> ponuda</h3>
 
-                        <?=$this->tag->select(array
-                        (
-                           'destination',
-                           $destinations,
-                           'using' => array('destinationId', 'destination'),
-                           'id' => 'destination-selection',
-                           'useEmpty' => true,
-                           'emptyText' => 'Izaberi destinaciju!',
-                        ))?>
+                        <select id="destination-selection" name="destination">
+
+                            <option value="">Izaberi destinaciju!</option>
+
+                            <?php foreach($destinations as $destination): ?>
+
+                            <option value="<?=$destination->getDestinationId()?>" data-url="<?=$destination->getUri()?>"><?=$destination->getDestination()?></option>
+
+                            <?php endforeach ?>
+
+                        </select>
 
                     </div>
                 </div>
