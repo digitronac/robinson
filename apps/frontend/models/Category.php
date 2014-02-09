@@ -72,6 +72,16 @@ class Category extends \Phalcon\Mvc\Model
     }
 
     /**
+     * Gets category id.
+     *
+     * @return int
+     */
+    public function getCategoryId()
+    {
+        return (int) $this->categoryId;
+    }
+
+    /**
      * Gets related images.
      *
      * @return \Phalcon\Mvc\Model\ResultsetInterface

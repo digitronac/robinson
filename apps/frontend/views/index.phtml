@@ -87,8 +87,15 @@ $this->assets->collection('css')
 
                     <?php foreach($categories as $key => $category): ?>
 
-                    <li><a id="main-link-<?=$key?>" href="<?=$category->getUri()?>"><?=$category->getCategory()?></a></li>
+                        <?php if (isset($categoryId) && $categoryId == $category->getCategoryId()): ?>
 
+                            <li><a class="active" id="main-link-<?=$key?>" href="<?=$category->getUri()?>"><?=$category->getCategory()?></a></li>
+
+                        <?php else: ?>
+
+                            <li><a id="main-link-<?=$key?>" href="<?=$category->getUri()?>"><?=$category->getCategory()?></a></li>
+
+                        <?php endif ?>
                     <?php endforeach ?>
 
                 </ul>

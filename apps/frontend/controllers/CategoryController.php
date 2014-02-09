@@ -11,6 +11,7 @@ class CategoryController extends ControllerBase
             'status = ' . \Robinson\Frontend\Model\Category::STATUS_VISIBLE . ' AND categoryId = ' . (int) $this->dispatcher->getParam('id')
         );
 
+        $this->view->categoryId = $this->view->category->getCategoryId();
         $this->tag->prependTitle($this->view->category->getCategory() . ' - ');
     }
 } 
