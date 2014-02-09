@@ -1,45 +1,46 @@
 <div id="index-index">
-<div class="inner-site">
+    <div class="inner-site">
 
-    <?php if ($lastMinutePackages->count()): ?>
+        <?php if ($lastMinutePackages->count()): ?>
 
-    <div id="index-last-minute">
-        <h4><strong>Last minute</strong> ponude</h4>
+        <div id="index-last-minute">
+            <h4><strong>Last minute</strong> ponude</h4>
 
-        <?php foreach ($lastMinutePackages as $package): ?>
+            <?php foreach ($lastMinutePackages as $package): ?>
 
-        <div class="package-item">
-            <div class="package-item-image">
+            <div class="package-item">
+                <div class="package-item-image">
 
-                <h3>
-                <?=$this->tag->image(array
-                (
-                    $package->getMainImage()->getResizedSrc(250),
-                    'alt' => $package->getPackage(),
-                )) . PHP_EOL ?>
-                </h3>
+                    <h3>
+                    <?=$this->tag->image(array
+                    (
+                        $package->getMainImage()->getResizedSrc(250),
+                        'alt' => $package->getPackage(),
+                    )) . PHP_EOL ?>
+                    </h3>
+                </div>
+                <div class="package-item-package">
+                    <h2><?=$package->getPackage()?></h2>
+                </div>
+                <div class="package-item-price">
+                    od <span><?=$package->getPrice()?>&euro;</span>
+                </div>
+                <div class="package-item-link">
+
+                    <?=$this->tag->linkTo(array
+                    (
+                        $package->getUri(),
+                        'REZERVIŠI',
+                    )) . PHP_EOL ?>
+
+                </div>
             </div>
-            <div class="package-item-package">
-                <h2><?=$package->getPackage()?></h2>
-            </div>
-            <div class="package-item-price">
-                od <span><?=$package->getPrice()?>&euro;</span>
-            </div>
-            <div class="package-item-link">
 
-                <?=$this->tag->linkTo(array
-                (
-                    $package->getUri(),
-                    'REZERVIŠI',
-                )) . PHP_EOL ?>
+            <?php endforeach ?>
 
-            </div>
         </div>
 
-        <?php endforeach ?>
+        <?php endif ?>
 
     </div>
-
-    <?php endif ?>
-
 </div>

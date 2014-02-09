@@ -31,6 +31,16 @@ class Category extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSource('categories');
+        $this->hasMany('categoryId', 'Robinson\Frontend\Model\Images\Category', 'categoryId', array
+        (
+            'alias' => 'images',
+        ));
+
+        $this->hasMany('categoryId', 'Robinson\Frontend\Model\Destination', 'categoryId', array
+        (
+            'alias' => 'destinations',
+        ));
+
     }
 
     /**
@@ -49,5 +59,42 @@ class Category extends \Phalcon\Mvc\Model
     {
         $filter = new \Robinson\Frontend\Filter\Unaccent();
         return '/' . $this->getDI()->getShared('tag')->friendlyTitle($filter->filter($this->category)) . '/' . $this->categoryId;
+    }
+
+    /**
+     * Gets category description.
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Gets related images.
+     *
+     * @return \Phalcon\Mvc\Model\ResultsetInterface
+     */
+    public function getImages()
+    {
+        return $this->getRelated('images', array
+        (
+            'order' => 'sort ASC',
+        ));
+    }
+
+    /**
+     * Gets related destinations.
+     *
+     * @return \Phalcon\Mvc\Model\ResultsetInterface
+     */
+    public function getDestinations()
+    {
+        return $this->getRelated('destinations', array
+        (
+            'status = ' . \Robinson\Frontend\Model\Destination::STATUS_VISIBLE,
+            'order' => 'destination ASC',
+        ));
     }
 }

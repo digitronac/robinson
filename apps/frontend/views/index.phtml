@@ -3,6 +3,10 @@ $this->assets->collection('javascript-footer')
     ->addJs('js/jquery.min.js')
     ->addJs('js/bootstrap.min.js')
     ->addJs('js/jquery.customSelect.js')
+    ->addJs('js/fb/source/jquery.fancybox.js')
+    ->addJs('js/fb/source/helpers/jquery.fancybox-buttons.js')
+    ->addJs('js/fb/source/helpers/jquery.fancybox-thumbs.js')
+    ->addJs('js/fb/source/helpers/jquery.fancybox-media.js')
     ->join(true)
     ->setTargetPath(APPLICATION_PATH . '/../public/min/js-footer.js')
     ->setTargetUri('min/js-footer.js')
@@ -10,6 +14,9 @@ $this->assets->collection('javascript-footer')
 $this->assets->collection('css')
     ->addCss('css/bootstrap.css')
     ->addCss('css/bootstrap-theme.css')
+    ->addCss('js/fb/source/jquery.fancybox.css')
+    ->addCss('js/fb/source/helpers/jquery.fancybox-buttons.css')
+    ->addCss('js/fb/source/helpers/jquery.fancybox-thumbs.css')
     ->addCss('css/css-frontend.css')
     ->join(true)
     ->setTargetPath(APPLICATION_PATH . '/../public/min/css-frontend.css')
@@ -100,6 +107,7 @@ $this->assets->collection('css')
             $(document).ready(function()
             {
                $('#select select').customSelect();
+               $('.fancybox').fancybox();
             });
         </script>
 	</body>

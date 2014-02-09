@@ -165,6 +165,14 @@ abstract class Images extends \Phalcon\Mvc\Model
     }
 
     /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
      * Gets "real" filename of image, filesystem filename.
      * 
      * @return string

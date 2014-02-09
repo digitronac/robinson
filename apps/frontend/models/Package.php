@@ -162,6 +162,11 @@ class Package extends \Phalcon\Mvc\Model
         return $this->getRelated('images', $params);
     }
 
+    /**
+     * Finds main image of package (one with lowest sort number).
+     *
+     * @return Images\Package
+     */
     public function getMainImage()
     {
         $images = $this->getImages(array

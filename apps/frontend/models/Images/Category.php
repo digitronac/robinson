@@ -1,6 +1,6 @@
 <?php
-namespace Robinson\Backend\Models\Images;
-class Category extends \Robinson\Backend\Models\Images\Images
+namespace Robinson\Frontend\Model\Images;
+class Category extends \Robinson\Frontend\Model\Images\Images
 {
     protected $categoryImageId;
     
@@ -30,35 +30,18 @@ class Category extends \Robinson\Backend\Models\Images\Images
     }
 
     /**
-     * Initializion method.
+     * Initialization method.
      * 
      * @return void
      */
     public function initialize()
     {
         $this->setSource('category_images');
-        $this->belongsTo('categoryId', 'Robinson\Backend\Models\Category', 'categoryId');
+        $this->belongsTo('categoryId', 'Robinson\Frontend\Model\Category', 'categoryId');
         $this->setImageType(self::IMAGE_TYPE_CATEGORY);
     }
     
-    /**
-     * Sets categoryId.
-     * 
-     * @param int $categoryId categoryId
-     * 
-     * @return \Robinson\Backend\Models\Images\Category
-     */
-    public function setCategoryId($categoryId)
-    {
-        $this->categoryId = (int) $categoryId;
-        return $this;
-    }
 
-    /**
-     * Id to which this model belongs.
-     * 
-     * @return int
-     */
     public function getBelongsToId()
     {
         return $this->categoryId;

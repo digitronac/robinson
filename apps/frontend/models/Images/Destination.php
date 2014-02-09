@@ -1,6 +1,6 @@
 <?php
-namespace Robinson\Backend\Models\Images;
-class Destination extends \Robinson\Backend\Models\Images\Images
+namespace Robinson\Frontend\Model\Images;
+class Destination extends \Robinson\Frontend\Model\Images\Images
 {
     protected $destinationImageId;
     
@@ -37,10 +37,9 @@ class Destination extends \Robinson\Backend\Models\Images\Images
     public function initialize()
     {
         $this->setSource('destination_images');
-        $this->belongsTo('destinationId', 'Robinson\Backend\Models\Destinations', 'destinationId');
-        $this->hasMany('destinationId', 'Robinson\Backend\Models\Package', array
+        $this->belongsTo('destinationId', 'Robinson\Frontend\Model\Destination', 'destinationId', array
         (
-            'alias' => 'packages',
+            'alias' => 'destinations',
         ));
         
         $this->setImageType(self::IMAGE_TYPE_DESTINATION);
@@ -51,7 +50,7 @@ class Destination extends \Robinson\Backend\Models\Images\Images
      * 
      * @param int $destinationId destinationId
      * 
-     * @return \Robinson\Backend\Models\Images\Destination
+     * @return \Robinson\Frontend\Models\Images\Destination
      */
     public function setDestinationId($destinationId)
     {

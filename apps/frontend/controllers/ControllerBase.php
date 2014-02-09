@@ -30,6 +30,6 @@ class ControllerBase extends Controller
                 'limit' => 8,
             )
         );
-        \Phalcon\Tag::setTitle('robinson.rs');
+        $this->tag->setTitle('robinson.rs');
     }
 }
