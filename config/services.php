@@ -27,7 +27,7 @@ $di['router'] = function() {
         $router->setDefaultNamespace("Robinson\Frontend\Controllers");
 
         // add frontend
-        $router->add('/([A-Z][a-z][0-9]\-)/:int', array
+        $router->add('/([a-z0-9\-]+)/:int', array
         (
             'module' => 'frontend',
             'namespace' => 'Robinson\Frontend\Controllers\\',

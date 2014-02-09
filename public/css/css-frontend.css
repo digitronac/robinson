@@ -84,7 +84,7 @@ body{color:white;font-family: 'Open Sans', sans-serif}
 #index-last-minute {padding: 20px 0 20px 0}
 #index-last-minute h4 {text-align:center; font-size:30px;color:#333333}
 #index-last-minute h4 strong {font-weight:bold}
-.package-item {color:#333333;display:inline-block;width:250px}
+.package-item {color:#333333;display:inline-block;width:250px;margin:20px 0 0 20px}
 .package-item-package{text-align: center}
 .package-item-price {font-weight: bold;text-align:center; margin-top:5px}
 .package-item-price span {color:red}
