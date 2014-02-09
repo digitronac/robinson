@@ -79,6 +79,19 @@ body{color:white;font-family: 'Open Sans', sans-serif}
 #main-nav ul li#home-link a{width:100%;height:100%;display:inline-block;padding:0;background:none}
 #main-nav ul li#home-link a img{position:relative;top:25px;left:25px}
 
+#content {background:#f4f4f4}
+/* index/index */
+#index-last-minute {padding: 20px 0 20px 0}
+#index-last-minute h4 {text-align:center; font-size:30px;color:#333333}
+#index-last-minute h4 strong {font-weight:bold}
+.package-item {color:#333333;display:inline-block;width:250px}
+.package-item-package{text-align: center}
+.package-item-price {font-weight: bold;text-align:center; margin-top:5px}
+.package-item-price span {color:red}
+.package-item-image {height:200px}
+.package-item-link a {width:250px; display:block; padding:5px; background:#c3c3c3; margin-top:10px;text-align:center;color:white}
+.package-item-link a:hover {background:#de1a28;text-decoration: none}
+
 /* custom select */
 .customSelect {
     /* This is the default class that is used */

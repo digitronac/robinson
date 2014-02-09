@@ -4,7 +4,7 @@
     <?php if ($lastMinutePackages): ?>
 
     <div id="index-last-minute">
-        <h3>Last minute ponude</h3>
+        <h4><strong>Last minute</strong> ponude</h4>
 
         <?php foreach ($lastMinutePackages as $package): ?>
 
@@ -23,14 +23,14 @@
                 <h2><?=$package->getPackage()?></h2>
             </div>
             <div class="package-item-price">
-                <p>od <?=$package->getPrice()?></p>
+                od <span><?=$package->getPrice()?>&euro;</span>
             </div>
             <div class="package-item-link">
 
                 <?=$this->tag->linkTo(array
                 (
                     $package->getUri(),
-                    $package->getPackage(),
+                    'REZERVIŠI',
                 )) . PHP_EOL ?>
 
             </div>

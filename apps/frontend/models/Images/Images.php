@@ -212,7 +212,7 @@ abstract class Images extends \Phalcon\Mvc\Model
         }
 
         $imagick = $this->getDI()->get('Imagick', array($this->basePath . '/' . $this->getRealFilename()));
-        $imagick->scaleimage($width, $dimensions['height']);
+        $imagick->thumbnailimage($dimensions['width'], $dimensions['height']);
         $imagick->writeimage($cropFile);
         
         // return before watermarking

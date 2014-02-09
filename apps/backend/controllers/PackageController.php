@@ -16,7 +16,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             $packages = $this->getDI()->get('Robinson\Backend\Models\Package');
             $this->view->packages = $packages->find(array
             (
-                'destinationId' => $this->request->getQuery('destinationId'), 
+                'destinationId = ' . $this->request->getQuery('destinationId'),
                 'order' => 'destinationId DESC',
             ));
             

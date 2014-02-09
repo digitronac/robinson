@@ -199,7 +199,18 @@ class Package extends \Phalcon\Mvc\Model
      */
     public function getUri()
     {
-        return '';
+        $filter = new \Robinson\Frontend\Filter\Unaccent();
+        $tag = $this->getDI()->getShared('tag');
+
+        $destination = $this->getRelated('destination');
+        $destinationTitle = $tag->friendlyTitle($filter->filter($destination->getDestination()));
+
+        $category = $destination->getRelated('category');
+        $categoryTitle = $tag->friendlyTitle($filter->filter($category->getCategory()));
+
+        $packageTitle = $tag->friendlyTitle($filter->filter($this->getPackage()));
+
+        return $categoryTitle . '/' . $destinationTitle . '/' . $packageTitle . '/' . $this->packageId;
     }
 
     /**
