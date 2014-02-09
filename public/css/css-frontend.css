@@ -93,8 +93,8 @@ body{color:white;font-family: 'Open Sans', sans-serif}
 .package-item-link a {width:250px; display:block; padding:5px; background:#c3c3c3; margin-top:10px;text-align:center;color:white}
 .package-item-link a:hover {background:#de1a28;text-decoration: none}
 /* category/index */
-.category h1, .package h1 {font-size:36px; color:#333333;text-align:center;font-weight:bold}
-.category, .package {padding-top:30px;padding-bottom:30px}
+.category h1, .destination h1 {font-size:36px; color:#333333;text-align:center;font-weight:bold}
+.category, .destination {padding-top:30px;padding-bottom:30px}
 .description{color:#333333; margin-top:20px; font-size:18px; line-height:120%; padding-bottom:20px}
 .intro, .destinations-list, .packages-list {background:#f4f4f4}
 .destinations-list h3, .packages-list h3 {font-weight:bold}
