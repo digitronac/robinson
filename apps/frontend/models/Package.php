@@ -51,6 +51,16 @@ class Package extends \Phalcon\Mvc\Model
             'alias' => 'destination', 
         ));
 
+        $this->hasMany('packageId', 'Robinson\Frontend\Model\Tags\Package', 'packageId', array
+        (
+            'alias' => 'tags',
+        ));
+
+        $this->hasMany('packageId', 'Robinson\Frontend\Model\Images\Package', 'packageId', array
+        (
+            'alias' => 'images',
+        ));
+
     }
 
     /**
@@ -141,6 +151,38 @@ class Package extends \Phalcon\Mvc\Model
     }
 
     /**
+     * Gets package images.
+     *
+     * @param array $params
+     *
+     * @return \Phalcon\Mvc\Model\ResultsetInterface
+     */
+    public function getImages(array $params = null)
+    {
+        return $this->getRelated('images', $params);
+    }
+
+    public function getMainImage()
+    {
+        $images = $this->getImages(array
+        (
+            'order' => 'sort ASC',
+            'limit' => 1,
+        ));
+
+        if (!$images->count())
+        {
+            return;
+        }
+
+        /** @var $image \Robinson\Frontend\Model\Images\Package */
+        $image = $images[0];
+
+       return $image;
+
+    }
+
+    /**
      * Get package type.
      *
      * @return int
@@ -178,6 +220,19 @@ class Package extends \Phalcon\Mvc\Model
     public static function getTypeMessages()
     {
         return self::$types;
+    }
+
+    /**
+     * Finds last minute packages.
+     *
+     * @return mixed
+     */
+    public function findLastMinute()
+    {
+        return $this->_modelsManager->executeQuery('SELECT packages.* FROM Robinson\Frontend\Model\Package AS packages JOIN
+        Robinson\Frontend\Model\Tags\Package as packageTags
+        ON packages.packageId = packageTags.packageId
+        WHERE packages.status = 1 AND packageTags.type = 2');
     }
 
 }

@@ -1,0 +1,45 @@
+
+<div class="inner-site">
+
+    <?php if ($lastMinutePackages): ?>
+
+    <div id="index-last-minute">
+        <h3>Last minute ponude</h3>
+
+        <?php foreach ($lastMinutePackages as $package): ?>
+
+        <div class="package-item">
+            <div class="package-item-image">
+
+                <h3>
+                <?=$this->tag->image(array
+                (
+                    $package->getMainImage()->getResizedSrc(250),
+                    'alt' => $package->getPackage(),
+                )) . PHP_EOL ?>
+                </h3>
+            </div>
+            <div class="package-item-package">
+                <h2><?=$package->getPackage()?></h2>
+            </div>
+            <div class="package-item-price">
+                <p>od <?=$package->getPrice()?></p>
+            </div>
+            <div class="package-item-link">
+
+                <?=$this->tag->linkTo(array
+                (
+                    $package->getUri(),
+                    $package->getPackage(),
+                )) . PHP_EOL ?>
+
+            </div>
+        </div>
+
+        <?php endforeach ?>
+
+    </div>
+
+    <?php endif ?>
+
+</div>
