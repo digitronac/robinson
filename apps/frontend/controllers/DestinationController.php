@@ -16,5 +16,6 @@ class DestinationController extends ControllerBase
         );
 
         $this->view->categoryId = $this->view->destination->category->getCategoryId();
+        $this->tag->prependTitle($this->view->destination->getDestination() . ' - ');
     }
 }

@@ -69,13 +69,13 @@ $this->assets->collection('css')
                 </div>
                 <div id="low-price">
                     <div id="top-low-price">
-                        <a href="<?=$lowPricePackage->getUri()?>">
+                        <a href="/<?=$lowPricePackage->getUri()?>">
                             od
                             <span class="big-price"><strong style="font-weight: bold"><?=$lowPricePackage->getPrice()?></strong> &euro;</span>
                         </a>
                     </div>
                     <div id="bottom-low-price" class="robinson-background">
-                        <a href="<?=$lowPricePackage->getUri()?>"><?=$lowPricePackage->destination->getDestination()?></a>
+                        <a href="/<?=$lowPricePackage->getUri()?>"><?=$lowPricePackage->destination->getDestination()?></a>
                     </div>
                 </div>
             </div>
