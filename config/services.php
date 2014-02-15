@@ -47,6 +47,16 @@ $di['router'] = function() {
         ))
         ->setName('destination');
 
+        $router->add('/([a-z0-9\-]+)/([a-z0-9\-]+)/([a-z0-9\-]+)/:int', array
+        (
+            'module' => 'frontend',
+            'namespace' => 'Robinson\Frontend\Controllers\\',
+            'controller' => 'package',
+            'action' => 'index',
+            'id' => 5,
+        ))
+        ->setName('package');
+
         // add backend
         $router->add('/admin', array
         (

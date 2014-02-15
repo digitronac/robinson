@@ -155,6 +155,7 @@ $di->setShared('log', function() use ($di)
         $fireLogger->setFormatter($fireFormatter);
         $log->push($fireLogger);
     }
+
     return $log;
 });
 
