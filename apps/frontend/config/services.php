@@ -132,7 +132,6 @@ $di->setShared('log', function() use ($di)
     {
         if (!is_file($logFile))
         {
-            umask(0);
             mkdir($logDir, 0775, true);
 
             if (!is_file($logFile))
@@ -156,6 +155,7 @@ $di->setShared('log', function() use ($di)
         $fireLogger->setFormatter($fireFormatter);
         $log->push($fireLogger);
     }
+
     return $log;
 });
 

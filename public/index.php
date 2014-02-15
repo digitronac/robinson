@@ -27,7 +27,7 @@ register_shutdown_function(function() use ($di)
     {
         return;
     }
-    $di->getShared('log')->error($lastError);
+    $di['log']->error($lastError['message']);
 });
 /**
  * Handle the request

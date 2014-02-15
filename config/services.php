@@ -25,7 +25,38 @@ $di['router'] = function() {
 
         $router->setDefaultModule("frontend");
         $router->setDefaultNamespace("Robinson\Frontend\Controllers");
-       
+
+        // add frontend
+        $router->add('/([a-z0-9\-]+)/:int', array
+        (
+            'module' => 'frontend',
+            'namespace' => 'Robinson\Frontend\Controllers\\',
+            'controller' => 'category',
+            'action' => 'index',
+            'id' => 2,
+        ))
+        ->setName('category');
+
+        $router->add('/([a-z0-9\-]+)/([a-z0-9\-]+)/:int', array
+        (
+            'module' => 'frontend',
+            'namespace' => 'Robinson\Frontend\Controllers\\',
+            'controller' => 'destination',
+            'action' => 'index',
+            'id' => 3,
+        ))
+        ->setName('destination');
+
+        $router->add('/([a-z0-9\-]+)/([a-z0-9\-]+)/([a-z0-9\-]+)/:int', array
+        (
+            'module' => 'frontend',
+            'namespace' => 'Robinson\Frontend\Controllers\\',
+            'controller' => 'package',
+            'action' => 'index',
+            'id' => 5,
+        ))
+        ->setName('package');
+
         // add backend
         $router->add('/admin', array
         (
@@ -87,5 +118,13 @@ $di['debug'] = function()
 $di['fs'] = function()
 {
     return new \Symfony\Component\Filesystem\Filesystem();
+};
+
+
+$di['watermark'] = function() use ($di)
+{
+    $filter = new \Robinson\Backend\Filter\Watermark(new \Imagick($di->getShared('config')
+        ->application->watermark->watermark));
+    return $filter;
 };
 

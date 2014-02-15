@@ -134,7 +134,6 @@ $di['log'] = function() use ($di)
     {
         if (!is_file($logFile))
         {
-            umask(0);
             mkdir($logDir, 0775, true);
 
             if (!is_file($logFile))
@@ -161,12 +160,6 @@ $di['log'] = function() use ($di)
     return $log;
 };
 
-$di['watermark'] = function() use ($di)
-{
-    $filter = new \Robinson\Backend\Filter\Watermark(new \Imagick($di->getShared('config')
-        ->application->watermark->watermark));
-    return $filter;
-};
 
 $di['assets'] = function() use ($di)
 {

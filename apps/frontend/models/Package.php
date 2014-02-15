@@ -51,6 +51,16 @@ class Package extends \Phalcon\Mvc\Model
             'alias' => 'destination', 
         ));
 
+        $this->hasMany('packageId', 'Robinson\Frontend\Model\Tags\Package', 'packageId', array
+        (
+            'alias' => 'tags',
+        ));
+
+        $this->hasMany('packageId', 'Robinson\Frontend\Model\Images\Package', 'packageId', array
+        (
+            'alias' => 'images',
+        ));
+
     }
 
     /**
@@ -141,6 +151,43 @@ class Package extends \Phalcon\Mvc\Model
     }
 
     /**
+     * Gets package images.
+     *
+     * @param array $params
+     *
+     * @return \Phalcon\Mvc\Model\ResultsetInterface
+     */
+    public function getImages(array $params = null)
+    {
+        return $this->getRelated('images', $params);
+    }
+
+    /**
+     * Finds main image of package (one with lowest sort number).
+     *
+     * @return Images\Package
+     */
+    public function getMainImage()
+    {
+        $images = $this->getImages(array
+        (
+            'order' => 'sort ASC',
+            'limit' => 1,
+        ));
+
+        if (!$images->count())
+        {
+            return;
+        }
+
+        /** @var $image \Robinson\Frontend\Model\Images\Package */
+        $image = $images[0];
+
+       return $image;
+
+    }
+
+    /**
      * Get package type.
      *
      * @return int
@@ -157,7 +204,18 @@ class Package extends \Phalcon\Mvc\Model
      */
     public function getUri()
     {
-        return '';
+        $filter = new \Robinson\Frontend\Filter\Unaccent();
+        $tag = $this->getDI()->getShared('tag');
+
+        $destination = $this->getRelated('destination');
+        $destinationTitle = $tag->friendlyTitle($filter->filter($destination->getDestination()));
+
+        $category = $destination->getRelated('category');
+        $categoryTitle = $tag->friendlyTitle($filter->filter($category->getCategory()));
+
+        $packageTitle = $tag->friendlyTitle($filter->filter($this->getPackage()));
+
+        return $categoryTitle . '/' . $destinationTitle . '/' . $packageTitle . '/' . $this->packageId;
     }
 
     /**
@@ -178,6 +236,58 @@ class Package extends \Phalcon\Mvc\Model
     public static function getTypeMessages()
     {
         return self::$types;
+    }
+
+    public function getShortDescription()
+    {
+        return self::truncateText($this->description, 250);
+    }
+
+
+    /**
+     * Truncates text to given char limit.
+     *
+     * @param string $text  text which should be truncated
+     * @param int    $limit char limit
+     * @param string $break on which character should truncate happen
+     * @param string $pad   padding string, will be appended on end of truncated string
+     *
+     * @return string truncated text
+     */
+    public static function truncateText($text, $limit, $break = ".", $pad = "...")
+    {
+        // Original PHP code by Chirp Internet: www.chirp.com.au
+        // Please acknowledge use of this code by including this header
+
+        $text = strip_tags($text);
+        // return with no change if string is shorter than $limit
+        if (mb_strlen($text) <= $limit) {
+            return $text;
+        }
+        // is $break present between $limit and the end of the string?
+        if (false !== ($breakpoint = mb_strpos($text, $break, $limit))) {
+            if ($breakpoint < mb_strlen($text) - 1) {
+                $text = mb_substr($text, 0, $breakpoint) . $pad;
+
+            }
+
+        }
+
+        return trim($text);
+
+    }
+
+    /**
+     * Finds last minute packages.
+     *
+     * @return mixed
+     */
+    public function findLastMinute()
+    {
+        return $this->_modelsManager->executeQuery('SELECT packages.* FROM Robinson\Frontend\Model\Package AS packages JOIN
+        Robinson\Frontend\Model\Tags\Package as packageTags
+        ON packages.packageId = packageTags.packageId
+        WHERE packages.status = 1 AND packageTags.type = 2');
     }
 
 }

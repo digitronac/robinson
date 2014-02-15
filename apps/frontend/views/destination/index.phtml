@@ -1,0 +1,80 @@
+<div class="destination index intro">
+    <div class="inner-site">
+        <h1><?=$destination->getDestination()?></h1>
+        <div class="description">
+            <?=$destination->getDestination()?>
+        </div>
+    </div>
+</div>
+<div class="destination index images">
+    <div class="inner-site">
+
+        <?php foreach ($destination->getImages() as $image): ?>
+
+            <div class="gallery">
+
+                <?=$this->tag->linkTo(
+                    array(
+                        $image->getResizedSrc(800),
+                        $this->tag->image($image->getResizedSrc(250), array
+                            (
+                                'alt' => $destination->getDestination(),
+                            )),
+                        'class' => 'fancybox',
+                    )
+                ) . PHP_EOL ?>
+
+            </div>
+
+        <?php endforeach ?>
+
+    </div>
+</div>
+
+<?php if ($destination->getPackages()->count()): ?>
+
+    <div class="destination index packages-list">
+
+        <div class="inner-site">
+            <h2><strong><?=$destination->getDestination()?></strong> - aranžmani</h2>
+
+            <ul>
+                <?php foreach ($destination->getPackages() as $package): ?>
+
+                    <li>
+
+                        <?php if ($package->getMainImage()): ?>
+
+                            <div class="image">
+                                <?=$this->tag->linkTo(array
+                                    (
+                                        $package->getUri(),
+                                        $this->tag->image(array
+                                        (
+                                            $package->getMainImage()->getResizedSrc(250)
+                                        ))
+                                    )) . PHP_EOL ?>
+                            </div>
+
+                        <?php endif ?>
+
+                        <div class="description">
+                            <h3><strong><?=$this->tag->linkTo($package->getUri(), $package->getPackage())?></strong></h3>
+                            <div class="description-text">
+                                <?=$package->getShortDescription()?>
+                            </div>
+                            <div class="link">
+
+                                <?=$this->tag->linkTo($package->getUri(), '/ Pogledajte aranžman /') . PHP_EOL?>
+                            </div>
+                        </div>
+                    </li>
+
+                <?php endforeach ?>
+
+            </ul>
+        </div>
+
+    </div>
+
+<?php endif ?>

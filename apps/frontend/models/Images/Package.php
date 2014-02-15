@@ -1,6 +1,6 @@
 <?php
-namespace Robinson\Backend\Models\Images;
-class Package extends \Robinson\Backend\Models\Images\Images
+namespace Robinson\Frontend\Model\Images;
+class Package extends \Robinson\Frontend\Model\Images\Images
 {
     protected $packageImageId;
     
@@ -49,7 +49,7 @@ class Package extends \Robinson\Backend\Models\Images\Images
     public function initialize()
     {
         $this->setSource('package_images');
-        $this->belongsTo('packageId', 'Robinson\Backend\Models\Package', 'packageId', array
+        $this->belongsTo('packageId', 'Robinson\Backend\Model\Package', 'packageId', array
         (
             'alias' => 'package',
         ));

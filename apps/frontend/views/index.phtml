@@ -3,6 +3,10 @@ $this->assets->collection('javascript-footer')
     ->addJs('js/jquery.min.js')
     ->addJs('js/bootstrap.min.js')
     ->addJs('js/jquery.customSelect.js')
+    ->addJs('js/fb/source/jquery.fancybox.js')
+    ->addJs('js/fb/source/helpers/jquery.fancybox-buttons.js')
+    ->addJs('js/fb/source/helpers/jquery.fancybox-thumbs.js')
+    ->addJs('js/fb/source/helpers/jquery.fancybox-media.js')
     ->join(true)
     ->setTargetPath(APPLICATION_PATH . '/../public/min/js-footer.js')
     ->setTargetUri('min/js-footer.js')
@@ -10,6 +14,9 @@ $this->assets->collection('javascript-footer')
 $this->assets->collection('css')
     ->addCss('css/bootstrap.css')
     ->addCss('css/bootstrap-theme.css')
+    ->addCss('js/fb/source/jquery.fancybox.css')
+    ->addCss('js/fb/source/helpers/jquery.fancybox-buttons.css')
+    ->addCss('js/fb/source/helpers/jquery.fancybox-thumbs.css')
     ->addCss('css/css-frontend.css')
     ->join(true)
     ->setTargetPath(APPLICATION_PATH . '/../public/min/css-frontend.css')
@@ -31,7 +38,7 @@ $this->assets->collection('css')
                     Follow us:
                 </div>
                 <div id="logo">
-                    <a href="/"><img src="img/assets/logo.png" alt="robinson turisticka agencija" /></a>
+                    <a href="/"><img src="/img/assets/logo.png" alt="robinson turisticka agencija" /></a>
                 </div>
                 <div id="contact-info">
                     Kontakt: <strong style="font-weight:bold">011/334-67-76</strong> <br /><br />
@@ -46,39 +53,68 @@ $this->assets->collection('css')
 
                         <h3>Više od <strong style="font-weight:bold">1800</strong> ponuda</h3>
 
-                        <?=$this->tag->select(array
-                        (
-                           'destination',
-                           $destinations,
-                           'using' => array('destinationId', 'destination'),
-                           'id' => 'destination-selection',
-                           'useEmpty' => true,
-                           'emptyText' => 'Izaberi destinaciju!',
-                        ))?>
+                        <select id="destination-selection" name="destination">
+
+                            <option value="">Izaberi destinaciju!</option>
+
+                            <?php foreach($destinations as $destination): ?>
+
+                            <option value="<?=$destination->getDestinationId()?>" data-url="<?=$destination->getUri()?>"><?=$destination->getDestination()?></option>
+
+                            <?php endforeach ?>
+
+                        </select>
 
                     </div>
                 </div>
                 <div id="low-price">
                     <div id="top-low-price">
-                        <a href="<?=$lowPricePackage->getUri()?>">
+                        <a href="/<?=$lowPricePackage->getUri()?>">
                             od
                             <span class="big-price"><strong style="font-weight: bold"><?=$lowPricePackage->getPrice()?></strong> &euro;</span>
                         </a>
                     </div>
                     <div id="bottom-low-price" class="robinson-background">
-                        <a href="<?=$lowPricePackage->getUri()?>"><?=$lowPricePackage->destination->getDestination()?></a>
+                        <a href="/<?=$lowPricePackage->getUri()?>"><?=$lowPricePackage->destination->getDestination()?></a>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="main-nav"></div>
-		<?php echo $this->getContent() . PHP_EOL ?>
+        <div id="main-nav">
+            <div class="inner-site">
+                <ul>
+                    <li id="home-link" class="robinson-background"><a href=""><img src="/img/assets/home-icon.png" alt="Home" /></a></li>
+
+                    <?php foreach($categories as $key => $category): ?>
+
+                        <?php if (isset($categoryId) && $categoryId == $category->getCategoryId()): ?>
+
+                            <li><a class="active" id="main-link-<?=$key?>" href="<?=$category->getUri()?>"><?=$category->getCategory()?></a></li>
+
+                        <?php else: ?>
+
+                            <li><a id="main-link-<?=$key?>" href="<?=$category->getUri()?>"><?=$category->getCategory()?></a></li>
+
+                        <?php endif ?>
+                    <?php endforeach ?>
+
+                </ul>
+            </div>
+        </div>
+
+        <div id="content">
+
+		<?=$this->getContent() . PHP_EOL ?>
+
+        </div>
+
         <?=$this->assets->outputJs('javascript-footer') . PHP_EOL ?>
 
         <script type="text/javascript">
             $(document).ready(function()
             {
                $('#select select').customSelect();
+               $('.fancybox').fancybox();
             });
         </script>
 	</body>

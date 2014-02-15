@@ -63,13 +63,52 @@ body{color:white;font-family: 'Open Sans', sans-serif}
 #main-section .inner-site #low-price{float:right;margin-top:200px; font-size:30px}
 #main-section .inner-site .big-price{font-size:52px; letter-spacing: -7px; font-weight: lighter}
 #main-section .inner-site #low-price #top-low-price {padding:10px 10px 10px 10px;background:white;line-height: 150%}
-#main-section .inner-site #low-price a {;color:#333333;text-decoration:none}
+#main-section .inner-site #low-price a {color:#333333;text-decoration:none}
 #main-section .inner-site #low-price #bottom-low-price {padding:10px; margin-top:10px}
 #main-section .inner-site #low-price #bottom-low-price a {color:white;font-size:25px;font-weight:bold}
 #main-section .inner-site #low-price #bottom-low-price a:hover {text-decoration:underline}
 #select{text-align:center}
 #select h3{text-align:left;font-size:26px}
 #destination-selection{color:black}
+#main-nav{width:100%;background:white;height:70px;border-bottom:5px solid #de1a28}
+#main-nav ul{margin:0 auto}
+#main-nav ul li{display:inline-block}
+#main-nav ul li a{color:#333333;float:left;width:120px;height:70px;padding:20px 20px 20px 20px;
+    background: url("../img/assets/link-separator.png") center right no-repeat;text-decoration: none;line-height:125%}
+.active{color:white !important; background:#de1a28 !important}
+#main-nav ul li#home-link{width:80px;height:70px}
+#main-nav ul li#home-link a{width:100%;height:100%;display:inline-block;padding:0;background:none}
+#main-nav ul li#home-link a img{position:relative;top:25px;left:25px}
+
+#content {}
+/* index/index */
+#index-last-minute {padding: 20px 0 20px 0}
+#index-last-minute h4 {text-align:center; font-size:30px;color:#333333}
+#index-last-minute h4 strong {font-weight:bold}
+.package-item {color:#333333;display:inline-block;width:250px;margin:20px 0 0 20px}
+.package-item-package{text-align: center}
+.package-item-price {font-weight: bold;text-align:center; margin-top:5px}
+.package-item-price span {color:red}
+.package-item-image {height:200px}
+.package-item-link a {width:250px; display:block; padding:5px; background:#c3c3c3; margin-top:10px;text-align:center;color:white}
+.package-item-link a:hover {background:#de1a28;text-decoration: none}
+/* category/index */
+.category h1, .destination h1 {font-size:36px; color:#333333;text-align:center;font-weight:bold}
+.category, .destination {padding-top:30px;padding-bottom:30px}
+.description{color:#333333; margin-top:20px; font-size:18px; line-height:120%; padding-bottom:20px}
+.intro, .destinations-list, .packages-list {background:#f4f4f4}
+.destinations-list h3, .packages-list h3 {font-weight:bold}
+.destinations-list h3 span, .packages-list h3 span {font-weight: normal}
+.destinations-list li, .packages-list li {clear:both}
+.destinations-list h3 a, .packages-list h3 a {color:#333333}
+.destinations-list h2, .packages-list h2 {color:#333333;font-size:30px;text-align:center}
+.destinations-list h2 strong, .packages-list h2 strong {font-weight:bold}
+.destinations-list .image, .packages-list .image {float:left; width:250px; margin-right:30px}
+.destinations-list .description {}
+.destinations-list .description-text, .packages-list .description-text {margin-top:10px; font-size:16px}
+.destinations-list .link, .packages-list .link {font-size:16px;margin-top:10px}
+.destinations-list .link a, .packages-list .link a {color:#de1a28}
+
 
 /* custom select */
 .customSelect {
@@ -79,6 +118,7 @@ body{color:white;font-family: 'Open Sans', sans-serif}
     background-image: url("../img/assets/select.png");
     background-position: right 20px bottom 12px;
     background-repeat: no-repeat;
+    font-size:18px;
 }
 
 .customSelect.customSelectHover {
@@ -99,4 +139,26 @@ body{color:white;font-family: 'Open Sans', sans-serif}
 .customSelectInner {
     /* You can style the inner box too */
     color:black;
+    width:100% !important;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+html[xmlns] .clearfix {
+    display: block;
+}
+
+* html .clearfix {
+    height: 1%;
 }

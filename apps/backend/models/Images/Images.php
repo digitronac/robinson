@@ -256,7 +256,7 @@ abstract class Images extends \Phalcon\Mvc\Model
         
         if (!$this->parentSave($data, $whiteList))
         {
-            throw new \Robinson\Backend\Models\Images\Exception(sprintf('Unable to save %s image model.', 
+            throw new \Robinson\Backend\Models\Images\Exception(sprintf('Unable to save %s image model.',
                 $this->imageType));
         }
         
@@ -401,7 +401,7 @@ abstract class Images extends \Phalcon\Mvc\Model
     }
     
     /**
-     * Sanitizes with and height if too large. 
+     * Sanitizes with and height if too large.
      * 
      * @param array $dimensions dimensions array, should contain width and height
      * 

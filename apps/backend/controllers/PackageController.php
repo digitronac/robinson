@@ -16,7 +16,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             $packages = $this->getDI()->get('Robinson\Backend\Models\Package');
             $this->view->packages = $packages->find(array
             (
-                'destinationId' => $this->request->getQuery('destinationId'), 
+                'destinationId = ' . $this->request->getQuery('destinationId'),
                 'order' => 'destinationId DESC',
             ));
             
@@ -181,6 +181,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             
             if (!$package->update())
             {
+                $this->log->log(implode(';', $package->getMessages()), \Phalcon\Logger::ERROR);
                 throw new \Phalcon\Exception('Unable to update package #' . $package->getPackageId());
             }
            
@@ -283,7 +284,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
     {
         $images = \Robinson\Backend\Models\Images\Package::find(array
         (
-            'packageId' => $package->getPackageId(),
+            'packageId = ' . $package->getPackageId(),
         ));
 
         foreach ($images as $image)
@@ -307,7 +308,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
     {
         $images = \Robinson\Backend\Models\Images\Package::find(array
         (
-            'packageId' => $package->getPackageId(),
+            'packageId = ' . $package->getPackageId(),
         ));
 
         foreach ($images as $image)
