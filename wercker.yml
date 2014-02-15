@@ -1,4 +1,3 @@
-nd the code value contains the command that get executed
       - script:
           name: install dependencies
           code: composer install --no-interaction
