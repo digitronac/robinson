@@ -3,7 +3,7 @@ build:
   steps:
     - script:
         name: install phalconphp
-        code: |
+        code: |-
           git clone -q --depth=1 https://github.com/phalcon/cphalcon.git -b 1.2.5
           cd cphalcon/ext;
           export CFLAGS="-g3 -O1 -fno-delete-null-pointer-checks -Wall";
