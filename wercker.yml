@@ -13,7 +13,7 @@ build:
     - script:
         name: install imagick
         code: |-
-            pecl install imagick
+            echo '\n' | pecl install imagick
     - script:
         name: dependency install
         code: |-
