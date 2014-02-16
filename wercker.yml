@@ -4,7 +4,4 @@ build:
     - script:
         name: install phalconphp
         code: |-
-            git clone -q --depth=1 https://github.com/phalcon/cphalcon.git -b 1.2.5;
-        name: show extensions
-        code: |-
-            composer show --platform
+            git clone -q --depth=1 https://github.com/phalcon/cphalcon.git -b 1.2.5
