@@ -1,4 +1,6 @@
-box: digitronac/phalconphp@0.0.2
+box: pjvds/php-5@0.9.3
+services:
+  - digitronac/phalconphp@0.0.4
 build:
 #    # The steps that will be executed on build
     steps:
