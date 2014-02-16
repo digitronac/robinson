@@ -13,6 +13,3 @@ build:
         name: show extensions
         code: |-
             composer show --platform
-    - script:
-        name: PHPUnit integration tests
-        code: phpunit --configuration phpunit.xml
