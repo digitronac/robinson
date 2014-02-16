@@ -1,4 +1,6 @@
 box: wercker/php
+services:
+  - wercker/mysql@0.0.8
 build:
   steps:
     - script:
