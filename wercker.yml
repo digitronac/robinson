@@ -1,4 +1,4 @@
-box: wercker/php
+box: digitronac/phalconphp-box
 build:
 #    # The steps that will be executed on build
     steps:
