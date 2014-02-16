@@ -11,9 +11,8 @@ build:
             echo 'extension=phalcon.so' >> $HOME/.phpenv/versions/$(phpenv version-name)/etc/php.ini
             phpenv rehash
         name: dependency install
-        code: |-
-            composer install --prefer-dist
-        name: setup db
+        code: composer install --prefer-dist
+        name: setup db 
         code: |-
             cp config/phinx-local.yml.dist config/phinx-local.yml
             php vendor/bin/phinx migrate --configuration="config/phinx.yml" --environment="testing"
