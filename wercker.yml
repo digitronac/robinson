@@ -10,6 +10,9 @@ build:
             phpize && ./configure --enable-phalcon && make -j4 && sudo make install
             echo 'extension=phalcon.so' >> $HOME/.phpenv/versions/$(phpenv version-name)/etc/php.ini
             phpenv rehash
+        name: dependency install
+        code: |-
+            composer install --prefer-dist
         name: setup db
         code: |-
             cp config/phinx-local.yml.dist config/phinx-local.yml
