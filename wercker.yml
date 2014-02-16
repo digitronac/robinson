@@ -12,8 +12,9 @@ build:
             phpenv rehash
     - script:
         name: dependency install
-        code: composer install --prefer-dist
-    -script:
+        code: |-
+            composer install --prefer-dist
+    - script:
         name: setup db
         code: |-
             cp config/phinx-local.yml.dist config/phinx-local.yml
