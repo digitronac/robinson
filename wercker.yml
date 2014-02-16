@@ -8,6 +8,6 @@ build:
             cd cphalcon/ext;
             export CFLAGS="-g3 -O1 -fno-delete-null-pointer-checks -Wall";
             phpize && ./configure --enable-phalcon && make -j4 && sudo make install
-            phpenv config-add project-config.ini
+            echo 'extension=phalcon.so' >> $HOME/.phpenv/versions/$(phpenv version-name)/etc/php.ini
             phpenv rehash
             composer show --platform
