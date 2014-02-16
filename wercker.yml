@@ -1,23 +1,18 @@
-box: pjvds/php-5@0.9.3
-services:
-  - digitronac/phalconphp@0.0.4
+box: wercker/php
 build:
-#    # The steps that will be executed on build
-    steps:
-      # A custom script step, name value is used in the UI
-      # and the code value contains the command that get executed
-      - script:
-          name: debug
-          code: composer show --platform
-      - script:
-          name: install dependencies
-          code: composer install --no-interaction
-      - script:
-          name: echo php information
-          code: |
-            echo "php version $(php --version) running"
-            echo "from location $(which php)"
-      # Add more steps here:
-      - script:
-          name: run unit tests
-          code: phpunit
+  steps:
+    - script:
+        name: install phalconphp
+        code: |
+          git clone -q --depth=1 https://github.com/phalcon/cphalcon.git -b 1.2.5
+          cd cphalcon/ext;
+          export CFLAGS="-g3 -O1 -fno-delete-null-pointer-checks -Wall";
+          phpize && ./configure --enable-phalcon && make -j4 && sudo make install
+          phpenv config-add project-config.ini
+          phpenv rehash
+        name: show extensions
+        code: |-
+            composer show --platform
+    - script:
+        name: PHPUnit integration tests
+        code: phpunit --configuration phpunit.xml
