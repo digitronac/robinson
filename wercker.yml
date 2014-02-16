@@ -8,8 +8,7 @@ build:
       # and the code value contains the command that get executed
       -script:
           name: debug
-          code: |
-          composer show --platform
+          code: composer show --platform
       - script:
           name: install dependencies
           code: composer install --no-interaction
