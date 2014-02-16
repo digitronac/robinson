@@ -3,5 +3,7 @@ environments:
         user: root
         pass: password
     testing:
-        user: root
-        pass: password
+        user: wercker
+        host: localhost
+        pass:
+        name: werckerdb1
