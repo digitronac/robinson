@@ -11,6 +11,10 @@ build:
             echo 'extension=phalcon.so' >> $HOME/.phpenv/versions/$(phpenv version-name)/etc/php.ini
             phpenv rehash
     - script:
+        name: install imagick
+        code: |-
+            pecl install imagick
+    - script:
         name: dependency install
         code: |-
             composer install --prefer-dist
