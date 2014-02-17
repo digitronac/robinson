@@ -3,7 +3,8 @@ environments:
         user: root
         pass: password
     testing:
-        user: wercker
-        host: localhost
-        pass: test
-        name: werckerdb1
+        user: {{DB_USER}}
+        host: {{DB_HOST}}
+        pass: {{DB_PASSWORD}}
+        name: {{DB_NAME}}
+        port: 3306
