@@ -32,3 +32,8 @@ build:
         code: |-
             mv config/phinx-local.yml.dist config/phinx-local.yml
             php vendor/bin/phinx migrate --configuration="config/phinx.yml" --environment="testing"
+    - script:
+        name: test backend
+        code: |-
+        cd apps/backend/tests
+        php ../../../vendor/bin/phpunit --colors
