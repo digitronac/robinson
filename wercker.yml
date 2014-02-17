@@ -23,5 +23,6 @@ build:
     - script:
         name: setup db
         code: |-
-            sed -e "s/{{DB_NAME}}/$WERCKER_MYSQL_DATABASE/" -e "s/{{DB_USER}}/$WERCKER_MYSQL_USERNAME/" -e "s/{{DB_PASSWORD}}/$WERCKER_MYSQL_PASSWORD/" -e "s/{{DB_HQL_HOST/" config/phinx-local.yml.dist            cp config/phinx-local.yml.dist config/phinx-local.yml
+            sed -e "s/{{DB_NAME}}/$WERCKER_MYSQL_DATABASE/" -e "s/{{DB_USER}}/$WERCKER_MYSQL_USERNAME/" -e "s/{{DB_PASSWORD}}/$WERCKER_MYSQL_PASSWORD/" -e "s/{{DB_HQL_HOST/" config/phinx-local.yml.dist
+            cp config/phinx-local.yml.dist config/phinx-local.yml
             php vendor/bin/phinx migrate --configuration="config/phinx.yml" --environment="testing"
