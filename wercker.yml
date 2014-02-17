@@ -26,7 +26,7 @@ build:
             sed -i "s/{{DB_NAME}}/$WERCKER_MYSQL_DATABASE/" config/phinx-local.yml.dist
             sed -i "s/{{DB_HOST}}/$WERCKER_MYSQL_HOST/" config/phinx-local.yml.dist
             sed -i "s/{{DB_PASSWORD}}/$WERCKER_MYSQL_PASSWORD/" config/phinx-local.yml.dist
-            sed -i "s/{{DB_USER}}/$WERCKER_MYSQL_USERNAME/" config/phinx-local.yml.dist
+            sed -i "s/{{DB_USER}}/$WERCKER_MYSQL_USERNAME/" config/phinx-local.yml.dist 
     - script:
         name: setup db
         code: |-
