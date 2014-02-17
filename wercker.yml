@@ -40,4 +40,4 @@ build:
             sed -i "s/{{DB_HOST}}/$WERCKER_MYSQL_HOST/" ../config/application.ini
             sed -i "s/{{DB_PASSWORD}}/$WERCKER_MYSQL_PASSWORD/" ../config/application.ini
             sed -i "s/{{DB_USER}}/$WERCKER_MYSQL_USERNAME/" ../config/application.ini
-            php ../../../vendor/bin/phpunit --colors
+            php ../../../vendor/bin/phpunit --colors 
