@@ -36,8 +36,9 @@ build:
         name: test backend
         code: |-
             cd apps/backend/tests
+            mv ../config/credentials.dist.php ../config/credentials.php
             sed -i "s/{{DB_NAME}}/$WERCKER_MYSQL_DATABASE/" ../config/application.ini
             sed -i "s/{{DB_HOST}}/$WERCKER_MYSQL_HOST/" ../config/application.ini
             sed -i "s/{{DB_PASSWORD}}/$WERCKER_MYSQL_PASSWORD/" ../config/application.ini
             sed -i "s/{{DB_USER}}/$WERCKER_MYSQL_USERNAME/" ../config/application.ini
-            php ../../../vendor/bin/phpunit --colors 
+            php ../../../vendor/bin/phpunit --colors
