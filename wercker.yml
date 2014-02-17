@@ -19,7 +19,7 @@ build:
     - script:
         name: dependency install
         code: |-
-            composer install --prefer-dist
+            composer install -n --prefer-dist
     - script:
         name: replace config
         code: |-
