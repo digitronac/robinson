@@ -5,5 +5,5 @@ environments:
     testing:
         user: wercker
         host: localhost
-        pass:
+        pass: test
         name: werckerdb1
