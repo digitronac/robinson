@@ -1,0 +1,7 @@
+[testing]
+; database
+    database.adapter = "{{DB_USER}}"
+    database.host = "{{DB_HOST}}"
+    database.username = "{{DB_USER}}"
+    database.password = "{{DB_PASSWORD}}"
+    database.dbname = "{{DB_NAME}}"
