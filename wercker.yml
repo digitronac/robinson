@@ -30,11 +30,10 @@ build:
             sed -i "s/{{DB_USER}}/$WERCKER_MYSQL_USERNAME/" ../config/application.ini
             php ../../../vendor/bin/phpunit --colors
 deploy:
-    steps:
-        - script:
-            name: send to master
-            code: |-
+  steps:
+    - script:
+        name: send to master
+        code: |-
             git checkout master
             git merge develop
             git push
-            
