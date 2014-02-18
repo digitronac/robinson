@@ -1,4 +1,4 @@
-box: digitronac/phalconphp-box@0.0.101
+box: digitronac/phalconphp@0.0.101
 services:
   - wercker/mysql@0.0.8
 build:
