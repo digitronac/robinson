@@ -1,12 +1,8 @@
-box: digitronac/phalconphp@0.0.101
+box: digitronac/phalconphp@0.1.0
 services:
   - wercker/mysql@0.0.8
 build:
   steps:
-    - script:
-        name: install imagick
-        code: |-
-            echo '\n' | pecl install imagick
     - script:
         name: dependency install
         code: |-
