@@ -1,17 +1,8 @@
 box: wercker/php
 services:
-  - wercker/mysql@0.0.8 
+  - wercker/mysql@0.0.8
 build:
   steps:
-    - script:
-        name: install phalconphp
-        code: |-
-            git clone -q --depth=1 https://github.com/phalcon/cphalcon.git -b 1.2.5
-            cd cphalcon/ext;
-            export CFLAGS="-g3 -O1 -fno-delete-null-pointer-checks -Wall";
-            phpize && ./configure --enable-phalcon && make -j4 && sudo make install
-            echo 'extension=phalcon.so' >> $HOME/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-            phpenv rehash
     - script:
         name: install imagick
         code: |-
@@ -19,7 +10,7 @@ build:
     - script:
         name: dependency install
         code: |-
-            composer install -n --prefer-dist
+            composer install -n --prefer-source
     - script:
         name: replace config
         code: |-
