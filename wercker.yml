@@ -29,4 +29,4 @@ build:
             sed -i "s/{{DB_PASSWORD}}/$WERCKER_MYSQL_PASSWORD/" ../config/application.local.ini.dist
             sed -i "s/{{DB_USER}}/$WERCKER_MYSQL_USERNAME/" ../config/application.local.ini.dist
             mv ../config/application.local.ini.dist ../config/application.local.ini
-            php ../../../vendor/bin/phpunit --colors
+           ./test.sh
