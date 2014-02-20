@@ -27,6 +27,7 @@ $di['router'] = function() {
         $router->setDefaultNamespace("Robinson\Frontend\Controllers");
 
         // add frontend
+
         $router->add('/([a-z0-9\-]+)/:int', array
         (
             'module' => 'frontend',
@@ -36,6 +37,16 @@ $di['router'] = function() {
             'id' => 2,
         ))
         ->setName('category');
+
+        $router->add('/pdf/:int', array
+        (
+            'module' => 'frontend',
+            'namespace' => 'Robinson\Frontend\Controllers\\',
+            'controller' => 'package',
+            'action' => 'pdf',
+            'id' => 1,
+        ))
+        ->setName('pdf');
 
         $router->add('/([a-z0-9\-]+)/([a-z0-9\-]+)/:int', array
         (

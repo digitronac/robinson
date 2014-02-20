@@ -1,5 +1,5 @@
 <?php
-namespace Robinson\Backend\Models;
+namespace Robinson\Frontend\Model;
 class Pdf implements \Phalcon\DI\InjectionAwareInterface
 {
     /**
@@ -25,7 +25,7 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
      * 
      * @param \Phalcon\DI $dependencyInjector di
      * 
-     * @return \Robinson\Backend\Models\Pdf
+     * @return \Robinson\Frontend\Model\Pdf
      */
     public function setDI($dependencyInjector)
     {
@@ -36,7 +36,7 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
     /**
      * Pdf's package
      * 
-     * @var \Robinson\Backend\Models\Package
+     * @var \Robinson\Frontend\Model\Package
      */
     protected $package;
     
@@ -46,11 +46,11 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
      * Constructs pdf model.
      * 
      * @param \Symfony\Component\Filesystem\Filesystem $filsystem filesystem
-     * @param \Robinson\Backend\Models\Package         $package   pdf's package
+     * @param \Robinson\Frontend\Model\Package         $package   pdf's package
      * @param string                                   $baseDir   path to package pdf folder
      */
     public function __construct(\Symfony\Component\Filesystem\Filesystem $filsystem, 
-        \Robinson\Backend\Models\Package $package, $baseDir)
+        \Robinson\Frontend\Model\Package $package, $baseDir)
     {
         $this->filesystem = $filsystem;
         $this->package = $package;
@@ -146,7 +146,7 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
     protected function execute($command)
     {
         $result = shell_exec($command);
-        $this->getDI()->getShared('log')->log($result, \Phalcon\Logger::DEBUG);
+        //$this->getDI()->getShared('log')->log($result, \Phalcon\Logger::DEBUG);
         return $result;
     }
     

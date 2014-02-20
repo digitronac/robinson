@@ -51,6 +51,11 @@ class Package extends \Phalcon\Mvc\Model
             'alias' => 'destination', 
         ));
 
+        $this->hasMany('packageId', 'Robinson\Frontend\Model\Tabs\Package', 'packageId', array
+        (
+            'alias' => 'tabs',
+        ));
+
         $this->hasMany('packageId', 'Robinson\Frontend\Model\Tags\Package', 'packageId', array
         (
             'alias' => 'tags',
@@ -216,6 +221,18 @@ class Package extends \Phalcon\Mvc\Model
         $packageTitle = $tag->friendlyTitle($filter->filter($this->getPackage()));
 
         return $categoryTitle . '/' . $destinationTitle . '/' . $packageTitle . '/' . $this->packageId;
+    }
+
+    /**
+     * Gets package tabs.
+     *
+     * @param array $params additional criteria
+     *
+     * @return \Phalcon\Mvc\Model\Resultset\Simple
+     */
+    public function getTabs(array $params = null)
+    {
+        return $this->getRelated('tabs', $params);
     }
 
     /**

@@ -1,0 +1,81 @@
+<div class="package index intro">
+    <div class="inner-site">
+        <h1><?=$package->getPackage()?></h1>
+        <h4 id="price"><span>od <?=$package->getPrice()?> &euro;</span></h4>
+        <div class="description">
+            <?=$package->getDescription()?>
+        </div>
+    </div>
+</div>
+<div class="package index images">
+    <div class="inner-site">
+
+        <div class="gallery">
+
+        <?php foreach ($package->getImages() as $image): ?>
+
+
+
+                <?=$this->tag->linkTo(
+                    array(
+                        $image->getResizedSrc(800),
+                        $this->tag->image(array
+                        (
+                            $image->getResizedSrc(250),
+                            'alt' => $image->getTitle(),
+                            'title' => $image->getTitle(),
+                        )),
+                        'class' => 'fancybox',
+                        'rel' => 'fancybox',
+                    )
+                ) . PHP_EOL ?>
+
+
+
+        <?php endforeach ?>
+
+        </div>
+
+    </div>
+</div>
+<div class="package index prices">
+    <div class="inner-site">
+        <a target="_blank" href="/pdf/<?=$package->getPackageId()?>">
+            <img src="/img/assets/pdf-icon.png" alt="Pogledajte cenovnik" />
+            <span>Pogledajte cenovnik ponude</span>
+        </a>
+    </div>
+</div>
+
+<?php if ($package->getTabs()): ?>
+
+<div class="package index tabs contrast-bg">
+    <div class="inner-site">
+
+        <ul>
+
+        <?php foreach($package->getTabs() as $tab): ?>
+
+            <li><strong><?=$tab->getTitle()?>:</strong> <?=$tab->getDescription()?></li>
+
+        <?php endforeach ?>
+
+        </ul>
+
+    </div>
+</div>
+
+<?php endif ?>
+
+<div class="package index contact-form">
+    <div class="inner-site">
+        <form>
+            <div>
+                <input type="text" class="input-text" name="email" id="email" placeholder="Vaš email" />
+            </div>
+            <div>
+                <input type="submit" class="input-submit" name="submit" value="Pošaljite upit" />
+            </div>
+        </form>
+    </div>
+</div>

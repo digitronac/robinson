@@ -9,9 +9,11 @@
 <div class="category index images">
     <div class="inner-site">
 
+        <div class="gallery">
+
         <?php foreach ($category->getImages() as $image): ?>
 
-        <div class="gallery">
+
 
             <?=$this->tag->linkTo(
                 array(
@@ -24,9 +26,10 @@
                 )
             ) . PHP_EOL ?>
 
-        </div>
 
         <?php endforeach ?>
+
+        </div>
 
     </div>
 </div>
