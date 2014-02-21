@@ -126,6 +126,7 @@ body{color:white;font-family: 'Open Sans', sans-serif}
 .contact-form input {width:100%}
 .contact-form .input-text {background: #f4f4f4; border:none;padding:10px; color:#333333}
 .contact-form .input-submit {background:#c3c3c3;border:none; padding:10px; text-align:center;margin-top:10px}
+.c {cursor:pointer !important}
 
 
 /* custom select */
