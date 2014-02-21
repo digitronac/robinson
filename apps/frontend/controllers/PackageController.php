@@ -9,7 +9,8 @@ class PackageController extends ControllerBase
             'status = ' . \Robinson\Frontend\Model\Package::STATUS_VISIBLE . ' AND packageId = ' .
             (int) $this->dispatcher->getParam('id')
         );
-
+var_dump($this->view->package->toArray());
+        die();
         $this->view->pdf = new \Robinson\Frontend\Model\Pdf(
             $this->fs,
             $this->view->package,
@@ -24,7 +25,7 @@ class PackageController extends ControllerBase
     {
         $this->view->package = \Robinson\Frontend\Model\Package::findFirst(
             'status = ' . \Robinson\Frontend\Model\Package::STATUS_VISIBLE . ' AND packageId = ' .
-            (int) $this->dispatcher->getParam('id')
+            $this->dispatcher->getParam('id')
         );
 
         /* @var $pdf \Robinson\Frontend\Model\Pdf */
