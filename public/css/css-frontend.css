@@ -119,9 +119,7 @@ body{color:white;font-family: 'Open Sans', sans-serif}
 .prices .inner-site a span{display:block; margin-top:20px}
 .contrast-bg{background:#F4F4F4}
 .tabs{color:#333333}
-.tabs ul li{margin-top:10px}
-.tabs ul li strong {font-weight:bold}
-.tabs ul li p:first-of-type {display:inline}
+.tabs ul li{margin-top:20px}
 .contact-form input {width:100%}
 .contact-form .input-text {background: #f4f4f4; border:none;padding:10px; color:#333333}
 .contact-form .input-submit {background:#c3c3c3;border:none; padding:10px; text-align:center;margin-top:10px}
