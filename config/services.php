@@ -64,7 +64,7 @@ $di['router'] = function() {
             'namespace' => 'Robinson\Frontend\Controllers\\',
             'controller' => 'package',
             'action' => 'index',
-            'id' => 3,
+            'id' => 4,
         ))
         ->setName('package');
 

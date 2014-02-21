@@ -24,7 +24,7 @@ class PackageController extends ControllerBase
     {
         $this->view->package = \Robinson\Frontend\Model\Package::findFirst(
             'status = ' . \Robinson\Frontend\Model\Package::STATUS_VISIBLE . ' AND packageId = ' .
-            $this->dispatcher->getParam('id')
+            (int) $this->dispatcher->getParam('id')
         );
 
         /* @var $pdf \Robinson\Frontend\Model\Pdf */
