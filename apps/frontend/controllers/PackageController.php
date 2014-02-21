@@ -9,8 +9,7 @@ class PackageController extends ControllerBase
             'status = ' . \Robinson\Frontend\Model\Package::STATUS_VISIBLE . ' AND packageId = ' .
             (int) $this->dispatcher->getParam('id')
         );
-var_dump($this->dispatcher->getParam('id'));
-        die();
+
         $this->view->pdf = new \Robinson\Frontend\Model\Pdf(
             $this->fs,
             $this->view->package,
