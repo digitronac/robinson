@@ -127,7 +127,9 @@ $this->assets->collection('css')
 
                 $('#destination-selection').on('change', function(e)
                 {
-                    window.location.href = '/' + $(this).find('option[value="' + $(this).val() + '"]').data('url');
+                    var selected = $(this).find('option[value="' + $(this).val() + '"]');
+                    selected.html('Putujemooo ...');
+                    window.location.href = '/' + selected.data('url');
                 });
 
             });
