@@ -59,7 +59,7 @@ $this->assets->collection('css')
 
                             <?php foreach($destinations as $destination): ?>
 
-                            <option value="<?=$destination->getDestinationId()?>" data-url="<?=$destination->getUri()?>"><?=$destination->getDestination()?></option>
+                            <option<?=(isset($destinationId) && $destinationId == $destination->getDestinationId()) ? ' selected="selected"' : ''?> value="<?=$destination->getDestinationId()?>" data-url="<?=$destination->getUri()?>"><?=$destination->getDestination()?></option>
 
                             <?php endforeach ?>
 
@@ -124,6 +124,11 @@ $this->assets->collection('css')
                        }
                    }
                });
+
+                $('#destination-selection').on('change', function(e)
+                {
+                    window.location.href = '/' + $(this).find('option[value="' + $(this).val() + '"]').data('url');
+                });
 
             });
         </script>
