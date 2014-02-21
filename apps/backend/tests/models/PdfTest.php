@@ -133,7 +133,7 @@ class PdfTest extends \Robinson\Backend\Tests\Models\BaseTestModel
         $package = \Robinson\Backend\Models\Package::findFirst();
         $model = $this->getDI()->get('Robinson\Backend\Models\Pdf', array($this->getDI()->getShared('fs'), $package, 
             $this->getDI()->getShared('config')->application->packagePdfPath));
-        $this->assertEquals('pdftohtml -noframes -s -zoom 3 vfs://pdf/package/1/pdffile-1.pdf vfs://pdf/package/1/pdffile-1.pdf.html 2>&1', 
+        $this->assertEquals('pdftohtml -noframes -s -zoom 2 "vfs://pdf/package/1/pdffile-1.pdf" "vfs://pdf/package/1/pdffile-1.pdf.html" 2>&1',
             $model->getCompiledCommand(\org\bovigo\vfs\vfsStream::url('pdf/package/1/pdffile-1.pdf.html')));
     }
     
