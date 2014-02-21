@@ -52,11 +52,9 @@
 <div class="package index tabs contrast-bg">
     <div class="inner-site">
 
-        <ul>
-
         <?php foreach($package->getTabs() as $tab): ?>
 
-            <li><?=$tab->getDescription()?></li>
+        <div><?=$tab->getDescription()?></div>
 
         <?php endforeach ?>
 
