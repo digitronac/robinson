@@ -19,19 +19,25 @@
 </div>
 <div class="package index images">
     <div class="inner-site">
-        <div id="slider1_container" style="position:relative;margin:0 auto;top:0px;left:0px;width:800px;height:456px;background:#191919;">
+        <div id="slider1_container" style="position:relative;margin:0 auto;top:0px;left:0px;width:800px;height:700px;background:#191919;">
             <div u="loading" style="position:absolute;top:0px;left:0px;">
                 <div style="filter:alpha(opacity=70);opacity:0.7;position:absolute;display:block;background-color:#000000;top:0px;left:0px;width:100%;height:100%;">
                 </div>
                 <div style="position:absolute;display:block;background:url(/img/assets/loading.gif) no-repeat center center;top:0px;left:0px;width:100%;height:100%;">
                 </div>
             </div>
-            <div u="slides" style="cursor:move;position:absolute;left:0px;top:0px;width:800px;height:356px;overflow:hidden;">
+            <div u="slides" style="cursor:move;position:absolute;left:0px;top:0px;width:800px;height:600px;overflow:hidden;">
+
+            <?php foreach ($package->getImages() as $image): ?>
+
                 <div>
-                    <img u="image" src="http://www.jssor.com/img/alila/01.jpg">
-                    <img u="thumb" src="http://www.jssor.com/img/alila/thumb-01.jpg">
+                    <img u="image" src="/<?=$image->getResizedSrc(800)?>">
+                    <img u="thumb" src="/<?=$image->getResizedSrc(74)?>">
                 </div>
-                <div>
+
+            <?php endforeach ?>
+
+                <!--<div>
                     <img u="image" src="http://www.jssor.com/img/alila/02.jpg">
                     <img u="thumb" src="http://www.jssor.com/img/alila/thumb-02.jpg">
                 </div>
@@ -74,11 +80,11 @@
                 <div>
                     <img u="image" src="http://www.jssor.com/img/alila/12.jpg">
                     <img u="thumb" src="http://www.jssor.com/img/alila/thumb-12.jpg">
-                </div>
+                </div>-->
             </div>
-<span u="arrowleft" class="jssord05l" style="width:40px;height:40px;top:158px;left:8px;">
+<span u="arrowleft" class="jssord05l" style="width:40px;height:40px;top:300px;left:8px;">
 </span>
-<span u="arrowright" class="jssord05r" style="width:40px;height:40px;top:158px;right:8px">
+<span u="arrowright" class="jssord05r" style="width:40px;height:40px;top:300px;right:8px">
 </span>
             <div u="thumbnavigator" class="jssort01" style="position:absolute;width:800px;height:100px;left:0px;bottom:0px;">
                 <div u="slides" style="cursor:move;">
@@ -94,8 +100,12 @@
         <?php foreach ($package->getImages() as $image): ?>
 
 
+                <div>
+                    <img u="image" src="http://www.jssor.com/img/alila/01.jpg">
+                    <img u="thumb" src="http://www.jssor.com/img/alila/thumb-01.jpg">
+                </div>
 
-                <?=$this->tag->linkTo(
+                <?php /*echo $this->tag->linkTo(
                     array(
                         $image->getResizedSrc(800),
                         $this->tag->image(array
@@ -107,7 +117,7 @@
                         'class' => 'fancybox',
                         'rel' => 'fancybox',
                     )
-                ) . PHP_EOL ?>
+                ) . PHP_EOL */ ?>
 
 
 

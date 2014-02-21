@@ -114,7 +114,7 @@ body{color:white;font-family: 'Open Sans', sans-serif}
 #price span {background:white; padding:5px; display:inline-block;color:#333333}
 
 /* package/index */
-.prices{background:#de1a28;padding:50px 0;text-align:center}
+.prices{background:#de1a28;padding:50px 0;text-align:center; margin-top:20px}
 .prices .inner-site a{color:white}
 .prices .inner-site a span{display:block; margin-top:20px}
 .contrast-bg{background:#F4F4F4}
