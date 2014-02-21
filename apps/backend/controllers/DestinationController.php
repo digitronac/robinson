@@ -192,6 +192,7 @@ class DestinationController extends \Phalcon\Mvc\Controller
         {
             $this->tag->setDefault('tabs[' . $tab->getType() . ']', $tab->getDescription());
         }
+        $this->tag->setDefault('status', $destination->getStatus());
         $this->tag->setDefault('categoryId', $destination->getCategoryId());
         $this->tag->setDefault('destination', $destination->getDestination());
         $this->tag->setDefault('description', $destination->getDescription());
