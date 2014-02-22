@@ -76,7 +76,10 @@
 
         <?php foreach($package->getTabs() as $tab): ?>
 
-        <div><?=$tab->getDescription()?></div>
+        <div>
+            <h4><?=$tab->getTitle()?></h4>
+            <?=$tab->getDescription()?>
+        </div>
 
         <?php endforeach ?>
 
