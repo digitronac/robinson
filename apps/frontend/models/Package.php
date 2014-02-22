@@ -164,6 +164,20 @@ class Package extends \Phalcon\Mvc\Model
      */
     public function getImages(array $params = null)
     {
+        $defaultParams = array
+        (
+            'sort ASC',
+        );
+
+        if ($params)
+        {
+            $params = array_merge($defaultParams, $params);
+        }
+        else
+        {
+            $params = $defaultParams;
+        }
+
         return $this->getRelated('images', $params);
     }
 
