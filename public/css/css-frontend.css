@@ -114,6 +114,7 @@ body{color:white;font-family: 'Open Sans', sans-serif}
 /* package/index */
 #price{text-align: center; margin-top:10px}
 #price span {background:white; padding:5px; display:inline-block;color:#333333}
+.tabs h4 {font-weight:bold; text-transform: uppercase}
 
 /* package/index */
 .prices{background:#de1a28;padding:50px 0;text-align:center; margin-top:20px}
