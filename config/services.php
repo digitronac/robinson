@@ -132,10 +132,10 @@ $di['fs'] = function()
 };
 
 
-$di['watermark'] = function() use ($di)
+$di->set('watermark', function() use ($di)
 {
     $filter = new \Robinson\Backend\Filter\Watermark(new \Imagick($di->getShared('config')
         ->application->watermark->watermark));
     return $filter;
-};
+});
 
