@@ -98,10 +98,7 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
         /* @var $document \DOMDocument */
         $document = $this->getDI()->get('DomDocument', array($version, $encoding));
         $document->strictErrorChecking = false;
-        var_dump($document->loadHTML($this->getHtmlFile()));
-        echo $document->saveHTML();
-        var_dump ( libxml_get_errors () );
-        die();
+        $document->loadHTML($this->getHtmlFile());
         $base = $document->createElement('base');
         $base->setAttribute('href', $baseUri . '/' . $this->package->getPackageId() . '/');
         $document->getElementsByTagName('head')->item(0)->appendChild($base);
