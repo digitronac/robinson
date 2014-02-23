@@ -96,7 +96,7 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
     {
         /* @var $document \DOMDocument */
         $document = $this->getDI()->get('DomDocument', array($version, $encoding));
-        $document->load($this->getHtmlFile()); 
+        $document->loadHTMLFile($this->getHtmlFile());
         $base = $document->createElement('base');
         $base->setAttribute('href', $baseUri . '/' . $this->package->getPackageId() . '/');
         $document->getElementsByTagName('head')->item(0)->appendChild($base);
@@ -146,7 +146,7 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
     protected function execute($command)
     {
         $result = shell_exec($command);
-        //$this->getDI()->getShared('log')->log($result, \Phalcon\Logger::DEBUG);
+        $this->getDI()->getShared('log')->log($result, \Phalcon\Logger::DEBUG);
         return $result;
     }
     
