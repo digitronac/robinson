@@ -265,7 +265,7 @@ abstract class Images extends \Phalcon\Mvc\Model
      */
     protected function applyWatermark($destination)
     {
-        return $this->getDI()->getShared('watermark')->filter(array
+        return $this->getDI()->get('watermark')->filter(array
         (
             'imagickFile' => $this->getDI()->get('Imagick', array($destination)),
             'destinationFile' => $destination,
