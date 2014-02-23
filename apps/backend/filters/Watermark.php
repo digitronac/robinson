@@ -33,7 +33,8 @@ class Watermark implements \Phalcon\Filter\UserFilterInterface
         $this->watermark->scaleimage($imagickFile->getimagewidth() / 2, $imagickFile->getimageheight() / 2);
         //$centerwidth = (abs($imagickFile->getimagewidth() - $this->watermark->getimagewidth())) / 2;
         //$centerheight = (abs($imagickFile->getimageheight() - $this->watermark->getimageheight())) / 2;
-        $centerwidth = $centerheight = 0;
+        $centerwidth = $imagickFile->getimagewidth() - $this->watermark->getimagewidth();
+        $centerheight = $imagickFile->getimageheight() - $this->watermark->getimageheight();
         $imagickFile->compositeimage($this->watermark, \Imagick::COMPOSITE_OVER, $centerwidth, $centerheight);
         return $imagickFile->writeimage($destination);
     }
