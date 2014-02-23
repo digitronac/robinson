@@ -30,6 +30,17 @@ class Destination extends \Robinson\Backend\Models\Images\Images
     }
 
     /**
+     * Constructor
+     *
+     * @return void
+     */
+    public function onConstruct()
+    {
+        parent::onConstruct();
+        $this->setImageType(self::IMAGE_TYPE_DESTINATION);
+    }
+
+    /**
      * Initializion method.
      * 
      * @return void
@@ -42,8 +53,6 @@ class Destination extends \Robinson\Backend\Models\Images\Images
         (
             'alias' => 'packages',
         ));
-        
-        $this->setImageType(self::IMAGE_TYPE_DESTINATION);
     }
     
     /**

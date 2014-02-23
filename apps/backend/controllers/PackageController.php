@@ -129,7 +129,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             $package->setPackage($this->request->getPost('package'))
                 ->setDestination($destination)
                 ->setPrice($this->request->getPost('price'))
-                ->setType($this->request->getPost('type', null, 0))
+                ->setType($this->request->getPost('type'))
                 ->setDescription($this->request->getPost('description'))
                 ->setStatus($this->request->getPost('status'));
 
