@@ -100,6 +100,8 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
         $document->load($this->getHtmlFile()); 
         $base = $document->createElement('base');
         $base->setAttribute('href', $baseUri . '/' . $this->package->getPackageId() . '/');
+        var_dump($document->getElementsByTagName('head'));
+        die();
         $document->getElementsByTagName('head')->item(0)->appendChild($base);
         $document->getElementsByTagName('head')->item(0)->removeChild($document->getElementsByTagName('title')
             ->item(0));
@@ -148,8 +150,6 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
     {
         $result = shell_exec($command);
         $this->getDI()->getShared('log')->log($result, \Phalcon\Logger::DEBUG);
-        echo $result;
-        die();
         return $result;
     }
     
