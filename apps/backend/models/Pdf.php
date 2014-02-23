@@ -67,12 +67,13 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
     public function getHtmlFile()
     {
         $html = $this->getPdfPath() . '.html';
-        if (!$this->filesystem->exists($html)) 
+        if (!$this->filesystem->exists($html))
         {
             // generate .html
             $command = $this->getCompiledCommand($html);
-            echo $command;
+            chmod($this->getPdfPath(), 0777);
             $this->execute($command);
+            chmod($html, 0777);
         }
         
         if (!$this->filesystem->exists($html))
