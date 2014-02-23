@@ -149,6 +149,7 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
         $result = shell_exec($command);
         $this->getDI()->getShared('log')->log($result, \Phalcon\Logger::DEBUG);
         echo $result;
+        die();
         return $result;
     }
     
