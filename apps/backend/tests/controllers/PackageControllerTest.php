@@ -746,7 +746,8 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             ),
         ), $this->vfsfs);
         $this->dispatch('/admin/package/pdfPreview/1');
-        $this->assertEquals('<html><head><base href="/pdf/package/1/"></head><body></body></html>', trim($this->getContent()));
+        $this->assertEquals('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><head><base href="/pdf/package/1/"></head><body></body></html>', trim($this->getContent()));
     }
 
     public function testUnsettingTagShouldWorkAsExpected()
