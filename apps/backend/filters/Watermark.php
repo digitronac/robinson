@@ -31,6 +31,7 @@ class Watermark implements \Phalcon\Filter\UserFilterInterface
         $destination = $args['destinationFile'];
         //$this->watermark->setimageopacity(0.1);
         $this->watermark->scaleimage($imagickFile->getimagewidth() / 2, $imagickFile->getimageheight() / 2);
+        $this->watermark->setimagecompressionquality(99);
         //$centerwidth = (abs($imagickFile->getimagewidth() - $this->watermark->getimagewidth())) / 2;
         //$centerheight = (abs($imagickFile->getimageheight() - $this->watermark->getimageheight())) / 2;
         $centerwidth = $imagickFile->getimagewidth() - $this->watermark->getimagewidth();
