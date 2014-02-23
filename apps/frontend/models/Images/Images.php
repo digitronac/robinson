@@ -275,7 +275,7 @@ abstract class Images extends \Phalcon\Mvc\Model
         $filter =  $this->getDI()->get('watermark');
         $filter->filter(array
         (
-            'imagickFile' => $this->getDI()->get('Imagick', array($destination)),
+            'imagickFile' => new \Imagick($destination),
             'destinationFile' => $destination,
         ));
     }
