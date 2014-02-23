@@ -67,7 +67,7 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
     public function getHtmlFile()
     {
         $html = $this->getPdfPath() . '.html';
-        
+        echo 1;die();
         if (!$this->filesystem->exists($html))
         {
             // generate .html
@@ -99,8 +99,6 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
         $document->load($this->getHtmlFile()); 
         $base = $document->createElement('base');
         $base->setAttribute('href', $baseUri . '/' . $this->package->getPackageId() . '/');
-        var_dump($document->saveHTML());
-        die();
         $document->getElementsByTagName('head')->item(0)->appendChild($base);
         $document->getElementsByTagName('head')->item(0)->removeChild($document->getElementsByTagName('title')
             ->item(0));
