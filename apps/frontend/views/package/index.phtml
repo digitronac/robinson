@@ -95,6 +95,9 @@
                 <input type="text" class="input-text" name="email" id="email" placeholder="Vaš email" />
             </div>
             <div>
+                <textarea name="body" class="input-textarea" id="body" placeholder="Pitanje u vezi <?=$this->escaper->escapeHtml($package->getPackage())?>"></textarea>
+            </div>
+            <div>
                 <input type="submit" class="input-submit" name="submit" value="Pošaljite upit" />
             </div>
         </form>
