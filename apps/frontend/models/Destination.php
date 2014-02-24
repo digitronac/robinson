@@ -117,7 +117,7 @@ class Destination extends \Phalcon\Mvc\Model
 
     public function getShortDescription()
     {
-        return self::truncateText($this->description, 250);
+        return self::truncateText($this->description, 200);
     }
 
 
