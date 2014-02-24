@@ -95,7 +95,7 @@ body{color:white;font-family: 'Open Sans', sans-serif}
 /* category/index, destination/index, package/index */
 .category h1, .destination h1, .package h1 {font-size:36px; color:#333333;text-align:center;font-weight:bold}
 .category, .destination, .package {padding-top:30px;padding-bottom:30px}
-.description{color:#333333; margin-top:20px; font-size:18px; line-height:120%; padding-bottom:20px}
+.description{color:#333333; font-size:18px; line-height:120%; padding-bottom:20px}
 .description p {margin: 10px 0}
 .description strong{font-weight:bold}
 .intro, .destinations-list, .packages-list {background:#f4f4f4}
