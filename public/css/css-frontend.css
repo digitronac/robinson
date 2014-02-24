@@ -99,7 +99,7 @@ body{color:white;font-family: 'Open Sans', sans-serif}
 .description p {margin: 10px 0}
 .description strong{font-weight:bold}
 .intro, .destinations-list, .packages-list {background:#f4f4f4}
-.destinations-list, .packages-list {margin-top:10px}
+.destinations-list ul li, .packages-list ul li {margin-top:10px}
 .destinations-list h3, .packages-list h3 {font-weight:bold}
 .destinations-list h3 span, .packages-list h3 span {font-weight: normal}
 .destinations-list li, .packages-list li {clear:both}
