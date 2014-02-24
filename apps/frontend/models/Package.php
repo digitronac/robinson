@@ -258,7 +258,7 @@ class Package extends \Phalcon\Mvc\Model
 
     public function getShortDescription()
     {
-        return self::truncateText($this->description, 200);
+        return self::truncateText($this->description, 230);
     }
 
 
