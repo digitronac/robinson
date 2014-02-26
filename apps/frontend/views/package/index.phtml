@@ -90,12 +90,28 @@
 
 <div class="package index contact-form">
     <div class="inner-site">
-        <form>
+
+        <?=$this->flashSession->output(true)?>
+        <form method="post" id="contact-form">
             <div>
-                <input type="text" class="input-text" name="email" id="email" placeholder="Vaš email" />
+                <input type="text" class="input-text" name="email" id="email" value="<?=@$this->flashSession->getMessages('email')[0]?>" placeholder="Vaš email" />
+                <div class="errors">
+                    <?php foreach ($this->flashSession->getMessages('email-error') as $message): ?>
+                        <?php foreach($message as $type => $segment): ?>
+                        <li class="<?=$type?>"><?=$this->translate->_($segment)?></li>
+                        <?php endforeach ?>
+                    <?php endforeach ?>
+                </div>
             </div>
             <div>
-                <textarea name="body" class="input-textarea" id="body" placeholder="Pitanje u vezi <?=$this->escaper->escapeHtml($package->getPackage())?>"></textarea>
+                <textarea name="body" class="input-textarea" id="body" placeholder="Pitanje u vezi <?=$this->escaper->escapeHtml($package->getPackage())?>"><?=@$this->flashSession->getMessages('body')[0]?></textarea>
+                <div class="errors">
+                    <?php foreach ($this->flashSession->getMessages('body-error') as $message): ?>
+                        <?php foreach($message as $type => $segment): ?>
+                            <li class="<?=$type?>"><?=$this->translate->_($segment)?></li>
+                        <?php endforeach ?>
+                    <?php endforeach ?>
+                </div>
             </div>
             <div>
                 <input type="submit" class="input-submit" name="submit" value="Pošaljite upit" />

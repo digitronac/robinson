@@ -22,9 +22,15 @@
     "require": 
     {
 	 "ext-phalcon": "1.2.5",
+	 "ext-intl": "*",
 	 "imagine/imagine": "0.6.*@dev",
 	 "ext-imagick": "*",
-	 "symfony/filesystem": "2.5.*@dev"
+	 "symfony/filesystem": "2.5.*@dev",
+	 "zendframework/zend-mail": "2.2.5",
+	 "zendframework/zend-validator": "2.2.5",
+	 "zendframework/zend-session": "2.2.5",
+	 "zendframework/zend-i18n": "2.2.5",
+	 "zendframework/zend-resources": "2.2.5"
     },
     "require-dev": 
     {

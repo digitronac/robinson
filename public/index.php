@@ -44,6 +44,16 @@ $application->setDI($di);
  */
 require __DIR__ . '/../config/modules.php';
 
+$translator = new \Zend\Mvc\I18n\Translator();
+$translator->addTranslationFile(
+    'phparray',
+    APPLICATION_PATH . '/../vendor/zendframework/zendframework/resources/languages/sr/Zend_Validate.php',
+    'default',
+    'sr'
+);
+$translator->setLocale('sr');
+\Zend\Validator\AbstractValidator::setDefaultTranslator($translator);
+
 
 echo $application->handle()->getContent();
 

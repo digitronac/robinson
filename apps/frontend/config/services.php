@@ -139,15 +139,15 @@ $di->setShared('log', function() use ($di)
                 touch($logFile);
             }
         }
-        
+
         $fileLogger = new \Phalcon\Logger\Adapter\File($logFile);
         //$jsonFormatter = new \Phalcon\Logger\Formatter\Json();
         $fireFormatter = new \Phalcon\Logger\Formatter\Firephp();
         $fileLogger->setFormatter($fireFormatter);
-        $log->push($fileLogger);  
+        $log->push($fileLogger);
     }
 
-    if (in_array($di->getService('request')->resolve()->getClientAddress(), 
+    if (in_array($di->getService('request')->resolve()->getClientAddress(),
         $di->getService('config')->resolve()->application->debug->ips->toArray()))
     {
         $fireLogger = new \Phalcon\Logger\Adapter\Firephp();
@@ -164,6 +164,14 @@ $di['watermark'] = function() use ($di)
     $filter = new \Robinson\Backend\Filter\Watermark(new \Imagick($di->getShared('config')
         ->application->watermark->watermark));
     return $filter;
+};
+
+$di['translate'] = function() use ($di)
+{
+    $translate = new \Phalcon\Translate\Adapter\NativeArray(array(
+        'content' => include APPLICATION_PATH . '/../data/translations/sr.php',
+    ));
+    return $translate;
 };
 
 $di['assets'] = function() use ($di)

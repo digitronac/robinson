@@ -128,9 +128,12 @@ body{color:white;font-family: 'Open Sans', sans-serif}
 .tabs ul {list-style-type: disc; list-style-position: inside}
 .tabs ul li{margin-top:20px}
 .contact-form input {width:100%}
-.contact-form .input-text, .contact-form .input-textarea {background: #f4f4f4; border:none;padding:10px; color:#333333}
+.contact-form .input-text, .contact-form .input-textarea {background: #f4f4f4; border:none;padding:10px; margin-top:10px; width:1170px; color:#333333}
+.contact-form .input-textarea {height:100px}
 .contact-form .input-submit {background:#c3c3c3;border:none; padding:10px; text-align:center;margin-top:10px}
 .c {cursor:pointer !important}
+.successMessage {color:#333333}
+.errors {color:#de1a28}
 
 
 /* custom select */

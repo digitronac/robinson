@@ -138,4 +138,3 @@ $di['watermark'] = function() use ($di)
         ->application->watermark->watermark));
     return $filter;
 };
-

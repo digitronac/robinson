@@ -33,6 +33,7 @@ class Module implements ModuleDefinitionInterface
                 'Robinson\Frontend\Validator'   => __DIR__ . '/validators/',
                 'Robinson\Frontend\Tag'         => __DIR__ . '/tags/',
                 'Robinson\Frontend\Filter'      => __DIR__ . '/filters/',
+                'Robinson\Frontend\Form' => __DIR__ . '/forms/',
                 'Robinson\Backend\Filter' => __DIR__ . '/../backend/filters/',
             )
         );
