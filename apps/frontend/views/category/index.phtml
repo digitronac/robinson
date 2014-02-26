@@ -6,6 +6,9 @@
         </div>
     </div>
 </div>
+
+<?php if ($category->getImages()->count()): ?>
+
 <div class="category index images">
     <div class="inner-site">
 
@@ -33,6 +36,8 @@
 
     </div>
 </div>
+
+<?php endif ?>
 
 <?php if ($category->getDestinations()->count()): ?>
 
