@@ -17,10 +17,11 @@
         </div>
     </div>
 </div>
+
+<?php if ($package->getImages()->count()): ?>
+
 <div class="package index images">
     <div class="inner-site">
-
-        <?php if ($package->getImages()->count()): ?>
 
         <div id="slider1_container" style="position:relative;margin:0 auto;top:0px;left:0px;width:800px;height:700px">
             <div u="loading" style="position:absolute;top:0px;left:0px;">
@@ -62,10 +63,10 @@
             </div>
         </div>
     </div>
-
-    <?php endif ?>
-
 </div>
+
+<?php endif ?>
+
 <div class="package index prices">
     <div class="inner-site">
         <a target="_blank" href="/pdf/<?=$package->getPackageId()?>">
