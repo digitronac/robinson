@@ -19,10 +19,8 @@
 </div>
 <div class="package index images">
     <div class="inner-site">
-<?php
-        print_r($package->getImages());
-     ?>
-        <?php if ($package->getImages()): ?>
+
+        <?php if ($package->getImages()->count()): ?>
 
         <div id="slider1_container" style="position:relative;margin:0 auto;top:0px;left:0px;width:800px;height:700px">
             <div u="loading" style="position:absolute;top:0px;left:0px;">
