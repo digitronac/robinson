@@ -39,8 +39,7 @@ class PackageController extends ControllerBase
 
                 $transport->send($mail);
 
-
-                $this->flashSession->success('Vaša poruka je poslata! Odgovorićemo u najkraćem mogućem roku! HVALA!!! :)');
+                $this->flashSession->message('success', 'Vaša poruka je poslata! Odgovorićemo u najkraćem mogućem roku! HVALA!!! :)');
 
                 return $this->response->redirect(ltrim($this->request->getServer('REQUEST_URI') . '#contact-form', '/'));
             } else {

@@ -98,7 +98,8 @@
 <div class="package index contact-form">
     <div class="inner-site">
 
-        <?=$this->flashSession->output(true)?>
+        <p class="successMessage"><?=@$this->flashSession->getMessages('success')[0]?></p>
+
         <form method="post" id="contact-form">
             <div>
                 <input type="text" class="input-text" name="email" id="email" value="<?=@$this->flashSession->getMessages('email')[0]?>" placeholder="Vaš email" />
