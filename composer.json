@@ -15,8 +15,12 @@
 	{
             "type": "vcs",
             "url": "https://github.com/digitronac/PHP_CodeSniffer"
-	}
-	
+	},
+	{
+            "type": "vcs",
+            "url": "https://github.com/digitronac/zf2"
+        }
+
     
     ],
     "require": 
@@ -26,11 +30,11 @@
 	 "imagine/imagine": "0.6.*@dev",
 	 "ext-imagick": "*",
 	 "symfony/filesystem": "2.5.*@dev",
+	 "zendframework/zend-resources": "2.2.5",
 	 "zendframework/zend-mail": "2.2.5",
 	 "zendframework/zend-validator": "2.2.5",
 	 "zendframework/zend-session": "2.2.5",
-	 "zendframework/zend-i18n": "2.2.5",
-	 "zendframework/zend-resources": "2.2.5"
+	 "zendframework/zend-i18n": "2.2.5"
     },
     "require-dev": 
     {

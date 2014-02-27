@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "357ce9f783a9a39a5295d55a71dc7717",
+    "hash": "4ab2e021c3d1bc43d4a6bd1365f53879",
     "packages": [
         {
             "name": "imagine/imagine",

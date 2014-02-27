@@ -90,6 +90,20 @@ class Destination extends \Phalcon\Mvc\Model
         return $this->getRelated('images');
     }
 
+    public function getPackages($type = null)
+    {
+        if ($type) {
+            return $this->getRelated('packages', array(
+                'type = :type:',
+                'bind' => array(
+                    'type' => $type,
+                )
+            ));
+        }
+
+        return $this->getRelated('packages');
+    }
+
     /**
      * Finds main image of package (one with lowest sort number).
      *

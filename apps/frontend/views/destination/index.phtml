@@ -43,8 +43,25 @@
         <div class="inner-site">
             <h2><strong><?=$destination->getDestination()?></strong> - aranžmani</h2>
 
+            <div>
+                <label for="type">Tip aranžmana:</label>
+                <?=$this->tag->selectStatic(
+                    array(
+                        'type',
+                        array(
+                            1 => 'Apartmani',
+                            2 => 'Hoteli',
+                        ),
+                        'useEmpty' => true,
+                        'emptyText' => 'Sve',
+                        'id' => 'packages-selector',
+                    )
+                ) . PHP_EOL;
+                ?>
+            </div>
+
             <ul>
-                <?php foreach ($destination->getPackages() as $package): ?>
+                <?php foreach ($destination->getPackages($type) as $package): ?>
 
                     <li class="clearfix">
 

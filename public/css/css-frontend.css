@@ -113,6 +113,9 @@ body{color:white;font-family: 'Open Sans', sans-serif}
 .destinations-list .link, .packages-list .link {font-size:16px;margin-top:10px}
 .destinations-list .link a, .packages-list .link a {color:#de1a28}
 
+/* destination/index */
+.packages-list div {color:#333333}
+
 /* package/index */
 #price{text-align: center; margin-top:10px}
 #price span {background:white; padding:5px; display:inline-block;color:#333333}
