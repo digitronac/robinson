@@ -30,6 +30,13 @@ class ControllerBase extends Controller
                 'limit' => 8,
             )
         );
+
+        $this->view->randomPackages = \Robinson\Frontend\Model\Package::find(array(
+            'status = ' . \Robinson\Frontend\Model\Package::STATUS_VISIBLE,
+            'order' => 'RAND()',
+            'limit' => 10,
+        ));
+
         $this->tag->setTitle('robinson.rs');
     }
 }
