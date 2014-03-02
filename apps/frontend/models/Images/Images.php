@@ -128,7 +128,7 @@ abstract class Images extends \Phalcon\Mvc\Model
      */
     public function getWidth()
     {
-        return ((int) $this->width === 0) ? 1000 : (int) $this->width;
+        return (int) $this->width;
     }
     
     /**
@@ -138,7 +138,7 @@ abstract class Images extends \Phalcon\Mvc\Model
      */
     public function getHeight()
     {
-        return ((int) $this->width === 0) ? 1000 : (int) $this->width;
+        return (int) $this->height;
     }
     
     /**
