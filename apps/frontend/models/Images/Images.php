@@ -128,7 +128,7 @@ abstract class Images extends \Phalcon\Mvc\Model
      */
     public function getWidth()
     {
-        return (int) $this->width;
+        return ((int) $this->width === 0) ? 1000 : (int) $this->width;
     }
     
     /**
@@ -138,7 +138,7 @@ abstract class Images extends \Phalcon\Mvc\Model
      */
     public function getHeight()
     {
-        return (int) $this->height;
+        return ((int) $this->width === 0) ? 1000 : (int) $this->width;
     }
     
     /**
@@ -205,7 +205,7 @@ abstract class Images extends \Phalcon\Mvc\Model
             'width' => $width,
             'height' => $height,
         ));
-        
+
         $cropDir = $this->basePath . '/' . $dimensions['width'] . 'x' . $dimensions['height'];
         $cropFile = $cropDir . '/' . $this->getRealFilename();
         
@@ -219,9 +219,16 @@ abstract class Images extends \Phalcon\Mvc\Model
             return $this->compileImgPath($dimensions['width'], $dimensions['height']);
         }
 
-        $imagick = $this->getDI()->get('Imagick', array($this->basePath . '/' . $this->getRealFilename()));
+        /*$imagick = $this->getDI()->get('Imagick', array($this->basePath . '/' . $this->getRealFilename()));
         $imagick->thumbnailimage($dimensions['width'], $dimensions['height']);
-        $imagick->writeimage($cropFile);
+        $imagick->writeimage($cropFile);*/
+
+        /* @var $imagine \Imagine\Imagick\Imagine */
+        $imagine = $this->getDI()->get('imagine');
+        $imagine->open($this->basePath . '/' . $this->getRealFilename())
+            ->thumbnail(new \Imagine\Image\Box($dimensions['width'], $dimensions['height']),
+                \Imagine\Image\ImageInterface::THUMBNAIL_INSET)
+            ->save($cropFile);
         
         // return before watermarking
         if (!$this->getDI()->getShared('config')->application->watermark->enable)

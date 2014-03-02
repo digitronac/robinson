@@ -24,7 +24,7 @@ class BaseTestController extends \Phalcon\Test\FunctionalTestCase
         
         $this->application->registerModules(array
         (
-            'backend' => array
+            'frontend' => array
             (
                 'className' => 'Robinson\Frontend\Module',
                 'path' => APPLICATION_PATH . '/frontend/Module.php',

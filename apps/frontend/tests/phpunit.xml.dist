@@ -21,7 +21,7 @@
     </testsuite>
     <filter>
         <whitelist>
-            <directory suffix=".php">./../../backend</directory>
+            <directory suffix=".php">./../../frontend</directory>
         </whitelist>
     </filter>
 </phpunit>

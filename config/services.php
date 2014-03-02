@@ -131,6 +131,11 @@ $di['fs'] = function()
     return new \Symfony\Component\Filesystem\Filesystem();
 };
 
+$di->set('imagine', function()
+{
+    return new \Imagine\Imagick\Imagine();
+});
+
 
 $di['watermark'] = function() use ($di)
 {
