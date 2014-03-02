@@ -10,6 +10,7 @@
 
             <div class="package-item">
                 <div class="package-item-image">
+                    <?php if ($package->getMainImage()): ?>
 
                     <h3>
                     <?=$this->tag->image(array
@@ -18,6 +19,9 @@
                         'alt' => $package->getPackage(),
                     )) . PHP_EOL ?>
                     </h3>
+
+                    <?php endif ?>
+
                 </div>
                 <div class="package-item-package">
                     <h2><?=$package->getPackage()?></h2>

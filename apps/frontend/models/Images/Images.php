@@ -229,7 +229,7 @@ abstract class Images extends \Phalcon\Mvc\Model
             ->thumbnail(new \Imagine\Image\Box($dimensions['width'], $dimensions['height']),
                 \Imagine\Image\ImageInterface::THUMBNAIL_INSET)
             ->save($cropFile);
-        
+
         // return before watermarking
         if (!$this->getDI()->getShared('config')->application->watermark->enable)
         {
@@ -259,6 +259,12 @@ abstract class Images extends \Phalcon\Mvc\Model
         {
             $dimensions['height'] = $this->getHeight();
         }
+
+        foreach ($dimensions as $type => $dimension) {
+            if ($dimension === 0) {
+                $dimensions[$type] = 1000;
+            }
+        }
         
         return $dimensions;
     }
@@ -272,13 +278,34 @@ abstract class Images extends \Phalcon\Mvc\Model
      */
     protected function applyWatermark($destination)
     {
-        $filter = new \Robinson\Backend\Filter\Watermark(new \Imagick($this->getDI()->getShared('config')
+        /* @var $imagine \Imagine\Imagick\Imagine */
+        $imagine = $this->getDI()->get('imagine');
+        $watermark = $imagine->open($this->getDI()->getShared('config')->application->watermark->watermark);
+        $imagine = $this->getDI()->get('imagine');
+        $destination = $imagine->open($destination);
+
+        $watermark->resize(
+            new \Imagine\Image\Box(
+                $destination->getSize()->getWidth() / 2,
+                $destination->getSize()->getHeight() / 2
+            )
+        );
+
+
+        $bottomRight = new \Imagine\Image\Point(
+            $destination->getSize()->getWidth() - $watermark->getSize()->getWidth(),
+            $destination->getSize()->getHeight() - $watermark->getSize()->getHeight()
+        );
+
+        return $destination->paste($watermark, $bottomRight)->save();
+
+        /*$filter = new \Robinson\Backend\Filter\Watermark(new \Imagick($this->getDI()->getShared('config')
             ->application->watermark->watermark));
         $filter->filter(array
         (
             'imagickFile' => new \Imagick($destination),
             'destinationFile' => $destination,
-        ));
+        ));*/
         /*return $this->getDI()->get('watermark')->filter(array
         (
             'imagickFile' => $this->getDI()->get('Imagick', array($destination)),
