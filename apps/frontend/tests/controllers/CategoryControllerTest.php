@@ -1,11 +1,12 @@
 <?php
 namespace Robinson\Frontend\Tests\Controllers;
 
-class IndexControllerTest extends BaseTestController
+class CategoryControllerTest extends BaseTestController
 {
     public function setUp(\Phalcon\DiInterface $di = null, \Phalcon\Config $config = null)
     {
         parent::setUp($di, $config);
+        $this->populateTable('categories');
         $this->populateTable('packages');
         $this->populateTable('package_tabs');
         $this->populateTable('package_tags');
@@ -39,10 +40,11 @@ class IndexControllerTest extends BaseTestController
             ->method('open')
             ->will($this->returnValue($imageMock));
         $this->getDI()->set('imagine', $imagineMock);
-        $this->dispatch('/');
-        $this->assertController('index');
-        $this->assertAction('index');
 
-        $this->assertResponseContentContains('<img alt="package1" src="/img/package/250x1000/1-testpackageimage-1.jpg" />');
+        $this->dispatch('/fixture-category/1');
+
+        $this->assertController('category');
+        $this->assertAction('index');
+        $this->assertResponseContentContains('description test fixture category');
     }
 } 
