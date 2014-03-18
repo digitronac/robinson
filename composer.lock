@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "4ab2e021c3d1bc43d4a6bd1365f53879",
+    "hash": "29a1b85aa68979882716f5cd388b4b8a",
     "packages": [
         {
             "name": "imagine/imagine",
@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/avalanche123/Imagine.git",
-                "reference": "5e013323dacbb7d6ab0c0d55692e6b75d1fb30d2"
+                "reference": "2ab2237f2445ea30fdf00fdd2ff4f2d8072e87ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/5e013323dacbb7d6ab0c0d55692e6b75d1fb30d2",
-                "reference": "5e013323dacbb7d6ab0c0d55692e6b75d1fb30d2",
+                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/2ab2237f2445ea30fdf00fdd2ff4f2d8072e87ec",
+                "reference": "2ab2237f2445ea30fdf00fdd2ff4f2d8072e87ec",
                 "shasum": ""
             },
             "require": {
@@ -60,7 +60,7 @@
                 "image manipulation",
                 "image processing"
             ],
-            "time": "2013-12-23 10:54:18"
+            "time": "2014-03-07 15:00:25"
         },
         {
             "name": "symfony/filesystem",
@@ -228,25 +228,18 @@
     "packages-dev": [
         {
             "name": "digitronac/phalcon-ide-stubs",
-            "version": "1.2.5",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/digitronac/phalcon-ide-stubs.git",
-                "reference": "73ee9743cba022a29a1f5b77b3b0142b404cbcb7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/digitronac/phalcon-ide-stubs/zipball/73ee9743cba022a29a1f5b77b3b0142b404cbcb7",
-                "reference": "73ee9743cba022a29a1f5b77b3b0142b404cbcb7",
-                "shasum": ""
+                "url": "https://github.com/digitronac/phalcon-ide-stubs",
+                "reference": "8f640c4e9b1dc45072befd81b23893113e9fa999"
             },
             "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
             "description": "stubs copied from phalcon-devtools, sorted by tags, for easier ide inclusion",
-            "time": "2014-01-11 19:44:30"
+            "time": "2014-03-18 13:55:37"
         },
         {
             "name": "mikey179/vfsStream",
@@ -254,12 +247,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/mikey179/vfsStream.git",
-                "reference": "8db0b72ee77fcc9a7380a4cf8ec396bdc70e255d"
+                "reference": "baaf0cb8f1c2d137147fb491fb012d08e341c8ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikey179/vfsStream/zipball/8db0b72ee77fcc9a7380a4cf8ec396bdc70e255d",
-                "reference": "8db0b72ee77fcc9a7380a4cf8ec396bdc70e255d",
+                "url": "https://api.github.com/repos/mikey179/vfsStream/zipball/baaf0cb8f1c2d137147fb491fb012d08e341c8ce",
+                "reference": "baaf0cb8f1c2d137147fb491fb012d08e341c8ce",
                 "shasum": ""
             },
             "require": {
@@ -284,7 +277,7 @@
                 "BSD"
             ],
             "homepage": "http://vfs.bovigo.org/",
-            "time": "2014-02-13 17:09:31"
+            "time": "2014-03-17 17:02:58"
         },
         {
             "name": "pdepend/pdepend",
@@ -316,21 +309,22 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/digitronac/incubator.git",
+                "url": "https://github.com/phalcon/incubator.git",
                 "reference": "837098969e79978a7828354ba5d6666175852cb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digitronac/incubator/zipball/af1d30c47e8d2cfcfdd487a75508a4be4d537df0",
+                "url": "https://api.github.com/repos/phalcon/incubator/zipball/dce8dc0b677522cf32f3f1cebc04713ea7aca208",
                 "reference": "837098969e79978a7828354ba5d6666175852cb7",
                 "shasum": ""
             },
             "require": {
-                "ext-phalcon": ">=1.2.4,<1.3",
+                "ext-phalcon": ">=1.2.4,<2",
                 "php": ">=5.3.6"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.28",
+                "codeception/codeception": "*",
+                "phpunit/phpunit": "3.7.*",
                 "squizlabs/php_codesniffer": "1.*"
             },
             "type": "library",
@@ -339,6 +333,7 @@
                     "Phalcon": "Library/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3"
             ],
@@ -354,9 +349,6 @@
                 "framework",
                 "phalcon"
             ],
-            "support": {
-                "source": "https://github.com/digitronac/incubator/tree/develop"
-            },
             "time": "2014-01-21 15:12:54"
         },
         {
@@ -648,12 +640,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "292f4d5772dad5a12775be69f4a8dd663b20f103"
+                "reference": "ad4e1e23ae01b483c16f600ff1bebec184588e32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/292f4d5772dad5a12775be69f4a8dd663b20f103",
-                "reference": "292f4d5772dad5a12775be69f4a8dd663b20f103",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/ad4e1e23ae01b483c16f600ff1bebec184588e32",
+                "reference": "ad4e1e23ae01b483c16f600ff1bebec184588e32",
                 "shasum": ""
             },
             "require": {
@@ -690,7 +682,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2013-10-21 14:03:39"
+            "time": "2014-03-03 05:10:30"
         },
         {
             "name": "phpunit/phpunit",
@@ -960,12 +952,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ClassLoader.git",
-                "reference": "ecb7ab5d415ddde7fe676b6c8d95d8142eb6154b"
+                "reference": "948808ffe955ec583ba85f712eac6609bb70b666"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/ecb7ab5d415ddde7fe676b6c8d95d8142eb6154b",
-                "reference": "ecb7ab5d415ddde7fe676b6c8d95d8142eb6154b",
+                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/948808ffe955ec583ba85f712eac6609bb70b666",
+                "reference": "948808ffe955ec583ba85f712eac6609bb70b666",
                 "shasum": ""
             },
             "require": {
@@ -1003,7 +995,7 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 13:52:21"
+            "time": "2014-03-03 16:01:36"
         },
         {
             "name": "symfony/config",
@@ -1012,12 +1004,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Config.git",
-                "reference": "bde2f7192a52dfd07cf5484ad65d719da28effba"
+                "reference": "7678c61416966017feb83f2e0b648aa74d359343"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Config/zipball/bde2f7192a52dfd07cf5484ad65d719da28effba",
-                "reference": "bde2f7192a52dfd07cf5484ad65d719da28effba",
+                "url": "https://api.github.com/repos/symfony/Config/zipball/7678c61416966017feb83f2e0b648aa74d359343",
+                "reference": "7678c61416966017feb83f2e0b648aa74d359343",
                 "shasum": ""
             },
             "require": {
@@ -1042,7 +1034,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 },
                 {
                     "name": "Symfony Community",
@@ -1051,7 +1045,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "http://symfony.com",
-            "time": "2014-01-07 13:29:57"
+            "time": "2014-03-03 12:53:01"
         },
         {
             "name": "symfony/console",
@@ -1060,12 +1054,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "afee08520a971c0f073bff89e1d456405e244c37"
+                "reference": "7a1e03d503b144891bda936e494645578eb6b17f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/afee08520a971c0f073bff89e1d456405e244c37",
-                "reference": "afee08520a971c0f073bff89e1d456405e244c37",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/7a1e03d503b144891bda936e494645578eb6b17f",
+                "reference": "7a1e03d503b144891bda936e494645578eb6b17f",
                 "shasum": ""
             },
             "require": {
@@ -1106,7 +1100,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-18 15:41:30"
+            "time": "2014-03-17 23:05:29"
         },
         {
             "name": "symfony/yaml",
@@ -1115,12 +1109,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "e49a47d60348665261f6e279ba383241deb73cab"
+                "reference": "6194137af5f12fbcfc0cb21e269f47542b8beb47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/e49a47d60348665261f6e279ba383241deb73cab",
-                "reference": "e49a47d60348665261f6e279ba383241deb73cab",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/6194137af5f12fbcfc0cb21e269f47542b8beb47",
+                "reference": "6194137af5f12fbcfc0cb21e269f47542b8beb47",
                 "shasum": ""
             },
             "require": {
@@ -1155,7 +1149,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-24 16:21:51"
+            "time": "2014-03-03 12:53:01"
         }
     ],
     "aliases": [
@@ -1171,7 +1165,7 @@
         "robmorgan/phinx": 20
     },
     "platform": {
-        "ext-phalcon": "1.2.5",
+        "ext-phalcon": ">=1.3,<2",
         "ext-intl": "*",
         "ext-imagick": "*"
     },

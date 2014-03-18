@@ -98,7 +98,7 @@ class DestinationControllerTest extends BaseTestController
         $this->assertAction('update');
         $this->assertController('destination');
         $this->assertResponseCode(200);
-        $this->assertResponseContentContains('<textarea class="ckeditor" placeholder="Tekst" required="required" id="description" name="description">description test fixture destination 4</textarea>');
+        $this->assertResponseContentContains('<textarea id="description" name="description" class="ckeditor" placeholder="Tekst" required="required">description test fixture destination 4</textarea>');
     }
     
     public function testUpdatingDestinationShouldWorkAsExpected()

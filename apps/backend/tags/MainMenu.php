@@ -18,7 +18,7 @@ class MainMenu extends \Phalcon\Tag
             return;
         }
         
-        return $this->getDI()->getShared('view')->partial('partials/nav');
+        return \Phalcon\DI::getDefault()->getShared('view')->partial('partials/nav');
     }
             
     /**
@@ -28,6 +28,6 @@ class MainMenu extends \Phalcon\Tag
      */
     protected function retrieveDispatcher()
     {
-        return $this->getDI()->getShared('dispatcher');
+        return \Phalcon\DI::getDefault()->getShared('dispatcher');
     }
 }

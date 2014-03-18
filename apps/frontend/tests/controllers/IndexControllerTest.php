@@ -43,6 +43,6 @@ class IndexControllerTest extends BaseTestController
         $this->assertController('index');
         $this->assertAction('index');
 
-        $this->assertResponseContentContains('<img alt="package1" src="/img/package/250x1000/1-testpackageimage-1.jpg" />');
+        $this->assertResponseContentContains('<img src="/img/package/250x1000/1-testpackageimage-1.jpg" alt="package1" />');
     }
 } 
