@@ -12,6 +12,11 @@ class PackageController extends ControllerBase
             (int) $this->dispatcher->getParam('id')
         );
 
+        // no package? redirect to index
+        if (!$this->view->package) {
+            return $this->response->redirect('/', true);
+        }
+
         if ($this->request->isPost()) {
             $messages = $this->processContactForm($this->request->getPost('email'), $this->request->getPost('body'));
 

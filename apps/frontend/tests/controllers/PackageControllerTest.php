@@ -146,5 +146,11 @@ class PackageControllerTest extends BaseTestController
         $this->assertCount(1, $this->getDI()->getShared('flashSession')->getMessages('body-error')[0]);
     }
 
+    public function testAccessingInvisiblePackageShouldRedirectToIndex()
+    {
+        $this->dispatch('/fixture-category/fixture-destination-3/package3/3');
+        $this->assertRedirectTo('/');
+    }
+
 
 } 
