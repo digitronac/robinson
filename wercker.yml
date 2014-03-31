@@ -4,6 +4,9 @@ services:
 build:
   steps:
     - script:
+        name: setup project php.ini
+        code: phpenv config-add project-config.ini
+    - script:
         name: dependency install
         code: |-
             composer install -n --prefer-source
