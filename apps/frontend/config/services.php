@@ -65,63 +65,6 @@ $di->set('url', function() use ($di)
     return $url;
 });
 
-$di->setShared('acl', function() use ($di)
-{
-    $acl = new \Phalcon\Acl\Adapter\Memory();
-    $acl->setDefaultAction(\Phalcon\Acl::DENY);
-    $roles = array
-    (
-        'user' => new \Phalcon\Acl\Role('User'),
-        'guest' => new \Phalcon\Acl\Role('Guest'),
-    );
-
-    foreach ($roles as $role)
-    {
-        $acl->addRole($role);
-    }
-
-    $privateResources = array
-    (
-        'index' => array('dashboard', 'logout'),
-        'category' => array('index', 'create', 'update', 'delete', 'deleteImage'),
-        'destination' => array('index', 'create', 'update', 'delete', 'deleteImage'),
-        'package' => array('index', 'create', 'update', 'delete', 'deleteImage', 'pdfPreview'),
-    );
-
-    $publicResources = array
-    (
-        'index' => array('index'),
-    );
-
-    foreach ($publicResources as $resource => $actions)
-    {
-        $acl->addResource(new \Phalcon\Acl\Resource($resource), $actions);
-    }
-
-    foreach ($roles as $role)
-    {
-        foreach ($publicResources as $resource => $actions)
-        {
-            $acl->allow($role->getName(), $resource, $actions);
-        }
-    }
-
-    foreach ($privateResources as $resource => $actions)
-    {
-        $acl->addResource(new \Phalcon\Acl\Resource($resource), $actions);
-    }
-
-    foreach ($roles as $role)
-    {
-        foreach ($privateResources as $resource => $actions)
-        {
-            $acl->allow('User', $resource, $actions);
-        }
-    }
-
-    return $acl;
-});
-
 $di->setShared('log', function() use ($di)
 {
     $log = new \Phalcon\Logger\Multiple();
