@@ -230,6 +230,8 @@ abstract class Images extends \Phalcon\Mvc\Model
             $profile = \Imagine\Image\Profile::fromPath('/usr/share/ghostscript/9.07/iccprofiles/srgb.icc');
             $imagine = $imagine->open($this->basePath . '/' . $this->getRealFilename());
             $imagine->usePalette(new \Imagine\Image\Palette\RGB());
+        var_dump($imagine->getImagick()->getImageColorspace());
+        die();
             $imagine->strip();
             $imagine
                 ->thumbnail(new \Imagine\Image\Box($dimensions['width'], $dimensions['height']),
