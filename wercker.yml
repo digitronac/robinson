@@ -1,7 +1,6 @@
-services:
-  - wercker/mysql@0.0.8
   services:
     - digitronac/phalconphp@0.3.0
+    - wercker/mysql@0.0.8
 build:
   steps:
     - script:
