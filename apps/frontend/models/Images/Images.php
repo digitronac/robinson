@@ -241,8 +241,13 @@ abstract class Images extends \Phalcon\Mvc\Model
         {
             return $this->compileImgPath($dimensions['width'], $dimensions['height']);
         }
-        
-        $this->applyWatermark($cropFile);
+        try
+        {
+            $this->applyWatermark($cropFile);
+        }
+        catch (\Exception $e) {
+            $this->getDI()->getShared('log')->log($e->getMessage(), \Phalcon\Logger::WARNING);
+        }
         
         return $this->compileImgPath($dimensions['width'], $dimensions['height']);
     }
