@@ -230,6 +230,7 @@ abstract class Images extends \Phalcon\Mvc\Model
             $imagine->open($this->basePath . '/' . $this->getRealFilename())
                 ->thumbnail(new \Imagine\Image\Box($dimensions['width'], $dimensions['height']),
                     \Imagine\Image\ImageInterface::THUMBNAIL_INSET)
+                ->strip()
                 ->save($cropFile);
         } catch (\ImagickException $e) {
             $this->getDI()->getShared('log')->warn($e->getMessage());
