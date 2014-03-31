@@ -94,7 +94,7 @@ class Destination extends \Phalcon\Mvc\Model
     {
         if ($type) {
             return $this->getRelated('packages', array(
-                'type = :type:',
+                'type = :type: AND status = ' . \Robinson\Frontend\Model\Package::STATUS_VISIBLE,
                 'bind' => array(
                     'type' => $type,
                 )
