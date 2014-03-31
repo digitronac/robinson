@@ -17,7 +17,7 @@ class IndexControllerTest extends BaseTestController
             ->setMethods(array('open'))
             ->getMock();
         $imageMock = $this->getMockBuilder('Imagine\Imagick\ImageInterface')
-            ->setMethods(array('thumbnail', 'save', 'getSize', 'paste', 'resize'))
+            ->setMethods(array('thumbnail', 'save', 'getSize', 'paste', 'resize', 'usePalette'))
             ->getMock();
         $imageMock->expects($this->any())
             ->method('thumbnail')
@@ -34,6 +34,9 @@ class IndexControllerTest extends BaseTestController
         $imageMock->expects($this->any())
             ->method('getSize')
             ->will($this->returnValue(new \Imagine\Image\Box(600, 300)));
+        $imageMock->expects($this->any())
+            ->method('usePalette')
+            ->will($this->returnValue(true));
 
         $imagineMock->expects($this->any())
             ->method('open')
