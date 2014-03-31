@@ -227,10 +227,11 @@ abstract class Images extends \Phalcon\Mvc\Model
         $imagine = $this->getDI()->get('imagine');
         try
         {
-            $imagine->open($this->basePath . '/' . $this->getRealFilename())
+            $imagine->open($this->basePath . '/' . $this->getRealFilename());
+            $imagine->getImagick()->stripImage();
+            $imagine
                 ->thumbnail(new \Imagine\Image\Box($dimensions['width'], $dimensions['height']),
                     \Imagine\Image\ImageInterface::THUMBNAIL_INSET)
-                ->strip()
                 ->save($cropFile);
         } catch (\ImagickException $e) {
             $this->getDI()->getShared('log')->warn($e->getMessage());
@@ -289,9 +290,6 @@ abstract class Images extends \Phalcon\Mvc\Model
         $watermark = $imagine->open($this->getDI()->getShared('config')->application->watermark->watermark);
         $imagine = $this->getDI()->get('imagine');
         $destination = $imagine->open($destination);
-        $destination->getImagick()->setColorspace(\Imagick::COLORSPACE_SRGB);
-        $profile = \Imagine\Image\Profile::fromPath('/usr/share/color/icc/colord/sRGB.icc');
-        $destination->profile($profile);
 
         $watermark->resize(
             new \Imagine\Image\Box(

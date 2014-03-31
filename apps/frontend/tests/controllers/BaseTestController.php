@@ -76,7 +76,7 @@ class BaseTestController extends \Phalcon\Test\FunctionalTestCase
    protected function mockWorkingImagick()
    {
        $mockImagick = $this->getMockBuilder('Imagick')
-           ->setMethods(array('scaleimage', 'writeimage', 'getimageheight', 'getimagewidth', 'compositeimage',))
+           ->setMethods(array('scaleimage', 'writeimage', 'getimageheight', 'getimagewidth', 'compositeimage', 'stripImage'))
            ->disableOriginalConstructor()
            ->getMock();
        
@@ -86,6 +86,9 @@ class BaseTestController extends \Phalcon\Test\FunctionalTestCase
         $mockImagick->expects($this->any())
             ->method('writeimage')
             ->will($this->returnValue(true));
+       $mockImagick->expects($this->any())
+           ->method('stripImage')
+           ->will($this->returnValue(true));
         $mockImagick->expects($this->any())
             ->method('getimagewidth')
             ->will($this->returnValue(640));

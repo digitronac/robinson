@@ -14,14 +14,21 @@ class CategoryControllerTest extends BaseTestController
 
     public function testIndexActionShouldWorkAsExpected()
     {
+        $imagickMock = $this->mockWorkingImagick();
         $imagineMock = $this->getMockBuilder('Imagine\Imagick\ImagineInterface')
-            ->setMethods(array('open'))
+            ->setMethods(array('open','getImagick', 'thumbnail'))
             ->getMock();
         $imageMock = $this->mockImage();
 
         $imagineMock->expects($this->any())
             ->method('open')
             ->will($this->returnValue($imageMock));
+        $imagineMock->expects($this->any())
+            ->method('thumbnail')
+            ->will($this->returnValue($imageMock));
+        $imagineMock->expects($this->any())
+            ->method('getImagick')
+            ->will($this->returnValue($imagickMock));
         $this->getDI()->set('imagine', $imagineMock);
 
         $this->dispatch('/fixture-category/1');
