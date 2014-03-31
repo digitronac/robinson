@@ -227,8 +227,7 @@ abstract class Images extends \Phalcon\Mvc\Model
         $imagine = $this->getDI()->get('imagine');
         try
         {
-            $imagine->open($this->basePath . '/' . $this->getRealFilename());
-            $imagine->getImagick()->stripImage();
+            $imagine = $imagine->open($this->basePath . '/' . $this->getRealFilename());
             $imagine
                 ->thumbnail(new \Imagine\Image\Box($dimensions['width'], $dimensions['height']),
                     \Imagine\Image\ImageInterface::THUMBNAIL_INSET)
