@@ -233,7 +233,7 @@ abstract class Images extends \Phalcon\Mvc\Model
                     \Imagine\Image\ImageInterface::THUMBNAIL_INSET)
                 ->save($cropFile);
         } catch (\Exception $e) {
-            $this->getDI()->getShared('log')->warn($e->getMessage());
+            $this->getDI()->getShared('log')-log($e->getMessage(), \Phalcon\Logger::WARNING);
         }
 
         // return before watermarking
