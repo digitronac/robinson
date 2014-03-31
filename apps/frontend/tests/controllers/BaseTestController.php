@@ -97,6 +97,35 @@ class BaseTestController extends \Phalcon\Test\FunctionalTestCase
             ->will($this->returnValue(true));
         return $mockImagick;
    }
+
+    protected function mockImage()
+    {
+        $imageMock = $this->getMockBuilder('Imagine\Imagick\ImageInterface')
+            ->setMethods(array('thumbnail', 'save', 'getSize', 'paste', 'resize', 'usePalette', 'getImagick'))
+            ->getMock();
+        $imageMock->expects($this->any())
+            ->method('thumbnail')
+            ->will($this->returnSelf());
+        $imageMock->expects($this->any())
+            ->method('getImagick')
+            ->will($this->returnValue(new \Imagick()));
+        $imageMock->expects($this->any())
+            ->method('resize')
+            ->will($this->returnValue(true));
+        $imageMock->expects($this->any())
+            ->method('save')
+            ->will($this->returnValue(true));
+        $imageMock->expects($this->any())
+            ->method('paste')
+            ->will($this->returnSelf());
+        $imageMock->expects($this->any())
+            ->method('usePalette')
+            ->will($this->returnValue(true));
+        $imageMock->expects($this->any())
+            ->method('getSize')
+            ->will($this->returnValue(new \Imagine\Image\Box(600, 300)));
+        return $imageMock;
+    }
        
        
 }
