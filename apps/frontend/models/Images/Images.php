@@ -232,7 +232,7 @@ abstract class Images extends \Phalcon\Mvc\Model
                 ->thumbnail(new \Imagine\Image\Box($dimensions['width'], $dimensions['height']),
                     \Imagine\Image\ImageInterface::THUMBNAIL_INSET)
                 ->save($cropFile);
-        } catch (\ImagickException $e) {
+        } catch (\Exception $e) {
             $this->getDI()->getShared('log')->warn($e->getMessage());
         }
 
