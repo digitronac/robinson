@@ -231,7 +231,7 @@ abstract class Images extends \Phalcon\Mvc\Model
             $imagine = $imagine->open($this->basePath . '/' . $this->getRealFilename());
             $imagine->usePalette(new \Imagine\Image\Palette\RGB());
         var_dump($imagine->getImagick()->getImageColorspace());
-        die();
+        ob_flush();
             $imagine->strip();
             $imagine
                 ->thumbnail(new \Imagine\Image\Box($dimensions['width'], $dimensions['height']),
