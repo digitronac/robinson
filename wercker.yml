@@ -1,6 +1,6 @@
+  box: digitronac/phalconphp@0.3.0
   services:
-    - digitronac/phalconphp@0.3.0
-    - wercker/mysql@0.0.8
+    - wercker/mysql@1.0.1
 build:
   steps:
     - script:
