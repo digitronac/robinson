@@ -225,10 +225,15 @@ abstract class Images extends \Phalcon\Mvc\Model
 
         /* @var $imagine \Imagine\Imagick\Imagine */
         $imagine = $this->getDI()->get('imagine');
-        $imagine->open($this->basePath . '/' . $this->getRealFilename())
-            ->thumbnail(new \Imagine\Image\Box($dimensions['width'], $dimensions['height']),
-                \Imagine\Image\ImageInterface::THUMBNAIL_INSET)
-            ->save($cropFile);
+        try
+        {
+            $imagine->open($this->basePath . '/' . $this->getRealFilename())
+                ->thumbnail(new \Imagine\Image\Box($dimensions['width'], $dimensions['height']),
+                    \Imagine\Image\ImageInterface::THUMBNAIL_INSET)
+                ->save($cropFile);
+        } catch (\ImagickException $e) {
+            $this->getDI()->getShared('log')->warn($e->getMessage());
+        }
 
         // return before watermarking
         if (!$this->getDI()->getShared('config')->application->watermark->enable)
