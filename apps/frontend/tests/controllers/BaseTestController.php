@@ -101,7 +101,7 @@ class BaseTestController extends \Phalcon\Test\FunctionalTestCase
     protected function mockImage()
     {
         $imageMock = $this->getMockBuilder('Imagine\Imagick\ImageInterface')
-            ->setMethods(array('thumbnail', 'save', 'getSize', 'paste', 'resize', 'usePalette', 'getImagick'))
+            ->setMethods(array('thumbnail', 'save', 'getSize', 'paste', 'resize', 'usePalette', 'getImagick', 'profile'))
             ->getMock();
         $imageMock->expects($this->any())
             ->method('thumbnail')
@@ -109,6 +109,9 @@ class BaseTestController extends \Phalcon\Test\FunctionalTestCase
         $imageMock->expects($this->any())
             ->method('getImagick')
             ->will($this->returnValue(new \Imagick()));
+        $imageMock->expects($this->any())
+            ->method('profile')
+            ->will($this->returnValue(true));
         $imageMock->expects($this->any())
             ->method('resize')
             ->will($this->returnValue(true));

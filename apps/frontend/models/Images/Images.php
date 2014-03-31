@@ -283,7 +283,9 @@ abstract class Images extends \Phalcon\Mvc\Model
         $watermark = $imagine->open($this->getDI()->getShared('config')->application->watermark->watermark);
         $imagine = $this->getDI()->get('imagine');
         $destination = $imagine->open($destination);
-        $destination->getImagick()->setColorspace(\Imagick::COLORSPACE_RGB);
+        $destination->getImagick()->setColorspace(\Imagick::COLORSPACE_SRGB);
+        $profile = \Imagine\Image\Profile::fromPath('/usr/share/color/icc/colord/sRGB.icc');
+        $destination->profile($profile);
 
         $watermark->resize(
             new \Imagine\Image\Box(
