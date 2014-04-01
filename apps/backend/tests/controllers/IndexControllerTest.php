@@ -65,4 +65,23 @@ class IndexControllerTest extends BaseTestController
         $this->assertResponseContentContains('<li><a href="/admin/destination/update/5">fixture destination 5</a></li>');
         $this->assertAction('dashboard');
     }
+
+
+    public function testLogoutActionShouldNotThrowException()
+    {
+        $this->registerMockSession();
+
+        $sessionMock = $this->getMockBuilder('Phalcon\Session\Adapter\Files')
+            ->setMethods(array('destroy', 'auth'))
+            ->disableOriginalConstructor()
+            ->getMock();
+        $sessionMock->expects($this->any())
+            ->method('get')
+            ->with($this->equalTo('auth'))
+            ->will($this->returnValue(array('username' => 'nemanja')));
+        $this->getDI()->set('session', $sessionMock);
+        $this->dispatch('/admin/index/logout');
+        $this->assertRedirectTo('/admin/index/index');
+
+    }
 }

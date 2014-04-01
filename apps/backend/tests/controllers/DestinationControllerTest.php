@@ -26,6 +26,15 @@ class DestinationControllerTest extends BaseTestController
         $this->assertAction('index');
         $this->assertController('destination');
     }
+
+    public function testIndexActionWithCategoryIdShouldDisplayExpectedCategories()
+    {
+        $this->registerMockSession();
+        $_GET['categoryId'] = 1;
+        $this->dispatch('/admin/destination/index');
+        $this->assertAction('index');
+        $this->assertController('destination');
+    }
     
     public function testCreateActionShouldWorkAsExpected()
     {
@@ -457,6 +466,4 @@ class DestinationControllerTest extends BaseTestController
             }
         }
     }
-    
-    
 }

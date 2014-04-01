@@ -233,6 +233,16 @@ class Package extends \Phalcon\Mvc\Model
     {
         return $this->pdf;
     }
+
+    /**
+     * Gets pdf base file name.
+     *
+     * @return string pdf's base file name
+     */
+    public function getPdf2()
+    {
+        return $this->pdf2;
+    }
     
     /**
      * Sets package status.

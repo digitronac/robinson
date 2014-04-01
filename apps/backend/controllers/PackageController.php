@@ -135,6 +135,16 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
         $package = $this->getDI()->get('Robinson\Backend\Models\Package');
         /* @var $package \Robinson\Backend\Models\Package */
         $package = $package->findFirst($this->dispatcher->getParam('id'));
+
+        if ($package->getPdf2()) {
+            $this->view->pdf = $this->getDI()->get('Robinson\Backend\Models\Pdf', array(
+                $this->fs,
+                $package,
+                '/pdf/package',
+                2,
+            ));
+        }
+
         
         if ($this->request->isPost())
         {
@@ -177,6 +187,11 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 if ($file->getKey() === 'pdf')
                 { 
                     $package->setUploadedPdf($file);
+                    continue;
+                }
+
+                if ($file->getKey() === 'pdf2') {
+                    $package->setUploadedPdf2($file);
                     continue;
                 }
                 

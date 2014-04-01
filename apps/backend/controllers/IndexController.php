@@ -85,7 +85,7 @@ class IndexController extends ControllerBase
     }
     
     /**
-     * Destroys sesion and redirects to index.
+     * Destroys session and redirects to index.
      * 
      * @return \Phalcon\Http\Response
      */

@@ -162,4 +162,15 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
         return $this->baseDir . '/' . $this->package->getPackageId() . '/' . 
             $this->package->getPdf();
     }
+
+    /**
+     * Returns relative file path to pdf2.
+     *
+     * @return string
+     */
+    public function getUriToSecondPdf()
+    {
+        return $this->baseDir . '/' . $this->package->getPackageId() . '/' .
+            rawurlencode($this->package->getPdf2());
+    }
 }
