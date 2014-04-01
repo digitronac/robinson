@@ -39,6 +39,16 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
         {
             $destination = $this->getDI()->get('Robinson\Backend\Models\Destination');
             $destination = $destination->findFirst($this->request->getPost('destinationId'));
+            $pdf = '';
+            $pdf2 = '';
+
+            foreach ($this->request->getUploadedFiles() as $key => $file) {
+                if ($file->getKey() === 'pdf') {
+                    $pdf = $this->request->getUploadedFiles()[$key];
+                } else if ($file->getKey() === 'pdf2') {
+                    $pdf2 = $this->request->getUploadedFiles()[$key];
+                }
+            }
             /* @var $package \Robinson\Backend\Models\Package */
             $package = $this->getDI()->get('Robinson\Backend\Models\Package');
             $package->setPackage($this->request->getPost('package'))
@@ -46,8 +56,12 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 ->setPrice($this->request->getPost('price'))
                 ->setType($this->request->getPost('type', null, 0))
                 ->setDescription($this->request->getPost('description'))
-                ->setUploadedPdf($this->request->getUploadedFiles()[0])
+                ->setUploadedPdf($pdf)
                 ->setStatus($this->request->getPost('status'));
+
+            if ($pdf2) {
+                $package->setUploadedPdf2($pdf2);
+            }
 
             // add tabs, if any
             $tabs = array();

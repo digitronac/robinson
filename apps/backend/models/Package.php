@@ -40,6 +40,8 @@ class Package extends \Phalcon\Mvc\Model
     
     protected $destinationId;
 
+    protected $pdf2;
+
     protected $type = self::TYPE_UNDEFINED;
     
     /**
@@ -47,6 +49,11 @@ class Package extends \Phalcon\Mvc\Model
      * @var \Phalcon\Http\Request\File  
      */
     protected $uploadedPdf;
+
+    /**
+     * @var \Phalcon\Http\Request\File
+     */
+    protected $uploadedPdf2;
     
     /**
      *
@@ -272,6 +279,19 @@ class Package extends \Phalcon\Mvc\Model
         $this->uploadedPdf = $pdf;
         return $this;
     }
+
+    /**
+     * Sets uploaded pdf2 file.
+     *
+     * @param \Phalcon\Http\Request\File $pdf uploaded pdf2
+     *
+     * @return $this
+     */
+    public function setUploadedPdf2(\Phalcon\Http\Request\File $pdf)
+    {
+        $this->uploadedPdf2 = $pdf;
+        return $this;
+    }
     
     /**
      * Called when new package is created.
@@ -323,6 +343,13 @@ class Package extends \Phalcon\Mvc\Model
         {
             $this->setPdf($this->uploadedPdf->getName());
         }
+
+        if ($this->uploadedPdf2 instanceof \Phalcon\Http\Request\File)
+        {
+            $this->pdf2 = $this->uploadedPdf2->getName();
+        } else {
+            $this->pdf2 = new \Phalcon\Db\RawValue('""');
+        }
         
         if (is_null($this->status))
         {
@@ -341,6 +368,11 @@ class Package extends \Phalcon\Mvc\Model
         {
             $this->setPdf($this->uploadedPdf->getName());
         }
+
+        if ($this->uploadedPdf2 instanceof \Phalcon\Http\Request\File)
+        {
+            $this->pdf2 = $this->uploadedPdf2->getName();
+        }
     }
     
     /**
@@ -357,16 +389,21 @@ class Package extends \Phalcon\Mvc\Model
         {
             $this->filesystem->mkdir($destinationPackageFolder);
         }
-        
-        if (!$this->uploadedPdf)
-        {
-            return;
+
+        if ($this->uploadedPdf) {
+            if (!$this->uploadedPdf->moveTo($destinationPackageFolder . '/' . $this->uploadedPdf->getName()))
+            {
+                throw new \Robinson\Backend\Models\Exception(sprintf('Unable to move pdf file "%s" to destination dir "%s"',
+                    $this->uploadedPdf->getName(), $destinationPackageFolder));
+            }
         }
-        
-        if (!$this->uploadedPdf->moveTo($destinationPackageFolder . '/' . $this->uploadedPdf->getName()))
-        {
-           throw new \Robinson\Backend\Models\Exception(sprintf('Unable to move pdf file "%s" to destination dir "%s"', 
-               $this->uploadedPdf->getName(), $destinationPackageFolder));
+
+        if ($this->uploadedPdf2) {
+            if (!$this->uploadedPdf2->moveTo($destinationPackageFolder . '/' . $this->uploadedPdf2->getName()))
+            {
+                throw new \Robinson\Backend\Models\Exception(sprintf('Unable to move pdf2 file "%s" to destination dir "%s"',
+                    $this->uploadedPdf2->getName(), $destinationPackageFolder));
+            }
         }
     }
     

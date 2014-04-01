@@ -82,15 +82,22 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             ->method('isPost')
             ->will($this->returnValue(true));
         
-        $fileMock = $this->getMock('Phalcon\Http\Request\File', array('getName', 'moveTo'), array(), 'MockFileRequest', false);
+        $fileMock = $this->getMockBuilder('Phalcon\Http\Request\File')
+            ->setMethods(array('getName', 'moveTo', 'getKey'))
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $fileMock->expects($this->exactly(2))
             ->method('getName')
             ->will($this->returnValue('prices.pdf'));
+        $fileMock->expects($this->once())
+            ->method('getKey')
+            ->will($this->returnValue('pdf'));
        $fileMock->expects($this->any())
             ->method('moveTo')
             ->will($this->returnValue(true));
         
-        $request->expects($this->once())
+        $request->expects($this->exactly(2))
             ->method('getUploadedFiles')
             ->will($this->returnValue(array
             (
@@ -98,7 +105,6 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             )));
         
        $this->getDI()->setShared('request', $request);
-       
        $this->dispatch('/admin/package/create');
        $this->assertAction('create');
        $this->assertRedirectTo('/admin/package/update/6');
@@ -785,5 +791,11 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         $this->dispatch('/admin/package/update/3');
         $package = \Robinson\Backend\Models\Package::findFirst(3);
         $this->assertCount(1, $package->getTags());
+    }
+
+    public function tearDown()
+    {
+        parent::tearDown();
+        unset($this->vfsfs);
     }
 }
