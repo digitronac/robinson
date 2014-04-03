@@ -111,17 +111,26 @@ class IndexController extends ControllerBase
 
         $type = \Robinson\Backend\Models\Tags\Package::TYPE_FIRST_MINUTE;
 
+        if ($this->request->getPost('packageTagIds')) {
+            foreach ($this->request->getPost('packageTagIds') as $packageTagId => $order) {
+                $packageTag = \Robinson\Backend\Models\Tags\Package::findFirst($packageTagId);
+                $packageTag->setOrder($order);
+                $packageTag->save();
+            }
+        }
+
         if ($this->request->getQuery('type')) {
             $type = (int) $this->request->getQuery('type');
         }
 
         $this->view->packageTags = \Robinson\Backend\Models\Tags\Package::find(array(
-            'type = ' . $type
+            'type = ' . $type,
+            'order' => "[order] ASC",
         ));
 
         if ($this->view->packageTags) {
             foreach ($this->view->packageTags as $tag) {
-                $this->tag->setDefault('packageTagIds[' . $tag->getPackageTagId() . ']', 1);
+                $this->tag->setDefault('packageTagIds[' . $tag->getPackageTagId() . ']', $tag->getOrder());
             }
         }
 
