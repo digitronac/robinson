@@ -99,5 +99,33 @@ class IndexController extends ControllerBase
             'action' => 'index',
         ));
     }
+
+    /**
+     * Sorts tagged packages.
+     *
+     * @return void
+     */
+    public function sortTaggedPackagesAction()
+    {
+        $this->view->tags = $this->config->application->package->tags->toArray();
+
+        $type = \Robinson\Backend\Models\Tags\Package::TYPE_FIRST_MINUTE;
+
+        if ($this->request->getQuery('type')) {
+            $type = (int) $this->request->getQuery('type');
+        }
+
+        $this->view->packageTags = \Robinson\Backend\Models\Tags\Package::find(array(
+            'type = ' . $type
+        ));
+
+        if ($this->view->packageTags) {
+            foreach ($this->view->packageTags as $tag) {
+                $this->tag->setDefault('packageTagIds[' . $tag->getPackageTagId() . ']', 1);
+            }
+        }
+
+        $this->tag->setDefault('type', $type);
+    }
 }
 

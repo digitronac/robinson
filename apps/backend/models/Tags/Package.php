@@ -58,4 +58,14 @@ class Package extends Tag
         return (int) $this->packageId;
     }
 
+    /**
+     * Gets package tag id.
+     *
+     * @return int
+     */
+    public function getPackageTagId()
+    {
+        return $this->packageTagId;
+    }
+
 }

@@ -1,0 +1,33 @@
+<br />
+<?=\Phalcon\Tag::selectStatic(array(
+    'type',
+    $tags,
+    'class' => 'form-control'
+))?>
+
+<div>
+
+    <?php if(!$packageTags): ?>
+
+        <p>Nije nadjen nijedan aranzman za ovaj tag.</p>
+
+    <?php else: ?>
+
+    <ul>
+
+        <?php foreach ($packageTags as $tag): ?>
+
+            <li>
+                    <?=$tag->package->getPackage()?> - <?=\Phalcon\Tag::textField(array(
+                        'packageTagIds[' . $tag->getPackageTagId() . ']',
+                        'size' => 2,
+                    ))?>
+            </li>
+
+        <?php endforeach ?>
+
+    </ul>
+
+    <?php endif ?>
+
+</div>
