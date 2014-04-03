@@ -5,8 +5,8 @@ class PackageTags
 {
     public static function get($records = null)
     {
-        // packageTagId, tag, type, packageId, createdAt
-        $template = "(%d, '%s', %d, %d, '%s')";
+        // packageTagId, tag, type, order, packageId, createdAt
+        $template = "(%d, '%s', %d, %d, %d, '%s')";
         
         for ($i = 1; $i <= 3; $i++)
         {
@@ -14,7 +14,7 @@ class PackageTags
             foreach(\Phalcon\DI::getDefault()->getShared('config')->application->package->tags as $type => $tag)
             {
                 $i = $i+$j;
-                $data[] = sprintf($template, $i, "{$tag}", 1, $i, "2014-01-17 1{$i}:00:00");
+                $data[] = sprintf($template, $i, "{$tag}", $type, $i, $i, "2014-01-17 1{$i}:00:00");
                 $j++;
             }
         }

@@ -9,6 +9,8 @@ class IndexControllerTest extends BaseTestController
         $this->populateTable('categories');
         $this->populateTable('category_images');
         $this->populateTable('destinations');
+    //    $this->populateTable('packages');
+      //  $this->populateTable('package_tags');
     }
     
     public function testIndexActionShouldShowLogin()
@@ -64,5 +66,35 @@ class IndexControllerTest extends BaseTestController
         $this->dispatch('/admin/index/dashboard');
         $this->assertResponseContentContains('<li><a href="/admin/destination/update/5">fixture destination 5</a></li>');
         $this->assertAction('dashboard');
+    }
+
+    public function testSortTaggedPackagesAction()
+    {
+        $this->registerMockSession();
+        $this->dispatch('/admin/index/sortTaggedPackages');
+        $this->assertResponseContentContains('package1 - <input type="text" name="packageTagIds[5]" size="2"');
+    }
+
+    public function testSortTaggedPackagesActionByLastMinute()
+    {
+        $this->registerMockSession();
+        $_GET['type'] = 2;
+        $this->dispatch('/admin/index/sortTaggedPackages');
+        $this->assertResponseContentContains('package2 - <input type="text" name="packageTagIds[2]" size="2" />');
+    }
+
+    public function testSortTaggedPackagesActionReordering()
+    {
+        $this->registerMockSession();
+        $_POST['packageTagIds'] = array(
+            1 => 2,
+            2 => 5,
+        );
+
+        $this->dispatch('/admin/index/sortTaggedPackages');
+        foreach ($_POST['packageTagIds'] as $packageTagId => $order) {
+            $tag = \Robinson\Backend\Models\Tags\Package::findFirst($packageTagId);
+            $this->assertEquals($order, $tag->getOrder());
+        }
     }
 }
