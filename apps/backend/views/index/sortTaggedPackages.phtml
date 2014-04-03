@@ -1,0 +1,49 @@
+<div class="index sort-tagged-packages" style="clear:both">
+    <form action="" method="get">
+    <?=\Phalcon\Tag::selectStatic(array(
+        'type',
+        $tags,
+        'class' => 'form-control'
+    ))?>
+    </form>
+
+    <form action="" method="post">
+
+        <div>
+
+            <?php if(!$packageTags): ?>
+
+                <p>Nije nadjen nijedan aranzman za ovaj tag.</p>
+
+            <?php else: ?>
+
+            <ul>
+
+                <?php foreach ($packageTags as $tag): ?>
+
+                    <li>
+                            <?=$tag->package->getPackage()?> - <?=\Phalcon\Tag::textField(array(
+                                'packageTagIds[' . $tag->getPackageTagId() . ']',
+                                'size' => 2,
+                            ))?>
+                    </li>
+
+                <?php endforeach ?>
+
+            </ul>
+
+            <?php endif ?>
+
+        </div>
+        <button class="btn btn-default btn-lg" name="submit" value="OK">OK</button>
+    </form>
+
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            $('body').on('change', 'select[name="type"]', function(e) {
+                $(this).parent().submit();
+            });
+        });
+    </script>
+</div>
