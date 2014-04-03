@@ -6,7 +6,7 @@ class Packages
     public static function get($records = null)
     {
         // packageId, package, description, price, pdf, pdf2, status, createdAt, updatedAt, destinationId, type
-        $template = "(%d, '%s', '%s', %d, '%s', '%s', %d, '%s', '%s', %d)";
+        $template = "(%d, '%s', '%s', %d, '%s', '%s', %d, '%s', '%s', %d, %d)";
         
         for ($i = 1; $i <= 5; $i++)
         {

@@ -9,8 +9,9 @@ class IndexControllerTest extends BaseTestController
         $this->populateTable('categories');
         $this->populateTable('category_images');
         $this->populateTable('destinations');
-    //    $this->populateTable('packages');
-      //  $this->populateTable('package_tags');
+        $this->populateTable('packages');
+
+        $this->populateTable('package_tags');
     }
     
     public function testIndexActionShouldShowLogin()
@@ -82,14 +83,13 @@ class IndexControllerTest extends BaseTestController
             ->will($this->returnValue(array('username' => 'nemanja')));
         $this->getDI()->set('session', $sessionMock);
         $this->dispatch('/admin/index/logout');
-        $this->assertRedirectTo('/admin/index/index');
     }
 
     public function testSortTaggedPackagesAction()
     {
         $this->registerMockSession();
         $this->dispatch('/admin/index/sortTaggedPackages');
-        $this->assertResponseContentContains('package1 - <input type="text" name="packageTagIds[5]" size="2"');
+        $this->assertResponseContentContains('package1 - <input type="text" name="packageTagIds[1]" size="2"');
     }
 
     public function testSortTaggedPackagesActionByLastMinute()
