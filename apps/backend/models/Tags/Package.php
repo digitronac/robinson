@@ -10,6 +10,11 @@ class Package extends Tag
     protected $packageId;
 
     /**
+     * @var int
+     */
+    protected $order = 1;
+
+    /**
      * Initialization method.
      *
      * @return void
@@ -56,6 +61,39 @@ class Package extends Tag
     public function getPackageId()
     {
         return (int) $this->packageId;
+    }
+
+    /**
+     * Gets package tag id.
+     *
+     * @return int
+     */
+    public function getPackageTagId()
+    {
+        return $this->packageTagId;
+    }
+
+    /**
+     * Gets package tag order.
+     *
+     * @return int
+     */
+    public function getOrder()
+    {
+        return (int) $this->order;
+    }
+
+    /**
+     * Sets package tag order.
+     *
+     * @param int $order order
+     *
+     * @return $this
+     */
+    public function setOrder($order)
+    {
+        $this->order = (int) $order;
+        return $this;
     }
 
 }
