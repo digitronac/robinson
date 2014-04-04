@@ -1242,6 +1242,28 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
 <html><head><base href="/pdf/package/1/"></head><body></body></html>', trim($this->getContent()));
     }
 
+    public function testPdfPreviewActionWithPdf2ShouldWorkAsExpected()
+    {
+        $this->registerMockSession();
+        \org\bovigo\vfs\vfsStream::create(array
+            (
+                'pdf' => array
+                (
+                    'package' => array
+                    (
+                        1 => array
+                        (
+                            'pdffile-2.pdf.html' => '<html><head><title>title</title></head><body></body></html>',
+                        ),
+                    )
+                ),
+            ), $this->vfsfs);
+        $_GET['pdfType'] = \Robinson\Backend\Models\Pdf::PDF_SECOND;
+        $this->dispatch('/admin/package/pdfPreview/1');
+        $this->assertEquals('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><head><base href="/pdf/package/1/"></head><body></body></html>', trim($this->getContent()));
+    }
+
     public function testUnsettingTagShouldWorkAsExpected()
     {
         $this->registerMockSession();

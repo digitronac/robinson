@@ -252,11 +252,15 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
         $package = $this->getDI()->get('Robinson\Backend\Models\Package');
         /* @var $package \Robinson\Backend\Models\Package */
         $package = $package->findFirst($this->dispatcher->getParam('id'));
-        
+
+        $pdfType = ($this->request->getQuery('pdfType')) ? (int) $this->request->getQuery('pdfType')
+            : \Robinson\Backend\Models\Pdf::PDF_FIRST;
+
+
         /* @var $pdf \Robinson\Backend\Models\Pdf */
         $pdf = $this->getDI()->get('Robinson\Backend\Models\Pdf', array
         (
-            $this->fs, $package, $this->config->application->packagePdfPath,
+            $this->fs, $package, $this->config->application->packagePdfPath, $pdfType
         ));
         
         echo $pdf->getHtmlDocument($this->config->application->packagePdfWebPath)->saveHTML();

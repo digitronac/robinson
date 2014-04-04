@@ -9,6 +9,8 @@ class Package extends Tag
 
     protected $packageId;
 
+    protected $order;
+
     /**
      * Initialization method.
      *
@@ -33,6 +35,16 @@ class Package extends Tag
     public function resolveTypeToTagTitle($type)
     {
         return $this->getDI()->getShared('config')->application->package->tags->toArray[$type];
+    }
+
+    /**
+     * Gets package tag order.
+     *
+     * @return int
+     */
+    public function getOrder()
+    {
+        return (int) $this->order;
     }
 
 

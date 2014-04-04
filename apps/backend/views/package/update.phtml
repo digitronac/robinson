@@ -114,7 +114,7 @@
 
                 <?php if ($package->getPdf2()): ?>
 
-                <a href="<?=$pdf->getUriToSecondPdf()?>"><?=$package->getPdf2()?></a>
+                <a href="/admin/package/pdfPreview/<?=$package->getPackageId()?>?pdfType=2"><?=$package->getPdf2()?></a>
 
                 <?php endif ?>
                 <div>
