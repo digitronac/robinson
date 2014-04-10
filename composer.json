@@ -6,23 +6,23 @@
     [
         {
             "type": "vcs",
-            "url": "https://github.com/digitronac/incubator"
+            "url": "https://github.com/digitronac/incubator.git"
         },
 	{
             "type": "vcs",
-            "url": "https://github.com/digitronac/phinx"
+            "url": "https://github.com/digitronac/phinx.git"
 	},
 	{
             "type": "vcs",
-            "url": "https://github.com/digitronac/PHP_CodeSniffer"
+            "url": "https://github.com/digitronac/PHP_CodeSniffer.git"
 	},
 	{
             "type": "vcs",
-            "url": "https://github.com/digitronac/zf2"
+            "url": "https://github.com/digitronac/zf2.git"
         },
 	{
 	    "type": "git",
-	    "url":  "https://github.com/digitronac/phalcon-ide-stubs"
+	    "url":  "https://github.com/digitronac/phalcon-ide-stubs.git"
 	}
     
     ],
@@ -43,11 +43,12 @@
     {
  	 "mikey179/vfsStream": "1.3.*@dev",
 	 "phalcon/incubator": "dev-master#837098969e79978a7828354ba5d6666175852cb7",
-	 "squizlabs/PHP_CodeSniffer": "dev-master#e1d066241476f478a0766ef19e1e8b350ae5c8c6",
+	 "squizlabs/PHP_CodeSniffer": "dev-master#a8bcc502b625073be5b19f7bfca9d1ce188170e4",
          "phpunit/phpunit": "3.7.28",
 	 "pdepend/pdepend": "1.1.1",
 	 "phpmd/phpmd": "1.5.0", 
          "phpunit/dbunit": "1.3.0",
+	 "digitronac/coverage-checker": "1.0.0",
 	 "digitronac/phalcon-ide-stubs": "1.3.0",
          "robmorgan/phinx": "dev-0.2.x-dev#918878c4be987dee7f5931eda60e2b68ba34e565"
     },
