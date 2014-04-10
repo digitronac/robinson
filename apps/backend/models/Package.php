@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Backend\Models;
+
 class Package extends \Phalcon\Mvc\Model
 {
     const STATUS_INVISIBLE = 0;
@@ -69,52 +70,74 @@ class Package extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSource('packages');
-        $this->belongsTo('destinationId', 'Robinson\Backend\Models\Destination', 'destinationId', array
-        (
-            'alias' => 'destination', 
-        ));
+        $this->belongsTo(
+            'destinationId',
+            'Robinson\Backend\Models\Destination',
+            'destinationId',
+            array(
+            'alias' => 'destination',
+            )
+        );
 
-        $this->hasMany('packageId', 'Robinson\Backend\Models\Images\Package', 'packageId', array
-        (
-            'alias' => 'images',
-        ));
+        $this->hasMany(
+            'packageId',
+            'Robinson\Backend\Models\Images\Package',
+            'packageId',
+            array(
+                'alias' => 'images',
+            )
+        );
 
-        $this->hasMany('packageId', 'Robinson\Backend\Models\Tabs\Package', 'packageId', array
-        (
-            'alias' => 'tabs',
-        ));
+        $this->hasMany(
+            'packageId',
+            'Robinson\Backend\Models\Tabs\Package',
+            'packageId',
+            array(
+                'alias' => 'tabs',
+            )
+        );
 
-        $this->hasMany('packageId', 'Robinson\Backend\Models\Tags\Package', 'packageId', array
-        (
-           'alias' => 'tags',
-        ));
+        $this->hasMany(
+            'packageId',
+            'Robinson\Backend\Models\Tags\Package',
+            'packageId',
+            array(
+                'alias' => 'tags',
+            )
+        );
         
-        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
-        (
-            'beforeValidationOnCreate' => array
-            (
-                'field' => 'createdAt',
-                'format' => 'Y-m-d H:i:s',
-            ),
-        )));
+        $this->addBehavior(
+            new \Phalcon\Mvc\Model\Behavior\Timestampable(
+                array(
+                    'beforeValidationOnCreate' => array(
+                        'field' => 'createdAt',
+                        'format' => 'Y-m-d H:i:s',
+                    ),
+                )
+            )
+        );
             
-        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
-        (
-            'beforeValidationOnCreate' => array
-            (
-                'field' => 'updatedAt',
-                'format' => 'Y-m-d H:i:s',
-            ),
-        )));
+        $this->addBehavior(
+            new \Phalcon\Mvc\Model\Behavior\Timestampable(
+                array(
+                    'beforeValidationOnCreate' => array(
+                        'field' => 'updatedAt',
+                        'format' => 'Y-m-d H:i:s',
+                    ),
+                )
+            )
+        );
             
-        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
-        (
-            'beforeValidationOnUpdate' => array
-            (
-                'field' => 'updatedAt',
-                'format' => 'Y-m-d H:i:s',
-            ),
-        )));
+        $this->addBehavior(
+            new \Phalcon\Mvc\Model\Behavior\Timestampable(
+                array(
+                    'beforeValidationOnUpdate' => array(
+                        'field' => 'updatedAt',
+                        'format' => 'Y-m-d H:i:s',
+                    ),
+                )
+            )
+        );
     }
     
     /**
@@ -124,8 +147,7 @@ class Package extends \Phalcon\Mvc\Model
      */
     public function onConstruct()
     {
-        if (!$this->filesystem)
-        {
+        if (!$this->filesystem) {
             $this->filesystem = $this->getDI()->getShared('fs');
         }
         
@@ -349,20 +371,17 @@ class Package extends \Phalcon\Mvc\Model
      */
     public function beforeValidationOnCreate()
     {
-        if ($this->uploadedPdf instanceof \Phalcon\Http\Request\File)
-        {
+        if ($this->uploadedPdf instanceof \Phalcon\Http\Request\File) {
             $this->setPdf($this->uploadedPdf->getName());
         }
 
-        if ($this->uploadedPdf2 instanceof \Phalcon\Http\Request\File)
-        {
+        if ($this->uploadedPdf2 instanceof \Phalcon\Http\Request\File) {
             $this->pdf2 = $this->uploadedPdf2->getName();
         } else {
             $this->pdf2 = new \Phalcon\Db\RawValue('""');
         }
         
-        if (is_null($this->status))
-        {
+        if (is_null($this->status)) {
             $this->status = self::STATUS_INVISIBLE;
         }
     }
@@ -373,14 +392,12 @@ class Package extends \Phalcon\Mvc\Model
      * @return void
      */
     public function beforeValidationOnUpdate()
-    {   
-        if ($this->uploadedPdf instanceof \Phalcon\Http\Request\File)
-        {
+    {
+        if ($this->uploadedPdf instanceof \Phalcon\Http\Request\File) {
             $this->setPdf($this->uploadedPdf->getName());
         }
 
-        if ($this->uploadedPdf2 instanceof \Phalcon\Http\Request\File)
-        {
+        if ($this->uploadedPdf2 instanceof \Phalcon\Http\Request\File) {
             $this->pdf2 = $this->uploadedPdf2->getName();
         }
     }
@@ -395,24 +412,31 @@ class Package extends \Phalcon\Mvc\Model
         $destinationFolder = $this->getDI()->getShared('config')->application->packagePdfPath;
         $destinationPackageFolder = $destinationFolder . '/' . $this->packageId;
         
-        if (!$this->filesystem->exists($destinationPackageFolder))
-        {
+        if (!$this->filesystem->exists($destinationPackageFolder)) {
             $this->filesystem->mkdir($destinationPackageFolder);
         }
 
         if ($this->uploadedPdf) {
-            if (!$this->uploadedPdf->moveTo($destinationPackageFolder . '/' . $this->uploadedPdf->getName()))
-            {
-                throw new \Robinson\Backend\Models\Exception(sprintf('Unable to move pdf file "%s" to destination dir "%s"',
-                    $this->uploadedPdf->getName(), $destinationPackageFolder));
+            if (!$this->uploadedPdf->moveTo($destinationPackageFolder . '/' . $this->uploadedPdf->getName())) {
+                throw new \Robinson\Backend\Models\Exception(
+                    sprintf(
+                        'Unable to move pdf file "%s" to destination dir "%s"',
+                        $this->uploadedPdf->getName(),
+                        $destinationPackageFolder
+                    )
+                );
             }
         }
 
         if ($this->uploadedPdf2) {
-            if (!$this->uploadedPdf2->moveTo($destinationPackageFolder . '/' . $this->uploadedPdf2->getName()))
-            {
-                throw new \Robinson\Backend\Models\Exception(sprintf('Unable to move pdf2 file "%s" to destination dir "%s"',
-                    $this->uploadedPdf2->getName(), $destinationPackageFolder));
+            if (!$this->uploadedPdf2->moveTo($destinationPackageFolder . '/' . $this->uploadedPdf2->getName())) {
+                throw new \Robinson\Backend\Models\Exception(
+                    sprintf(
+                        'Unable to move pdf2 file "%s" to destination dir "%s"',
+                        $this->uploadedPdf2->getName(),
+                        $destinationPackageFolder
+                    )
+                );
             }
         }
     }
@@ -483,10 +507,12 @@ class Package extends \Phalcon\Mvc\Model
      */
     public function getImages()
     {
-        return $this->getRelated('images', array
-        (
-            'order' => 'sort ASC',
-        ));
+        return $this->getRelated(
+            'images',
+            array(
+                'order' => 'sort ASC',
+            )
+        );
     }
 
     /**
@@ -543,37 +569,33 @@ class Package extends \Phalcon\Mvc\Model
     public function updateTabs(array $tabsData)
     {
         $tabs = array();
-        foreach ($tabsData as $type => $description)
-        {
+        foreach ($tabsData as $type => $description) {
             $description = trim($description);
-            $tab = $this->getTabs(array
-            (
-                'type = :type:',
-                'bind' => array
-                (
-                    'type' => $type,
-                ),
-            ))->getFirst();
+            $tab = $this->getTabs(
+                array(
+                    'type = :type:',
+                    'bind' => array(
+                        'type' => $type,
+                    ),
+                )
+            )->getFirst();
             
                
             // no tab , no description -> skip
-            if (!$tab && !$description)
-            {
+            if (!$tab && !$description) {
                 continue;
             }
 
             // no description, tab exists -> delete tab
-            if ($tab && !$description)
-            {
+            if ($tab && !$description) {
                 $tab->delete();
                 continue;
             }
 
             // new tab -> create
-            if (!$tab && $description)
-            {
-               $tab = new \Robinson\Backend\Models\Tabs\Package();
-               $tab->setType($type)
+            if (!$tab && $description) {
+                $tab = new \Robinson\Backend\Models\Tabs\Package();
+                $tab->setType($type)
                    ->setTitle($tab->resolveTypeToTitle());
             }
 
@@ -593,14 +615,12 @@ class Package extends \Phalcon\Mvc\Model
      */
     public function updateTags(array $tagsData)
     {
-        foreach ($this->getTags() as $tag)
-        {
+        foreach ($this->getTags() as $tag) {
             $tag->delete();
         }
 
         $tags = array();
-        foreach ($tagsData as $type => $title)
-        {
+        foreach ($tagsData as $type => $title) {
             $tag = new \Robinson\Backend\Models\Tags\Package();
             $tag->setTag($title)
                 ->setType($type);
@@ -611,6 +631,4 @@ class Package extends \Phalcon\Mvc\Model
 
         return $this;
     }
-
-    
 }

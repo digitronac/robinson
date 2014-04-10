@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Backend\Models;
+
 class Category extends \Phalcon\Mvc\Model
 {
     const STATUS_INVISIBLE = 0;
@@ -31,42 +32,52 @@ class Category extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSource('categories');
-        $this->hasMany('categoryId', 'Robinson\Backend\Models\Images\Category', 'categoryId', array
-        (
-            'alias' => 'images',
-        ));
+        $this->hasMany(
+            'categoryId',
+            'Robinson\Backend\Models\Images\Category',
+            'categoryId',
+            array('alias' => 'images')
+        );
 
-        $this->hasMany('categoryId', 'Robinson\Backend\Models\Destination', 'categoryId', array
-        (
-            'alias' => 'destinations',
-        ));
+        $this->hasMany(
+            'categoryId',
+            'Robinson\Backend\Models\Destination',
+            'categoryId',
+            array('alias' => 'destinations')
+        );
 
-        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
-        (
-            'beforeValidationOnCreate' => array
-            (
-                'field' => 'createdAt',
-                'format' => 'Y-m-d H:i:s',
-            ),
-        )));
+        $this->addBehavior(
+            new \Phalcon\Mvc\Model\Behavior\Timestampable(
+                array(
+                    'beforeValidationOnCreate' => array(
+                        'field' => 'createdAt',
+                        'format' => 'Y-m-d H:i:s',
+                    ),
+                )
+            )
+        );
 
-        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
-        (
-            'beforeValidationOnCreate' => array
-            (
-                'field' => 'updatedAt',
-                'format' => 'Y-m-d H:i:s',
-            ),
-        )));
+        $this->addBehavior(
+            new \Phalcon\Mvc\Model\Behavior\Timestampable(
+                array(
+                    'beforeValidationOnCreate' => array(
+                        'field' => 'updatedAt',
+                        'format' => 'Y-m-d H:i:s',
+                    ),
+                )
+            )
+        );
 
-        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
-        (
-            'beforeValidationOnUpdate' => array
-            (
-                'field' => 'updatedAt',
-                'format' => 'Y-m-d H:i:s',
-            ),
-        )));
+        $this->addBehavior(
+            new \Phalcon\Mvc\Model\Behavior\Timestampable(
+                array(
+                    'beforeValidationOnUpdate' => array(
+                        'field' => 'updatedAt',
+                        'format' => 'Y-m-d H:i:s',
+                    ),
+                )
+            )
+        );
     }
 
     /**
@@ -208,14 +219,14 @@ class Category extends \Phalcon\Mvc\Model
     {
         $fragments = array
         (
-            'for' => 'admin-update', 
-            'controller' => 'category', 
-            'action' => 'update', 
+            'for' => 'admin-update',
+            'controller' => 'category',
+            'action' => 'update',
             'id' => $this->getCategoryId()
         );
-        if ($asArray)
-        {
-          return $fragments;  
+
+        if ($asArray) {
+            return $fragments;
         }
         
         return $this->getDI()->get('url')->get($fragments);
@@ -238,10 +249,10 @@ class Category extends \Phalcon\Mvc\Model
      */
     public function getImages()
     {
-        return $this->getRelated('images', array
-        (
-            'order' => 'sort ASC',
-        ));
+        return $this->getRelated(
+            'images',
+            array('order' => 'sort ASC')
+        );
     }
     
     /**

@@ -1,11 +1,12 @@
 <?php
 namespace Robinson\Backend\Models\Tabs;
+
 class Package extends \Robinson\Backend\Models\Tabs\Tabs
 {
     const TYPE_PROGRAMME = 1;
     const TYPE_CONDITIONS = 2;
     const TYPE_AVIO = 3;
-    const TYPE_BUS = 4; 
+    const TYPE_BUS = 4;
     
     protected $packageTabId;
     
@@ -19,10 +20,12 @@ class Package extends \Robinson\Backend\Models\Tabs\Tabs
     public function initialize()
     {
         $this->setSource('package_tabs');
-        $this->belongsTo('packageId', 'Robinson\Backend\Models\Package', 'packageId', array
-        (
-            'alias' => 'package',
-        ));
+        $this->belongsTo(
+            'packageId',
+            'Robinson\Backend\Models\Package',
+            'packageId',
+            array('alias' => 'package')
+        );
     }
     
     /**
@@ -57,5 +60,4 @@ class Package extends \Robinson\Backend\Models\Tabs\Tabs
     {
         return ($this->getDI()->getShared('config')->application->package->tabs->toArray()[$this->getType()]);
     }
-
 }

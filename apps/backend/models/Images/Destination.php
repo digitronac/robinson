@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Backend\Models\Images;
+
 class Destination extends \Robinson\Backend\Models\Images\Images
 {
     protected $destinationImageId;
@@ -23,8 +24,7 @@ class Destination extends \Robinson\Backend\Models\Images\Images
      */
     public function getImagesPath()
     {
-        if ($this->getDI()->has('config'))
-        {
+        if ($this->getDI()->has('config')) {
             return $this->getDI()->getShared('config')->application->destinationImagesPath;
         }
     }
@@ -49,10 +49,13 @@ class Destination extends \Robinson\Backend\Models\Images\Images
     {
         $this->setSource('destination_images');
         $this->belongsTo('destinationId', 'Robinson\Backend\Models\Destinations', 'destinationId');
-        $this->hasMany('destinationId', 'Robinson\Backend\Models\Package', array
-        (
-            'alias' => 'packages',
-        ));
+        $this->hasMany(
+            'destinationId',
+            'Robinson\Backend\Models\Package',
+            array(
+                'alias' => 'packages',
+            )
+        );
     }
     
     /**
@@ -77,5 +80,4 @@ class Destination extends \Robinson\Backend\Models\Images\Images
     {
         return $this->destinationId;
     }
-
 }

@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Backend\Filter;
+
 class Watermark implements \Phalcon\Filter\UserFilterInterface
 {
     /**
@@ -17,6 +18,7 @@ class Watermark implements \Phalcon\Filter\UserFilterInterface
     {
         $this->watermark = $watermark;
     }
+    
     /**
      * Applies watermark to given image.
      * 
@@ -38,5 +40,4 @@ class Watermark implements \Phalcon\Filter\UserFilterInterface
         $imagickFile->compositeimage($this->watermark, \Imagick::COMPOSITE_OVER, $centerwidth, $centerheight);
         return $imagickFile->writeimage($destination);
     }
-
 }

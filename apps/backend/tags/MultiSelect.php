@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Backend\Tag;
+
 class MultiSelect extends \Phalcon\Tag
 {
     /**
@@ -35,17 +36,14 @@ class MultiSelect extends \Phalcon\Tag
         $html = '';
         $html .= '    <select class="form-control" name="' . $name . '" required="required">' . PHP_EOL;
         
-        if ($emptyOption)
-        {
+        if ($emptyOption) {
             $html .= '        <option value="">' . $emptyOption . '</option>' . PHP_EOL;
         }
         
-        foreach ($data as $group => $options)
-        {
+        foreach ($data as $group => $options) {
             $html .= '        ' . $this->compileOptGroup($group) . PHP_EOL;
             
-            foreach ($options as $value => $option)
-            {
+            foreach ($options as $value => $option) {
                 $html .= '            ' . $this->compileOption($name, $value, $option) . PHP_EOL;
             }
         }
@@ -64,7 +62,7 @@ class MultiSelect extends \Phalcon\Tag
      */
     protected function compileOptGroup($label)
     {
-        return '<optgroup label="' . $this->getEscaperService()->escapeHtmlAttr($label) . '">' . 
+        return '<optgroup label="' . $this->getEscaperService()->escapeHtmlAttr($label) . '">' .
                 $this->getEscaperService()->escapeHtml($label) . '</optgroup>';
     }
     
@@ -81,13 +79,12 @@ class MultiSelect extends \Phalcon\Tag
     {
         $selected = '';
         
-        if ($this->hasValue($name))
-        {
+        if ($this->hasValue($name)) {
             $selected = ($value === $this->getValue($name)) ? 'selected="selected" ' : '';
         }
        
-        return '<option ' . $selected . 'value="' . 
-                    $this->getEscaperService()->escapeHtmlAttr($value) . '">' . 
+        return '<option ' . $selected . 'value="' .
+                    $this->getEscaperService()->escapeHtmlAttr($value) . '">' .
                     $this->getEscaperService()->escapeHtml($option) . '</option>';
     }
     

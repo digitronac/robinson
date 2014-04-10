@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Backend\Models\Tags;
+
 abstract class Tag extends \Phalcon\Mvc\Model
 {
     protected $tag;
@@ -13,7 +14,7 @@ abstract class Tag extends \Phalcon\Mvc\Model
      * 
      * @return void
      */
-    abstract function initialize();
+    abstract public function initialize();
     
     /**
      * Method which is executed on construction.
@@ -22,14 +23,16 @@ abstract class Tag extends \Phalcon\Mvc\Model
      */
     public function onConstruct()
     {
-        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
-        (
-            'beforeValidationOnCreate' => array
-            (
-                'field' => 'createdAt',
-                'format' => 'Y-m-d H:i:s',
-            ),
-        )));
+        $this->addBehavior(
+            new \Phalcon\Mvc\Model\Behavior\Timestampable(
+                array(
+                    'beforeValidationOnCreate' => array(
+                        'field' => 'createdAt',
+                        'format' => 'Y-m-d H:i:s',
+                    ),
+                )
+            )
+        );
     }
     
     /**
@@ -85,6 +88,5 @@ abstract class Tag extends \Phalcon\Mvc\Model
      * 
      * @return string tag title
      */
-    abstract function resolveTypeToTagTitle($type);
-    
+    abstract public function resolveTypeToTagTitle($type);
 }

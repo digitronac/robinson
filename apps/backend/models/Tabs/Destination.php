@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Backend\Models\Tabs;
+
 class Destination extends \Robinson\Backend\Models\Tabs\Tabs
 {
     const TYPE_APARTMENT = 1;
@@ -18,10 +19,12 @@ class Destination extends \Robinson\Backend\Models\Tabs\Tabs
     public function initialize()
     {
         $this->setSource('destination_tabs');
-        $this->belongsTo('destinationId', 'Robinson\Backend\Models\Destination', 'destinationId', array
-        (
-            'alias' => 'destination',
-        ));
+        $this->belongsTo(
+            'destinationId',
+            'Robinson\Backend\Models\Destination',
+            'destinationId',
+            array('alias' => 'destination')
+        );
     }
     
     /**
@@ -56,7 +59,4 @@ class Destination extends \Robinson\Backend\Models\Tabs\Tabs
     {
         return ($this->getDI()->getShared('config')->application->destination->tabs->toArray()[$this->getType()]);
     }
-    
-    
-
 }
