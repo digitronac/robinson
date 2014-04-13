@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Backend\Tag;
+
 class MainMenu extends \Phalcon\Tag
 {
     /**
@@ -11,10 +12,9 @@ class MainMenu extends \Phalcon\Tag
     {
         $dispatcher = $this->retrieveDispatcher();
         
-        if ($dispatcher->getControllerName() === 'index' 
-            && ($dispatcher->getActionName() === 'index' 
-            || $dispatcher->getActionName() === 'dashboard'))
-        {
+        if ($dispatcher->getControllerName() === 'index'
+            && ($dispatcher->getActionName() === 'index'
+            || $dispatcher->getActionName() === 'dashboard')) {
             return;
         }
         

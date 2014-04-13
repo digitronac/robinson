@@ -77,11 +77,15 @@ class PackageController extends ControllerBase
             (int) $this->dispatcher->getParam('id')
         );
 
+        $pdfType = ($this->request->getQuery('pdfType')) ? (int) $this->request->getQuery('pdfType')
+            : \Robinson\Frontend\Model\Pdf::PDF_FIRST;
+
         /* @var $pdf \Robinson\Frontend\Model\Pdf */
         $pdf = $this->getDI()->get('Robinson\Frontend\Model\Pdf', array(
             $this->fs,
             $this->view->package,
-            $this->config->application->packagePdfPath
+            $this->config->application->packagePdfPath,
+            $pdfType,
         ));
 
         return $this->response->setContent(

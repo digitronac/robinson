@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Backend\Models\Tags;
+
 class Package extends Tag
 {
     const TYPE_FIRST_MINUTE = 1;
@@ -22,10 +23,12 @@ class Package extends Tag
     public function initialize()
     {
         $this->setSource('package_tags');
-        $this->belongsTo('packageId', 'Robinson\Backend\Models\Package', 'packageId', array
-        (
-            'alias' => 'package',
-        ));
+        $this->belongsTo(
+            'packageId',
+            'Robinson\Backend\Models\Package',
+            'packageId',
+            array('alias' => 'package')
+        );
     }
 
     /**
@@ -95,5 +98,4 @@ class Package extends Tag
         $this->order = (int) $order;
         return $this;
     }
-
 }

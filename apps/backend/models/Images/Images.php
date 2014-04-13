@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Backend\Models\Images;
+
 abstract class Images extends \Phalcon\Mvc\Model
 {
     const IMAGE_TYPE_DESTINATION = 'destination';
@@ -89,19 +90,20 @@ abstract class Images extends \Phalcon\Mvc\Model
     {
         $this->basePath = $this->getImagesPath();
         
-        if (!$this->filesystem)
-        {
+        if (!$this->filesystem) {
             $this->filesystem = $this->getDI()->getShared('fs');
         }
         
-        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
-        (
-            'beforeValidationOnCreate' => array
-            (
-                'field' => 'createdAt',
-                'format' => 'Y-m-d H:i:s',
-            ),
-        )));
+        $this->addBehavior(
+            new \Phalcon\Mvc\Model\Behavior\Timestampable(
+                array(
+                'beforeValidationOnCreate' => array(
+                    'field' => 'createdAt',
+                    'format' => 'Y-m-d H:i:s',
+                ),
+            )
+            )
+        );
     }
     
     /**
@@ -172,10 +174,10 @@ abstract class Images extends \Phalcon\Mvc\Model
      */
     public function setImageType($imageType)
     {
-        if (!in_array($imageType, self::$allowedTypes))
-        {
+        if (!in_array($imageType, self::$allowedTypes)) {
             throw new \Robinson\Backend\Models\Images\Exception(
-                'imageType must be one of Robinson\Backend\Models\Images\Images.');
+                'imageType must be one of Robinson\Backend\Models\Images\Images.'
+            );
         }
         $this->imageType = $imageType;
         return $this;
@@ -199,9 +201,8 @@ abstract class Images extends \Phalcon\Mvc\Model
      * @return \Robinson\Backend\Models\Images\Images
      */
     public function createFromUploadedFile(\Phalcon\Http\Request\File $file)
-    { 
-        if (!$this->basePath)
-        {
+    {
+        if (!$this->basePath) {
             throw new \Robinson\Backend\Models\Images\Exception('basePath is not set.');
         }
 
@@ -234,30 +235,28 @@ abstract class Images extends \Phalcon\Mvc\Model
      */
     public function save($data = null, $whiteList = null)
     {
-        if (!$this->imageType)
-        {
+        if (!$this->imageType) {
             throw new \Robinson\Backend\Models\Images\Exception(
-                'imageType property must be set prior to calling save.');
+                'imageType property must be set prior to calling save.'
+            );
         }
 
-        if (null === $this->sort)
-        {
-            $this->sort = ((int) self::maximum(array($this->getImageType() . 'Id=' . $this->getBelongsToId(), 
+        if (null === $this->sort) {
+            $this->sort = ((int) self::maximum(array($this->getImageType() . 'Id=' . $this->getBelongsToId(),
             'column' => 'sort'))) + 1;
         }
         
-        if ($this->uploadedFile)
-        {
+        if ($this->uploadedFile) {
             /* @var $im \Imagick */
             $im = $this->getDI()->get('Imagick', array($this->uploadedFile->getTempName()));
             $this->width = $im->getimagewidth();
             $this->height = $im->getimageheight();
         }
         
-        if (!$this->parentSave($data, $whiteList))
-        {
-            throw new \Robinson\Backend\Models\Images\Exception(sprintf('Unable to save %s image model.',
-                $this->imageType));
+        if (!$this->parentSave($data, $whiteList)) {
+            throw new \Robinson\Backend\Models\Images\Exception(
+                sprintf('Unable to save %s image model.', $this->imageType)
+            );
         }
         
         return true;
@@ -272,18 +271,19 @@ abstract class Images extends \Phalcon\Mvc\Model
     public function afterSave()
     {
         // no image attached? pass...
-        if (!$this->uploadedFile)
-        {
-           return; 
+        if (!$this->uploadedFile) {
+            return;
         }
 
         $destination = $this->basePath . '/' . $this->getRealFilename();
         
-        if (!$this->uploadedFile->moveTo($destination))
-        {
+        if (!$this->uploadedFile->moveTo($destination)) {
             throw new \Robinson\Backend\Models\Images\Exception(
-                sprintf('Unable to move uploaded file to destination "%s".', 
-                    $this->basePath . '/' . $this->getRealFilename()));
+                sprintf(
+                    'Unable to move uploaded file to destination "%s".',
+                    $this->basePath . '/' . $this->getRealFilename()
+                )
+            );
         }
     }
     
@@ -295,26 +295,21 @@ abstract class Images extends \Phalcon\Mvc\Model
      */
     public function delete()
     {
-        if (!$this->basePath)
-        {
+        if (!$this->basePath) {
             throw new \Robinson\Backend\Models\Images\Exception('basePath is not set.');
         }
 
-        if ($this->filesystem->exists($this->basePath . '/' . $this->getRealFilename()))
-        {
+        if ($this->filesystem->exists($this->basePath . '/' . $this->getRealFilename())) {
             $this->filesystem->remove($this->basePath . '/' . $this->getRealFilename());
         }
         
         $dirIterator = $this->getDI()->get('DirectoryIterator', array($this->basePath));
         
-        while ($dirIterator->valid())
-        {
-            if ($dirIterator->current()->isDir())
-            {
+        while ($dirIterator->valid()) {
+            if ($dirIterator->current()->isDir()) {
                 $crop = $this->basePath . '/' . $dirIterator->current()->getFilename() . '/' . $this->getRealFilename();
                 
-                if ($this->filesystem->exists($crop))
-                {
+                if ($this->filesystem->exists($crop)) {
                     $this->filesystem->remove($crop);
                 }
             }
@@ -359,28 +354,27 @@ abstract class Images extends \Phalcon\Mvc\Model
      */
     public function getResizedSrc($width = 300, $height = 0)
     {
-        if (!$this->imageType)
-        {
+        if (!$this->imageType) {
             throw new \Robinson\Backend\Models\Images\Exception(
-                'imageType must be set prior to calling getResizedSrc()');
+                'imageType must be set prior to calling getResizedSrc()'
+            );
         }
         
-        $dimensions = $this->sanitizeCropWidthAndHeight(array
-        (
+        $dimensions = $this->sanitizeCropWidthAndHeight(
+            array(
             'width' => $width,
             'height' => $height,
-        ));
+            )
+        );
         
         $cropDir = $this->basePath . '/' . $dimensions['width'] . 'x' . $dimensions['height'];
         $cropFile = $cropDir . '/' . $this->getRealFilename();
         
-        if (!$this->filesystem->exists($cropDir))
-        {
+        if (!$this->filesystem->exists($cropDir)) {
             $this->filesystem->mkdir($cropDir);
         }
        
-        if ($this->filesystem->exists($cropFile))
-        {
+        if ($this->filesystem->exists($cropFile)) {
             return $this->compileImgPath($dimensions['width'], $dimensions['height']);
         }
 
@@ -389,8 +383,7 @@ abstract class Images extends \Phalcon\Mvc\Model
         $imagick->writeimage($cropFile);
         
         // return before watermarking
-        if (!$this->getDI()->getShared('config')->application->watermark->enable)
-        {
+        if (!$this->getDI()->getShared('config')->application->watermark->enable) {
             return $this->compileImgPath($dimensions['width'], $dimensions['height']);
         }
         
@@ -409,13 +402,11 @@ abstract class Images extends \Phalcon\Mvc\Model
      */
     protected function sanitizeCropWidthAndHeight(array $dimensions)
     {
-        if ($dimensions['width'] > $this->getWidth())
-        {
+        if ($dimensions['width'] > $this->getWidth()) {
             $dimensions['width'] = $this->getWidth();
         }
         
-        if ($dimensions['height'] > $this->getHeight())
-        {
+        if ($dimensions['height'] > $this->getHeight()) {
             $dimensions['height'] = $this->getHeight();
         }
         
@@ -431,11 +422,12 @@ abstract class Images extends \Phalcon\Mvc\Model
      */
     protected function applyWatermark($destination)
     {
-        return $this->getDI()->getShared('watermark')->filter(array
-        (
+        return $this->getDI()->getShared('watermark')->filter(
+            array(
             'imagickFile' => $this->getDI()->get('Imagick', array($destination)),
             'destinationFile' => $destination,
-        ));
+            )
+        );
     }
     
     /**
@@ -451,8 +443,7 @@ abstract class Images extends \Phalcon\Mvc\Model
     {
         $baseImagePath = $this->imageType . '/' . $width . 'x' . $height . '/' . $this->getRealFilename();
         
-        if ($type === 'relative')
-        {
+        if ($type === 'relative') {
             return '/img/' . $baseImagePath;
         }
     }

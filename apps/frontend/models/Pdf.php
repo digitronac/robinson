@@ -2,6 +2,9 @@
 namespace Robinson\Frontend\Model;
 class Pdf implements \Phalcon\DI\InjectionAwareInterface
 {
+    const PDF_FIRST = 1;
+    const PDF_SECOND = 2;
+
     /**
      *
      * @var \Phalcon\DI 
@@ -41,20 +44,24 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
     protected $package;
     
     protected $baseDir;
+
+    protected $pdfType = self::PDF_FIRST;
     
     /**
      * Constructs pdf model.
      * 
-     * @param \Symfony\Component\Filesystem\Filesystem $filsystem filesystem
+     * @param \Symfony\Component\Filesystem\Filesystem $filesystem filesystem
      * @param \Robinson\Frontend\Model\Package         $package   pdf's package
      * @param string                                   $baseDir   path to package pdf folder
+     * @param int                                      $pdfType   type of pdf
      */
-    public function __construct(\Symfony\Component\Filesystem\Filesystem $filsystem, 
-        \Robinson\Frontend\Model\Package $package, $baseDir)
+    public function __construct(\Symfony\Component\Filesystem\Filesystem $filesystem,
+        \Robinson\Frontend\Model\Package $package, $baseDir, $pdfType = self::PDF_FIRST)
     {
-        $this->filesystem = $filsystem;
+        $this->filesystem = $filesystem;
         $this->package = $package;
         $this->baseDir = $baseDir;
+        $this->pdfType = $pdfType;
     }
     
     /**
@@ -159,7 +166,10 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
      */
     protected function getPdfPath()
     {
-        return $this->baseDir . '/' . $this->package->getPackageId() . '/' . 
-            $this->package->getPdf();
+        $baseDir = $this->baseDir . '/' . $this->package->getPackageId();
+        if ($this->pdfType === self::PDF_SECOND) {
+            return $baseDir . '/' . $this->package->getPdf2();
+        }
+        return $baseDir . '/' . $this->package->getPdf();
     }
 }

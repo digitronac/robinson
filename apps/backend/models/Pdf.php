@@ -1,7 +1,11 @@
 <?php
 namespace Robinson\Backend\Models;
+
 class Pdf implements \Phalcon\DI\InjectionAwareInterface
 {
+    const PDF_FIRST = 1;
+    const PDF_SECOND = 2;
+
     /**
      *
      * @var \Phalcon\DI 
@@ -41,20 +45,27 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
     protected $package;
     
     protected $baseDir;
+
+    protected $pdfType = self::PDF_FIRST;
     
     /**
      * Constructs pdf model.
      * 
-     * @param \Symfony\Component\Filesystem\Filesystem $filsystem filesystem
+     * @param \Symfony\Component\Filesystem\Filesystem $filesystem filesystem
      * @param \Robinson\Backend\Models\Package         $package   pdf's package
      * @param string                                   $baseDir   path to package pdf folder
+     * @param int                                      $pdfType   type of pdf
      */
-    public function __construct(\Symfony\Component\Filesystem\Filesystem $filsystem, 
-        \Robinson\Backend\Models\Package $package, $baseDir)
-    {
-        $this->filesystem = $filsystem;
+    public function __construct(
+        \Symfony\Component\Filesystem\Filesystem $filesystem,
+        \Robinson\Backend\Models\Package $package,
+        $baseDir,
+        $pdfType = self::PDF_FIRST
+    ) {
+        $this->filesystem = $filesystem;
         $this->package = $package;
         $this->baseDir = $baseDir;
+        $this->pdfType = $pdfType;
     }
     
     /**
@@ -67,8 +78,7 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
     public function getHtmlFile()
     {
         $html = $this->getPdfPath() . '.html';
-        if (!$this->filesystem->exists($html))
-        {
+        if (!$this->filesystem->exists($html)) {
             // generate .html
             $command = $this->getCompiledCommand($html);
             chmod($this->getPdfPath(), 0777);
@@ -76,8 +86,7 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
             chmod($html, 0777);
         }
         
-        if (!$this->filesystem->exists($html))
-        {
+        if (!$this->filesystem->exists($html)) {
             throw new \Robinson\Backend\Models\Exception(sprintf('HTML file does not exist at location: "%s"', $html));
         }
         
@@ -102,8 +111,9 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
         $base = $document->createElement('base');
         $base->setAttribute('href', $baseUri . '/' . $this->package->getPackageId() . '/');
         $document->getElementsByTagName('head')->item(0)->appendChild($base);
-        $document->getElementsByTagName('head')->item(0)->removeChild($document->getElementsByTagName('title')
-            ->item(0));
+        $document->getElementsByTagName('head')->item(0)->removeChild(
+            $document->getElementsByTagName('title')->item(0)
+        );
         return $document;
     }
     
@@ -118,8 +128,7 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
     {
         $pdf = $this->getPdfPath();
         
-        if (!$this->filesystem->exists($pdf))
-        {
+        if (!$this->filesystem->exists($pdf)) {
             throw new \Robinson\Backend\Models\Exception(sprintf('Pdf does not exist at location: "%s"', $pdf));
         }
         
@@ -151,15 +160,30 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
         $this->getDI()->getShared('log')->log($result, \Phalcon\Logger::DEBUG);
         return $result;
     }
-    
+
     /**
      * Returns absolute file path to pdf.
-     * 
+     *
      * @return string
      */
     protected function getPdfPath()
     {
-        return $this->baseDir . '/' . $this->package->getPackageId() . '/' . 
-            $this->package->getPdf();
+        $baseDir = $this->baseDir . '/' . $this->package->getPackageId();
+
+        if ($this->pdfType === self::PDF_SECOND) {
+            return $baseDir . '/' . $this->package->getPdf2();
+        }
+        return $baseDir . '/' . $this->package->getPdf();
+    }
+
+    /**
+     * Returns relative file path to pdf2.
+     *
+     * @return string
+     */
+    public function getUriToSecondPdf()
+    {
+        return $this->baseDir . '/' . $this->package->getPackageId() . '/' .
+            rawurlencode($this->package->getPdf2());
     }
 }

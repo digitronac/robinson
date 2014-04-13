@@ -9,8 +9,9 @@ class IndexControllerTest extends BaseTestController
         $this->populateTable('categories');
         $this->populateTable('category_images');
         $this->populateTable('destinations');
-    //    $this->populateTable('packages');
-      //  $this->populateTable('package_tags');
+        $this->populateTable('packages');
+
+        $this->populateTable('package_tags');
     }
     
     public function testIndexActionShouldShowLogin()
@@ -68,11 +69,27 @@ class IndexControllerTest extends BaseTestController
         $this->assertAction('dashboard');
     }
 
+    public function testLogoutActionShouldNotThrowException()
+    {
+        $this->registerMockSession();
+
+        $sessionMock = $this->getMockBuilder('Phalcon\Session\Adapter\Files')
+            ->setMethods(array('destroy', 'auth'))
+            ->disableOriginalConstructor()
+            ->getMock();
+        $sessionMock->expects($this->any())
+            ->method('get')
+            ->with($this->equalTo('auth'))
+            ->will($this->returnValue(array('username' => 'nemanja')));
+        $this->getDI()->set('session', $sessionMock);
+        $this->dispatch('/admin/index/logout');
+    }
+
     public function testSortTaggedPackagesAction()
     {
         $this->registerMockSession();
         $this->dispatch('/admin/index/sortTaggedPackages');
-        $this->assertResponseContentContains('package1 - <input type="text" name="packageTagIds[5]" size="2"');
+        $this->assertResponseContentContains('package1 - <input type="text" name="packageTagIds[1]" size="2"');
     }
 
     public function testSortTaggedPackagesActionByLastMinute()

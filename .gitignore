@@ -1,10 +1,9 @@
 nbproject
 vendor
-apps/backend/config/application.local.ini
-apps/frontend/config/application.local.ini
+apps/*/config/application.local.ini
 apps/backend/config/credentials.php
-apps/backend/tests/coverage/
-apps/backend/tests/clover.xml
+apps/*/tests/coverage/
+apps/*/tests/clover.xml
 composer.phar
 config/phinx-local.yml
 .idea/

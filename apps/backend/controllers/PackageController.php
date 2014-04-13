@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Backend\Controllers;
+
 class PackageController extends \Robinson\Backend\Controllers\ControllerBase
 {
     /**
@@ -11,14 +12,14 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
     {
         $this->view->packages = array();
         
-        if ($this->request->hasQuery('destinationId'))
-        {
+        if ($this->request->hasQuery('destinationId')) {
             $packages = $this->getDI()->get('Robinson\Backend\Models\Package');
-            $this->view->packages = $packages->find(array
-            (
-                'destinationId = ' . $this->request->getQuery('destinationId'),
-                'order' => 'destinationId DESC',
-            ));
+            $this->view->packages = $packages->find(
+                array(
+                    'destinationId = ' . $this->request->getQuery('destinationId'),
+                    'order' => 'destinationId DESC',
+                )
+            );
             
             $this->tag->setDefault('destinationId', $this->request->getQuery('destinationId'));
         }
@@ -35,10 +36,19 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
     public function createAction()
     {
         // create pdf
-        if ($this->request->isPost())
-        {
+        if ($this->request->isPost()) {
             $destination = $this->getDI()->get('Robinson\Backend\Models\Destination');
             $destination = $destination->findFirst($this->request->getPost('destinationId'));
+            $pdf = '';
+            $pdf2 = '';
+
+            foreach ($this->request->getUploadedFiles() as $key => $file) {
+                if ($file->getKey() === 'pdf') {
+                    $pdf = $this->request->getUploadedFiles()[$key];
+                } elseif ($file->getKey() === 'pdf2') {
+                    $pdf2 = $this->request->getUploadedFiles()[$key];
+                }
+            }
             /* @var $package \Robinson\Backend\Models\Package */
             $package = $this->getDI()->get('Robinson\Backend\Models\Package');
             $package->setPackage($this->request->getPost('package'))
@@ -46,16 +56,18 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 ->setPrice($this->request->getPost('price'))
                 ->setType($this->request->getPost('type', null, 0))
                 ->setDescription($this->request->getPost('description'))
-                ->setUploadedPdf($this->request->getUploadedFiles()[0])
+                ->setUploadedPdf($pdf)
                 ->setStatus($this->request->getPost('status'));
+
+            if ($pdf2) {
+                $package->setUploadedPdf2($pdf2);
+            }
 
             // add tabs, if any
             $tabs = array();
 
-            foreach ($this->request->getPost('tabs') as $type => $description)
-            {
-                if (!$description)
-                {
+            foreach ($this->request->getPost('tabs') as $type => $description) {
+                if (!$description) {
                     continue;
                 }
 
@@ -71,10 +83,8 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             // add tags, if any
             $tags = ($this->request->getPost('tags')) ? $this->request->getPost('tags') : array();
             $newtags = array();
-            foreach ($tags as $type => $title)
-            {
-                if (!$title)
-                {
+            foreach ($tags as $type => $title) {
+                if (!$title) {
                     continue;
                 }
 
@@ -86,19 +96,19 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
 
             $package->tags = $newtags;
 
-            if (!$package->create())
-            {
+            if (!$package->create()) {
                 $this->log->log(implode(';', $package->getMessages()), \Phalcon\Logger::ERROR);
                 throw new \Phalcon\Exception('Unable to create new package.');
             }
             
-            return $this->response->redirect(array
-            (
-                'for' => 'admin-update',
-                'controller' => 'package',
-                'action' => 'update',
-                'id' => $package->getPackageId(),
-            ));
+            return $this->response->redirect(
+                array(
+                    'for' => 'admin-update',
+                    'controller' => 'package',
+                    'action' => 'update',
+                    'id' => $package->getPackageId(),
+                )
+            );
         }
 
         $this->view->tags = $this->getDI()->getShared('config')->application->package->tags->toArray();
@@ -121,9 +131,21 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
         $package = $this->getDI()->get('Robinson\Backend\Models\Package');
         /* @var $package \Robinson\Backend\Models\Package */
         $package = $package->findFirst($this->dispatcher->getParam('id'));
+
+        if ($package->getPdf2()) {
+            $this->view->pdf = $this->getDI()->get(
+                'Robinson\Backend\Models\Pdf',
+                array(
+                    $this->fs,
+                    $package,
+                    '/pdf/package',
+                    2,
+                )
+            );
+        }
+
         
-        if ($this->request->isPost())
-        {
+        if ($this->request->isPost()) {
             $destination = $this->getDI()->get('Robinson\Backend\Models\Destination');
             $destination = $destination->findFirst($this->request->getPost('destinationId'));
             $package->setPackage($this->request->getPost('package'))
@@ -138,15 +160,13 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             // sort?
             $sort = $this->request->getPost('sort');
             
-            if ($sort)
-            {
+            if ($sort) {
                 $this->sort($package, $sort);
             }
             
             // titles?
             $titles = $this->request->getPost('title');
-            if ($titles)
-            {
+            if ($titles) {
                 $this->setImageTitles($package, $titles);
             }
 
@@ -158,11 +178,14 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             $images = array();
             $files = $this->request->getUploadedFiles();
             
-            foreach ($files as $file)
-            {
-                if ($file->getKey() === 'pdf')
-                { 
+            foreach ($files as $file) {
+                if ($file->getKey() === 'pdf') {
                     $package->setUploadedPdf($file);
+                    continue;
+                }
+
+                if ($file->getKey() === 'pdf2') {
+                    $package->setUploadedPdf2($file);
                     continue;
                 }
                 
@@ -171,16 +194,14 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 $packageImage->createFromUploadedFile($file)
                     ->setTitle($file->getName());
 
-               $images[] = $packageImage;
+                $images[] = $packageImage;
             }
             
-            if ($images)
-            {
+            if ($images) {
                 $package->images = $images;
             }
             
-            if (!$package->update())
-            {
+            if (!$package->update()) {
                 $this->log->log(implode(';', $package->getMessages()), \Phalcon\Logger::ERROR);
                 throw new \Phalcon\Exception('Unable to update package #' . $package->getPackageId());
             }
@@ -188,13 +209,11 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
         }
         
         $tabs = $package->getTabs();
-        foreach ($tabs as $tab)
-        {
+        foreach ($tabs as $tab) {
             $this->tag->setDefault('tabs[' . $tab->getType() . ']', $tab->getDescription());
         }
 
-        foreach ($package->getTags() as $tag)
-        {
+        foreach ($package->getTags() as $tag) {
             $this->tag->setDefault('tags[' . $tag->getType() . ']', $tag->getTag());
         }
 
@@ -223,12 +242,18 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
         $package = $this->getDI()->get('Robinson\Backend\Models\Package');
         /* @var $package \Robinson\Backend\Models\Package */
         $package = $package->findFirst($this->dispatcher->getParam('id'));
-        
+
+        $pdfType = ($this->request->getQuery('pdfType')) ? (int) $this->request->getQuery('pdfType')
+            : \Robinson\Backend\Models\Pdf::PDF_FIRST;
+
+
         /* @var $pdf \Robinson\Backend\Models\Pdf */
-        $pdf = $this->getDI()->get('Robinson\Backend\Models\Pdf', array
-        (
-            $this->fs, $package, $this->config->application->packagePdfPath,
-        ));
+        $pdf = $this->getDI()->get(
+            'Robinson\Backend\Models\Pdf',
+            array(
+                $this->fs, $package, $this->config->application->packagePdfPath, $pdfType
+            )
+        );
         
         echo $pdf->getHtmlDocument($this->config->application->packagePdfWebPath)->saveHTML();
     }
@@ -252,19 +277,18 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
      */
     protected function buildDestinationMultiSelectData()
     {
-        $categories = \Robinson\Backend\Models\Category::find(array
-        (
+        $categories = \Robinson\Backend\Models\Category::find(
+            array(
             'order' => 'category',
-        ));
+            )
+        );
         
         // build select
         $select = array();
-        foreach ($categories as $category)
-        {
+        foreach ($categories as $category) {
             $select[$category->getCategory()] = array();
             
-            foreach ($category->getDestinations() as $destination)
-            {
+            foreach ($category->getDestinations() as $destination) {
                 $select[$category->getCategory()][$destination->getDestinationId()] = $destination->getDestination();
             }
         }
@@ -282,13 +306,13 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
      */
     protected function sort(\Robinson\Backend\Models\Package $package, array $sort)
     {
-        $images = \Robinson\Backend\Models\Images\Package::find(array
-        (
+        $images = \Robinson\Backend\Models\Images\Package::find(
+            array(
             'packageId = ' . $package->getPackageId(),
-        ));
+            )
+        );
 
-        foreach ($images as $image)
-        {
+        foreach ($images as $image) {
             $image->setSort($sort[$image->getImageId()]);
             $image->update();
         }
@@ -306,13 +330,13 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
      */
     protected function setImageTitles(\Robinson\Backend\Models\Package $package, array $titles)
     {
-        $images = \Robinson\Backend\Models\Images\Package::find(array
-        (
+        $images = \Robinson\Backend\Models\Images\Package::find(
+            array(
             'packageId = ' . $package->getPackageId(),
-        ));
+            )
+        );
 
-        foreach ($images as $image)
-        {
+        foreach ($images as $image) {
             $image->setTitle($titles[$image->getImageId()]);
             $image->update();
         }

@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Backend\Validator;
+
 class Login extends \Phalcon\Validation
 {
     private static $credentials;
@@ -24,14 +25,12 @@ class Login extends \Phalcon\Validation
      */
     public function validate($data = null, $entity = null)
     {
-        if (!isset(self::$credentials[$data['username']]))
-        {
+        if (!isset(self::$credentials[$data['username']])) {
             return false;
         }
         
-        if (self::$credentials[$data['username']]['password'] !== $data['password'])
-        {
-            return false;   
+        if (self::$credentials[$data['username']]['password'] !== $data['password']) {
+            return false;
         }
         
         return true;

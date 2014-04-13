@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Backend\Models;
+
 class Destination extends \Phalcon\Mvc\Model
 {
     const STATUS_INVISIBLE = 0;
@@ -33,42 +34,54 @@ class Destination extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSource('destinations');
-        $this->hasMany('destinationId', 'Robinson\Backend\Models\Images\Destination', 
-            'destinationId', array('alias' => 'images'));
+        $this->hasMany(
+            'destinationId',
+            'Robinson\Backend\Models\Images\Destination',
+            'destinationId',
+            array('alias' => 'images')
+        );
         
-        $this->hasMany('destinationId', 'Robinson\Backend\Models\Tabs\Destination', 'destinationId', array
-        (
-            'alias' => 'tabs',
-        ));
+        $this->hasMany(
+            'destinationId',
+            'Robinson\Backend\Models\Tabs\Destination',
+            'destinationId',
+            array('alias' => 'tabs')
+        );
         
         $this->belongsTo('categoryId', 'Robinson\Backend\Models\Category', 'categoryId');
         
-        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
-        (
-            'beforeValidationOnCreate' => array
-            (
-                'field' => 'createdAt',
-                'format' => 'Y-m-d H:i:s',
-            ),
-        )));
+        $this->addBehavior(
+            new \Phalcon\Mvc\Model\Behavior\Timestampable(
+                array(
+                    'beforeValidationOnCreate' => array(
+                        'field' => 'createdAt',
+                        'format' => 'Y-m-d H:i:s',
+                    ),
+                )
+            )
+        );
             
-        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
-        (
-            'beforeValidationOnCreate' => array
-            (
-                'field' => 'updatedAt',
-                'format' => 'Y-m-d H:i:s',
-            ),
-        )));
+        $this->addBehavior(
+            new \Phalcon\Mvc\Model\Behavior\Timestampable(
+                array(
+                    'beforeValidationOnCreate' => array(
+                        'field' => 'updatedAt',
+                        'format' => 'Y-m-d H:i:s',
+                    ),
+                )
+            )
+        );
             
-        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
-        (
-            'beforeValidationOnUpdate' => array
-            (
-                'field' => 'updatedAt',
-                'format' => 'Y-m-d H:i:s',
-            ),
-        )));
+        $this->addBehavior(
+            new \Phalcon\Mvc\Model\Behavior\Timestampable(
+                array(
+                    'beforeValidationOnUpdate' => array(
+                        'field' => 'updatedAt',
+                        'format' => 'Y-m-d H:i:s',
+                    ),
+                )
+            )
+        );
     }
     
     /**
@@ -277,16 +290,15 @@ class Destination extends \Phalcon\Mvc\Model
      */
     public function getUpdateUrl($asArray = false)
     {
-        $fragments = array
-        (
-            'for' => 'admin-update', 
-            'controller' => 'destination', 
-            'action' => 'update', 
+        $fragments = array(
+            'for' => 'admin-update',
+            'controller' => 'destination',
+            'action' => 'update',
             'id' => $this->getDestinationId(),
         );
-        if ($asArray)
-        {
-          return $fragments;  
+
+        if ($asArray) {
+            return $fragments;
         }
         
         return $this->getDI()->get('url')->get($fragments);
@@ -299,10 +311,12 @@ class Destination extends \Phalcon\Mvc\Model
      */
     public function getImages()
     {
-        return $this->getRelated('images', array
-        (
-            'order' => 'sort ASC',
-        ));
+        return $this->getRelated(
+            'images',
+            array(
+                'order' => 'sort ASC',
+            )
+        );
     }
     
     /**

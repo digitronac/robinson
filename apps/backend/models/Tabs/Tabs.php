@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Backend\Models\Tabs;
+
 abstract class Tabs extends \Phalcon\Mvc\Model
 {
     protected $title;
@@ -26,28 +27,31 @@ abstract class Tabs extends \Phalcon\Mvc\Model
      */
     public function onConstruct()
     {
-        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
-        (
-            'beforeValidationOnCreate' => array
-            (
-                'field' => 'createdAt',
-                'format' => 'Y-m-d H:i:s',
-            ),
-            'beforeValidationOnUpdate' => array
-            (
-                'field' => 'updatedAt',
-                'format' => 'Y-m-d H:i:s',
-            ),
-        )));
+        $this->addBehavior(
+            new \Phalcon\Mvc\Model\Behavior\Timestampable(
+                array(
+                    'beforeValidationOnCreate' => array(
+                        'field' => 'createdAt',
+                        'format' => 'Y-m-d H:i:s',
+                    ),
+                    'beforeValidationOnUpdate' => array(
+                        'field' => 'updatedAt',
+                        'format' => 'Y-m-d H:i:s',
+                    ),
+                )
+            )
+        );
         
-        $this->addBehavior(new \Phalcon\Mvc\Model\Behavior\Timestampable(array
-        (
-            'beforeValidationOnCreate' => array
-            (
-                'field' => 'updatedAt',
-                'format' => 'Y-m-d H:i:s',
-            ),
-        )));
+        $this->addBehavior(
+            new \Phalcon\Mvc\Model\Behavior\Timestampable(
+                array(
+                    'beforeValidationOnCreate' => array(
+                        'field' => 'updatedAt',
+                        'format' => 'Y-m-d H:i:s',
+                    ),
+                )
+            )
+        );
     }
     
     /**
@@ -60,7 +64,7 @@ abstract class Tabs extends \Phalcon\Mvc\Model
     public function setTitle($title)
     {
         $this->title = $title;
-        return $this; 
+        return $this;
     }
     
     /**

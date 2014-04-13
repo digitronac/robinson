@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Backend\Controllers;
+
 class DestinationController extends \Phalcon\Mvc\Controller
 {
     /**
@@ -11,21 +12,22 @@ class DestinationController extends \Phalcon\Mvc\Controller
     {
         $this->view->destinations = array();
         
-        if ($this->request->hasQuery('categoryId'))
-        {
+        if ($this->request->hasQuery('categoryId')) {
             $destinations = $this->getDI()->get('Robinson\Backend\Models\Destination');
-            $this->view->destinations = $destinations->find(array
-            (
-                'categoryId' => $this->request->getQuery('categoryId'),
-                'order' => 'destinationId DESC',
-            ));
+            $this->view->destinations = $destinations->find(
+                array(
+                    'categoryId' => $this->request->getQuery('categoryId'),
+                    'order' => 'destinationId DESC',
+                )
+            );
             $this->tag->setDefault('categoryId', $this->request->getQuery('categoryId'));
         }
         
-        $categories = \Robinson\Backend\Models\Category::find(array
-        (
-            'order' => 'categoryId DESC',
-        ));
+        $categories = \Robinson\Backend\Models\Category::find(
+            array(
+                'order' => 'categoryId DESC',
+            )
+        );
         
         $this->view->categories = $categories;
     }
@@ -37,8 +39,7 @@ class DestinationController extends \Phalcon\Mvc\Controller
      */
     public function createAction()
     {
-        if ($this->request->isPost())
-        {
+        if ($this->request->isPost()) {
             /* @var $destination \Robinson\Backend\Models\Destination */
             $destination = $this->getDI()->get('Robinson\Backend\Models\Destination');
             $destination->setCategoryId($this->request->getPost('categoryId'))
@@ -47,11 +48,9 @@ class DestinationController extends \Phalcon\Mvc\Controller
                 ->setStatus($this->request->getPost('status'));
             
             $destinationTabs = array();
-            foreach ($this->request->getPost('tabs') as $tabType => $tabDescription)
-            {
+            foreach ($this->request->getPost('tabs') as $tabType => $tabDescription) {
                 // not added, pass
-                if (!$tabDescription)
-                {
+                if (!$tabDescription) {
                     continue;
                 }
                 
@@ -65,22 +64,24 @@ class DestinationController extends \Phalcon\Mvc\Controller
             $destination->setTabs($destinationTabs);
             
             // redirect to update upon successful save
-            if ($destination->create())
-            {
-                return $this->response->redirect(array
-                (
-                    'for' => 'admin-update',
-                    'controller' => 'destination',
-                    'action' => 'update',
-                    'id' => $destination->getDestinationId(),
-                ));
+            if ($destination->create()) {
+                return $this->response->redirect(
+                    array
+                    (
+                        'for' => 'admin-update',
+                        'controller' => 'destination',
+                        'action' => 'update',
+                        'id' => $destination->getDestinationId(),
+                    )
+                );
             }
         }
         
-        $categories = \Robinson\Backend\Models\Category::find(array
-        (
-            'order' => 'categoryId DESC',
-        ));
+        $categories = \Robinson\Backend\Models\Category::find(
+            array(
+                'order' => 'categoryId DESC',
+            )
+        );
         
         $this->view->setVar('categories', $categories);
         
@@ -96,11 +97,11 @@ class DestinationController extends \Phalcon\Mvc\Controller
     {
         set_time_limit(300);
         /* @var $destination \Robinson\Backend\Models\Destination */
-        $destination = \Robinson\Backend\Models\Destination::findFirstByDestinationId($this->dispatcher
-            ->getParam('id'));
+        $destination = \Robinson\Backend\Models\Destination::findFirstByDestinationId(
+            $this->dispatcher->getParam('id')
+        );
 
-        if ($this->request->isPost())
-        {
+        if ($this->request->isPost()) {
             $destination->setCategoryId($this->request->getPost('categoryId'))
                 ->setDestination($this->request->getPost('destination'))
                 ->setDescription($this->request->getPost('description'))
@@ -108,36 +109,33 @@ class DestinationController extends \Phalcon\Mvc\Controller
             
             $destinationTabs = array();
             
-            foreach ($this->request->getPost('tabs') as $tabType => $tabDescription)
-            {
+            foreach ($this->request->getPost('tabs') as $tabType => $tabDescription) {
                 $tabDescription = trim($tabDescription);
-                $tab = $destination->getTabs(array
-                (
-                    'type = :type:',
-                    'bind' => array
+                $tab = $destination->getTabs(
+                    array
                     (
-                        'type' => $tabType,
-                    ),
-                ))->getFirst();
+                        'type = :type:',
+                        'bind' => array(
+                            'type' => $tabType,
+                        ),
+                    )
+                )->getFirst();
                 
                 // new tab
-                if (!$tab && $tabDescription)
-                {
-                   $tab = new \Robinson\Backend\Models\Tabs\Destination();
-                   $tab->setType($tabType)
+                if (!$tab && $tabDescription) {
+                    $tab = new \Robinson\Backend\Models\Tabs\Destination();
+                    $tab->setType($tabType)
                        ->setTitle($tab->resolveTypeToTitle());
                 }
        
                 // deleted tab
-                if ($tab && !$tabDescription)
-                {
+                if ($tab && !$tabDescription) {
                     $tab->delete();
                     continue;
                 }
               
                 // never existed and wasnt entered
-                if (!$tab && !$tabDescription)
-                {
+                if (!$tab && !$tabDescription) {
                     continue;
                 }
                 
@@ -150,12 +148,10 @@ class DestinationController extends \Phalcon\Mvc\Controller
             // sort?
             $sort = $this->request->getPost('sort');
             
-            if ($sort)
-            {
+            if ($sort) {
                 $images = array();
                 // bug here ? if loop thru $destination->images, then cannot save related images on next update
-                foreach ($destination->getImages() as $image)
-                {
+                foreach ($destination->getImages() as $image) {
                     $image->setSort($sort[$image->getImageId()]);
                     $image->update();
                 }
@@ -164,8 +160,7 @@ class DestinationController extends \Phalcon\Mvc\Controller
             $images = array();
             
             $files = $this->request->getUploadedFiles();
-            foreach ($files as $file)
-            {
+            foreach ($files as $file) {
                 /* @var $imageCategory \Robinson\Backend\Models\Images\Destination */
                 $destinationImage = $this->getDI()->get('Robinson\Backend\Models\Images\Destination');
                 $destinationImage->createFromUploadedFile($file);
@@ -178,18 +173,18 @@ class DestinationController extends \Phalcon\Mvc\Controller
             
         }
         
-        $categories = \Robinson\Backend\Models\Category::find(array
-        (
-            'order' => 'categoryId DESC',
-        ));
+        $categories = \Robinson\Backend\Models\Category::find(
+            array(
+                'order' => 'categoryId DESC',
+            )
+        );
         
         $this->view->categories = $categories;
         $this->view->destination = $destination;
         $this->view->tabs = $this->getDI()->getShared('config')->application->destination->tabs->toArray();
         
         $tabs = $destination->getTabs();
-        foreach ($tabs as $tab)
-        {
+        foreach ($tabs as $tab) {
             $this->tag->setDefault('tabs[' . $tab->getType() . ']', $tab->getDescription());
         }
         $this->tag->setDefault('status', $destination->getStatus());

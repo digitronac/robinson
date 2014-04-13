@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Backend\Plugin;
+
 class Access extends \Phalcon\Mvc\User\Plugin
 {
     /**
@@ -24,10 +25,8 @@ class Access extends \Phalcon\Mvc\User\Plugin
         /* @var $request \Phalcon\Http\Request */
         $request = $this->getDI()->getShared('request');
 
-        if (!$acl->isAllowed($role, $controller, $action))
-        {
-            return $this->dispatcher->forward(array
-            (
+        if (!$acl->isAllowed($role, $controller, $action)) {
+            return $this->dispatcher->forward(array(
                 'controller' => 'index',
                 'action' => 'index',
             ));

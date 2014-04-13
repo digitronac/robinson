@@ -109,6 +109,19 @@
                     <input type="file" name="pdf" accept="application/pdf" />
                 </div>
             </div>
+            <div>
+                <h5>Pdf2 file: </h5>
+
+                <?php if ($package->getPdf2()): ?>
+
+                <a href="/admin/package/pdfPreview/<?=$package->getPackageId()?>?pdfType=2"><?=$package->getPdf2()?></a>
+
+                <?php endif ?>
+                <div>
+                    <label for="pdf2">Zameni pdf2:</label>
+                    <input type="file" name="pdf2" accept="application/pdf" />
+                </div>
+            </div>
         </fieldset>
         <fieldset>
             <legend>Tabovi</legend>

@@ -1,13 +1,7 @@
 <?php
-
 namespace Robinson\Frontend;
 
-use Phalcon\Loader,
-	Phalcon\Mvc\View,
-	Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter,
-	Phalcon\Mvc\ModuleDefinitionInterface;
-
-class Module implements ModuleDefinitionInterface
+class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
 {
 
     /**
@@ -22,7 +16,7 @@ class Module implements ModuleDefinitionInterface
             define('MODULE_PATH', __DIR__);
         }
 
-        $loader = new Loader();
+        $loader = new \Phalcon\Loader();
 
         $loader->registerNamespaces(
             array
@@ -44,15 +38,14 @@ class Module implements ModuleDefinitionInterface
     /**
      * Registers the module-only services
      *
-     * @param Phalcon\DI $di di
+     * @param \Phalcon\DI $di di
      *
      * @return \Phalcon\DI
      */
     public function registerServices($di)
     {
         $config = new \Phalcon\Config\Adapter\Ini(MODULE_PATH . '/config/application.ini');
-        if (is_file(MODULE_PATH . '/config/application.local.ini'))
-        {
+        if (is_file(MODULE_PATH . '/config/application.local.ini')) {
             $local = (new \Phalcon\Config\Adapter\Ini(__DIR__ . '/config/application.local.ini'));
             $config->merge($local);
         }
@@ -64,9 +57,7 @@ class Module implements ModuleDefinitionInterface
         if (in_array(
             $di->getService('request')->resolve()->getClientAddress(),
             $di->getService('config')->resolve()->application->debug->ips->toArray()
-        )
-        )
-        {
+        )) {
             (new \Phalcon\Debug())->listen();
         }
 
