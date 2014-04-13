@@ -1,12 +1,10 @@
 <?php
 
-$di->setShared('config', function() use ($config)
-{
+$di->setShared('config', function () use ($config) {
     return $config;
 });
 
-$di->set('dispatcher', function() use ($di)
-{
+$di->set('dispatcher', function () use ($di) {
     $access = new \Robinson\Backend\Plugin\Access($di);
     /* @var $eventsManger \Phalcon\Events\Manager */
     $eventsManager = $di->getShared('eventsManager');
@@ -22,8 +20,7 @@ $di->set('dispatcher', function() use ($di)
 /**
  * Setting up the view component
  */
-$di['view'] = function()
-{
+$di['view'] = function () {
     $view = new \Phalcon\Mvc\View();
     $view->setViewsDir(APPLICATION_PATH . '/backend/views/');
     return $view;
@@ -32,91 +29,72 @@ $di['view'] = function()
 /**
  * Database connection is created based in the parameters defined in the configuration file
  */
-$di['db'] = function() use ($di)
-{
+$di['db'] = function () use ($di) {
     $config = $di->getShared('config');
     $eventsManager = new \Phalcon\Events\Manager();
 
-    $logger = new \Phalcon\Logger\Adapter\Firephp(); //("app/logs/debug.log");
-    //Listen all the database events
-    /* $eventsManager->attach('db', function($event, $connection) use ($logger) 
-      {
-      if ($event->getType() == 'beforeQuery')
-      {
-      $logger->log($connection->getSQLStatement(), \Phalcon\Logger::INFO);
-      }
-      }); */
+    $logger = new \Phalcon\Logger\Adapter\Firephp();
 
-    $adapter = new \Phalcon\Db\Adapter\Pdo\Mysql(array(
-    "host" => $config->database->host,
-    "username" => $config->database->username,
-    "password" => $config->database->password,
-    "dbname" => $config->database->dbname,
-    "charset" => 'utf8',
-    ));
+    $adapter = new \Phalcon\Db\Adapter\Pdo\Mysql(
+        array(
+            "host" => $config->database->host,
+            "username" => $config->database->username,
+            "password" => $config->database->password,
+            "dbname" => $config->database->dbname,
+            "charset" => 'utf8',
+        )
+    );
     $adapter->setEventsManager($eventsManager);
     return $adapter;
 };
 
 // This function will 'divide' parts of the application with the correct url:
-$di->set('url', function() use ($di)
-{
+$di->set('url', function () use ($di) {
     $url = new \Phalcon\Mvc\Url();
     $url->setBaseUri("/");
     // For frontend module.php:  $url->setBaseUri("/");
     return $url;
 });
 
-$di->setShared('acl', function() use ($di)
-{
+$di->setShared('acl', function () use ($di) {
     $acl = new \Phalcon\Acl\Adapter\Memory();
     $acl->setDefaultAction(\Phalcon\Acl::DENY);
-    $roles = array
-    (
+    $roles = array(
         'user' => new \Phalcon\Acl\Role('User'),
         'guest' => new \Phalcon\Acl\Role('Guest'),
     );
 
-    foreach ($roles as $role)
-    {
+    foreach ($roles as $role) {
         $acl->addRole($role);
     }
 
-    $privateResources = array
-    (
+    $privateResources = array(
         'index' => array('dashboard', 'logout', 'sortTaggedPackages'),
         'category' => array('index', 'create', 'update', 'delete', 'deleteImage'),
         'destination' => array('index', 'create', 'update', 'delete', 'deleteImage'),
         'package' => array('index', 'create', 'update', 'delete', 'deleteImage', 'pdfPreview'),
     );
 
-    $publicResources = array
-    (
+    $publicResources = array(
         'index' => array('index'),
     );
 
-    foreach ($publicResources as $resource => $actions)
-    {
+    foreach ($publicResources as $resource => $actions) {
         $acl->addResource(new \Phalcon\Acl\Resource($resource), $actions);
     }
 
-    foreach ($roles as $role)
-    {
-        foreach ($publicResources as $resource => $actions)
-        {
+    foreach ($roles as $role) {
+        foreach ($publicResources as $resource => $actions) {
             $acl->allow($role->getName(), $resource, $actions);
         }
     }
 
-    foreach ($privateResources as $resource => $actions)
-    {
+    foreach ($privateResources as $resource => $actions) {
         $acl->addResource(new \Phalcon\Acl\Resource($resource), $actions);
     }
 
-    foreach ($roles as $role)
-    {
-        foreach ($privateResources as $resource => $actions)
-        {
+    foreach ($roles as $role) {
+        foreach ($privateResources as $resource => $actions) {
             $acl->allow('User', $resource, $actions);
         }
     }
@@ -124,20 +102,16 @@ $di->setShared('acl', function() use ($di)
     return $acl;
 });
 
-$di['log'] = function() use ($di)
-{
+$di['log'] = function () use ($di) {
     $log = new \Phalcon\Logger\Multiple();
     $logDir = APPLICATION_PATH . '/backend/logs/' . date('Y') . '/' . date('m') . '/' . date('d');
     $logFile = $logDir . '/' . 'log.txt';
     
-    if ($di->getService('config')->resolve()->application->log->enable)
-    {
-        if (!is_file($logFile))
-        {
+    if ($di->getService('config')->resolve()->application->log->enable) {
+        if (!is_file($logFile)) {
             mkdir($logDir, 0775, true);
 
-            if (!is_file($logFile))
-            {
+            if (!is_file($logFile)) {
                 touch($logFile);
             }
         }
@@ -146,12 +120,13 @@ $di['log'] = function() use ($di)
         //$jsonFormatter = new \Phalcon\Logger\Formatter\Json();
         $fireFormatter = new \Phalcon\Logger\Formatter\Firephp();
         $fileLogger->setFormatter($fireFormatter);
-        $log->push($fileLogger);  
+        $log->push($fileLogger);
     }
 
-    if (in_array($di->getService('request')->resolve()->getClientAddress(), 
-        $di->getService('config')->resolve()->application->debug->ips->toArray()))
-    {
+    if (in_array(
+        $di->getService('request')->resolve()->getClientAddress(),
+        $di->getService('config')->resolve()->application->debug->ips->toArray()
+    )) {
         $fireLogger = new \Phalcon\Logger\Adapter\Firephp();
         $fireFormatter = new \Phalcon\Logger\Formatter\Firephp();
         $fireLogger->setFormatter($fireFormatter);
@@ -161,8 +136,7 @@ $di['log'] = function() use ($di)
 };
 
 
-$di['assets'] = function() use ($di)
-{
+$di['assets'] = function () use ($di) {
     $assets = new \Phalcon\Assets\Manager();
    // $assets->addCss('css/css.css');
     return $assets;
