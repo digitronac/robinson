@@ -7,6 +7,7 @@ class Package extends \Robinson\Frontend\Model\Tabs\Tabs
     const TYPE_CONDITIONS = 2;
     const TYPE_AVIO = 3;
     const TYPE_BUS = 4;
+    const TYPE_ANNOTATION = 5;
     
     protected $packageTabId;
     
