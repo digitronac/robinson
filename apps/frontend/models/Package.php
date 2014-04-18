@@ -323,7 +323,7 @@ class Package extends \Phalcon\Mvc\Model
             'SELECT packages.* FROM Robinson\Frontend\Model\Package AS packages JOIN
             Robinson\Frontend\Model\Tags\Package as packageTags
             ON packages.packageId = packageTags.packageId
-            WHERE packages.status = 1 AND packageTags.type = 2'
+            WHERE packages.status = 1 AND packageTags.type = 2 ORDER BY packageTags.[order] ASC'
         );
     }
 
@@ -337,7 +337,7 @@ class Package extends \Phalcon\Mvc\Model
         return $this->_modelsManager->executeQuery(
             "SELECT packages.* FROM Robinson\Frontend\Model\Package AS packages JOIN
             Robinson\Frontend\Model\Tags\Package as packageTags ON packages.packageId = packageTags.packageId
-            WHERE packages.status = 1 AND packageTags.type = 3 LIMIT $limit"
+            WHERE packages.status = 1 AND packageTags.type = 3 ORDER BY packageTags.[order] LIMIT $limit"
         );
     }
 }
