@@ -5,6 +5,7 @@ class Package extends Tag
 {
     const TYPE_FIRST_MINUTE = 1;
     const TYPE_LAST_MINUTE = 2;
+    const TYPE_POPULAR = 3;
 
     protected $packageTagId;
 
