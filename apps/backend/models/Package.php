@@ -399,6 +399,8 @@ class Package extends \Phalcon\Mvc\Model
 
         if ($this->uploadedPdf2 instanceof \Phalcon\Http\Request\File) {
             $this->pdf2 = $this->uploadedPdf2->getName();
+        } else {
+            $this->pdf2 = new \Phalcon\Db\RawValue('""');
         }
     }
     
