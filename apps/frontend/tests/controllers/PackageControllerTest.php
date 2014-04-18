@@ -1,6 +1,8 @@
 <?php
 namespace Robinson\Frontend\Tests\Controllers;
 
+include_once APPLICATION_PATH . '/frontend/models/Pdf.php';
+
 class PackageControllerTest extends BaseTestController
 {
     public function setUp(\Phalcon\DiInterface $di = null, \Phalcon\Config $config = null)
@@ -123,11 +125,74 @@ class PackageControllerTest extends BaseTestController
         $this->assertCount(1, $this->getDI()->getShared('flashSession')->getMessages('body-error')[0]);
     }
 
+    public function testPreviewingPdfWithExistentHtmlFileShouldDisplayOutput()
+    {
+        \org\bovigo\vfs\vfsStream::setup(
+            'root',
+            0775,
+            array(
+                'public' => array(
+                    'pdf' => array(
+                        'package' => array(
+                            '1' => array(
+                                'pdffile-1.pdf.html' =>
+                                    '<html><head><base /><title>pdffile-1.pdf.html - test</title></head><body></body></html>',
+                            ),
+                        ),
+                    ),
+                )
+            )
+        );
+        $this->getDI()['config']->application->packagePdfPath = 'vfs://root/public/pdf/package';
+        $this->dispatch('/pdf/1');
+        $this->assertResponseContentContains(
+            '<html><head><base><base href="/pdf/package/1/"></head><body></body></html>'
+        );
+    }
+
+    public function testPreviewingPdfWithNonExistentHtmlFileShouldGenerateHtmlFileAndDisplayOutput()
+    {
+        \org\bovigo\vfs\vfsStream::setup(
+            'root',
+            0775,
+            array(
+                'public' => array(
+                    'pdf' => array(
+                        'package' => array(
+                            '1' => array(
+                                'pdffile-1.pdf.html' =>
+                                    '<html><head><base /><title>pdffile-1.pdf.html - test</title></head><body></body></html>',
+                            ),
+                        ),
+                    ),
+                )
+            )
+        );
+        $this->getDI()['config']->application->packagePdfPath = 'vfs://root/public/pdf/package';
+        $mockFilesystem = $this->getMockBuilder('Symfony\Component\Filesystem\Filesystem')
+            ->setMethods(array('exists'))
+            ->getMock();
+        $mockFilesystem->expects($this->at(0))
+            ->method('exists')
+            ->will($this->returnValue(false));
+        $mockFilesystem->expects($this->at(1))
+            ->method('exists')
+            ->will($this->returnValue(true));
+        $mockFilesystem->expects($this->at(2))
+            ->method('exists')
+            ->will($this->returnValue(true));
+
+        $this->getDI()['fs'] = $mockFilesystem;
+
+        $this->dispatch('/pdf/1');
+        $this->assertResponseContentContains(
+            '<html><head><base><base href="/pdf/package/1/"></head><body></body></html>'
+        );
+    }
+
     public function testAccessingInvisiblePackageShouldRedirectToIndex()
     {
         $this->dispatch('/fixture-category/fixture-destination-3/package3/3');
         $this->assertRedirectTo('/');
     }
-
-
-} 
+}

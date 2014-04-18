@@ -7,6 +7,7 @@ $this->assets->collection('javascript-footer')
     ->addJs(APPLICATION_PATH . '/../public/js/fb/source/helpers/jquery.fancybox-buttons.js')
     ->addJs(APPLICATION_PATH . '/../public/js/fb/source/helpers/jquery.fancybox-thumbs.js')
     ->addJs(APPLICATION_PATH . '/../public/js/fb/source/helpers/jquery.fancybox-media.js')
+    ->addJs(APPLICATION_PATH . '/../public/js/jquery.idTabs.min.js')
     ->join(true)
     ->setTargetPath(APPLICATION_PATH . '/../public/min/js-footer.js')
     ->setTargetUri('min/js-footer.js')
@@ -180,6 +181,8 @@ $this->assets->collection('css')
                 {
                     window.location.href = '?type=' + $(this).val() + '#packages-selector';
                 });
+
+                $('.tabs').idTabs();
 
             });
         </script>

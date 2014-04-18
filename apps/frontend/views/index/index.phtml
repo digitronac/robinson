@@ -46,5 +46,54 @@
 
         <?php endif ?>
 
+        <div id="index-first-section" class="index section tabs">
+            <ul>
+                <li><a href="#tab1" class="selected">Poslednje objave</a></li>
+                <li><a href="#tab2">Tab 2</a></li>
+                <li><a href="#tab3">Tab 3</a></li>
+            </ul>
+            <div id="tab1">
+
+                <?php foreach ($latestPackages as $package): ?>
+
+                    <div class="package-item">
+                        <div class="package-item-image">
+                            <?php if ($package->getMainImage()): ?>
+
+                                <h3>
+                                    <?=$this->tag->image(array
+                                        (
+                                            $package->getMainImage()->getResizedSrc(250),
+                                            'alt' => $package->getPackage(),
+                                        )) . PHP_EOL ?>
+                                </h3>
+
+                            <?php endif ?>
+
+                        </div>
+                        <div class="package-item-package">
+                            <h2><?=$package->getPackage()?></h2>
+                        </div>
+                        <div class="package-item-price">
+                            od <span><?=$package->getPrice()?>&euro;</span>
+                        </div>
+                        <div class="package-item-link">
+
+                            <?=$this->tag->linkTo(array
+                                (
+                                    $package->getUri(),
+                                    'REZERVIŠI',
+                                )) . PHP_EOL ?>
+
+                        </div>
+                    </div>
+
+                <?php endforeach ?>
+
+            </div>
+            <div id="tab2">More content in tab 2.</div>
+            <div id="tab3">Tab 3 is always last!</div>
+        </div>
+
     </div>
 </div>

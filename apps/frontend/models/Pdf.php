@@ -88,7 +88,7 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
         }
         
         if (!$this->filesystem->exists($html)) {
-            throw new \Robinson\Backend\Models\Exception(
+            throw new \Robinson\Frontend\Model\Exception(
                 sprintf('HTML file does not exist at location: "%s"', $html)
             );
         }
@@ -130,9 +130,8 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
     public function getPdfFile()
     {
         $pdf = $this->getPdfPath();
-        
         if (!$this->filesystem->exists($pdf)) {
-            throw new \Robinson\Backend\Models\Exception(sprintf('Pdf does not exist at location: "%s"', $pdf));
+            throw new \Robinson\Frontend\Model\Exception(sprintf('Pdf does not exist at location: "%s"', $pdf));
         }
         
         return $pdf;

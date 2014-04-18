@@ -62,6 +62,7 @@ $di->set('url', function () use ($di) {
     return $url;
 });
 
+// @codeCoverageIgnoreStart
 $di->setShared('log', function () use ($di) {
     $log = new \Phalcon\Logger\Multiple();
     $logDir = APPLICATION_PATH . '/frontend/logs/' . date('Y') . '/' . date('m') . '/' . date('d');
@@ -113,11 +114,5 @@ $di['translate'] = function () use ($di) {
     );
     return $translate;
 };
-
-$di['assets'] = function () use ($di) {
-    $assets = new \Phalcon\Assets\Manager();
-   // $assets->addCss('css/css.css');
-    return $assets;
-};
-
+// @codeCoverageIgnoreEnd
 return $di;
