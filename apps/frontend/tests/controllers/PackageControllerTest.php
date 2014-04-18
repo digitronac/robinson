@@ -68,6 +68,15 @@ class PackageControllerTest extends BaseTestController
             ->will($this->returnValue(true));
 
         $this->getDI()->setShared('request', $request);
+
+        $mockSmtpTransport = $this->getMockBuilder('Zend\Mail\Transport\Smtp')
+            ->setMethods(array('send'))
+            ->getMock();
+        $mockSmtpTransport->expects($this->once())
+            ->method('send')
+            ->will($this->returnValue(true));
+        $this->getDI()->set('Zend\Mail\Transport\Smtp', $mockSmtpTransport);
+
         $this->dispatch('/fixture-category/fixture-destination-1/package1/1');
         $this->assertRedirectTo('/#contact-form');
         $this->assertEquals('Vaša poruka je poslata! Odgovorićemo u najkraćem mogućem roku! HVALA!!! :)',

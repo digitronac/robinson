@@ -40,7 +40,8 @@ class PackageController extends ControllerBase
                     )
                 ));
 
-                $transport = new \Zend\Mail\Transport\Smtp($options);
+                /* @var $transport \Zend\Mail\Transport\Smtp */
+                $transport = $this->getDI()->get('Zend\Mail\Transport\Smtp', array($options));
 
                 $transport->send($mail);
 
