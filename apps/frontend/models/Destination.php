@@ -40,20 +40,32 @@ class Destination extends \Phalcon\Mvc\Model
     {
         $this->setSource('destinations');
 
-        $this->belongsTo('categoryId', 'Robinson\Frontend\Model\Category', 'categoryId', array
-        (
-           'alias' => 'category',
-        ));
+        $this->belongsTo(
+            'categoryId',
+            'Robinson\Frontend\Model\Category',
+            'categoryId',
+            array(
+                'alias' => 'category',
+            )
+        );
 
-        $this->hasMany('destinationId', 'Robinson\Frontend\Model\Package', 'destinationId', array
-        (
-            'alias' => 'packages',
-        ));
+        $this->hasMany(
+            'destinationId',
+            'Robinson\Frontend\Model\Package',
+            'destinationId',
+            array(
+                'alias' => 'packages',
+            )
+        );
 
-        $this->hasMany('destinationId', 'Robinson\Frontend\Model\Images\Destination', 'destinationId', array
-        (
-            'alias' => 'images',
-        ));
+        $this->hasMany(
+            'destinationId',
+            'Robinson\Frontend\Model\Images\Destination',
+            'destinationId',
+            array(
+                'alias' => 'images',
+            )
+        );
     }
 
     /**
@@ -76,8 +88,10 @@ class Destination extends \Phalcon\Mvc\Model
     public function getUri()
     {
         $filter = new \Robinson\Frontend\Filter\Unaccent();
-        return \Phalcon\Tag::friendlyTitle($filter->filter($this->category->getCategory())) .
-            '/' . $filter->filter(\Phalcon\Tag::friendlyTitle($this->destination)) . '/' . $this->destinationId;
+        return \Phalcon\Tag::friendlyTitle(
+            $filter->filter($this->category->getCategory())
+        )
+        . '/' . $filter->filter(\Phalcon\Tag::friendlyTitle($this->destination)) . '/' . $this->destinationId;
     }
 
     public function getDestinationId()
@@ -93,12 +107,15 @@ class Destination extends \Phalcon\Mvc\Model
     public function getPackages($type = null)
     {
         if ($type) {
-            return $this->getRelated('packages', array(
-                'type = :type: AND status = ' . \Robinson\Frontend\Model\Package::STATUS_VISIBLE,
-                'bind' => array(
-                    'type' => $type,
+            return $this->getRelated(
+                'packages',
+                array(
+                    'type = :type: AND status = ' . \Robinson\Frontend\Model\Package::STATUS_VISIBLE,
+                    'bind' => array(
+                        'type' => $type,
+                    )
                 )
-            ));
+            );
         }
 
         return $this->getRelated('packages');
@@ -111,14 +128,14 @@ class Destination extends \Phalcon\Mvc\Model
      */
     public function getMainImage()
     {
-        $images = $this->getImages(array
-        (
-            'order' => 'sort ASC',
-            'limit' => 1,
-        ));
+        $images = $this->getImages(
+            array(
+                'order' => 'sort ASC',
+                'limit' => 1,
+            )
+        );
 
-        if (!$images->count())
-        {
+        if (!$images->count()) {
             return;
         }
 
@@ -151,21 +168,19 @@ class Destination extends \Phalcon\Mvc\Model
         // Please acknowledge use of this code by including this header
 
         $text = strip_tags($text);
+
         // return with no change if string is shorter than $limit
         if (mb_strlen($text) <= $limit) {
             return $text;
         }
+
         // is $break present between $limit and the end of the string?
         if (false !== ($breakpoint = mb_strpos($text, $break, $limit))) {
             if ($breakpoint < mb_strlen($text) - 1) {
                 $text = mb_substr($text, 0, $breakpoint) . $pad;
-
             }
-
         }
 
         return trim($text);
-
     }
-
 }

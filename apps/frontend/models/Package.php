@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Frontend\Model;
+
 class Package extends \Phalcon\Mvc\Model
 {
     const STATUS_INVISIBLE = 0;
@@ -46,26 +47,41 @@ class Package extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSource('packages');
-        $this->belongsTo('destinationId', 'Robinson\Frontend\Model\Destination', 'destinationId', array
-        (
-            'alias' => 'destination', 
-        ));
+        $this->belongsTo(
+            'destinationId',
+            'Robinson\Frontend\Model\Destination',
+            'destinationId',
+            array(
+                'alias' => 'destination',
+            )
+        );
 
-        $this->hasMany('packageId', 'Robinson\Frontend\Model\Tabs\Package', 'packageId', array
-        (
-            'alias' => 'tabs',
-        ));
+        $this->hasMany(
+            'packageId',
+            'Robinson\Frontend\Model\Tabs\Package',
+            'packageId',
+            array(
+                'alias' => 'tabs',
+            )
+        );
 
-        $this->hasMany('packageId', 'Robinson\Frontend\Model\Tags\Package', 'packageId', array
-        (
-            'alias' => 'tags',
-        ));
+        $this->hasMany(
+            'packageId',
+            'Robinson\Frontend\Model\Tags\Package',
+            'packageId',
+            array(
+                'alias' => 'tags',
+            )
+        );
 
-        $this->hasMany('packageId', 'Robinson\Frontend\Model\Images\Package', 'packageId', array
-        (
-            'alias' => 'images',
-        ));
-
+        $this->hasMany(
+            'packageId',
+            'Robinson\Frontend\Model\Images\Package',
+            'packageId',
+            array(
+                'alias' => 'images',
+            )
+        );
     }
 
     /**
@@ -162,10 +178,12 @@ class Package extends \Phalcon\Mvc\Model
      */
     public function getImages()
     {
-        return $this->getRelated('images', array
-        (
-            'order' => 'sort ASC',
-        ));
+        return $this->getRelated(
+            'images',
+            array(
+                'order' => 'sort ASC',
+            )
+        );
     }
 
     /**
@@ -175,22 +193,21 @@ class Package extends \Phalcon\Mvc\Model
      */
     public function getMainImage()
     {
-        $images = $this->getImages(array
-        (
-            'order' => 'sort ASC',
-            'limit' => 1,
-        ));
+        $images = $this->getImages(
+            array(
+                'order' => 'sort ASC',
+                'limit' => 1,
+            )
+        );
 
-        if (!$images->count())
-        {
+        if (!$images->count()) {
             return;
         }
 
         /** @var $image \Robinson\Frontend\Model\Images\Package */
         $image = $images[0];
 
-       return $image;
-
+        return $image;
     }
 
     /**
@@ -302,10 +319,11 @@ class Package extends \Phalcon\Mvc\Model
      */
     public function findLastMinute()
     {
-        return $this->_modelsManager->executeQuery('SELECT packages.* FROM Robinson\Frontend\Model\Package AS packages JOIN
-        Robinson\Frontend\Model\Tags\Package as packageTags
-        ON packages.packageId = packageTags.packageId
-        WHERE packages.status = 1 AND packageTags.type = 2');
+        return $this->_modelsManager->executeQuery(
+            'SELECT packages.* FROM Robinson\Frontend\Model\Package AS packages JOIN
+            Robinson\Frontend\Model\Tags\Package as packageTags
+            ON packages.packageId = packageTags.packageId
+            WHERE packages.status = 1 AND packageTags.type = 2'
+        );
     }
-
 }

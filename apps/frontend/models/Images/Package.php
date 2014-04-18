@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Frontend\Model\Images;
+
 class Package extends \Robinson\Frontend\Model\Images\Images
 {
     protected $packageImageId;
@@ -35,8 +36,7 @@ class Package extends \Robinson\Frontend\Model\Images\Images
      */
     public function getImagesPath()
     {
-        if ($this->getDI()->has('config'))
-        {
+        if ($this->getDI()->has('config')) {
             return $this->getDI()->getShared('config')->application->packageImagesPath;
         }
     }
@@ -49,11 +49,15 @@ class Package extends \Robinson\Frontend\Model\Images\Images
     public function initialize()
     {
         $this->setSource('package_images');
-        $this->belongsTo('packageId', 'Robinson\Backend\Model\Package', 'packageId', array
-        (
-            'alias' => 'package',
-        ));
-        
+        $this->belongsTo(
+            'packageId',
+            'Robinson\Backend\Model\Package',
+            'packageId',
+            array(
+                'alias' => 'package',
+            )
+        );
+
         $this->setImageType(self::IMAGE_TYPE_PACKAGE);
     }
     
@@ -113,5 +117,4 @@ class Package extends \Robinson\Frontend\Model\Images\Images
     {
         return (int) $this->packageId;
     }
-
 }

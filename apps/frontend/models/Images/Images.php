@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Frontend\Model\Images;
+
 abstract class Images extends \Phalcon\Mvc\Model
 {
     const IMAGE_TYPE_DESTINATION = 'destination';
@@ -82,8 +83,7 @@ abstract class Images extends \Phalcon\Mvc\Model
     {
         $this->basePath = $this->getImagesPath();
         
-        if (!$this->filesystem)
-        {
+        if (!$this->filesystem) {
             $this->filesystem = $this->getDI()->getShared('fs');
         }
 
@@ -101,10 +101,10 @@ abstract class Images extends \Phalcon\Mvc\Model
      */
     public function setImageType($imageType)
     {
-        if (!in_array($imageType, self::$allowedTypes))
-        {
+        if (!in_array($imageType, self::$allowedTypes)) {
             throw new \Robinson\Frontend\Model\Images\Exception(
-                'imageType must be one of Robinson\Frontend\Model\Images\Images.');
+                'imageType must be one of Robinson\Frontend\Model\Images\Images.'
+            );
         }
         $this->imageType = $imageType;
         return $this;
@@ -194,58 +194,55 @@ abstract class Images extends \Phalcon\Mvc\Model
      */
     public function getResizedSrc($width = 300, $height = 0)
     {
-        if (!$this->imageType)
-        {
+        if (!$this->imageType) {
             throw new \Robinson\Backend\Models\Images\Exception(
-                'imageType must be set prior to calling getResizedSrc()');
+                'imageType must be set prior to calling getResizedSrc()'
+            );
         }
         
-        $dimensions = $this->sanitizeCropWidthAndHeight(array
-        (
-            'width' => $width,
-            'height' => $height,
-        ));
+        $dimensions = $this->sanitizeCropWidthAndHeight(
+            array
+            (
+                'width' => $width,
+                'height' => $height,
+            )
+        );
 
         $cropDir = $this->basePath . '/' . $dimensions['width'] . 'x' . $dimensions['height'];
         $cropFile = $cropDir . '/' . $this->getRealFilename();
         
-        if (!$this->filesystem->exists($cropDir))
-        {
+        if (!$this->filesystem->exists($cropDir)) {
             $this->filesystem->mkdir($cropDir);
         }
        
-        if ($this->filesystem->exists($cropFile))
-        {
+        if ($this->filesystem->exists($cropFile)) {
             return $this->compileImgPath($dimensions['width'], $dimensions['height']);
         }
 
-        /*$imagick = $this->getDI()->get('Imagick', array($this->basePath . '/' . $this->getRealFilename()));
-        $imagick->thumbnailimage($dimensions['width'], $dimensions['height']);
-        $imagick->writeimage($cropFile);*/
-
         /* @var $imagine \Imagine\Imagick\Imagine */
         $imagine = $this->getDI()->get('imagine');
-        try
-        {
+        try {
             $imagine = $imagine->open($this->basePath . '/' . $this->getRealFilename());
-            $imagine
-                ->thumbnail(new \Imagine\Image\Box($dimensions['width'], $dimensions['height']),
-                    \Imagine\Image\ImageInterface::THUMBNAIL_INSET)
-                ->save($cropFile);
+            $imagine->thumbnail(
+                new \Imagine\Image\Box(
+                    $dimensions['width'],
+                    $dimensions['height']
+                ),
+                \Imagine\Image\ImageInterface::THUMBNAIL_INSET
+            )
+            ->save($cropFile);
         } catch (\Exception $e) {
             $this->getDI()->getShared('log')->log($e->getMessage(), \Phalcon\Logger::WARNING);
         }
 
         // return before watermarking
-        if (!$this->getDI()->getShared('config')->application->watermark->enable)
-        {
+        if (!$this->getDI()->getShared('config')->application->watermark->enable) {
             return $this->compileImgPath($dimensions['width'], $dimensions['height']);
         }
-        try
-        {
+
+        try {
             $this->applyWatermark($cropFile);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             $this->getDI()->getShared('log')->log($e->getMessage(), \Phalcon\Logger::WARNING);
         }
         
@@ -261,13 +258,11 @@ abstract class Images extends \Phalcon\Mvc\Model
      */
     protected function sanitizeCropWidthAndHeight(array $dimensions)
     {
-        if ($dimensions['width'] > $this->getWidth())
-        {
+        if ($dimensions['width'] > $this->getWidth()) {
             $dimensions['width'] = $this->getWidth();
         }
         
-        if ($dimensions['height'] > $this->getHeight())
-        {
+        if ($dimensions['height'] > $this->getHeight()) {
             $dimensions['height'] = $this->getHeight();
         }
 
@@ -309,19 +304,6 @@ abstract class Images extends \Phalcon\Mvc\Model
         );
 
         return $destination->paste($watermark, $bottomRight)->save();
-
-        /*$filter = new \Robinson\Backend\Filter\Watermark(new \Imagick($this->getDI()->getShared('config')
-            ->application->watermark->watermark));
-        $filter->filter(array
-        (
-            'imagickFile' => new \Imagick($destination),
-            'destinationFile' => $destination,
-        ));*/
-        /*return $this->getDI()->get('watermark')->filter(array
-        (
-            'imagickFile' => $this->getDI()->get('Imagick', array($destination)),
-            'destinationFile' => $destination,
-        ));*/
     }
     
     /**
@@ -337,8 +319,7 @@ abstract class Images extends \Phalcon\Mvc\Model
     {
         $baseImagePath = $this->imageType . '/' . $width . 'x' . $height . '/' . $this->getRealFilename();
         
-        if ($type === 'relative')
-        {
+        if ($type === 'relative') {
             return 'img/' . $baseImagePath;
         }
     }

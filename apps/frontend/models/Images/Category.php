@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Frontend\Model\Images;
+
 class Category extends \Robinson\Frontend\Model\Images\Images
 {
     protected $categoryImageId;
@@ -23,8 +24,7 @@ class Category extends \Robinson\Frontend\Model\Images\Images
      */
     public function getImagesPath()
     {
-        if ($this->getDI()->has('config'))
-        {
+        if ($this->getDI()->has('config')) {
             return $this->getDI()->getShared('config')->application->categoryImagesPath;
         }
     }
@@ -46,5 +46,4 @@ class Category extends \Robinson\Frontend\Model\Images\Images
     {
         return $this->categoryId;
     }
-
 }

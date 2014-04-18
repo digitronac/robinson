@@ -11,8 +11,7 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
      */
     public function registerAutoloaders($di)
     {
-        if (!defined('MODULE_PATH'))
-        {
+        if (!defined('MODULE_PATH')) {
             define('MODULE_PATH', __DIR__);
         }
 
@@ -64,5 +63,4 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
         return $di;
 
     }
-
 }

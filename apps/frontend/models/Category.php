@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Frontend\Model;
+
 class Category extends \Phalcon\Mvc\Model
 {
     const STATUS_INVISIBLE = 0;
@@ -31,15 +32,25 @@ class Category extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSource('categories');
-        $this->hasMany('categoryId', 'Robinson\Frontend\Model\Images\Category', 'categoryId', array
-        (
-            'alias' => 'images',
-        ));
+        $this->hasMany(
+            'categoryId',
+            'Robinson\Frontend\Model\Images\Category',
+            'categoryId',
+            array
+            (
+                'alias' => 'images',
+            )
+        );
 
-        $this->hasMany('categoryId', 'Robinson\Frontend\Model\Destination', 'categoryId', array
-        (
-            'alias' => 'destinations',
-        ));
+        $this->hasMany(
+            'categoryId',
+            'Robinson\Frontend\Model\Destination',
+            'categoryId',
+            array
+            (
+                'alias' => 'destinations',
+            )
+        );
 
     }
 
@@ -58,7 +69,8 @@ class Category extends \Phalcon\Mvc\Model
     public function getUri()
     {
         $filter = new \Robinson\Frontend\Filter\Unaccent();
-        return '/' . $this->getDI()->getShared('tag')->friendlyTitle($filter->filter($this->category)) . '/' . $this->categoryId;
+        return '/' . $this->getDI()->getShared('tag')
+            ->friendlyTitle($filter->filter($this->category)) . '/' . $this->categoryId;
     }
 
     /**
@@ -88,10 +100,12 @@ class Category extends \Phalcon\Mvc\Model
      */
     public function getImages()
     {
-        return $this->getRelated('images', array
-        (
-            'order' => 'sort ASC',
-        ));
+        return $this->getRelated(
+            'images',
+            array(
+                'order' => 'sort ASC',
+            )
+        );
     }
 
     /**
@@ -101,10 +115,13 @@ class Category extends \Phalcon\Mvc\Model
      */
     public function getDestinations()
     {
-        return $this->getRelated('destinations', array
-        (
-            'status = ' . \Robinson\Frontend\Model\Destination::STATUS_VISIBLE,
-            'order' => 'destination ASC',
-        ));
+        return $this->getRelated(
+            'destinations',
+            array
+            (
+                'status = ' . \Robinson\Frontend\Model\Destination::STATUS_VISIBLE,
+                'order' => 'destination ASC',
+            )
+        );
     }
 }

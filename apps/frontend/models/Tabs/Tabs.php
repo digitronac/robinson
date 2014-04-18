@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Frontend\Model\Tabs;
+
 abstract class Tabs extends \Phalcon\Mvc\Model
 {
     protected $title;
@@ -29,7 +30,7 @@ abstract class Tabs extends \Phalcon\Mvc\Model
     public function setTitle($title)
     {
         $this->title = $title;
-        return $this; 
+        return $this;
     }
     
     /**

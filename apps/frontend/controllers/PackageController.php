@@ -44,9 +44,14 @@ class PackageController extends ControllerBase
 
                 $transport->send($mail);
 
-                $this->flashSession->message('success', 'Vaša poruka je poslata! Odgovorićemo u najkraćem mogućem roku! HVALA!!! :)');
+                $this->flashSession->message(
+                    'success',
+                    'Vaša poruka je poslata! Odgovorićemo u najkraćem mogućem roku! HVALA!!! :)'
+                );
 
-                return $this->response->redirect(ltrim($this->request->getServer('REQUEST_URI') . '#contact-form', '/'));
+                return $this->response->redirect(
+                    ltrim($this->request->getServer('REQUEST_URI') . '#contact-form', '/')
+                );
             } else {
                 foreach ($messages as $type => $message) {
                     $this->flashSession->message($type, $message);
@@ -55,7 +60,9 @@ class PackageController extends ControllerBase
                 $this->flashSession->message('email', $this->request->getPost('email'));
                 $this->flashSession->message('body', $this->request->getPost('body'));
 
-                return $this->response->redirect(ltrim($this->request->getServer('REQUEST_URI') . '#contact-form', '/'));
+                return $this->response->redirect(
+                    ltrim($this->request->getServer('REQUEST_URI') . '#contact-form', '/')
+                );
             }
         }
 
@@ -113,4 +120,4 @@ class PackageController extends ControllerBase
 
         return $messages;
     }
-} 
+}

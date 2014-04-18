@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Frontend\Model\Images;
+
 class Destination extends \Robinson\Frontend\Model\Images\Images
 {
     protected $destinationImageId;
@@ -23,8 +24,7 @@ class Destination extends \Robinson\Frontend\Model\Images\Images
      */
     public function getImagesPath()
     {
-        if ($this->getDI()->has('config'))
-        {
+        if ($this->getDI()->has('config')) {
             return $this->getDI()->getShared('config')->application->destinationImagesPath;
         }
     }
@@ -37,10 +37,14 @@ class Destination extends \Robinson\Frontend\Model\Images\Images
     public function initialize()
     {
         $this->setSource('destination_images');
-        $this->belongsTo('destinationId', 'Robinson\Frontend\Model\Destination', 'destinationId', array
-        (
-            'alias' => 'destinations',
-        ));
+        $this->belongsTo(
+            'destinationId',
+            'Robinson\Frontend\Model\Destination',
+            'destinationId',
+            array(
+                'alias' => 'destinations',
+            )
+        );
         
         $this->setImageType(self::IMAGE_TYPE_DESTINATION);
     }
@@ -67,5 +71,4 @@ class Destination extends \Robinson\Frontend\Model\Images\Images
     {
         return $this->destinationId;
     }
-
 }

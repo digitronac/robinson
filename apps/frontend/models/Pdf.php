@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Frontend\Model;
+
 class Pdf implements \Phalcon\DI\InjectionAwareInterface
 {
     const PDF_FIRST = 1;
@@ -55,9 +56,12 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
      * @param string                                   $baseDir   path to package pdf folder
      * @param int                                      $pdfType   type of pdf
      */
-    public function __construct(\Symfony\Component\Filesystem\Filesystem $filesystem,
-        \Robinson\Frontend\Model\Package $package, $baseDir, $pdfType = self::PDF_FIRST)
-    {
+    public function __construct(
+        \Symfony\Component\Filesystem\Filesystem $filesystem,
+        \Robinson\Frontend\Model\Package $package,
+        $baseDir,
+        $pdfType = self::PDF_FIRST
+    ) {
         $this->filesystem = $filesystem;
         $this->package = $package;
         $this->baseDir = $baseDir;
@@ -75,8 +79,7 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
     {
         $html = $this->getPdfPath() . '.html';
         
-        if (!$this->filesystem->exists($html))
-        {
+        if (!$this->filesystem->exists($html)) {
             // generate .html
             $command = $this->getCompiledCommand($html);
             chmod($this->getPdfFile(), 0777);
@@ -84,9 +87,10 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
             chmod($html, 0777);
         }
         
-        if (!$this->filesystem->exists($html))
-        {
-            throw new \Robinson\Backend\Models\Exception(sprintf('HTML file does not exist at location: "%s"', $html));
+        if (!$this->filesystem->exists($html)) {
+            throw new \Robinson\Backend\Models\Exception(
+                sprintf('HTML file does not exist at location: "%s"', $html)
+            );
         }
         
         return $html;
@@ -109,8 +113,10 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
         $base = $document->createElement('base');
         $base->setAttribute('href', $baseUri . '/' . $this->package->getPackageId() . '/');
         $document->getElementsByTagName('head')->item(0)->appendChild($base);
-        $document->getElementsByTagName('head')->item(0)->removeChild($document->getElementsByTagName('title')
-            ->item(0));
+        $document->getElementsByTagName('head')->item(0)->removeChild(
+            $document->getElementsByTagName('title')
+            ->item(0)
+        );
         return $document;
     }
     
@@ -125,8 +131,7 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
     {
         $pdf = $this->getPdfPath();
         
-        if (!$this->filesystem->exists($pdf))
-        {
+        if (!$this->filesystem->exists($pdf)) {
             throw new \Robinson\Backend\Models\Exception(sprintf('Pdf does not exist at location: "%s"', $pdf));
         }
         

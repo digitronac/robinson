@@ -12,10 +12,8 @@ class IndexController extends ControllerBase
      */
     public function indexAction()
     {
-        /** @var $package Robinson\Frontend\Model\Package */
+        /** @var $package \Robinson\Frontend\Model\Package */
         $package = $this->getDI()->get('Robinson\Frontend\Model\Package');
         $this->view->lastMinutePackages = $package->findLastMinute();
     }
-
 }
-

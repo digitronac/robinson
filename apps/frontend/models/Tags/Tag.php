@@ -1,5 +1,6 @@
 <?php
 namespace Robinson\Frontend\Model\Tags;
+
 abstract class Tag extends \Phalcon\Mvc\Model
 {
     protected $tag;
@@ -13,7 +14,7 @@ abstract class Tag extends \Phalcon\Mvc\Model
      * 
      * @return void
      */
-    abstract function initialize();
+    abstract public function initialize();
     
 
     /**
@@ -44,6 +45,5 @@ abstract class Tag extends \Phalcon\Mvc\Model
      * 
      * @return string tag title
      */
-    abstract function resolveTypeToTagTitle($type);
-    
+    abstract public function resolveTypeToTagTitle($type);
 }
