@@ -42,24 +42,4 @@ class Package extends Tag
     {
         return $this->getDI()->getShared('config')->application->package->tags->toArray[$type];
     }
-
-    /**
-     * Gets package tag order.
-     *
-     * @return int
-     */
-    public function getOrder()
-    {
-        return (int) $this->order;
-    }
-
-    /**
-     * Gets package id.
-     *
-     * @return int
-     */
-    public function getPackageId()
-    {
-        return (int) $this->packageId;
-    }
 }

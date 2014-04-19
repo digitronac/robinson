@@ -48,19 +48,7 @@ class Destination extends \Robinson\Frontend\Model\Images\Images
         
         $this->setImageType(self::IMAGE_TYPE_DESTINATION);
     }
-    
-    /**
-     * Sets destinationId.
-     * 
-     * @param int $destinationId destinationId
-     * 
-     * @return \Robinson\Frontend\Model\Images\Destination
-     */
-    public function setDestinationId($destinationId)
-    {
-        $this->destinationId = (int) $destinationId;
-        return $this;
-    }
+
 
     /**
      * Id to which this model belongs.

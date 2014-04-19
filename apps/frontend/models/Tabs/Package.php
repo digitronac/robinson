@@ -31,37 +31,4 @@ class Package extends \Robinson\Frontend\Model\Tabs\Tabs
             )
         );
     }
-    
-    /**
-     * Sets packageId.
-     * 
-     * @param int $packageId fk
-     * 
-     * @return \Robinson\Frontend\Model\Tabs\Package
-     */
-    public function setPackageId($packageId)
-    {
-        $this->packageId = (int) $packageId;
-        return $this;
-    }
-    
-    /**
-     * Gets packageId.
-     * 
-     * @return int
-     */
-    public function getPackageId()
-    {
-        return (int) $this->packageId;
-    }
-
-    /**
-     * Returns tab title based on tab type.
-     * 
-     * @return string title
-     */
-    public function resolveTypeToTitle()
-    {
-        return ($this->getDI()->getShared('config')->application->package->tabs->toArray()[$this->getType()]);
-    }
 }

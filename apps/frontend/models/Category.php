@@ -128,16 +128,4 @@ class Category extends \Phalcon\Mvc\Model
             )
         );
     }
-
-    public function findByIds(array $ids)
-    {
-        $implodedIds = implode(',', $ids);
-        return $this->_modelsManager->executeQuery(
-            "
-            SELECT * FROM \Robinson\Frontend\Model\Category AS categories
-            WHERE categories.categoryId IN ($implodedIds) AND status = 1
-            ORDER BY FIND_IN_SET(categoryId, '$implodedIds')
-            "
-        );
-    }
 }

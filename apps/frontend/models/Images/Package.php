@@ -71,20 +71,7 @@ class Package extends \Robinson\Frontend\Model\Images\Images
         $this->setImageType(self::IMAGE_TYPE_PACKAGE);
         return parent::onConstruct();
     }
-    
-    /**
-     * Set image title.
-     * 
-     * @param string $title image title
-     * 
-     * @return \Robinson\Backend\Models\Images\Package
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-        return $this;
-    }
-    
+
     /**
      * Gets image title.
      * 
@@ -93,19 +80,6 @@ class Package extends \Robinson\Frontend\Model\Images\Images
     public function getTitle()
     {
         return $this->title;
-    }
-    
-    /**
-     * Set packageId
-     * 
-     * @param int $packageId packageId
-     * 
-     * @return \Robinson\Backend\Models\Images\Package
-     */
-    public function setPackageId($packageId)
-    {
-        $this->packageId = (int) $packageId;
-        return $this;
     }
 
     /**
