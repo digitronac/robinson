@@ -33,6 +33,7 @@
 	 "imagine/imagine": "0.6.*@dev",
 	 "ext-imagick": "*",
 	 "symfony/filesystem": "2.5.*@dev",
+	 "judev/php-htmltruncator": "1.0.0",
 	 "zendframework/zend-resources": "2.2.5",
 	 "zendframework/zend-mail": "2.2.5",
 	 "zendframework/zend-validator": "2.2.5",

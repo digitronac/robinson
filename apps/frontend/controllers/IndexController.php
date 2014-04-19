@@ -27,5 +27,18 @@ class IndexController extends ControllerBase
         );
 
         $this->view->popularPackages = $package->findPopular(4);
+
+        $category = $this->getDI()->get('Robinson\Frontend\Model\Category');
+        $tabs = array();
+        //$this->view->categoryTabs = $category->findByIds($this->config->application->display->tabs->index->toArray());
+        foreach ($this->config->application->display->tabs->index->toArray() as $key => $tab) {
+            $stdClass = new \stdClass();
+            $stdClass->name = $tab;
+            $stdClass->category = $category->findFirst(array(
+                'conditions' => "categoryId = $key AND status = 1",
+            ));
+            $tabs[] = $stdClass;
+        }
+        $this->view->tabs = $tabs;
     }
 }

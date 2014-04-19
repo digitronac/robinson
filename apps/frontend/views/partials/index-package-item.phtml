@@ -1,0 +1,32 @@
+
+<div class="package-item">
+    <div class="package-item-image">
+        <?php if ($package->getMainImage()): ?>
+
+            <h3>
+                <?=$this->tag->image(array
+                    (
+                        $package->getMainImage()->getResizedSrc(250),
+                        'alt' => $package->getPackage(),
+                    )) . PHP_EOL ?>
+            </h3>
+
+        <?php endif ?>
+
+    </div>
+    <div class="package-item-package">
+        <h2><?=$package->getPackage()?></h2>
+    </div>
+    <div class="package-item-price">
+        od <span><?=$package->getPrice()?>&euro;</span>
+    </div>
+    <div class="package-item-link">
+
+        <?=$this->tag->linkTo(array
+            (
+                $package->getUri(),
+                'REZERVIŠI',
+            )) . PHP_EOL ?>
+
+    </div>
+</div>

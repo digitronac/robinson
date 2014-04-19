@@ -3,8 +3,60 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "967bda008c19df871d3ea6ae30462ad7",
+    "hash": "7e03341fa40dc832702087dc5f7d6ed0",
     "packages": [
+        {
+            "name": "electrolinux/php-html5lib",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/electrolinux/php-html5lib.git",
+                "reference": "9f92154993c7ecb120d9f9c0e558660d32846721"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/electrolinux/php-html5lib/zipball/9f92154993c7ecb120d9f9c0e558660d32846721",
+                "reference": "9f92154993c7ecb120d9f9c0e558660d32846721",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "HTML5Lib": "src/",
+                    "HTML5Lib\\Tests": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Multiple users",
+                    "homepage": "https://code.google.com/p/html5lib/",
+                    "role": "Original developers"
+                },
+                {
+                    "name": "Sébastien Lavoie",
+                    "homepage": "http://blog.lavoie.sl",
+                    "role": "Packager"
+                },
+                {
+                    "name": "didier Belot",
+                    "role": "Packager"
+                }
+            ],
+            "description": "A PHP implementations of a HTML parser based on the WHATWG HTML5 specification.",
+            "homepage": "https://github.com/electrolinux/php-html5lib",
+            "keywords": [
+                "HTML5",
+                "php"
+            ],
+            "time": "2013-03-18 18:32:30"
+        },
         {
             "name": "imagine/imagine",
             "version": "dev-develop",
@@ -63,18 +115,61 @@
             "time": "2014-04-09 21:47:26"
         },
         {
+            "name": "judev/php-htmltruncator",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/judev/php-htmltruncator.git",
+                "reference": "539067a747a52765b0cd23e2a06940d2ef059976"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/judev/php-htmltruncator/zipball/539067a747a52765b0cd23e2a06940d2ef059976",
+                "reference": "539067a747a52765b0cd23e2a06940d2ef059976",
+                "shasum": ""
+            },
+            "require": {
+                "electrolinux/php-html5lib": "dev-master",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "HtmlTruncator": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jude Venn",
+                    "homepage": "https://github.com/judev",
+                    "role": "Developer"
+                }
+            ],
+            "description": "HTML Truncation library, ported from the html_truncator rubygem",
+            "homepage": "https://github.com/judev/php-htmltruncator",
+            "keywords": [
+                "html",
+                "php"
+            ],
+            "time": "2014-03-03 15:08:42"
+        },
+        {
             "name": "symfony/filesystem",
             "version": "dev-master",
             "target-dir": "Symfony/Component/Filesystem",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
-                "reference": "fe66eed49c7bbfc312978ef0f86e490127a345b2"
+                "reference": "98e831eac836a0a5911626ce82684155f21d0e4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/fe66eed49c7bbfc312978ef0f86e490127a345b2",
-                "reference": "fe66eed49c7bbfc312978ef0f86e490127a345b2",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/98e831eac836a0a5911626ce82684155f21d0e4d",
+                "reference": "98e831eac836a0a5911626ce82684155f21d0e4d",
                 "shasum": ""
             },
             "require": {
@@ -109,7 +204,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
-            "time": "2014-03-26 12:01:00"
+            "time": "2014-04-16 10:36:21"
         },
         {
             "name": "zendframework/zendframework",
@@ -271,12 +366,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/mikey179/vfsStream.git",
-                "reference": "545e3fb1dc11453685527850370d7c1591bfd846"
+                "reference": "441e098ed3795bdc4c5af52d0a2ee5d4460b15e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikey179/vfsStream/zipball/545e3fb1dc11453685527850370d7c1591bfd846",
-                "reference": "545e3fb1dc11453685527850370d7c1591bfd846",
+                "url": "https://api.github.com/repos/mikey179/vfsStream/zipball/441e098ed3795bdc4c5af52d0a2ee5d4460b15e3",
+                "reference": "441e098ed3795bdc4c5af52d0a2ee5d4460b15e3",
                 "shasum": ""
             },
             "require": {
@@ -301,7 +396,7 @@
                 "BSD"
             ],
             "homepage": "http://vfs.bovigo.org/",
-            "time": "2014-03-24 21:06:58"
+            "time": "2014-04-19 11:02:13"
         },
         {
             "name": "pdepend/pdepend",
@@ -338,7 +433,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digitronac/incubator/zipball/5917f84f12256bb2eec0ac758f85c23755b93249",
+                "url": "https://api.github.com/repos/digitronac/incubator/zipball/5f8b6f500d15fc070cf23f43266b320f91246872",
                 "reference": "837098969e79978a7828354ba5d6666175852cb7",
                 "shasum": ""
             },
@@ -978,12 +1073,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ClassLoader.git",
-                "reference": "53bae88d2d89ce9fb130f6968b74d31d4a2c732e"
+                "reference": "09e38e4d228c1f7f997f3dc7068d9d2fba9a10b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/53bae88d2d89ce9fb130f6968b74d31d4a2c732e",
-                "reference": "53bae88d2d89ce9fb130f6968b74d31d4a2c732e",
+                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/09e38e4d228c1f7f997f3dc7068d9d2fba9a10b0",
+                "reference": "09e38e4d228c1f7f997f3dc7068d9d2fba9a10b0",
                 "shasum": ""
             },
             "require": {
@@ -1021,7 +1116,7 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "http://symfony.com",
-            "time": "2014-04-03 05:23:50"
+            "time": "2014-04-16 10:36:34"
         },
         {
             "name": "symfony/config",
@@ -1030,12 +1125,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Config.git",
-                "reference": "5dea300292c6c1e87e5e98e0418764a6682c0b1a"
+                "reference": "56908ccfd21eba6a57fa52fa28f50f0803f2fdb2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Config/zipball/5dea300292c6c1e87e5e98e0418764a6682c0b1a",
-                "reference": "5dea300292c6c1e87e5e98e0418764a6682c0b1a",
+                "url": "https://api.github.com/repos/symfony/Config/zipball/56908ccfd21eba6a57fa52fa28f50f0803f2fdb2",
+                "reference": "56908ccfd21eba6a57fa52fa28f50f0803f2fdb2",
                 "shasum": ""
             },
             "require": {
@@ -1071,7 +1166,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "http://symfony.com",
-            "time": "2014-04-03 05:23:50"
+            "time": "2014-04-18 20:40:13"
         },
         {
             "name": "symfony/console",
@@ -1080,12 +1175,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "abfdf388c2f47c4d4ba721afab7e91f15ffa476f"
+                "reference": "822312aea23a8ab345402a62ffdcc5acd2739c32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/abfdf388c2f47c4d4ba721afab7e91f15ffa476f",
-                "reference": "abfdf388c2f47c4d4ba721afab7e91f15ffa476f",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/822312aea23a8ab345402a62ffdcc5acd2739c32",
+                "reference": "822312aea23a8ab345402a62ffdcc5acd2739c32",
                 "shasum": ""
             },
             "require": {
@@ -1128,7 +1223,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-04-02 16:54:39"
+            "time": "2014-04-16 10:36:34"
         },
         {
             "name": "symfony/yaml",
@@ -1137,12 +1232,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "cee3067d680232674c6505d91db9d3d635a9a8f4"
+                "reference": "e9525fc511a51e7bfa214c6c420515c580fda35a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/cee3067d680232674c6505d91db9d3d635a9a8f4",
-                "reference": "cee3067d680232674c6505d91db9d3d635a9a8f4",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/e9525fc511a51e7bfa214c6c420515c580fda35a",
+                "reference": "e9525fc511a51e7bfa214c6c420515c580fda35a",
                 "shasum": ""
             },
             "require": {
@@ -1177,7 +1272,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-03-26 11:51:10"
+            "time": "2014-04-18 20:40:13"
         }
     ],
     "aliases": [

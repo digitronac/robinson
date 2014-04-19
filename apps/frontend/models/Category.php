@@ -78,9 +78,13 @@ class Category extends \Phalcon\Mvc\Model
      *
      * @return string
      */
-    public function getDescription()
+    public function getDescription($limit = null)
     {
-        return $this->description;
+        if (!$limit) {
+            return $this->description;
+        }
+
+        return \HtmlTruncator\Truncator::truncate($this->description, $limit);
     }
 
     /**
@@ -122,6 +126,18 @@ class Category extends \Phalcon\Mvc\Model
                 'status = ' . \Robinson\Frontend\Model\Destination::STATUS_VISIBLE,
                 'order' => 'destination ASC',
             )
+        );
+    }
+
+    public function findByIds(array $ids)
+    {
+        $implodedIds = implode(',', $ids);
+        return $this->_modelsManager->executeQuery(
+            "
+            SELECT * FROM \Robinson\Frontend\Model\Category AS categories
+            WHERE categories.categoryId IN ($implodedIds) AND status = 1
+            ORDER BY FIND_IN_SET(categoryId, '$implodedIds')
+            "
         );
     }
 }

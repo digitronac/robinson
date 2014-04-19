@@ -8,37 +8,10 @@
 
             <?php foreach ($lastMinutePackages as $package): ?>
 
-            <div class="package-item">
-                <div class="package-item-image">
-                    <?php if ($package->getMainImage()): ?>
-
-                    <h3>
-                    <?=$this->tag->image(array
-                    (
-                        $package->getMainImage()->getResizedSrc(250),
-                        'alt' => $package->getPackage(),
-                    )) . PHP_EOL ?>
-                    </h3>
-
-                    <?php endif ?>
-
-                </div>
-                <div class="package-item-package">
-                    <h2><?=$package->getPackage()?></h2>
-                </div>
-                <div class="package-item-price">
-                    od <span><?=$package->getPrice()?>&euro;</span>
-                </div>
-                <div class="package-item-link">
-
-                    <?=$this->tag->linkTo(array
-                    (
-                        $package->getUri(),
-                        'REZERVIŠI',
-                    )) . PHP_EOL ?>
-
-                </div>
-            </div>
+                <?=$this->partial(
+                    'partials/index-package-item',
+                    array('package' => $package)
+                ) . PHP_EOL ?>
 
             <?php endforeach ?>
 
@@ -55,37 +28,10 @@
 
                 <?php foreach ($latestPackages as $package): ?>
 
-                    <div class="package-item">
-                        <div class="package-item-image">
-                            <?php if ($package->getMainImage()): ?>
-
-                                <h3>
-                                    <?=$this->tag->image(array
-                                        (
-                                            $package->getMainImage()->getResizedSrc(250),
-                                            'alt' => $package->getPackage(),
-                                        )) . PHP_EOL ?>
-                                </h3>
-
-                            <?php endif ?>
-
-                        </div>
-                        <div class="package-item-package">
-                            <h2><?=$package->getPackage()?></h2>
-                        </div>
-                        <div class="package-item-price">
-                            od <span><?=$package->getPrice()?>&euro;</span>
-                        </div>
-                        <div class="package-item-link">
-
-                            <?=$this->tag->linkTo(array
-                                (
-                                    $package->getUri(),
-                                    'REZERVIŠI',
-                                )) . PHP_EOL ?>
-
-                        </div>
-                    </div>
+                    <?=$this->partial(
+                        'partials/index-package-item',
+                        array('package' => $package)
+                    ) . PHP_EOL ?>
 
                 <?php endforeach ?>
 
@@ -94,41 +40,47 @@
 
                 <?php foreach ($popularPackages as $package): ?>
 
-                    <div class="package-item">
-                        <div class="package-item-image">
-                            <?php if ($package->getMainImage()): ?>
-
-                                <h3>
-                                    <?=$this->tag->image(array
-                                        (
-                                            $package->getMainImage()->getResizedSrc(250),
-                                            'alt' => $package->getPackage(),
-                                        )) . PHP_EOL ?>
-                                </h3>
-
-                            <?php endif ?>
-
-                        </div>
-                        <div class="package-item-package">
-                            <h2><?=$package->getPackage()?></h2>
-                        </div>
-                        <div class="package-item-price">
-                            od <span><?=$package->getPrice()?>&euro;</span>
-                        </div>
-                        <div class="package-item-link">
-
-                            <?=$this->tag->linkTo(array
-                                (
-                                    $package->getUri(),
-                                    'REZERVIŠI',
-                                )) . PHP_EOL ?>
-
-                        </div>
-                    </div>
+                <?=$this->partial(
+                        'partials/index-package-item',
+                        array('package' => $package)
+                ) . PHP_EOL ?>
 
                 <?php endforeach ?>
 
             </div>
+        </div>
+
+        <div id="index-category-tabs-section" class="index section tabs">
+            <ul>
+                <?php foreach ($tabs as $key => $tab): ?>
+
+                    <li><a href="#category-tab-<?=$key?>"><?=$tab->name?></a></li>
+                <?php endforeach ?>
+            </ul>
+
+            <?php foreach ($tabs as $key => $tab): ?>
+
+            <div class="category-tab" id="category-tab-<?=$key?>">
+
+                <div class="cat-preview">
+
+                    <?php if (isset($tab->category->images[0])): ?>
+
+                    <div class="cat-thumb">
+                        <?=\Phalcon\Tag::image($tab->category->images[0]->getResizedSrc()) . PHP_EOL ?>
+                    </div>
+                    <?php endif ?>
+                </div>
+
+                <div class="cat-text">
+
+                    <?=$tab->category->getDescription(200) . PHP_EOL ?>
+                </div>
+
+            </div>
+
+            <?php endforeach ?>
+
         </div>
 
     </div>
