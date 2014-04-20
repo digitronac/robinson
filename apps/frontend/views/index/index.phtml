@@ -52,14 +52,14 @@
 
         <div id="index-category-tabs-section" class="index section tabs">
             <ul class="tabs-nav">
-                <?php $i = 1; foreach ($firstTabs as $key => $tab): ?>
+                <?php $i = 1; foreach ($topTabs as $key => $tab): ?>
 
                     <li><a href="#category-tab-<?=$key?>"<?=($i === 1) ? ' class="selected first-cat"' : ''?>><?=$tab->name?></a></li>
                 <?php $i++; endforeach ?>
 
             </ul>
 
-            <?php foreach ($firstTabs as $key => $tab): ?>
+            <?php foreach ($topTabs as $key => $tab): ?>
 
             <div class="category-tab" id="category-tab-<?=$key?>">
 
@@ -87,7 +87,7 @@
         <div id="index-category-links-section" class="index section tabs">
             <ul>
 
-                <?php $i = 1; foreach ($secondTabs as $key => $tab): ?>
+                <?php $i = 1; foreach ($bottomTabs as $key => $tab): ?>
 
                     <li><a href="#category-link-tab-<?=$key?>"<?=($i === 1) ? ' class="selected"' : ''?>><?=mb_strtoupper($tab->name)?></a></li>
 
@@ -95,7 +95,7 @@
 
             </ul>
 
-            <?php foreach ($secondTabs as $key => $tab): ?>
+            <?php foreach ($bottomTabs as $key => $tab): ?>
 
                 <div class="package-tab" id="category-link-tab-<?=$key?>">
 

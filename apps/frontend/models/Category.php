@@ -128,7 +128,14 @@ class Category extends \Phalcon\Mvc\Model
         );
     }
 
-    public function getPackagesDirectly()
+    /**
+     * Returns packages that belong to this category.
+     *
+     * @param int $limit limit
+     *
+     * @return \Robinson\Frontend\Model\Package
+     */
+    public function getPackagesDirectly($limit)
     {
         $catId = $this->getCategoryId();
         $sql =
@@ -136,7 +143,7 @@ class Category extends \Phalcon\Mvc\Model
             SELECT packages.* FROM \Robinson\Frontend\Model\Package as packages
             INNER JOIN \Robinson\Frontend\Model\Destination as destinations
             WHERE destinations.categoryId = $catId
-            LIMIT 8
+            LIMIT $limit
         ";
         return $this->_modelsManager->executeQuery($sql);
     }

@@ -28,37 +28,59 @@ class IndexController extends ControllerBase
 
         $this->view->popularPackages = $package->findPopular(4);
 
+        $this->view->topTabs = $this->makeTopTabs();
+        $this->view->bottomTabs = $this->makeBottomTabs(8);
+    }
+
+    /**
+     * Creates array of objects that contain data for building landing page bottom tabs.
+     *
+     * @param int $limit limit
+     *
+     * @return array tabs data
+     */
+    protected function makeBottomTabs($limit)
+    {
         $category = $this->getDI()->get('Robinson\Frontend\Model\Category');
         $tabs = array();
-        //$this->view->categoryTabs = $category->findByIds($this->config->application->display->tabs->index->toArray());
-        foreach ($this->config->application->display->tabs->first->index->toArray() as $key => $tab) {
-            $stdClass = new \stdClass();
-            $stdClass->name = $tab;
-            $stdClass->category = $category->findFirst(array(
-                'conditions' => "categoryId = $key AND status = 1",
-            ));
-            $tabs[] = $stdClass;
-        }
-
-        $this->view->firstTabs = $tabs;
-
-        $tabs = array();
-        foreach ($this->config->application->display->tabs->second->index->toArray() as $key => $tab) {
+        foreach ($this->config->application->tabs->landing->bottom->toArray() as $key => $tab) {
             $stdClass = new \stdClass();
             $stdClass->name = $tab;
             $category = $category->findFirst(array(
                     'conditions' => "categoryId = $key AND status = 1",
-                    'limit' => 8,
-            ));
+                    'limit' => $limit,
+                ));
 
             if (!$category) {
                 continue;
             }
-            $packages = $category->getPackagesDirectly();
+            $packages = $category->getPackagesDirectly($limit);
             $stdClass->packages = $packages;
             $tabs[] = $stdClass;
         }
 
-        $this->view->secondTabs = $tabs;
+        return $tabs;
+    }
+
+    /**
+     * Creates array of objects that contain data for building landing page top tabs.
+     *
+     * @return array tabs data
+     */
+    protected function makeTopTabs()
+    {
+        $category = $this->getDI()->get('Robinson\Frontend\Model\Category');
+        $tabs = array();
+
+        foreach ($this->config->application->tabs->landing->top->toArray() as $key => $tab) {
+            $stdClass = new \stdClass();
+            $stdClass->name = $tab;
+            $stdClass->category = $category->findFirst(array(
+                    'conditions' => "categoryId = $key AND status = 1",
+            ));
+            $tabs[] = $stdClass;
+        }
+
+        return $tabs;
     }
 }
