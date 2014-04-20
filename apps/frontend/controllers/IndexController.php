@@ -31,7 +31,7 @@ class IndexController extends ControllerBase
         $category = $this->getDI()->get('Robinson\Frontend\Model\Category');
         $tabs = array();
         //$this->view->categoryTabs = $category->findByIds($this->config->application->display->tabs->index->toArray());
-        foreach ($this->config->application->display->tabs->index->toArray() as $key => $tab) {
+        foreach ($this->config->application->display->tabs->first->index->toArray() as $key => $tab) {
             $stdClass = new \stdClass();
             $stdClass->name = $tab;
             $stdClass->category = $category->findFirst(array(
