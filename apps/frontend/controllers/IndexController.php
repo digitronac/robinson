@@ -39,6 +39,26 @@ class IndexController extends ControllerBase
             ));
             $tabs[] = $stdClass;
         }
-        $this->view->tabs = $tabs;
+
+        $this->view->firstTabs = $tabs;
+
+        $tabs = array();
+        foreach ($this->config->application->display->tabs->second->index->toArray() as $key => $tab) {
+            $stdClass = new \stdClass();
+            $stdClass->name = $tab;
+            $category = $category->findFirst(array(
+                    'conditions' => "categoryId = $key AND status = 1",
+                    'limit' => 8,
+            ));
+
+            if (!$category) {
+                continue;
+            }
+            $packages = $category->getPackagesDirectly();
+            $stdClass->packages = $packages;
+            $tabs[] = $stdClass;
+        }
+
+        $this->view->secondTabs = $tabs;
     }
 }

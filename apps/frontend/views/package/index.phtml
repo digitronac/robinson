@@ -37,7 +37,7 @@
                 <div>
                     <img u="image" src="/<?=$image->getResizedSrc(800)?>" alt="<?=$image->getTitle()?>" />
                     <div u="caption" t="*" class="captionOrange" style="position:absolute;left:20px;top:30px;width:300px;height:30px;">
-                        <?=$image->getTitle()?>
+                        <?=$this->escaper->escapeHtml($image->getTitle()) . PHP_EOL ?>
                     </div>
                     <img u="thumb" src="/<?=$image->getResizedSrc(74)?>" />
                 </div>

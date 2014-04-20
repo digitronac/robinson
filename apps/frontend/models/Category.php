@@ -51,7 +51,6 @@ class Category extends \Phalcon\Mvc\Model
                 'alias' => 'destinations',
             )
         );
-
     }
 
     /**
@@ -127,5 +126,18 @@ class Category extends \Phalcon\Mvc\Model
                 'order' => 'destination ASC',
             )
         );
+    }
+
+    public function getPackagesDirectly()
+    {
+        $catId = $this->getCategoryId();
+        $sql =
+        "
+            SELECT packages.* FROM \Robinson\Frontend\Model\Package as packages
+            INNER JOIN \Robinson\Frontend\Model\Destination as destinations
+            WHERE destinations.categoryId = $catId
+            LIMIT 8
+        ";
+        return $this->_modelsManager->executeQuery($sql);
     }
 }
