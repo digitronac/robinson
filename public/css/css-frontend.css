@@ -93,6 +93,7 @@ body{color:white;font-family: 'Open Sans', sans-serif;background:#f4f4f4}
 .package-item-link a {width:250px; display:block; padding:5px; background:#c3c3c3; margin-top:10px;text-align:center;color:white}
 .package-item-link a:hover {background:#de1a28;text-decoration: none}
 #index-first-section {text-align:center;background:#f4f4f4;padding-bottom:60px;padding-top:20px}
+#index-first-section ul {display:inline; background:white;padding:10px}
 #index-first-section ul li {display:inline-block; margin-left:20px}
 #index-first-section li a{text-decoration: none; color:#333}
 #index-first-section li a.selected{text-decoration: underline}
