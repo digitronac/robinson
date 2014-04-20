@@ -37,7 +37,6 @@ build:
             name: test frontend
             code: |-
                 cd apps/frontend/tests
-                mv ../config/credentials.dist.php ../config/credentials.php
                 sed -i "s/{{DB_NAME}}/$WERCKER_MYSQL_DATABASE/" ../config/application.local.ini.dist
                 sed -i "s/{{DB_HOST}}/$WERCKER_MYSQL_HOST/" ../config/application.local.ini.dist
                 sed -i "s/{{DB_PASSWORD}}/$WERCKER_MYSQL_PASSWORD/" ../config/application.local.ini.dist
