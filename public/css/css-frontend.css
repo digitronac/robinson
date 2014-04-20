@@ -105,10 +105,6 @@ body{color:white;font-family: 'Open Sans', sans-serif;background:#f4f4f4}
 .tabs-nav li a:hover, .tabs-nav li a.selected{background:white;color:#333;text-decoration: none}
 .category-tab{background:white;padding:20px}
 .cat-thumb {float:left;width:300px;margin-top:20px; margin-right:20px}
-#index-category-links-section {text-align:center}
-#index-category-links-section ul {background:white}
-#index-category-links-section ul li {display:inline}
-}
 /* category/index, destination/index, package/index */
 .category h1, .destination h1, .package h1 {font-size:36px; color:#333333;text-align:center;font-weight:bold}
 .category, .destination, .package {padding-top:30px;padding-bottom:30px}

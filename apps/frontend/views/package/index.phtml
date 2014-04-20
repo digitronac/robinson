@@ -76,6 +76,8 @@
     </div>
 </div>
 
+<?php if ($package->getPdf2()): ?>
+
 <div class="package index prices">
     <div class="inner-site">
         <a target="_blank" href="/pdf/<?=$package->getPackageId()?>?pdfType=2">
@@ -84,6 +86,8 @@
         </a>
     </div>
 </div>
+    
+<?php endif ?>
 
 <?php if ($package->getTabs()): ?>
 

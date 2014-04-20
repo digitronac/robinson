@@ -137,6 +137,15 @@ class Package extends \Phalcon\Mvc\Model
     {
         return $this->pdf;
     }
+
+    /**
+     * Not implemented yet.
+     * @return void
+     */
+    public function getPdf2()
+    {
+
+    }
     
 
     /**
