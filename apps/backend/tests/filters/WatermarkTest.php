@@ -4,11 +4,11 @@ namespace Robinson\Backend\Tests\Filter;
 class WatermarkTest extends \Robinson\Backend\Tests\Models\BaseTestModel
 {
     protected $vfs;
-    
+
     public function setUp(\Phalcon\DiInterface $di = null, \Phalcon\Config $config = null)
     {
         parent::setUp($di, $config);
-        
+
         $this->vfs = \org\bovigo\vfs\vfsStream::setup('root', null, array
         (
             'img' => array
@@ -23,7 +23,7 @@ class WatermarkTest extends \Robinson\Backend\Tests\Models\BaseTestModel
 
         $this->getDI()->getShared('config')->application->watermark->watermark = \org\bovigo\vfs\vfsStream::url('root/img/assets/watermark.png');
     }
-    
+
     public function testCreatingFilterShouldWork()
     {
         /* @var $watermark \Robinson\Backend\Filter\Watermark */

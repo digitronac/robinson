@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "7e03341fa40dc832702087dc5f7d6ed0",
+    "hash": "37e8a3f744995a295cdd7288df7d10da",
     "packages": [
         {
             "name": "electrolinux/php-html5lib",
@@ -63,12 +63,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/avalanche123/Imagine.git",
-                "reference": "f93b6895f4567136528448263cc1fe71ee8504ce"
+                "reference": "76e4bd2e18cd3dd7ceb4d8dde1a843f5bc034b86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/f93b6895f4567136528448263cc1fe71ee8504ce",
-                "reference": "f93b6895f4567136528448263cc1fe71ee8504ce",
+                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/76e4bd2e18cd3dd7ceb4d8dde1a843f5bc034b86",
+                "reference": "76e4bd2e18cd3dd7ceb4d8dde1a843f5bc034b86",
                 "shasum": ""
             },
             "require": {
@@ -112,7 +112,7 @@
                 "image manipulation",
                 "image processing"
             ],
-            "time": "2014-04-09 21:47:26"
+            "time": "2014-04-20 23:01:13"
         },
         {
             "name": "judev/php-htmltruncator",
@@ -320,6 +320,81 @@
                 "zf2"
             ],
             "time": "2013-10-31 15:48:16"
+        },
+        {
+            "name": "zf1/zend-config",
+            "version": "1.12.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zf1/zend-config.git",
+                "reference": "aec22ba4fefc7b7b9eb285e7490781507d1bf0e6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zf1/zend-config/zipball/aec22ba4fefc7b7b9eb285e7490781507d1bf0e6",
+                "reference": "aec22ba4fefc7b7b9eb285e7490781507d1bf0e6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.11",
+                "zf1/zend-exception": "self.version"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Zend_Config": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Zend Framework 1 Config package",
+            "homepage": "http://framework.zend.com/",
+            "keywords": [
+                "ZF1",
+                "config",
+                "framework",
+                "zend"
+            ],
+            "time": "2014-01-02 14:05:52"
+        },
+        {
+            "name": "zf1/zend-exception",
+            "version": "1.12.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zf1/zend-exception.git",
+                "reference": "6e607d8b112a06965938a5ffbee410e49c683942"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zf1/zend-exception/zipball/6e607d8b112a06965938a5ffbee410e49c683942",
+                "reference": "6e607d8b112a06965938a5ffbee410e49c683942",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.11"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Zend_Exception": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Zend Framework 1 Exception package",
+            "homepage": "http://framework.zend.com/",
+            "keywords": [
+                "ZF1",
+                "exception",
+                "framework",
+                "zend"
+            ],
+            "time": "2014-01-02 14:05:54"
         }
     ],
     "packages-dev": [
