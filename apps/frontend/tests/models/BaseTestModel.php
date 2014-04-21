@@ -10,13 +10,21 @@ class BaseTestModel extends \Phalcon\Test\ModelTestCase
         */
         require APPLICATION_PATH . '/../config/services.php';
 
-        $config = new \Phalcon\Config\Adapter\Ini(APPLICATION_PATH . '/frontend/config/application.ini');
-        if (is_file(APPLICATION_PATH . '/frontend/config/application.local.ini'))
+        $config = new \Phalcon\Config(
+            (new \Zend_Config_Ini(APPLICATION_PATH . '/frontend/config/application.ini', APPLICATION_ENV))->toArray()
+        );
+        if(is_file(APPLICATION_PATH . '/frontend/config/application.local.ini'))
         {
-            $local = (new \Phalcon\Config\Adapter\Ini(APPLICATION_PATH . '/frontend/config/application.local.ini'));
+            $local = new \Phalcon\Config(
+                (
+                    new \Zend_Config_Ini(
+                        APPLICATION_PATH . '/frontend/config/application.local.ini',
+                        APPLICATION_ENV
+                    )
+                )->toArray()
+            );
             $config->merge($local);
         }
-        $config = $config->get(APPLICATION_ENV);
                 
         $di = include APPLICATION_PATH . '/frontend/config/services.php';
         
