@@ -24,10 +24,8 @@
     <div class="destination index packages-list">
 
         <div class="inner-site">
-            <h2><strong><?=$destination->getDestination()?></strong> - aranžmani</h2>
-
             <div>
-                <label for="type">Tip aranžmana:</label>
+                <label for="type" style="font-weight:bold"></label>
                 <?=$this->tag->selectStatic(
                     array(
                         'type',
@@ -36,8 +34,9 @@
                             2 => 'Hoteli',
                         ),
                         'useEmpty' => true,
-                        'emptyText' => 'Sve',
+                        'emptyText' => 'Filtraj aranžmane!',
                         'id' => 'packages-selector',
+                        'class' => 'customSelect'
                     )
                 ) . PHP_EOL;
                 ?>

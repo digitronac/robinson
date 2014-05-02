@@ -127,6 +127,7 @@ body{color:white;font-family: 'Open Sans', sans-serif;background:#f4f4f4}
 
 /* destination/index */
 .packages-list div {color:#333333}
+.destination .customSelect {background-image:none; border:1px solid #f4f4f4}
 
 /* package/index */
 #price{text-align: center; margin-top:10px}
