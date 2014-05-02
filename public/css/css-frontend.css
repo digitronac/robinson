@@ -162,14 +162,14 @@ body{color:white;font-family: 'Open Sans', sans-serif;background:#f4f4f4}
 #footer #gmap {margin-top:20px; color: #333333}
 #footer #packages, #footer #map, #footer #contact-data {display:inline-block; margin-left:10px}
 #footer #packages, #footer #contact-data {vertical-align: top}
-#footer #packages {width:250px}
+#footer #packages {width:250px;font-size:13px}
 #footer #contact-data {width:250px; margin-left:40px}
 #footer #map h3 {text-align: center}
 #footer #contact-data div {margin-top:20px}
 #footer #contact-data .icon {float:left;width:50px}
 #footer #contact-data .data {font-weight:bold}
 #footer #contact-data #phones .data .phone {margin-left:50px}
-#footer #copyright {background:#c9101e; padding:20px 0; margin-top:20px}
+#footer #copyright {background:#c9101e; padding:20px 0; margin-top:20px; font-size:13px}
 #footer #copyright p {vertical-align: middle;text-align:center}
 
 /* custom select */
