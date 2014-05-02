@@ -11,29 +11,9 @@
 
 <div class="category index images">
     <div class="inner-site">
-
-        <div class="gallery">
-
-        <?php foreach ($category->getImages() as $image): ?>
-
-
-
-            <?=$this->tag->linkTo(
-                array(
-                    $image->getResizedSrc(800),
-                    $this->tag->image($image->getResizedSrc(250), array
-                    (
-                        'alt' => $category->getCategory(),
-                    )),
-                    'class' => 'fancybox',
-                )
-            ) . PHP_EOL ?>
-
-
-        <?php endforeach ?>
-
-        </div>
-
+        <?=$this->partial('partials/no-caption-slider-image-gallery', array(
+           'item' => $category,
+        ))?>
     </div>
 </div>
 

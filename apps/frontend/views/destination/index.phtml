@@ -11,26 +11,9 @@
 
 <div class="destination index images">
     <div class="inner-site">
-
-        <?php foreach ($destination->getImages() as $image): ?>
-
-            <div class="gallery">
-
-                <?=$this->tag->linkTo(
-                    array(
-                        $image->getResizedSrc(800),
-                        $this->tag->image($image->getResizedSrc(250), array
-                            (
-                                'alt' => $destination->getDestination(),
-                            )),
-                        'class' => 'fancybox',
-                    )
-                ) . PHP_EOL ?>
-
-            </div>
-
-        <?php endforeach ?>
-
+        <?=$this->partial('partials/no-caption-slider-image-gallery', array(
+                'item' => $destination,
+            ))?>
     </div>
 </div>
 
