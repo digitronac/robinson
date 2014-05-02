@@ -220,6 +220,7 @@ abstract class Images extends \Phalcon\Mvc\Model
         }
 
         /* @var $imagine \Imagine\Imagick\Imagine */
+
         $imagine = $this->getDI()->get('imagine');
         try {
             $imagine = $imagine->open($this->basePath . '/' . $this->getRealFilename());

@@ -89,7 +89,7 @@ body{color:white;font-family: 'Open Sans', sans-serif;background:#f4f4f4}
 .package-item-package{text-align: center}
 .package-item-price {font-weight: bold;text-align:center; margin-top:5px}
 .package-item-price span {color:red}
-.package-item-image {height:200px}
+.package-item-image {height:200px;overflow:hidden}
 .package-item-link a {width:250px; display:block; padding:5px; background:#c3c3c3; margin-top:10px;text-align:center;color:white}
 .package-item-link a:hover {background:#de1a28;text-decoration: none}
 .index.section.tabs {text-align:center;background:#f4f4f4;padding-bottom:60px;padding-top:20px}
@@ -97,7 +97,6 @@ body{color:white;font-family: 'Open Sans', sans-serif;background:#f4f4f4}
 .tabs-heading li {display:inline-block; margin-left:20px}
 .tabs-heading li a {text-decoration: none; /*color:#333*/ color:white}
 .tabs-heading li a.selected {text-decoration: underline}
-#index-category-links-section {margin-top: 40px}
 .tabs-nav {background:#c3c3c3;margin-left:auto;margin-right:auto;text-align:center}
 .first-cat{border-left:1px solid white}
 .tabs-nav li {list-style-type: none;display:inline-block;margin-top:0 !important;margin-left:-4px}
