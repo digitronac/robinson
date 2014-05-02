@@ -47,7 +47,7 @@ require __DIR__ . '/../config/modules.php';
 $translator = new \Zend\Mvc\I18n\Translator();
 $translator->addTranslationFile(
     'phparray',
-    APPLICATION_PATH . '/../vendor/zendframework/zendframework/resources/languages/sr/Zend_Validate.php',
+    APPLICATION_PATH . '/../data/translations/zend_validate/sr.php',
     'default',
     'sr'
 );
