@@ -152,6 +152,9 @@ body{color:white;font-family: 'Open Sans', sans-serif;background:#f4f4f4}
 .successMessage {color:#333333}
 .errors {color:#de1a28; list-style-position: inside}
 
+/* contact */
+#index-contact h1 {font-size:36px; color:#333333;text-align:center;font-weight:bold; padding:20px 0}
+
 /* footer */
 #footer{padding:20px 0 0 0;margin-top:-10px}
 #footer h3 {font-weight: bold}

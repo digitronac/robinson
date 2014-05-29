@@ -71,8 +71,8 @@ class ControllerBase extends \Phalcon\Mvc\Controller
             ),
             array(
                 'title' => 'Kontakt',
-                'categoryId' => 9,
-                'uri' => '/kontakt/9',
+                'categoryId' => 1111119,
+                'uri' => '/index/contact',
             ),
             array(
                 'title' => 'Leto plus',

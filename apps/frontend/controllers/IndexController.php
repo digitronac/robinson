@@ -34,6 +34,55 @@ class IndexController extends ControllerBase
     }
 
     /**
+     * Info contact form.
+     *
+     * @throws \Exception if email is not valid
+     */
+    public function contactAction()
+    {
+        if ($this->request->getPost('email')) {
+            $validator = new \Phalcon\Validation();
+            $validator->add('email', new \Phalcon\Validation\Validator\Email());
+            $message = $validator->validate($this->request->getPost());
+            if ($message->count()) {
+                throw new \Exception('Invalid email.');
+            }
+
+            $mail = new \Zend\Mail\Message();
+            $mail->addTo($this->config->application->mail->info->address)
+                ->addTo('ognjanovic@gmail.com');
+            $mail->setSubject('Info sa kontakt forme');
+            $mail->addFrom($this->request->getPost('email'));
+            $mail->addReplyTo($this->request->getPost('email'));
+            $body = 'Ime: ' . $this->request->getPost('name') . '<br />' . PHP_EOL;
+            $body .= 'Email: ' . $this->request->getPost('email') . '<br />' . PHP_EOL;
+            $body .= 'Telefon: ' . $this->request->getPost('phone') . '<br />' . PHP_EOL;
+            $body .= 'Poruka: ' . $this->request->getPost('body');
+            $mail->setBody($this->request->getPost('body'));
+
+            $options = new \Zend\Mail\Transport\SmtpOptions(array(
+                'name' => 'smtp.mandrillapp.com',
+                'host' => 'smtp.mandrillapp.com',
+                'port' => 587,
+                'connection_class' => 'login',
+                'connection_config' => array(
+                    'username' => $this->config->application->mail->mandrill->username,
+                    'password' => $this->config->application->mail->mandrill->password,
+                )
+            ));
+
+            /* @var $transport \Zend\Mail\Transport\Smtp */
+            $transport = $this->getDI()->get('Zend\Mail\Transport\Smtp', array($options));
+            $transport->send($mail);
+
+            $this->flashSession->message(
+                'success',
+                'Vaša poruka je poslata! Odgovorićemo u najkraćem mogućem roku! HVALA!!! :)'
+            );
+        }
+    }
+
+    /**
      * Creates array of objects that contain data for building landing page bottom tabs.
      *
      * @param int $limit limit

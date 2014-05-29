@@ -1,0 +1,23 @@
+<div id="index-contact">
+    <div class="inner-site">
+        <h1>Kontakt</h1>
+        <p class="successMessage"><?=@$this->flashSession->getMessages('success')[0]?></p>
+        <form action="" method="post" class="contact-form">
+            <div>
+                <input class="input-text" required="required" type="text" name="name" placeholder="Vaši podaci" />
+            </div>
+            <div>
+                <input class="input-text" required="required" type="email" name="email" placeholder="Email" />
+            </div>
+            <div>
+                <input class="input-text" required="required" type="text" name="phone" placeholder="Telefon" />
+            </div>
+            <div>
+                <textarea class="input-textarea" required="required" placeholder="Poruka" name="body"></textarea>
+            </div>
+            <div>
+                <input class="input-submit" type="submit" name="send" value="Pošalji rezervaciju" />
+            </div>
+        </form>
+    </div>
+</div>

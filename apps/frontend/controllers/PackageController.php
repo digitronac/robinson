@@ -22,7 +22,7 @@ class PackageController extends ControllerBase
 
             if (!$messages) {
                 $mail = new \Zend\Mail\Message();
-                $mail->addTo('upit@robinson.rs')
+                $mail->addTo($this->config->application->mail->info->address)
                     ->addTo('ognjanovic@gmail.com');
                 $mail->setSubject('Upit za "' . $this->view->package->getPackage() . '"');
                 $mail->addFrom($this->request->getPost('email'));
@@ -35,8 +35,8 @@ class PackageController extends ControllerBase
                     'port' => 587,
                     'connection_class' => 'login',
                     'connection_config' => array(
-                        'username' => 'ognjanovic@gmail.com',
-                        'password' => 'Khzn9u0IVA7befonKv1NDA',
+                        'username' => $this->config->application->mail->mandrill->username,
+                        'password' => $this->config->application->mail->mandrill->password,
                     )
                 ));
 
