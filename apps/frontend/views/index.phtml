@@ -191,6 +191,13 @@ $this->assets->collection('css')
                     window.location.href = '?type=' + $(this).val() + '#packages-selector';
                 });
 
+                $('#package-item-image img').hover(function() {
+                    $("#package-item-image img").addClass('transition');
+
+                }, function() {
+                    $("#package-item-image img").removeClass('transition');
+                });
+
                 $('.tabs').idTabs();
             });
         </script>

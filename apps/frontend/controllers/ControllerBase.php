@@ -21,7 +21,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
             array(
                 'status = ' . \Robinson\Frontend\Model\Category::STATUS_VISIBLE,
                 'order' => 'categoryId ASC',
-                'limit' => 8,
+                'limit' => 11,
             )
         );
 

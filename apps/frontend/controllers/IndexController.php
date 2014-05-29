@@ -18,13 +18,14 @@ class IndexController extends ControllerBase
 
         /** @var $package \Robinson\Frontend\Model\Package */
         $package = $this->getDI()->get('Robinson\Frontend\Model\Package');
-        $this->view->latestPackages = $package->find(
+        /*$this->view->latestPackages = $package->find(
             array(
                 'status = ' . \Robinson\Frontend\Model\Package::STATUS_VISIBLE,
                 'order' => 'createdAt DESC',
                 'limit' => 4,
             )
-        );
+        );*/
+        $this->view->hotPackages = $package->findHot(4);
 
         $this->view->popularPackages = $package->findPopular(4);
 

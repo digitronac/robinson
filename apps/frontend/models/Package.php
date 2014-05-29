@@ -349,4 +349,20 @@ class Package extends \Phalcon\Mvc\Model
             WHERE packages.status = 1 AND packageTags.type = 3 ORDER BY packageTags.[order] LIMIT $limit"
         );
     }
+
+    /**
+     * Finds hot packages.
+     *
+     * @param int $limit
+     *
+     * return mixed
+     */
+    public function findHot($limit)
+    {
+        return $this->_modelsManager->executeQuery(
+            "SELECT packages.* FROM Robinson\Frontend\Model\Package AS packages JOIN
+            Robinson\Frontend\Model\Tags\Package as packageTags ON packages.packageId = packageTags.packageId
+            WHERE packages.status = 1 AND packageTags.type = 4 ORDER BY packageTags.[order] LIMIT $limit"
+        );
+    }
 }
