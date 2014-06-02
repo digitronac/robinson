@@ -33,11 +33,19 @@ $this->assets->collection('css')
         <?=$this->assets->outputCss('css') . PHP_EOL ?>
 	</head>
 	<body>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
         <div id="header" class="robinson-background">
             <div class="inner-site">
                 <div id="social">
-                    Follow us:
-                </div>
+                    Follow us: <br />
+                    <iframe style="margin-top:10px" src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.robinson.rs&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=false&amp;share=true&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px;" allowTransparency="true"></iframe>                </div>
                 <div id="logo">
                     <a href="/"><img src="/img/assets/logo.png" alt="robinson turisticka agencija" /></a>
                 </div>
