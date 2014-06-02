@@ -31,6 +31,8 @@ $this->assets->collection('css')
         <meta charset="utf-8" />
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,700,800,600&subset=latin,latin-ext' rel='stylesheet' type='text/css' />
         <?=$this->assets->outputCss('css') . PHP_EOL ?>
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	</head>
 	<body>
     <div id="fb-root"></div>
@@ -51,7 +53,7 @@ $this->assets->collection('css')
                 </div>
                 <div id="contact-info">
                     <div style="float:left">
-                        <img style="width: 50px; height: auto" id="iphone-large" viewBox="0 0 0 0" src="/img/assets/iphone.svg" alt="iphone icon" />
+                        <svg id="iphone-large" src="/img/assets/iphone.svg" alt="iphone icon" />
                     </div>
                     <div style="float:left">
                         <strong style="font-weight:bold">011/334-67-76</strong>
