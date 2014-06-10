@@ -21,7 +21,7 @@ class IndexController extends ControllerBase
                 )
             );
         }
-        
+
         if ($this->request->isPost()) {
             /* @var $loginValidator \Robinson\Backend\Validator\Login */
             $loginValidator = $this->getDI()->get(
@@ -44,7 +44,7 @@ class IndexController extends ControllerBase
                         'username' => $this->request->getPost('username'),
                     )
                 );
-                
+
                 return $this->response->redirect(
                     array(
                         'for' => 'admin',

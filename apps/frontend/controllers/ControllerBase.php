@@ -17,13 +17,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'order' => 'price ASC',
             )
         );
-        /*$this->view->categories = \Robinson\Frontend\Model\Category::find(
-            array(
-                'status = ' . \Robinson\Frontend\Model\Category::STATUS_VISIBLE,
-                'order' => 'categoryId ASC',
-                'limit' => 11,
-            )
-        );*/
+
         $this->view->categories = $this->getCategories();
 
         $this->view->randomPackages = \Robinson\Frontend\Model\Package::find(
@@ -68,11 +62,6 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'title' => 'Za agente',
                 'categoryId' => 8,
                 'uri' => '/za-agente/8',
-            ),
-            array(
-                'title' => 'Kontakt',
-                'categoryId' => 1111119,
-                'uri' => '/index/contact',
             ),
             array(
                 'title' => 'Leto plus',

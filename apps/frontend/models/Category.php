@@ -143,6 +143,7 @@ class Category extends \Phalcon\Mvc\Model
             SELECT packages.* FROM \Robinson\Frontend\Model\Package as packages
             INNER JOIN \Robinson\Frontend\Model\Destination as destinations
             WHERE destinations.categoryId = $catId
+            ORDER BY RAND()
             LIMIT $limit
         ";
         return $this->_modelsManager->executeQuery($sql);

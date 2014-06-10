@@ -62,6 +62,19 @@ $di->set('url', function () use ($di) {
     return $url;
 });
 
+//Set the views cache service
+$di->set('viewCache', function () {
+    $frontCache = new \Phalcon\Cache\Frontend\Output(array(
+        'lifetime' => 300,
+    ));
+
+    $cache = new \Phalcon\Cache\Backend\Memcache($frontCache, array(
+        "host" => "localhost",
+        "port" => "11211"
+    ));
+    return $cache;
+});
+
 // @codeCoverageIgnoreStart
 $di->setShared('log', function () use ($di) {
     $log = new \Phalcon\Logger\Multiple();
