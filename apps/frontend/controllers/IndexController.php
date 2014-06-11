@@ -18,11 +18,13 @@ class IndexController extends ControllerBase
 
         /** @var $package \Robinson\Frontend\Model\Package */
         $package = $this->getDI()->get('Robinson\Frontend\Model\Package');
-        $this->view->hotPackages = $package->findHot(4);
+        $this->view->hotPackages = $package->findHot(8);
 
-        $this->view->popularPackages = $package->findPopular(4);
+        $this->view->popularPackages = $package->findPopular(8);
 
+        /* leaving under comment as per request
         $this->view->topTabs = $this->makeTopTabs();
+        */
         $this->view->bottomTabs = $this->makeBottomTabs(8);
     }
 
