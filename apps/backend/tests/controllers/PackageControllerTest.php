@@ -86,6 +86,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                 1 => 'First minute',
                 2 => 'Last minute',
             ),
+            'special' => '2014-06-12',
         );
         
         // mock stuff for upload
@@ -473,6 +474,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                 1 => 'First minute',
                 2 => 'Last minute',
             ),
+            'special' => '2014-06-11',
         );
         
         $mockImageFile = $this->getMockBuilder('Phalcon\Http\Request\File')

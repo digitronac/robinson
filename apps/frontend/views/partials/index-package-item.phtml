@@ -4,11 +4,16 @@
         <?php if ($package->getMainImage()): ?>
 
             <h3>
+                <?php if ($package->getSpecial()): ?>
+
+                <span class="date-sticker">od <?=$package->getSpecial()?></span>
+                <?php endif ?>
+
                 <?=$this->tag->image(array
-                    (
-                        $package->getMainImage()->getResizedSrc(250),
-                        'alt' => $package->getPackage(),
-                    )) . PHP_EOL ?>
+                (
+                    $package->getMainImage()->getResizedSrc(250),
+                    'alt' => $package->getPackage(),
+                )) . PHP_EOL ?>
             </h3>
 
         <?php endif ?>

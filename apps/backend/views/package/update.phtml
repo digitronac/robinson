@@ -147,6 +147,17 @@
         </fieldset>
         <fieldset>
             <legend>Tagovi</legend>
+            <div>
+                <label for="date">Datum:</label>
+                <?=$this->tag->textField(
+                    array(
+                        'special',
+          //              'class' => 'datepicker',
+                        'id' => 'date',
+                        'data-date-format' => 'yyyy-mm-dd',
+                    )
+                ) . PHP_EOL ?>
+            </div>
             <div class="tags">
                 <ul>
 
@@ -196,5 +207,6 @@
                }
            });
         });
+        $('.datepicker').datepicker();
     });
 </script>

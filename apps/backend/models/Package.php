@@ -44,6 +44,8 @@ class Package extends \Phalcon\Mvc\Model
     protected $pdf2;
 
     protected $type = self::TYPE_UNDEFINED;
+
+    protected $special;
     
     /**
      *
@@ -288,6 +290,29 @@ class Package extends \Phalcon\Mvc\Model
     {
         return (int) $this->status;
     }
+
+    /**
+     * Special setter method.
+     *
+     * @param string $special special
+     *
+     * @return $this
+     */
+    public function setSpecial($special)
+    {
+        $this->special = $special;
+        return $this;
+    }
+
+    /**
+     * Special getter method.
+     *
+     * @return string
+     */
+    public function getSpecial()
+    {
+        return $this->special;
+    }
     
     /**
      * Status helper method.
@@ -401,6 +426,13 @@ class Package extends \Phalcon\Mvc\Model
             $this->pdf2 = $this->uploadedPdf2->getName();
         } else {
             $this->pdf2 = new \Phalcon\Db\RawValue('""');
+        }
+    }
+
+    public function beforeValidation()
+    {
+        if (!$this->special) {
+            $this->special = "''";
         }
     }
     

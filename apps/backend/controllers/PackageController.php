@@ -96,6 +96,10 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
 
             $package->tags = $newtags;
 
+            if ($this->request->getPost('special')) {
+                $package->setSpecial($this->request->getPost('special'));
+            }
+
             if (!$package->create()) {
                 $this->log->log(implode(';', $package->getMessages()), \Phalcon\Logger::ERROR);
                 throw new \Phalcon\Exception('Unable to create new package.');
@@ -200,11 +204,18 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             if ($images) {
                 $package->images = $images;
             }
+
+            if ($this->request->getPost('special')) {
+                $package->setSpecial($this->request->getPost('special'));
+            }
             
             if (!$package->update()) {
                 $this->log->log(implode(';', $package->getMessages()), \Phalcon\Logger::ERROR);
                 throw new \Phalcon\Exception('Unable to update package #' . $package->getPackageId());
             }
+
+            $package->refresh();
+            $this->tag->setDefault('special', $package->getSpecial());
            
         }
         

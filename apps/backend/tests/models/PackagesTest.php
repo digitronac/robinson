@@ -41,6 +41,7 @@ class PackageTest extends \Robinson\Backend\Tests\Models\BaseTestModel
         $model->setPrice($price = 55);
         $model->setDestination($destination);
         $model->setUploadedPdf($file);
+        $model->setSpecial('2014-06-11');
         $this->assertTrue($model->create());
 
         /* @var $package \Robinson\Backend\Models\Package */
@@ -53,5 +54,6 @@ class PackageTest extends \Robinson\Backend\Tests\Models\BaseTestModel
         $this->assertEquals($packageName, $package->getPackage());
         $this->assertEquals($description, $package->getDescription());
         $this->assertEquals($price, $package->getPrice());
+        $this->assertEquals('2014-06-11', $package->getSpecial());
     }
 }

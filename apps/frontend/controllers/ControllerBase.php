@@ -41,12 +41,12 @@ class ControllerBase extends \Phalcon\Mvc\Controller
             array(
                 'title' => 'Španija leto 2014',
                 'categoryId' => 2,
-                'uri' => '/spanija-leto-2014/1',
+                'uri' => '/spanija-leto-2014/2',
             ),
             array(
                 'title' => 'Italija leto 2014',
                 'categoryId' => 3,
-                'uri' => '/italija-leto-2014',
+                'uri' => '/italija-leto-2014/3',
             ),
             array(
                 'title' => 'City break',
@@ -59,9 +59,9 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => '/formula-1/7',
             ),
             array(
-                'title' => 'Za agente',
+                'title' => 'Family club',
                 'categoryId' => 8,
-                'uri' => '/za-agente/8',
+                'uri' => '/family-club/8',
             ),
             array(
                 'title' => 'Leto plus',

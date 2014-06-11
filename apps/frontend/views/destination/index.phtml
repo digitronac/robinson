@@ -50,6 +50,11 @@
                         <?php if ($package->getMainImage()): ?>
 
                             <div class="image">
+                                <?php if ($package->getSpecial()): ?>
+                                <span class="date-sticker">od <?=$package->getSpecial()?></span>
+
+                                <?php endif ?>
+
                                 <?=$this->tag->linkTo(array
                                     (
                                         $package->getUri(),

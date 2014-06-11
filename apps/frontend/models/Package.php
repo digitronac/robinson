@@ -42,6 +42,8 @@ class Package extends \Phalcon\Mvc\Model
     protected $destinationId;
 
     protected $type = self::TYPE_UNDEFINED;
+
+    protected $special;
     
 
     public function initialize()
@@ -227,6 +229,16 @@ class Package extends \Phalcon\Mvc\Model
     public function getType()
     {
         return (int) $this->type;
+    }
+
+    /**
+     * Special getter method.
+     *
+     * @return string
+     */
+    public function getSpecial()
+    {
+        return $this->special;
     }
 
     /**
