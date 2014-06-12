@@ -11,12 +11,14 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'order' => 'destination ASC',
             )
         );
-        $this->view->lowPricePackage = \Robinson\Frontend\Model\Package::findFirst(
+        /*
+         * removed per request
+         * $this->view->lowPricePackage = \Robinson\Frontend\Model\Package::findFirst(
             array(
                 'status = ' . \Robinson\Frontend\Model\Destination::STATUS_VISIBLE . ' AND price != 0',
                 'order' => 'price ASC',
             )
-        );
+        );*/
 
         $this->view->categories = $this->getCategories();
 
