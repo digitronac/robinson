@@ -146,27 +146,29 @@ $this->assets->collection('css')
                     <div id="gmap">
                         <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script><div style="overflow:hidden;height:220px;width:400px;"><div id="gmap_canvas" style="height:300px;width:400px;"></div><style>#gmap_canvas img{max-width:none!important;background:none!important}</style><a class="google-map-code" href="http://www.stromvb.com" id="get-map-data">http://www.stromvb.com</a></div><script type="text/javascript"> function init_map(){var myOptions = {zoom:14,center:new google.maps.LatLng(44.8067527,20.47115199999996),mapTypeId: google.maps.MapTypeId.ROADMAP};map = new google.maps.Map(document.getElementById("gmap_canvas"), myOptions);marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(44.8067527, 20.47115199999996)});infowindow = new google.maps.InfoWindow({content:"<b>ROBINSON ADVENTURE TEAM</b><br/>Beogradska 29<br/>11000 Beograd" });google.maps.event.addListener(marker, "click", function(){infowindow.open(map,marker);});infowindow.open(map,marker);}google.maps.event.addDomListener(window, 'load', init_map);</script>                    </div>
                 </div>
-                <div id="friends" style="width:200px;height:400px;float:right">
-
+                <div id="important-info" style="width:200px;height:400px;float:right">
+                    <h3>ROBINSON INFO</h3>
+                    <ul>
+                        <li><a href="/index/uslovi">Opšti uslovi putovanja</a></li>
+                        <li><a href="/index/informacije">Korisne informacije</a></li>
+                        <li><a href="/index/placanje">Način plaćanja</a></li>
+                        <li><a href="/index/osiguranje">Putno osiguranje</a></li>
+                        <li><a href="/index/prtljag">Dozvoljeni prtljag</a></li>
+                        <li><a href="/index/dokumenta">Putna dokumenta</a></li>
+                    </ul>
                 </div>
                 <div id="contact-data">
                     <div id="location">
-                        <span class="icon"><img src="/img/assets/map.svg" width="20px" alt="map icon" /></span>
-                        <span class="data">Beogradska 29, Beograd</span>
+                        <span class="data">Beogradska 29,<br /> 11000 Beograd</span>
                     </div>
                     <div id="email">
-                        <span class="icon"><img src="/img/assets/envelope.svg" width="20px" alt="envelope icon" /></span>
                         <span class="data">info@robinson.rs</span>
                     </div>
                     <div id="phones">
-                        <span class="icon"><img src="/img/assets/iphone.svg" width="20px" alt="iphone icon" /></span>
                         <span class="data">
                             <div class="phone">011/334-67-76</div>
                             <div class="phone">011/323-60-55</div>
                             <div class="phone">011/334-61-52</div>
-                            <div class="info-page-link">
-                                <a href="/index/uslovi">Opšti uslovi putovanja</a>
-                            </div>
                             <div class="friends">
                                 <img src="/img/assets/logo-yuta3.jpg" alt="yuta logo" />
                             </div>

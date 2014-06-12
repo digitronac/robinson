@@ -77,7 +77,47 @@ class IndexController extends ControllerBase
         }
     }
 
+    /**
+     * Static page.
+     */
     public function usloviAction()
+    {
+
+    }
+
+    /**
+     * Static page.
+     */
+    public function informacijeAction()
+    {
+
+    }
+
+    /**
+     * Static page.
+     */
+    public function placanjeAction()
+    {
+
+    }
+
+    /**
+     * Static page.
+     */
+    public function osiguranjeAction()
+    {
+
+    }
+
+    /**
+     * Static page.
+     */
+    public function prtljagAction()
+    {
+
+    }
+
+    public function dokumentaAction()
     {
 
     }

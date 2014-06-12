@@ -175,7 +175,7 @@ body{color:white;font-family: 'Open Sans', sans-serif;background:#f4f4f4}
 #footer #contact-data div {margin-top:20px}
 #footer #contact-data .icon {float:left;width:50px}
 #footer #contact-data .data {font-weight:bold;  line-height:5px}
-#footer #contact-data #phones .data .phone {margin-left:50px}
+#footer #contact-data #phones .data .phone {}
 #footer #contact-data .info-page-link {margin-top:30px}
 #footer #contact-data .info-page-link a {color:white;text-decoration: white}
 #footer #copyright {background:#c9101e; padding:20px 0; margin-top:20px; font-size:13px}
