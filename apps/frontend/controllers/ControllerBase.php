@@ -51,16 +51,6 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => '/italija-leto-2014/3',
             ),
             array(
-                'title' => 'City break',
-                'categoryId' => 4,
-                'uri' => '/city-break/4',
-            ),
-            array(
-                'title' => 'Formula 1',
-                'categoryId' => 7,
-                'uri' => '/formula-1/7',
-            ),
-            array(
                 'title' => 'Family club',
                 'categoryId' => 8,
                 'uri' => '/family-club/8',
@@ -70,6 +60,17 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'categoryId' => 10,
                 'uri' => '/leto-plus/10',
             ),
+            array(
+                'title' => 'City break',
+                'categoryId' => 4,
+                'uri' => '/city-break/4',
+            ),
+            array(
+                'title' => 'Formula 1',
+                'categoryId' => 7,
+                'uri' => '/formula-1/7',
+            ),
+
         );
     }
 }
