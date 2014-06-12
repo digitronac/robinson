@@ -432,7 +432,7 @@ class Package extends \Phalcon\Mvc\Model
     public function beforeValidation()
     {
         if (!$this->special) {
-            $this->special = "''";
+            $this->special = new \Phalcon\Db\RawValue('""');
         }
     }
     
