@@ -108,7 +108,7 @@ body{color:white;font-family: 'Open Sans', sans-serif;background:#f4f4f4}
 .category-tab{background:white;padding:20px}
 .cat-thumb {float:left;width:300px;margin-top:20px; margin-right:20px}
 /* category/index, destination/index, package/index */
-.category h1, .destination h1, .package h1, .info-page h1 {font-size:36px; color:#333333;text-align:center;font-weight:bold}
+.category h1, .destination h1, .package h1, .info-page h1 {font-size:36px; padding:20px; color:#333333;text-align:center;font-weight:bold}
 .category, .destination, .package {padding-top:30px;padding-bottom:30px}
 .description{color:#333333; font-size:18px; line-height:120%; padding-bottom:20px}
 .description p {margin: 10px 0}
