@@ -11,7 +11,7 @@ small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
+/*table,*/ caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
@@ -154,7 +154,7 @@ body{color:white;font-family: 'Open Sans', sans-serif;background:#f4f4f4}
 .c {cursor:pointer !important}
 .successMessage {color:#333333}
 .errors {color:#de1a28; list-style-position: inside}
-.packages.tabs table {border:1px !important}
+.packages.tabs table {}
 
 /* contact */
 #index-contact h1 {font-size:36px; color:#333333;text-align:center;font-weight:bold; padding:20px 0}
