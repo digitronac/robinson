@@ -47,7 +47,7 @@
                 <?php endif ?>
 
                 <div class="description">
-                    <h3><strong><?=$this->tag->linkTo($destination->getUri(), $destination->getDestination())?></strong> <span>/ Broj ponuda: <?=$destination->packages->count()?></span></h3>
+                    <h3><strong><?=$this->tag->linkTo($destination->getUri(), $destination->getDestination())?></strong> <span>/ Broj ponuda: <?=$destination->getPackages()->count()?></span></h3>
                     <div class="description-text">
                         <?=$destination->getShortDescription()?>
                     </div>
