@@ -102,6 +102,8 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
 
             if (!$package->create()) {
                 $this->log->log(implode(';', $package->getMessages()), \Phalcon\Logger::ERROR);
+                var_dump($package->getMessages());
+                ob_flush();
                 throw new \Phalcon\Exception('Unable to create new package.');
             }
             
@@ -211,6 +213,8 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             
             if (!$package->update()) {
                 $this->log->log(implode(';', $package->getMessages()), \Phalcon\Logger::ERROR);
+                var_dump($package->getMessages());
+                ob_flush();
                 throw new \Phalcon\Exception('Unable to update package #' . $package->getPackageId());
             }
 
