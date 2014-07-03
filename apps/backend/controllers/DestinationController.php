@@ -16,7 +16,7 @@ class DestinationController extends \Phalcon\Mvc\Controller
             $destinations = $this->getDI()->get('Robinson\Backend\Models\Destination');
             $this->view->destinations = $destinations->find(
                 array(
-                    'categoryId' => $this->request->getQuery('categoryId'),
+                    'conditions' => 'categoryId = ' . (int) $this->request->getQuery('categoryId'),
                     'order' => 'destinationId DESC',
                 )
             );
