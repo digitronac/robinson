@@ -42,10 +42,10 @@ q:before, q:after {
     content: '';
     content: none;
 }
-table {
+/*table {
     border-collapse: collapse;
     border-spacing: 0;
-}
+}*/
 
 body{color:white;font-family: 'Open Sans', sans-serif;background:#f4f4f4}
 #header{width:100%;height:120px}
