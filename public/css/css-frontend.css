@@ -83,7 +83,7 @@ body{color:white;font-family: 'Open Sans', sans-serif;background:#f4f4f4}
 #contact-page-link {margin-top:1px}
 #contact-page-link a {color:white; text-decoration: underline; font-size:20px;font-weight:bold}
 #content {background:#f4f4f4;padding-bottom:20px}
-.date-sticker {width:250px;padding:10px 0; background: rgba(195, 195, 195, 0.5); font-weight:bold; color:white; text-align:center; position:absolute}
+.date-sticker {width:250px;padding:10px 0; /*background: rgba(195, 195, 195, 0.5);*/ background:#c9101e; font-weight:bold; color:white; text-align:center; position:absolute}
 /* index/index */
 #index-last-minute {padding: 20px 0 20px 0}
 #index-last-minute h4 {text-align:center; font-size:30px;color:#333333}
