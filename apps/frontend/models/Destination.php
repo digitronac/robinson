@@ -118,7 +118,7 @@ class Destination extends \Phalcon\Mvc\Model
             );
         }
 
-        return $this->getRelated('packages');
+        return $this->getRelated('packages', array('status = ' . \Robinson\Frontend\Model\Package::STATUS_VISIBLE));
     }
 
     /**
