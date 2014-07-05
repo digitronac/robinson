@@ -103,7 +103,7 @@ body{color:white;font-family: 'Open Sans', sans-serif;background:#f4f4f4}
 .tabs-nav {background:#c3c3c3;margin-left:auto;margin-right:auto;text-align:center}
 .first-cat{border-left:1px solid white}
 .tabs-nav li {list-style-type: none;display:inline-block;margin-top:0 !important;margin-left:-4px}
-.tabs-nav li a{color:white;display:inline-block;padding:30px 40px 30px 40px;font-size:25px; border-right: 1px solid white}
+.tabs-nav li a{color:white;display:inline-block;padding:30px 40px 30px 40px;font-size:20px; border-right: 1px solid white}
 .tabs-nav li a:hover, .tabs-nav li a.selected{background:white;color:#333;text-decoration: none}
 .category-tab{background:white;padding:20px}
 .cat-thumb {float:left;width:300px;margin-top:20px; margin-right:20px}
