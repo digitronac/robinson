@@ -99,9 +99,9 @@ class Destination extends \Phalcon\Mvc\Model
         return (int) $this->destinationId;
     }
 
-    public function getImages()
+    public function getImages(array $params = null)
     {
-        return $this->getRelated('images');
+        return $this->getRelated('images', $params);
     }
 
     public function getPackages($type = null)
