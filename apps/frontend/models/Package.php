@@ -185,16 +185,22 @@ class Package extends \Phalcon\Mvc\Model
     /**
      * Gets package images.
      *
+     * @param array|null $params additional params
+     *
      * @return \Phalcon\Mvc\Model\ResultsetInterface
      */
-    public function getImages()
+    public function getImages(array $params = null)
     {
-        return $this->getRelated(
-            'images',
-            array(
-                'order' => 'sort ASC',
-            )
-        );
+        if (!$params) {
+            return $this->getRelated(
+                'images',
+                array(
+                    'order' => 'sort ASC',
+                )
+            );
+        }
+
+        return $this->getRelated('images', $params);
     }
 
     /**
