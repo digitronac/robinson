@@ -204,6 +204,9 @@ $this->assets->collection('css')
 
                 $('#destination-selection').on('change', function(e)
                 {
+                    if ($(this).val().length === 0) {
+                        return false;
+                    }
                     var selected = $(this).find('option[value="' + $(this).val() + '"]');
                     selected.html('Putujemooo ...');
                     window.location.href = '/' + selected.data('url');

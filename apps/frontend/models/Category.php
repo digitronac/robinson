@@ -143,7 +143,7 @@ class Category extends \Phalcon\Mvc\Model
             SELECT packages.* FROM \Robinson\Frontend\Model\Package as packages
             INNER JOIN \Robinson\Frontend\Model\Destination as destinations
             WHERE destinations.categoryId = $catId
-            AND packages.status = 1 
+            AND packages.status = 1
             ORDER BY RAND()
             LIMIT $limit
         ";
