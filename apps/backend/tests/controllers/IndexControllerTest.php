@@ -89,7 +89,7 @@ class IndexControllerTest extends BaseTestController
     {
         $this->registerMockSession();
         $this->dispatch('/admin/index/sortTaggedPackages');
-        $this->assertResponseContentContains('package1 - <input type="text" name="packageTagIds[1]" size="2"');
+        $this->assertResponseContentContains('package1 - <input type="text" name="packageTagIds[1]" value="1" size="2"');
     }
 
     public function testSortTaggedPackagesActionByLastMinute()
@@ -97,7 +97,7 @@ class IndexControllerTest extends BaseTestController
         $this->registerMockSession();
         $_GET['type'] = 2;
         $this->dispatch('/admin/index/sortTaggedPackages');
-        $this->assertResponseContentContains('package2 - <input type="text" name="packageTagIds[2]" size="2" />');
+        $this->assertResponseContentContains('package2 - <input type="text" name="packageTagIds[2]" value="2" size="2" />');
     }
 
     public function testSortTaggedPackagesActionReordering()

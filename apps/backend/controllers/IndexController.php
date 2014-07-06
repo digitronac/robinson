@@ -141,12 +141,17 @@ class IndexController extends ControllerBase
             )
         );
 
+        $defaults = array();
+
         if ($this->view->packageTags) {
             foreach ($this->view->packageTags as $tag) {
-                $this->tag->setDefault('packageTagIds[' . $tag->getPackageTagId() . ']', $tag->getOrder());
+                $defaults['packageTagIds[' . $tag->getPackageTagId() . ']'] = $tag->getOrder();
+                //$this->tag->setDefault('packageTagIds[' . $tag->getPackageTagId() . ']', $tag->getOrder());
             }
         }
 
-        $this->tag->setDefault('type', $type);
+        $defaults['type'] = $type;
+        $this->tag->setDefaults($defaults);
+        //$this->tag->setDefault('type', $type);
     }
 }
