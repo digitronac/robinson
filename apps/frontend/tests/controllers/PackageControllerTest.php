@@ -77,6 +77,8 @@ class PackageControllerTest extends BaseTestController
             ->will($this->returnValue(true));
         $this->getDI()->set('Zend\Mail\Transport\Smtp', $mockSmtpTransport);
 
+        $this->getDI()->get('config')->application->smtp->port = 587;
+
         $this->dispatch('/fixture-category/fixture-destination-1/package1/1');
         $this->assertRedirectTo('/#contact-form');
         $this->assertEquals('Vaša poruka je poslata! Odgovorićemo u najkraćem mogućem roku! HVALA!!! :)',

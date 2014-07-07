@@ -22,21 +22,25 @@ class PackageController extends ControllerBase
 
             if (!$messages) {
                 $mail = new \Zend\Mail\Message();
-                $mail->addTo($this->config->application->mail->info->address)
-                    ->addTo('ognjanovic@gmail.com');
+                $mail->addTo($this->config->application->smtp->package->address);
                 $mail->setSubject('Upit za "' . $this->view->package->getPackage() . '"');
                 $mail->addFrom($this->request->getPost('email'));
                 $mail->addReplyTo($this->request->getPost('email'));
                 $mail->setBody($this->request->getPost('body'));
 
                 $options = new \Zend\Mail\Transport\SmtpOptions(array(
-                    'name' => 'smtp.mandrillapp.com',
-                    'host' => 'smtp.mandrillapp.com',
-                    'port' => 587,
+                    //'name' => 'smtp.mandrillapp.com',
+                    'name' => $this->config->application->smtp->name,
+                    //'host' => 'smtp.mandrillapp.com',
+                    'host' => $this->config->application->smtp->host,
+                    //'port' => 587,
+                    'port' => $this->config->application->smtp->port,
                     'connection_class' => 'login',
                     'connection_config' => array(
-                        'username' => $this->config->application->mail->mandrill->username,
-                        'password' => $this->config->application->mail->mandrill->password,
+                        //'username' => $this->config->application->mail->mandrill->username,
+                        'username' => $this->config->application->smtp->username,
+                        //'password' => $this->config->application->mail->mandrill->password,
+                        'password' => $this->config->application->smtp->password,
                     )
                 ));
 

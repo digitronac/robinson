@@ -45,8 +45,7 @@ class IndexController extends ControllerBase
             }
 
             $mail = new \Zend\Mail\Message();
-            $mail->addTo($this->config->application->mail->info->address)
-                ->addTo('ognjanovic@gmail.com');
+            $mail->addTo($this->config->application->smtp->info->address);
             $mail->setSubject('Info sa kontakt forme');
             $mail->addFrom($this->request->getPost('email'));
             $mail->addReplyTo($this->request->getPost('email'));
@@ -56,14 +55,21 @@ class IndexController extends ControllerBase
             $body .= 'Poruka: ' . $this->request->getPost('body');
             $mail->setBody($this->request->getPost('body'));
 
+            print_r($this->config->application->smtp->toArray());
+            ob_flush();
             $options = new \Zend\Mail\Transport\SmtpOptions(array(
-                'name' => 'smtp.mandrillapp.com',
-                'host' => 'smtp.mandrillapp.com',
-                'port' => 587,
+                //'name' => 'smtp.mandrillapp.com',
+                'name' => $this->config->application->smtp->name,
+                //'host' => 'smtp.mandrillapp.com',
+                'host' => $this->config->application->smtp->host,
+                //'port' => 587,
+                'port' => $this->config->application->smtp->port,
                 'connection_class' => 'login',
                 'connection_config' => array(
-                    'username' => $this->config->application->mail->mandrill->username,
-                    'password' => $this->config->application->mail->mandrill->password,
+                    //'username' => $this->config->application->mail->mandrill->username,
+                    'username' => $this->config->application->smtp->username,
+                    //'password' => $this->config->application->mail->mandrill->password,
+                    'password' => $this->config->application->smtp->password,
                 )
             ));
 

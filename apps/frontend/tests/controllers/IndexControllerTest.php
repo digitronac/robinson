@@ -60,6 +60,9 @@ class IndexControllerTest extends BaseTestController
             'phone' => '111111111111',
             'body' => 'msg body',
         );
+
+        $this->getDI()->get('config')->application->smtp->port = 587;
+
         $this->dispatch('/index/contact');
         $this->assertController('index');
         $this->assertAction('contact');
