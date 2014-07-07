@@ -47,7 +47,7 @@ class IndexController extends ControllerBase
             $mail = new \Zend\Mail\Message();
             $mail->addTo($this->config->application->smtp->info->address);
             $mail->setSubject('Info sa kontakt forme');
-            $mail->addFrom($this->request->getPost('email'));
+            $mail->setFrom($this->request->getPost('email'));
             $mail->addReplyTo($this->request->getPost('email'));
             $body = 'Ime: ' . $this->request->getPost('name') . '<br />' . PHP_EOL;
             $body .= 'Email: ' . $this->request->getPost('email') . '<br />' . PHP_EOL;
@@ -68,6 +68,7 @@ class IndexController extends ControllerBase
                     'username' => $this->config->application->smtp->username,
                     //'password' => $this->config->application->mail->mandrill->password,
                     'password' => $this->config->application->smtp->password,
+                    'ssl' => 'tls',
                 )
             ));
 
