@@ -55,8 +55,6 @@ class IndexController extends ControllerBase
             $body .= 'Poruka: ' . $this->request->getPost('body');
             $mail->setBody($this->request->getPost('body'));
 
-            print_r($this->config->application->smtp->toArray());
-            ob_flush();
             $options = new \Zend\Mail\Transport\SmtpOptions(array(
                 //'name' => 'smtp.mandrillapp.com',
                 'name' => $this->config->application->smtp->name,
