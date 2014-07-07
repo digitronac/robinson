@@ -26,6 +26,7 @@ class IndexController extends ControllerBase
         $this->view->topTabs = $this->makeTopTabs();
         */
         $this->view->bottomTabs = $this->makeBottomTabs(8);
+        $this->tag->appendTitle('Letovanje 2014');
     }
 
     /**
@@ -75,6 +76,8 @@ class IndexController extends ControllerBase
                 'Vaša poruka je poslata! Odgovorićemo u najkraćem mogućem roku! HVALA!!! :)'
             );
         }
+
+        $this->tag->appendTitle('Kontakt');
     }
 
     /**
@@ -82,7 +85,7 @@ class IndexController extends ControllerBase
      */
     public function usloviAction()
     {
-
+        $this->tag->appendTitle('Opsti uslovi putovanja');
     }
 
     /**
@@ -90,7 +93,7 @@ class IndexController extends ControllerBase
      */
     public function informacijeAction()
     {
-
+        $this->tag->appendTitle('Korisne informacije');
     }
 
     /**
@@ -98,7 +101,7 @@ class IndexController extends ControllerBase
      */
     public function placanjeAction()
     {
-
+        $this->tag->appendTitle('Nacin placanja');
     }
 
     /**
@@ -106,7 +109,7 @@ class IndexController extends ControllerBase
      */
     public function osiguranjeAction()
     {
-
+        $this->tag->appendTitle('Putno osiguranje');
     }
 
     /**
@@ -114,12 +117,12 @@ class IndexController extends ControllerBase
      */
     public function prtljagAction()
     {
-
+        $this->tag->appendTitle('Dozvoljeni prtljag');
     }
 
     public function dokumentaAction()
     {
-
+        $this->tag->appendTitle('Putna dokumenta');
     }
 
     /**

@@ -75,7 +75,11 @@ class PackageController extends ControllerBase
         );
 
         $this->view->categoryId = $this->view->package->destination->category->getCategoryId();
-        $this->tag->prependTitle($this->view->package->getPackage() . ' - ');
+        $destination = $this->view->package->getRelated('destination');
+
+        $this->tag->prependTitle($destination->getRelated('category')->getCategory());
+        $this->tag->prependTitle($destination->getDestination());
+        $this->tag->prependTitle($this->view->package->getPackage());
     }
 
     public function pdfAction()

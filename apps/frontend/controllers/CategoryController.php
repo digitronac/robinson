@@ -12,6 +12,6 @@ class CategoryController extends ControllerBase
         );
 
         $this->view->categoryId = $this->view->category->getCategoryId();
-        $this->tag->prependTitle($this->view->category->getCategory() . ' - ');
+        $this->tag->prependTitle($this->view->category->getCategory());
     }
 }

@@ -29,7 +29,8 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'limit' => 10,
             )
         );
-        $this->tag->setTitle('robinson.rs');
+        $this->tag->setTitleSeparator(' - ');
+        $this->tag->setTitle('Robinson turisticka agencija');
     }
 
     protected function getCategories()

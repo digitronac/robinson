@@ -17,9 +17,11 @@ class DestinationController extends ControllerBase
             (int) $this->dispatcher->getParam('id')
         );
 
+        $this->tag->prependTitle($this->view->destination->getRelated('category')->getCategory());
+
         $this->view->categoryId = $this->view->destination->category->getCategoryId();
         $this->view->destinationId = $this->view->destination->getDestinationId();
         $this->tag->setDefault('type', $this->view->type);
-        $this->tag->prependTitle($this->view->destination->getDestination() . ' - ');
+        $this->tag->prependTitle($this->view->destination->getDestination());
     }
 }
