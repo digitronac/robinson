@@ -41,6 +41,7 @@ class PackageController extends ControllerBase
                         'username' => $this->config->application->smtp->username,
                         //'password' => $this->config->application->mail->mandrill->password,
                         'password' => $this->config->application->smtp->password,
+                        'ssl' => 'tls',
                     )
                 ));
 
