@@ -26,7 +26,7 @@ class IndexController extends ControllerBase
         $this->view->topTabs = $this->makeTopTabs();
         */
         $this->view->bottomTabs = $this->makeBottomTabs(8);
-        $this->tag->appendTitle('Letovanje 2014');
+        $this->tag->prependTitle('Letovanje 2014');
     }
 
     /**
