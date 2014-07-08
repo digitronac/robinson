@@ -23,5 +23,9 @@ class DestinationController extends ControllerBase
         $this->view->destinationId = $this->view->destination->getDestinationId();
         $this->tag->setDefault('type', $this->view->type);
         $this->tag->prependTitle($this->view->destination->getDestination());
+        $this->view->metaDescription = \Phalcon\Tag::tagHtml('meta', array(
+            'name' => 'description',
+            'content' => 'Aktuelni aranzmani za destinaciju ' . $this->view->destination->getDestination() . '.',
+        ));
     }
 }

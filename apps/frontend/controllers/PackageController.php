@@ -85,6 +85,10 @@ class PackageController extends ControllerBase
         $this->tag->prependTitle($destination->getRelated('category')->getCategory());
         $this->tag->prependTitle($destination->getDestination());
         $this->tag->prependTitle($this->view->package->getPackage());
+        $this->view->metaDescription = \Phalcon\Tag::tagHtml('meta', array(
+            'name' => 'description',
+            'content' => $this->view->package->getPackage() . ' - Aranzman - Opis - Cene - Rezervacija.',
+        ));
     }
 
     public function pdfAction()

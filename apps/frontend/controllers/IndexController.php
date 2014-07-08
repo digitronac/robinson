@@ -26,6 +26,10 @@ class IndexController extends ControllerBase
         $this->view->topTabs = $this->makeTopTabs();
         */
         $this->view->bottomTabs = $this->makeBottomTabs(8);
+        $this->view->metaDescription = \Phalcon\Tag::tagHtml('meta', array(
+            'name' => 'description',
+            'content' => 'Letovanje 2014 i Leto 2014 - aktuelne ponude. Vas Robinson Travel Agency.',
+        ));
         $this->tag->prependTitle('Letovanje 2014');
     }
 
