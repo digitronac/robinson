@@ -134,6 +134,11 @@ class IndexController extends ControllerBase
         $this->tag->appendTitle('Putna dokumenta');
     }
 
+    public function notFoundAction()
+    {
+
+    }
+
     /**
      * Creates array of objects that contain data for building landing page bottom tabs.
      *

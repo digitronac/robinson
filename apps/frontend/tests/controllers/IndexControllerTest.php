@@ -44,6 +44,13 @@ class IndexControllerTest extends BaseTestController
         $this->assertAction('contact');
     }
 
+    public function testWrongUrlWillShowNotFoundAction()
+    {
+        $this->dispatch('/somethingwhichdoesntexist');
+        $this->assertController('index');
+        $this->assertAction('notFound');
+    }
+
     public function testSubmittingContactShouldWorkAsExpected()
     {
         $smtp = $this->getMockBuilder('Zend\Mail\Transport\Smtp')
