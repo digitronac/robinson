@@ -11,7 +11,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
     public function indexAction()
     {
         $this->view->packages = array();
-        
+        $this->tag->setDefault('destinationId', $this->session->get('destinationId'));
         if ($this->request->hasQuery('destinationId')) {
             $packages = $this->getDI()->get('Robinson\Backend\Models\Package');
             $this->view->packages = $packages->find(
@@ -20,7 +20,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                     'order' => 'destinationId DESC',
                 )
             );
-            
+            $this->session->set('destinationId', $this->request->getQuery('destinationId'));
             $this->tag->setDefault('destinationId', $this->request->getQuery('destinationId'));
         }
         

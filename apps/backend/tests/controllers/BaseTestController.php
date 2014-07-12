@@ -34,12 +34,13 @@ class BaseTestController extends \Phalcon\Test\FunctionalTestCase
     
     protected function registerMockSession()
     {
-        $sessionMock = $this->getMock('Phalcon\Session\Adapter\Files', array('get'));
-        $sessionMock->expects($this->any())
-            ->method('get')
-            ->with($this->equalTo('auth'))
-            ->will($this->returnValue(array('username' => 'nemanja')));
-        $this->getDI()->set('session', $sessionMock);
+        //$sessionMock = $this->getMock('Phalcon\Session\Adapter\Files', array('get'));
+        //$sessionMock->expects($this->any())
+          //  ->method('get')
+            //->with($this->equalTo('auth'))
+           // ->will($this->returnValue(array('username' => 'nemanja')));
+        $_SESSION['auth'] = array('username' => 'nemanja');
+        //$this->getDI()->set('session', $sessionMock);
     }
     
     /**
