@@ -5,3 +5,4 @@
     database.username = "{{DB_USER}}"
     database.password = "{{DB_PASSWORD}}"
     database.dbname = "{{DB_NAME}}"
+[cli]
