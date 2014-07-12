@@ -28,11 +28,11 @@ class MaintenanceTask extends \Phalcon\CLI\Task
             throw new \Exception('Pathname does not exist.');
         }
 
-        // start transaction, in case of permission problems.
-        $db->begin();
-        try {
-            // iterator thru packages
-            foreach ($packages as $package) {
+        // iterator thru packages
+        foreach ($packages as $package) {
+            // start transaction, in case of permission problems.
+            $db->begin();
+            try {
                 echo '--- Processing package #' . $package['packageId'] . ' ---' . PHP_EOL;
                 $folder = $this->getDI()->get('config')->application->packagePdfPath . '/' . $package['packageId'];
                 // clear existing files
@@ -51,19 +51,20 @@ class MaintenanceTask extends \Phalcon\CLI\Task
                 echo 'Copy pdf ' . $pathname . ' to ' . $folder . '/' . $filename . PHP_EOL;
                 $filesystem->copy($pathname, $folder . '/' . $filename);
 
-                echo '--- Finished processing package #' . $package['packageId'] . ' ---' . PHP_EOL;
-            }
-            // update package records
-            $pdf = new \SplFileObject($pathname);
-            $pdf = $pdf->getFilename();
-            //echo "UPDATE packages SET pdf = '$pdf' WHERE destinationId = $destinationId" . PHP_EOL;
-            $db->execute("UPDATE packages SET pdf = '$pdf' WHERE destinationId = $destinationId");
-            echo '    --- Pdf update finished!    ---' . PHP_EOL;
-            $db->commit();
-        } catch (\Exception $e) {
-            $db->rollback();
-            echo $e;
-        }
+                // update package records
+                $pdf = new \SplFileObject($pathname);
+                $pdf = $pdf->getFilename();
 
+                // update record
+                $db->execute("UPDATE packages SET pdf = '$pdf' WHERE packageId = " . $package['packageId']);
+                $db->commit();
+                echo '--- Finished processing package #' . $package['packageId'] . ' ---' . PHP_EOL;
+            } catch (\Exception $e) {
+                $db->rollback();
+                echo '--- rollback ---' . PHP_EOL;
+                echo $e;
+            }
+        }
+        echo '    --- Pdf update finished!    ---' . PHP_EOL;
     }
 }
