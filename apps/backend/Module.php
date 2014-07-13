@@ -49,9 +49,11 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
                 $local = new \Phalcon\Config($local->toArray());
                 $config->merge($local);
             }
+        } else {
+            $config = $di->get('config');
         }
 
-        $config = $di->get('config');
+
 
         include APPLICATION_PATH . '/backend/config/services.php';
 
