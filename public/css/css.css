@@ -6,3 +6,9 @@ ul li{list-style-position: inside}
 .admin fieldset{padding:0 20px;margin:10px 0}
 .admin div {margin-top:30px}
 .admin div.cke_inner, .admin div.file, .admin div.tags, .admin div#cke_description{margin-top:0}
+.dashboard h4 {display:inline}
+.dashboard .section {float:left; margin-left:60px; margin-top:20px}
+.dashboard .section li {margin-top:10px}
+.dashboard .section li a {font-size:16px}
+.dashboard .action a {color:black}
+.dashboard .action.logout a {color:red}

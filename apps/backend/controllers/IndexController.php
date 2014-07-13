@@ -86,7 +86,7 @@ class IndexController extends ControllerBase
         $packages = \Robinson\Backend\Models\Package::find(
             array
             (
-                'limit' => 5,
+                'limit' => 15,
                 'status' => 1,
                 'order' => 'packageId DESC',
             )

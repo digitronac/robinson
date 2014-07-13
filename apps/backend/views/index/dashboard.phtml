@@ -1,8 +1,9 @@
 
 <div class="admin index dashboard">
-    <dl>
-        <dt><h4><a style="color:black" href="<?=$this->url->get('admin/category/index')?>">Kategorije</a></h4></dt>
-        <dd>
+    <ul>
+        <li class="section">
+            <h4><a style="color:black" href="<?=$this->url->get('admin/category/index')?>">Kategorije</a></h4>
+
             <ul>
 
                 <?php foreach ($categories as $category): ?>
@@ -11,12 +12,14 @@
 
                 <?php endforeach ?>
 
-                <li><a href="<?=$this->url->get(array('for' => 'admin', 'controller' => 'category', 'action' => 'create'))?>">Dodaj novu kategoriju</a></li>
+                <li class="action"><a href="<?=$this->url->get(array('for' => 'admin', 'controller' => 'category', 'action' => 'create'))?>">Dodaj novu kategoriju</a></li>
 
             </ul>
-        </dd>
-        <dt><h4><a style="color:black" href="<?=$this->url->get('admin/destination/index')?>">Destinacije</a></h4></dt>
-        <dd>
+        </li>
+
+        <li class="section">
+            <h4><a style="color:black" href="<?=$this->url->get('admin/destination/index')?>">Destinacije</a></h4>
+
             <ul>
                 
                 <?php foreach ($destinations as $destination): ?>
@@ -25,11 +28,13 @@
                 
                 <?php endforeach ?>
                 
-                <li><a href="<?=$this->url->get(array('for' => 'admin', 'controller' => 'destination', 'action' => 'create'))?>">Dodaj novu destinaciju</a></li>
+                <li class="action"><a href="<?=$this->url->get(array('for' => 'admin', 'controller' => 'destination', 'action' => 'create'))?>">Dodaj novu destinaciju</a></li>
             </ul>
-        </dd>
-        <dt><h4><a style="color:black" href="<?=$this->url->get('admin/package/index')?>">Aranzmani</a></h4></dt>
-        <dd>
+        </li>
+
+        <li class="section">
+            <h4><a style="color:black" href="<?=$this->url->get('admin/package/index')?>">Aranzmani</a></h4>
+
             <ul>
                 
                 <?php foreach ($packages as $package): ?>
@@ -48,7 +53,7 @@
                 
                 <?php endforeach ?>
                 
-                <li><?=$this->tag->linkTo(array
+                <li class="action"><?=$this->tag->linkTo(array
                 (
                     array
                     (
@@ -60,16 +65,22 @@
                 ))?></li>
                 
             </ul>
-        </dd>
-        <dt><h4>Prioriteti</h4></dt>
-        <dd>
+        </li>
+        <li class="section">
+            <h4>Akcije</h4>
+
             <ul>
-                <li><?=$this->tag->linkTo(array(
+                <li class="action"><?=$this->tag->linkTo(array(
                     'admin/index/sortTaggedPackages',
                     'Postavi prioritete',
                 )) . PHP_EOL ?>
                 </li>
+                <li class="action logout"><?=$this->tag->linkTo(array(
+                    'admin/index/logout',
+                    'Logout',
+                )) . PHP_EOL ?>
+                </li>
             </ul>
-        </dd>
-    </dl>
+        </li>
+    </ul>
 </div>
