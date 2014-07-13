@@ -435,10 +435,12 @@ class Package extends \Phalcon\Mvc\Model
             $this->special = new \Phalcon\Db\RawValue('""');
         }
     }
-    
+
     /**
      * Moves file to appropriate folder.
-     * 
+     *
+     * @throws \Robinson\Backend\Models\Exception
+     *
      * @return void
      */
     public function afterSave()
@@ -460,6 +462,7 @@ class Package extends \Phalcon\Mvc\Model
                     )
                 );
             }
+            $this->removeObsoleteLeftovers();
         }
 
         if ($this->uploadedPdf2) {
@@ -643,7 +646,7 @@ class Package extends \Phalcon\Mvc\Model
     /**
      * Updates package tags.
      *
-     * @param array $tagsData tags, recieved from form
+     * @param array $tagsData tags, received from form
      *
      * @return $this
      */
@@ -664,5 +667,39 @@ class Package extends \Phalcon\Mvc\Model
         $this->tags = $tags;
 
         return $this;
+    }
+
+    /**
+     * Removes leftover files from pdf to html conversion on new pdf upload.
+     *
+     * @return void
+     */
+    protected function removeObsoleteLeftovers()
+    {
+        $dir = $this->getDI()->get(
+            'DirectoryIterator',
+            array(
+                $this->getDI()->get('config')->application->packagePdfPath . '/' . $this->getPackageId()
+            )
+        );
+        while ($dir->valid()) {
+            /** @var \DirectoryIterator $file */
+            $file = $dir->current();
+
+            if ($file->isDot()) {
+                $dir->next();
+                continue;
+            }
+
+            // original pdf file?
+            if ($file->getFilename() === $this->getPdf()) {
+                $dir->next();
+                continue;
+            }
+
+            $filesystem = $this->getDI()->get('Symfony\Component\Filesystem\Filesystem');
+            $filesystem->remove($file->getPathname());
+            $dir->next();
+        }
     }
 }

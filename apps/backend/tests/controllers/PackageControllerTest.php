@@ -626,6 +626,123 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
          }
     }
 
+    public function testUpdatePackageWithUpdatedPdfShouldWorkAsExpectedAndClearObsoleteFiles()
+    {
+        $this->registerMockSession();
+        $_POST = array
+        (
+            'destinationId' => 2,
+            'package' => 'test package name 2 :)',
+            'description' => 'test package description 2 :)',
+            'price' => 999,
+            'status' => 1,
+            'tabs' => array
+            (
+                1 => 'tab1',
+                3 => 'tab3',
+                4 => 'tab4',
+            ),
+        );
+
+        $mockPdfFile = $this->getMockBuilder('Phalcon\Http\Request\File')
+            ->disableOriginalConstructor()
+            ->setMethods(array('getName', 'moveTo', 'getKey'))
+            ->getMock();
+        $mockPdfFile->expects($this->exactly(2))
+            ->method('getName')
+            ->will($this->returnValue('packagepdftest.pdf'));
+        $mockPdfFile->expects($this->once())
+            ->method('moveTo')
+            ->will($this->returnValue(true));
+        $mockPdfFile->expects($this->once())
+            ->method('getKey')
+            ->will($this->returnValue('pdf'));
+
+        $request = $this->getMockBuilder('Phalcon\Http\Request')
+            ->setMethods(array('isPost', 'getUploadedFiles'))
+            ->getMock();
+        $request->expects($this->any())
+            ->method('isPost')
+            ->will($this->returnValue(true));
+        $request->expects($this->once())
+            ->method('getUploadedFiles')
+            ->will($this->returnValue(array
+                (
+                    0 => $mockPdfFile,
+                )));
+
+
+        $this->getDI()->set('Imagick', $this->mockWorkingImagick());
+
+        $this->getDI()->setShared('request', $request);
+
+        // mock directory iterator
+        $dirIterator = $this->getMockBuilder('DirectoryIterator')
+            ->disableOriginalConstructor()
+            ->setMethods(array('valid', 'current'))
+            ->getMock();
+
+        $fileIterator = $this->getMockBuilder('DirectoryIterator')
+            ->disableOriginalConstructor()
+            ->setMethods(array('isDot', 'getPathname', 'getFilename'))
+            ->getMock();
+        $fileIterator->expects($this->any())
+            ->method('isDot')
+            ->will($this->returnValue(false));
+
+        // 1 times, on remove
+        $fileIterator->expects($this->exactly(1))
+            ->method('getPathname')
+            ->will($this->onConsecutiveCalls('packagepdftest.pdf', 'packagepdftest.html'));
+
+
+        $fileIterator->expects($this->exactly(2))
+            ->method('getFilename')
+            ->will($this->onConsecutiveCalls('packagepdftest.pdf', 'packagepdftest.html'));
+
+
+        $dirIterator->expects($this->any())
+            ->method('valid')
+            ->will($this->onConsecutiveCalls(true, true, false));
+        $dirIterator->expects($this->any())
+            ->method('current')
+            ->will($this->returnValue($fileIterator));
+        $this->getDI()->set('DirectoryIterator', $dirIterator);
+
+        // mock filesystem component
+        $filesystem = $this->getMockBuilder('Symfony\Component\Filesystem\Filesystem')
+            ->setMethods(array('remove'))
+            ->getMock();
+        $filesystem->expects($this->once())
+            ->method('remove')
+            ->will($this->returnValue(true));
+        $this->getDI()->set('Symfony\Component\Filesystem\Filesystem', $filesystem);
+
+        $this->dispatch('/admin/package/update/1');
+
+        $package = \Robinson\Backend\Models\Package::findFirst();
+        $this->assertEquals(2, $package->getDestination()->getDestinationId());
+        $this->assertEquals('test package name 2 :)', $package->getPackage());
+        $this->assertEquals('test package description 2 :)', $package->getDescription());
+        $this->assertEquals(999, $package->getPrice());
+        $this->assertEquals(\Robinson\Backend\Models\Package::STATUS_VISIBLE, $package->getStatus());
+        $this->assertEquals('packagepdftest.pdf', $package->getPdf());
+
+        // assert tabs
+        $this->assertGreaterThan(0, $package->getTabs()->count());
+
+        foreach ($package->getTabs() as $tab)
+        {
+            foreach ($_POST['tabs'] as $type => $description)
+            {
+                if($tab->getType() === $type)
+                {
+                    $this->assertEquals($description, $tab->getDescription());
+                }
+            }
+        }
+    }
+
     /**
      * @expectedException \Phalcon\Exception
      * @expectedExceptionMessage Unable to update package #1
