@@ -626,7 +626,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
          }
     }
 
-    public function testUpdatePackageWithUpdatedPdfShouldWorkAsExpectedAndClearObsoleteFiles()
+    /*public function testUpdatePackageWithUpdatedPdfShouldWorkAsExpectedAndClearObsoleteFiles()
     {
         $this->registerMockSession();
         $_POST = array
@@ -741,7 +741,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                 }
             }
         }
-    }
+    }*/
 
     /**
      * @expectedException \Phalcon\Exception
