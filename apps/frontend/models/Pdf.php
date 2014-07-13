@@ -67,13 +67,14 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
         $this->baseDir = $baseDir;
         $this->pdfType = $pdfType;
     }
-    
+
     /**
      * Returns absolute path to html file generated from pdf.
-     * 
+     *
+     * @throws \Robinson\Frontend\Model\Exception if html file does not exist
+     *
      * @return string absolute path to html file
-     * 
-     * @throws \Robinson\Backend\Models\Exception if file could not be found
+     *
      */
     public function getHtmlFile()
     {
@@ -119,13 +120,14 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
         );
         return $document;
     }
-    
+
     /**
      * Returns absolute file path to pdf file.
-     * 
+     *
+     * @throws \Robinson\Frontend\Model\Exception if pdf could not be located
+     *
      * @return string
-     * 
-     * @throws \Robinson\Backend\Models\Exception if pdf could not be located
+     *
      */
     public function getPdfFile()
     {
