@@ -41,13 +41,17 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
      */
     public function registerServices($di)
     {
-        $config = new \Zend_Config_Ini(MODULE_PATH . '/config/application.ini', APPLICATION_ENV);
-        $config = new \Phalcon\Config($config->toArray());
-        if (is_file(MODULE_PATH . '/config/application.local.ini')) {
-            $local = (new \Zend_Config_Ini(MODULE_PATH . '/config/application.local.ini', APPLICATION_ENV));
-            $local = new \Phalcon\Config($local->toArray());
-            $config->merge($local);
+        if (!$di->has('config')) {
+            $config = new \Zend_Config_Ini(MODULE_PATH . '/config/application.ini', APPLICATION_ENV);
+            $config = new \Phalcon\Config($config->toArray());
+            if (is_file(MODULE_PATH . '/config/application.local.ini')) {
+                $local = (new \Zend_Config_Ini(MODULE_PATH . '/config/application.local.ini', APPLICATION_ENV));
+                $local = new \Phalcon\Config($local->toArray());
+                $config->merge($local);
+            }
         }
+
+        $config = $di->get('config');
 
         include APPLICATION_PATH . '/backend/config/services.php';
 
