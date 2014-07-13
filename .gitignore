@@ -4,6 +4,7 @@ apps/*/config/application.local.ini
 apps/backend/config/credentials.php
 apps/*/tests/coverage/
 apps/*/tests/clover.xml
+apps/frontend/views/partials/ga.phtml
 composer.phar
 config/phinx-local.yml
 .idea/
