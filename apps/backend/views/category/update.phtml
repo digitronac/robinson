@@ -48,18 +48,19 @@
 
                 <?php foreach($category->getImages() as $image): ?>
 
-                <li>
-                    <img data-image-category-id="<?=$image->getImageId()?>" src="<?=$image->getResizedSrc() ?>" />
+                <li style="list-style-type: none; display: inline-block; margin: 10px">
+                    <img style="cursor: pointer" data-image-category-id="<?=$image->getImageId()?>" src="<?=$image->getResizedSrc() ?>" />
 
-                    <?=$this->tag->textField(array
-                    (
-                        'sort[' . $image->getImageId() . ']',
-                        'length' => 2,
-                        'maxsize' => 2,
-                        'size' => 2,
-                        'value' => $image->getSort(),
-                    ))?>
-
+                    <div style="margin-top:10px">
+                        <?=$this->tag->textField(array
+                        (
+                            'sort[' . $image->getImageId() . ']',
+                            'length' => 2,
+                            'maxsize' => 2,
+                            'size' => 2,
+                            'value' => $image->getSort(),
+                        )) . PHP_EOL ?>
+                    </div>
                 </li>
 
             <?php endforeach ?>
@@ -83,16 +84,19 @@
     {
         $('img[data-image-category-id]').hover(function(e)
         {
-            $(this).css('border', '5px solid red');
+            $(this).css('opacity', 0.5);
         }, function()
         {
-            $(this).css('border', 'none');
+            $(this).css('opacity', 1);
         });
         
         $('img[data-image-category-id]').on('click', function(e)
         {
            e.preventDefault();
            var that = $(this);
+           if (!confirm('Da li sigurno zelite da obrisete ovu sliku?')) {
+               return false;
+           }
            $.post("<?=$this->url->get(array('for' => 'admin', 'controller' => 'category', 'action' => 'deleteImage'))?>", {id: $(this).data('image-category-id')}, function(response)
            {
                if(response.response)

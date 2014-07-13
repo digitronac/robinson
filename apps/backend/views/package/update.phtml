@@ -62,29 +62,31 @@
         </fieldset>
         <fieldset>
             <legend>Slike i pdf</legend>
-            <ul>
+            <ul style="list-style-type: none">
                 <?php foreach ($package->getImages() as $image): ?>
 
-                <li>
-                    <img data-package-image-id="<?=$image->getImageId()?>" src="<?=$image->getResizedSrc() ?>" />
+                <li style="display:inline-block;margin:10px">
+                    <img style="cursor:pointer" data-package-image-id="<?=$image->getImageId()?>" src="<?=$image->getResizedSrc() ?>" />
 
-                    <?=$this->tag->textField(array
-                    (
-                        'sort[' . $image->getImageId() . ']',
-                        'length' => 2,
-                        'maxsize' => 2,
-                        'size' => 2,
-                        'value' => $image->getSort(),
-                        'required' => 'required',
-                    ))?>
+                    <div style="margin-top:10px">
+                        <?=$this->tag->textField(array
+                        (
+                            'sort[' . $image->getImageId() . ']',
+                            'length' => 2,
+                            'maxsize' => 2,
+                            'size' => 2,
+                            'value' => $image->getSort(),
+                            'required' => 'required',
+                        ))?>
 
-                    <?=$this->tag->textField(array
-                    (
-                        'title[' . $image->getImageId() . ']',
-                        'size' => 60,
-                        'value' => $image->getTitle(),
-                        'required' => 'required',
-                    ))?>
+                        <?=$this->tag->textField(array
+                        (
+                            'title[' . $image->getImageId() . ']',
+                            'size' => 30,
+                            'value' => $image->getTitle(),
+                            'required' => 'required',
+                        ))?>
+                    </div>
 
                 </li>
 
@@ -92,11 +94,12 @@
 
             </ul>
 
-            <div>
+            <div style="clear:left">
                 <input type="file" name="files[]" multiple="multiple" accept="image/jpeg, image/png" />
             </div>
+            <hr />
             <div>
-                <h5>Pdf file: <?=$this->tag->linkTo(array(array
+                <h5>Trenutni PDF file: <?=$this->tag->linkTo(array(array
                 (
                     'for' => 'admin-update',
                     'controller' => 'package',
@@ -109,7 +112,7 @@
                     <input type="file" name="pdf" accept="application/pdf" />
                 </div>
             </div>
-            <div>
+            <!--<div>
                 <h5>Pdf2 file: </h5>
 
                 <?php if ($package->getPdf2()): ?>
@@ -121,7 +124,7 @@
                     <label for="pdf2">Zameni pdf2:</label>
                     <input type="file" name="pdf2" accept="application/pdf" />
                 </div>
-            </div>
+            </div>-->
         </fieldset>
         <fieldset>
             <legend>Tabovi</legend>
@@ -154,6 +157,7 @@
                         'special',
           //              'class' => 'datepicker',
                         'id' => 'date',
+                        'placeholder' => 'Unesi datum',
                         'data-date-format' => 'yyyy-mm-dd',
                     )
                 ) . PHP_EOL ?>
@@ -190,14 +194,17 @@
     {
         $('img[data-package-image-id]').hover(function(e)
         {
-            $(this).css('border', '5px solid red');
+            $(this).css('opacity', 0.5);
         }, function()
         {
-            $(this).css('border', 'none');
+            $(this).css('opacity', 1);
         });
         $('img[data-package-image-id]').on('click', function(e)
         {
            e.preventDefault();
+           if (!confirm('Da li sigurno zelite da obrisete ovu sliku?')) {
+               return false;
+           }
            var that = $(this);
            $.post("<?=$this->url->get(array('for' => 'admin', 'controller' => 'package', 'action' => 'deleteImage'))?>", {id: $(this).data('package-image-id')}, function(response)
            {
@@ -207,6 +214,5 @@
                }
            });
         });
-        $('.datepicker').datepicker();
     });
 </script>

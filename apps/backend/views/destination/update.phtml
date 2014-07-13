@@ -53,18 +53,19 @@
             <ul>
                 <?php foreach($destination->getImages() as $image): ?>
 
-                <li>
-                    <img data-destination-image-id="<?=$image->getImageId()?>" src="<?=$image->getResizedSrc() ?>" />
+                <li style="display:inline-block; margin:10px; list-style-type: none">
+                    <img style="cursor: pointer" data-destination-image-id="<?=$image->getImageId()?>" src="<?=$image->getResizedSrc() ?>" />
 
-                    <?=$this->tag->textField(array
-                    (
-                        'sort[' . $image->getImageId() . ']',
-                        'length' => 2,
-                        'maxsize' => 2,
-                        'size' => 2,
-                        'value' => $image->getSort(),
-                    ))?>
-
+                    <div style="margin-top:10px">
+                        <?=$this->tag->textField(array
+                        (
+                            'sort[' . $image->getImageId() . ']',
+                            'length' => 2,
+                            'maxsize' => 2,
+                            'size' => 2,
+                            'value' => $image->getSort(),
+                        ))?>
+                    </div>
                 </li>
 
             <?php endforeach ?>
@@ -107,15 +108,19 @@
     {
         $('img[data-destination-image-id]').hover(function(e)
         {
-            $(this).css('border', '5px solid red');
+            $(this).css('opacity', 0.5);
         }, function()
         {
-            $(this).css('border', 'none');
+            $(this).css('opacity', 1);
         });
+
         $('img[data-destination-image-id]').on('click', function(e)
         {
            e.preventDefault();
            var that = $(this);
+           if (!confirm('Da li sigurno zelite da obrisete ovu sliku?')) {
+               return false;
+           }
            $.post("<?=$this->url->get(array('for' => 'admin', 'controller' => 'destination', 'action' => 'deleteImage'))?>", {id: $(this).data('destination-image-id')}, function(response)
            {
                if(response.response)
