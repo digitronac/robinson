@@ -184,6 +184,11 @@ body{color:white;font-family: 'Open Sans', sans-serif;background:#f4f4f4}
 
 .static-page p {color:black; line-height:150%}
 
+/* index/zaAgente */
+.pricelists {list-style-type: disc; list-style-position: inside; padding-bottom:20px}
+.pricelists li {margin-top:10px; color: #de1a28}
+.pricelists li a {color: black}
+
 /* custom select */
 .customSelect {
     /* This is the default class that is used */
