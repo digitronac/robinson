@@ -1,0 +1,23 @@
+
+    <div class="info-page">
+        <div class="inner-site">
+            <h1>Cenovnici za agente</h1>
+            <div class="static-page">
+
+                <?php if ($pricelists): ?>
+
+                    <ul class="pricelists">
+
+                        <?php foreach ($pricelists as $pricelist): ?>
+
+                            <li><a target="_blank" href="<?=$pricelist->getUri()?>"><?=$pricelist->getFilename()?></a></li>
+
+                        <?php endforeach ?>
+
+                    </ul>
+
+                <?php endif ?>
+
+            </div>
+        </div>
+    </div>

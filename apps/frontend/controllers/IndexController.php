@@ -145,6 +145,16 @@ class IndexController extends ControllerBase
     }
 
     /**
+     * Pricelists display.
+     *
+     * @return void
+     */
+    public function zaAgenteAction()
+    {
+        $this->view->pricelists = \Robinson\Frontend\Model\Pricelist::find(array('order' => 'filename ASC'));
+    }
+
+    /**
      * Creates array of objects that contain data for building landing page bottom tabs.
      *
      * @param int $limit limit

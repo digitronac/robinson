@@ -9,6 +9,7 @@ class IndexControllerTest extends BaseTestController
         $this->populateTable('packages');
         $this->populateTable('package_tabs');
         $this->populateTable('package_tags');
+        $this->populateTable('pricelists');
     }
 
     public function testIndexActionShouldWorkAsExpected()
@@ -42,6 +43,14 @@ class IndexControllerTest extends BaseTestController
         $this->dispatch('/index/contact');
         $this->assertController('index');
         $this->assertAction('contact');
+    }
+
+    public function testAgentsActionShouldExist()
+    {
+        $this->dispatch('/index/zaAgente');
+        $this->assertController('index');
+        $this->assertAction('zaAgente');
+        $this->assertResponseContentContains('<li><a target="_blank" href="/pdf/pricelist/fixturepdf.pdf">fixturepdf.pdf</a></li>');
     }
 
     public function testWrongUrlWillShowNotFoundAction()
