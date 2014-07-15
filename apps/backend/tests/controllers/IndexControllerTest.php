@@ -10,8 +10,8 @@ class IndexControllerTest extends BaseTestController
         $this->populateTable('category_images');
         $this->populateTable('destinations');
         $this->populateTable('packages');
-
         $this->populateTable('package_tags');
+        $this->populateTable('pricelists');
     }
     
     public function testIndexActionShouldShowLogin()
@@ -113,5 +113,134 @@ class IndexControllerTest extends BaseTestController
             $tag = \Robinson\Backend\Models\Tags\Package::findFirst($packageTagId);
             $this->assertEquals($order, $tag->getOrder());
         }
+    }
+
+    public function testUploadingPricelistShouldSaveRecordToDatabase()
+    {
+        $this->registerMockSession();
+
+        $mockFile = $this->getMockBuilder('Phalcon\Http\Request\File')
+            ->disableOriginalConstructor()
+            ->setMethods(array('moveTo', 'getName'))
+            ->getMock();
+        $mockFile->expects($this->once())
+            ->method('moveTo')
+            ->will($this->returnValue(true));
+        $mockFile->expects($this->once())
+            ->method('getName')
+            ->will($this->returnValue('pdf.pdf'));
+        $mockRequest = $this->getMockBuilder('Phalcon\Http\Request\Request')
+            ->disableOriginalConstructor()
+            ->setMethods(array('getUploadedFiles', 'getClientAddress', 'hasFiles', 'getQuery'))
+            ->getMock();
+        $mockRequest->expects($this->once())
+            ->method('getUploadedFiles')
+            ->will($this->returnValue(array($mockFile)));
+        $mockRequest->expects($this->once())
+            ->method('hasFiles')
+            ->will($this->returnValue(true));
+
+        $this->getDI()->set('request', $mockRequest);
+        $this->dispatch('/admin/index/agents');
+        /** @var \Robinson\Backend\Models\Pricelist $pricelist */
+        $pricelist = \Robinson\Backend\Models\Pricelist::findFirst(2);
+        $this->assertEquals('pdf.pdf', $pricelist->getFilename());
+        $this->assertEquals(
+            $this->getDI()->get('config')->application->pricelistPdfWebPath . '/' . rawurlencode('pdf.pdf'),
+            $pricelist->getLink()
+        );
+        $this->assertResponseContentContains('<a href="/pdf/pricelist/pdf.pdf">pdf.pdf</a> -
+                    <a class="del" style="color:red" href="?pricelistId=2">Obriši</a>');
+    }
+
+    public function testDeletingPriceListShouldWorkAsExpected()
+    {
+        $this->registerMockSession();
+        $mockFilesystem = $this->getMockBuilder('Symfony\Component\Filesystem\Filesystem')
+            ->setMethods(array('remove'))
+            ->getMock();
+        $this->getDI()->set('Symfony\Component\Filesystem\Filesystem', $mockFilesystem);
+        $_GET['pricelistId'] = 1;
+        $this->dispatch('/admin/index/agents');
+        $this->assertFalse(\Robinson\Backend\Models\Pricelist::findFirst($_GET['pricelistId']));
+    }
+
+    /**
+     * @expectedException \Exception
+     * @expectedExceptionMessage Pricelist fixturepdf.pdf already exists.
+     */
+    public function testUploadingPricelistWithExistingFilenameShouldThrowException()
+    {
+        $this->registerMockSession();
+
+        $mockFile = $this->getMockBuilder('Phalcon\Http\Request\File')
+            ->disableOriginalConstructor()
+            ->setMethods(array('moveTo', 'getName'))
+            ->getMock();
+        $mockFile->expects($this->never())
+            ->method('moveTo')
+            ->will($this->returnValue(true));
+        $mockFile->expects($this->exactly(2))
+            ->method('getName')
+            ->will($this->returnValue('fixturepdf.pdf'));
+        $mockRequest = $this->getMockBuilder('Phalcon\Http\Request\Request')
+            ->disableOriginalConstructor()
+            ->setMethods(array('getUploadedFiles', 'getClientAddress', 'hasFiles', 'getQuery'))
+            ->getMock();
+        $mockRequest->expects($this->once())
+            ->method('getUploadedFiles')
+            ->will($this->returnValue(array($mockFile)));
+        $mockRequest->expects($this->once())
+            ->method('hasFiles')
+            ->will($this->returnValue(true));
+        $this->getDI()->set('request', $mockRequest);
+
+        $mockFilesystem = $this->getMockBuilder('Symfony\Component\Filesystem\Filesystem')
+            ->setMethods(array('exists'))
+            ->getMock();
+        $mockFilesystem->expects($this->once())
+            ->method('exists')
+            ->will($this->returnValue(true));
+        $this->getDI()->set('Symfony\Component\Filesystem\Filesystem', $mockFilesystem);
+
+        $this->dispatch('/admin/index/agents');
+    }
+
+    /**
+     * @expectedException \Exception
+     * @expectedExceptionMessage Unable to create new pricelist
+     */
+    public function testFailedPricelistCreationShouldThrowException()
+    {
+        $this->registerMockSession();
+
+        $mockFile = $this->getMockBuilder('Phalcon\Http\Request\File')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mockRequest = $this->getMockBuilder('Phalcon\Http\Request\Request')
+            ->disableOriginalConstructor()
+            ->setMethods(array('getUploadedFiles', 'getClientAddress', 'hasFiles', 'getQuery'))
+            ->getMock();
+        $mockRequest->expects($this->once())
+            ->method('getUploadedFiles')
+            ->will($this->returnValue(array($mockFile)));
+        $mockRequest->expects($this->once())
+            ->method('hasFiles')
+            ->will($this->returnValue(true));
+        $this->getDI()->set('request', $mockRequest);
+
+        $mockPricelistModel = $this->getMockBuilder('Robinson\Backend\Models\Pricelist')
+            ->disableOriginalConstructor()
+            ->setMethods(array('createFromUploadedFile', 'getMessages'))
+            ->getMock();
+        $mockPricelistModel->expects($this->once())
+            ->method('createFromUploadedFile')
+            ->will($this->returnValue(false));
+        $mockPricelistModel->expects($this->exactly(2))
+            ->method('getMessages')
+            ->will($this->returnValue(array('error message.')));
+        $this->getDI()->set('Robinson\Backend\Models\Pricelist', $mockPricelistModel);
+
+        $this->dispatch('/admin/index/agents');
     }
 }

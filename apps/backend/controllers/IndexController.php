@@ -158,10 +158,31 @@ class IndexController extends ControllerBase
     /**
      * Action which manipulates with prices in pdf file for agents.
      *
+     * @throws \Phalcon\Exception if pricelist cannot be created
+     *
      * @return void
      */
     public function agentsAction()
     {
-        
+        if ($this->request->hasFiles('pricelists')) {
+            $files = $this->request->getUploadedFiles('pricelists');
+            foreach ($files as $file) {
+                /** @var \Robinson\Backend\Models\Pricelist $pricelist */
+                $pricelist = $this->getDI()->get('Robinson\Backend\Models\Pricelist');
+                if (!$pricelist->createFromUploadedFile($file)) {
+                    $this->log->log(implode(';', $pricelist->getMessages()), \Phalcon\Logger::ERROR);
+                    var_dump($pricelist->getMessages());
+                    ob_flush();
+                    throw new \Phalcon\Exception('Unable to create new pricelist.');
+                }
+            }
+        }
+
+        if ($this->request->getQuery('pricelistId')) {
+            $pricelist = \Robinson\Backend\Models\Pricelist::findFirst((int) $this->request->getQuery('pricelistId'));
+            $pricelist->delete();
+        }
+
+        $this->view->pricelists = \Robinson\Backend\Models\Pricelist::find(array('order' => 'filename ASC'));
     }
 }

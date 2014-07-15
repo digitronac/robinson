@@ -75,6 +75,14 @@
                     'Postavi prioritete',
                 )) . PHP_EOL ?>
                 </li>
+
+
+                <li class="action"><?=$this->tag->linkTo(array(
+                    'admin/index/agents',
+                    'Cenovnici za agente',
+                )) . PHP_EOL ?>
+                </li>
+
                 <li class="action logout"><?=$this->tag->linkTo(array(
                     'admin/index/logout',
                     'Logout',

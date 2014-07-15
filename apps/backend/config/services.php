@@ -69,7 +69,7 @@ $di->setShared('acl', function () use ($di) {
     }
 
     $privateResources = array(
-        'index' => array('dashboard', 'logout', 'sortTaggedPackages'),
+        'index' => array('dashboard', 'logout', 'sortTaggedPackages', 'agents'),
         'category' => array('index', 'create', 'update', 'delete', 'deleteImage'),
         'destination' => array('index', 'create', 'update', 'delete', 'deleteImage'),
         'package' => array('index', 'create', 'update', 'delete', 'deleteImage', 'pdfPreview'),

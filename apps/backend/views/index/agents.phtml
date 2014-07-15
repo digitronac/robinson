@@ -1,4 +1,40 @@
 
 <div class="admin index agents">
 
+    <h3>Upload cenovnika</h3>
+    <form method="post" action="<?=$this->url->get('admin/index/agents')?>" enctype="multipart/form-data">
+        <input type="file" name="pricelists[]" multiple="multiple" />
+    </form>
+
+    <?php if ($pricelists): ?>
+
+        <ul>
+
+            <?php foreach ($pricelists as $pricelist): ?>
+
+                <?php /** @var \Robinson\Backend\Models\Pricelist $pricelist */ ?>
+
+                <li>
+                    <a href="<?=$pricelist->getLink()?>"><?=$pricelist->getFilename()?></a> -
+                    <a class="del" style="color:red" href="?pricelistId=<?=$pricelist->getPricelistId()?>">Obriši</a>
+                </li>
+
+            <?php endforeach ?>
+
+        </ul>
+
+    <?php endif ?>
+
 </div>
+
+<script type="text/javascript">
+    $('input[name="pricelists[]"]').on('change', function (event) {
+        $(this).parent().trigger('submit');
+    });
+
+    $('.del').on('click', function (event) {
+        if (!confirm('Da li sigurno želite da obrišete cenovnik?')) {
+            return false;
+        }
+    });
+</script>
