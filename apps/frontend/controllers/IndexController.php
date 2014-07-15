@@ -134,6 +134,11 @@ class IndexController extends ControllerBase
         $this->tag->appendTitle('Putna dokumenta');
     }
 
+    /**
+     * Page not found action.
+     *
+     * @return void
+     */
     public function notFoundAction()
     {
 

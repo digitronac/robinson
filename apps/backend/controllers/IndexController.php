@@ -154,4 +154,14 @@ class IndexController extends ControllerBase
         $this->tag->setDefaults($defaults);
         //$this->tag->setDefault('type', $type);
     }
+
+    /**
+     * Action which manipulates with prices in pdf file for agents.
+     *
+     * @return void
+     */
+    public function agentsAction()
+    {
+        
+    }
 }
