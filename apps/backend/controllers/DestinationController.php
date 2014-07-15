@@ -11,7 +11,14 @@ class DestinationController extends \Phalcon\Mvc\Controller
     public function indexAction()
     {
         $this->view->destinations = array();
-        $this->tag->setDefault('categoryId', $this->session->get('categoryId'));
+
+        // preset categoryId if one was already set
+        if ($this->session->get('categoryId') && !$this->request->hasQuery('categoryId')) {
+            $this->tag->setDefault('categoryId', (int) $this->session->get('categoryId'));
+            $_GET['categoryId'] = (int) $this->session->get('categoryId');
+            $this->session->remove('categoryId');
+        }
+
         if ($this->request->hasQuery('categoryId')) {
             $destinations = $this->getDI()->get('Robinson\Backend\Models\Destination');
             $this->view->destinations = $destinations->find(
@@ -20,8 +27,8 @@ class DestinationController extends \Phalcon\Mvc\Controller
                     'order' => 'destinationId DESC',
                 )
             );
-            $this->tag->setDefault('categoryId', $this->request->getQuery('categoryId'));
-            $this->session->set('categoryId', $this->request->getQuery('categoryId'));
+            $this->tag->setDefault('categoryId', (int) $this->request->getQuery('categoryId'));
+            $this->session->set('categoryId', (int) $this->request->getQuery('categoryId'));
         }
 
         $categories = \Robinson\Backend\Models\Category::find(

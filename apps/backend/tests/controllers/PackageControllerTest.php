@@ -49,6 +49,16 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         $xpath = new \DOMXPath($document);
         $this->assertEquals(5, $xpath->query('//div[@class="admin package index"]/div/ul/li')->length);
     }
+
+    public function testIndexActionWithDestinationIdPresetShouldDisplayExpectedPackages()
+    {
+        $this->registerMockSession();
+        $this->getDI()->get('session')->set('destinationId', 1);
+        $this->dispatch('/admin/package/index');
+        $this->assertAction('index');
+        $this->assertController('package');
+        $this->assertResponseContentContains('<option selected="selected" value="1">fixture destination 1</option>');
+    }
     
     public function testCreatePackageActionShouldWorkAsExpected()
     {

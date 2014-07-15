@@ -35,6 +35,16 @@ class DestinationControllerTest extends BaseTestController
         $this->assertAction('index');
         $this->assertController('destination');
     }
+
+    public function testIndexActionWithCategoryIdPresetShouldDisplayExpectedCategories()
+    {
+        $this->registerMockSession();
+        $this->getDI()->get('session')->set('categoryId', 1);
+        $this->dispatch('/admin/destination/index');
+        $this->assertAction('index');
+        $this->assertController('destination');
+        $this->assertResponseContentContains('<option selected="selected" value="1">fixture category</option>');
+    }
     
     public function testCreateActionShouldWorkAsExpected()
     {

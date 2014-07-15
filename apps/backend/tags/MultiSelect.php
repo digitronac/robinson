@@ -78,7 +78,7 @@ class MultiSelect extends \Phalcon\Tag
     protected function compileOption($name, $value, $option)
     {
         $selected = '';
-        
+
         if ($this->hasValue($name)) {
             $selected = ($value === $this->getValue($name)) ? 'selected="selected" ' : '';
         }
