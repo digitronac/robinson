@@ -79,7 +79,6 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
             
             $category->images = $images;
             $category->update();
-            $category->refresh();
         }
 
         $this->tag->setDefault('status', $category->getStatus());
