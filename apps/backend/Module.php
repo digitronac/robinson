@@ -41,6 +41,7 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
      */
     public function registerServices($di)
     {
+        // @codeCoverageIgnoreStart
         if (!$di->has('config')) {
             $config = new \Zend_Config_Ini(MODULE_PATH . '/config/application.ini', APPLICATION_ENV);
             $config = new \Phalcon\Config($config->toArray());
@@ -52,7 +53,7 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
         } else {
             $config = $di->get('config');
         }
-
+        // @codeCoverageIgnoreEnd
 
 
         include APPLICATION_PATH . '/backend/config/services.php';

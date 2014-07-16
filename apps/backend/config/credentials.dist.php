@@ -1,4 +1,5 @@
 <?php
+// @codeCoverageIgnoreStart
 return array
 (
     'username' => array

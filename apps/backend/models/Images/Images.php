@@ -192,12 +192,14 @@ abstract class Images extends \Phalcon\Mvc\Model
     {
         return $this->imageType;
     }
-    
+
     /**
      * Creates and persists model from uploaded file.
-     * 
+     *
      * @param \Phalcon\Http\Request\File $file uploaded file
-     * 
+     *
+     * @throws \Robinson\Backend\Models\Images\Exception if base path is not set
+     *
      * @return \Robinson\Backend\Models\Images\Images
      */
     public function createFromUploadedFile(\Phalcon\Http\Request\File $file)
@@ -261,11 +263,12 @@ abstract class Images extends \Phalcon\Mvc\Model
         
         return true;
     }
-    
+
     /**
      * Called after successful save.
-     * 
-     * @throws \Robinson\Backend\Models\Images\Images
+     *
+     * @throws \Robinson\Backend\Models\Images\Exception if unable to move file to destination
+     *
      * @return void
      */
     public function afterSave()
@@ -286,12 +289,13 @@ abstract class Images extends \Phalcon\Mvc\Model
             );
         }
     }
-    
+
     /**
      * Deletes image from db and filesystem.
-     * 
+     *
+     * @throws \Robinson\Backend\Models\Images\Exception if basePath is not set
+     *
      * @return bool
-     * @throws \Robinson\Backend\Models\Images\Images if basePath is not set
      */
     public function delete()
     {
@@ -323,7 +327,7 @@ abstract class Images extends \Phalcon\Mvc\Model
     /**
      * Overriden to provide easier PHPUnit mocking.
      * 
-     * @return bolean
+     * @return boolean
      */
     public function parentDelete()
     {
