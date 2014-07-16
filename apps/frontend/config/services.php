@@ -108,9 +108,13 @@ $di->setShared('log', function () use ($di) {
         }
 
         $fileLogger = new \Phalcon\Logger\Adapter\File($logFile);
-        //$jsonFormatter = new \Phalcon\Logger\Formatter\Json();
-        $fireFormatter = new \Phalcon\Logger\Formatter\Firephp();
-        $fileLogger->setFormatter($fireFormatter);
+        $lineFormatter = new \Phalcon\Logger\Formatter\Line();
+        $fileLogger->setFormatter($lineFormatter);
+        $log->push($fileLogger);
+
+        $fileLogger = new \Phalcon\Logger\Adapter\File($logFile);
+        $firephpFormatter = new \Phalcon\Logger\Formatter\Firephp();
+        $fileLogger->setFormatter($firephpFormatter);
         $log->push($fileLogger);
     }
 
