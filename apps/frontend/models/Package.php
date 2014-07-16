@@ -204,7 +204,7 @@ class Package extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Finds main image of package (one with lowest sort number).
+     * Finds main image of package (one with sort number 1).
      *
      * @return Images\Package
      */
@@ -212,11 +212,22 @@ class Package extends \Phalcon\Mvc\Model
     {
         $images = $this->getImages(
             array(
-                'order' => 'sort ASC',
+                'conditions' => '[sort] = 1',
                 'limit' => 1,
             )
         );
 
+        // no images? try lowest sort number
+        if (!$images->count()) {
+            $images = $this->getImages(
+                array(
+                    'order' => 'sort ASC',
+                    'limit' => 1,
+                )
+            );
+        }
+
+        // ...
         if (!$images->count()) {
             return;
         }
