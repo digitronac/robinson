@@ -27,7 +27,7 @@ register_shutdown_function(function() use ($di)
     {
         return;
     }
-    $di['log']->error($lastError['message']);
+    $di->get('log')->error($lastError['file'] . ' - ' . $lastError['line'] . '-' .  $lastError['message']);
 });
 /**
  * Handle the request
