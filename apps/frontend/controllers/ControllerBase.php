@@ -28,6 +28,9 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'status = ' . \Robinson\Frontend\Model\Package::STATUS_VISIBLE,
                 'order' => 'RAND()',
                 'limit' => 10,
+                'cache' => array(
+                    'key' => 'find-random-packages',
+                ),
             )
         );
         $this->tag->setTitleSeparator(' - ');
