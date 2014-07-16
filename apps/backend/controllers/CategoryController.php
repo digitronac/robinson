@@ -36,7 +36,7 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
                     'action' => 'update',
                     'id' => $category->getCategoryId()
                 )
-            );
+            )->send();
         }
     }
 

@@ -755,7 +755,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
 
     /**
      * @expectedException \Phalcon\Exception
-     * @expectedExceptionMessage Unable to update package #1
+     * @expectedExceptionMessage price is required
      */
     public function testFailureToUpdatePackageBySettingPriceAsStringShouldResultInException()
     {

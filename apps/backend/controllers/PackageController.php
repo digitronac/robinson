@@ -159,6 +159,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
 
         
         if ($this->request->isPost()) {
+            $images = array();
             $destination = $this->getDI()->get('Robinson\Backend\Models\Destination');
             $destination = $destination->findFirst($this->request->getPost('destinationId'));
             $package->setPackage($this->request->getPost('package'))
@@ -169,26 +170,30 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 ->setStatus($this->request->getPost('status'));
 
             $package->updateTabs($this->request->getPost('tabs', null, array()));
-            
+
             // sort?
             $sort = $this->request->getPost('sort');
-            
+
             if ($sort) {
-                $this->sort($package, $sort);
+                foreach ($package->getImages() as $image) {
+                    $image->setSort($sort[$image->getImageId()]);
+                    $images[] = $image;
+                }
             }
             
             // titles?
             $titles = $this->request->getPost('title');
             if ($titles) {
-                $this->setImageTitles($package, $titles);
+                foreach ($package->getImages() as $image) {
+                    $image->setTitle($titles[$image->getImageId()]);
+                    $images[] = $image;
+                }
             }
-
 
             // tags
             $tags = ($this->request->getPost('tags')) ?: array();
             $package->updateTags($tags);
-            
-            $images = array();
+
             $files = $this->request->getUploadedFiles();
             
             foreach ($files as $file) {
@@ -218,16 +223,10 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 $package->setSpecial($this->request->getPost('special'));
             }
             
-            if (!$package->update()) {
-                $this->log->log(implode(';', $package->getMessages()), \Phalcon\Logger::ERROR);
-                var_dump($package->getMessages());
-                ob_flush();
-                throw new \Phalcon\Exception('Unable to update package #' . $package->getPackageId());
-            }
-
+            $package->update();
             $package->refresh();
+
             $this->tag->setDefault('special', $package->getSpecial());
-           
         }
         
         $tabs = $package->getTabs();
@@ -309,60 +308,11 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
         $select = array();
         foreach ($categories as $category) {
             $select[$category->getCategory()] = array();
-            
             foreach ($category->getDestinations() as $destination) {
                 $select[$category->getCategory()][$destination->getDestinationId()] = $destination->getDestination();
             }
         }
         
         return $select;
-    }
-    
-    /**
-     * Sorts package images order.
-     * 
-     * @param \Robinson\Backend\Models\Package $package package model
-     * @param array                            $sort    new order
-     * 
-     * @return true
-     */
-    protected function sort(\Robinson\Backend\Models\Package $package, array $sort)
-    {
-        $images = \Robinson\Backend\Models\Images\Package::find(
-            array(
-            'packageId = ' . $package->getPackageId(),
-            )
-        );
-
-        foreach ($images as $image) {
-            $image->setSort($sort[$image->getImageId()]);
-            $image->update();
-        }
-        
-        return true;
-    }
-    
-    /**
-     * Sets image titles.
-     * 
-     * @param \Robinson\Backend\Models\Package $package package model
-     * @param array                            $titles  new titles
-     * 
-     * @return bool
-     */
-    protected function setImageTitles(\Robinson\Backend\Models\Package $package, array $titles)
-    {
-        $images = \Robinson\Backend\Models\Images\Package::find(
-            array(
-            'packageId = ' . $package->getPackageId(),
-            )
-        );
-
-        foreach ($images as $image) {
-            $image->setTitle($titles[$image->getImageId()]);
-            $image->update();
-        }
-        
-        return true;
     }
 }

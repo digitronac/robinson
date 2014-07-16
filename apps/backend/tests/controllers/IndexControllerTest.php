@@ -60,7 +60,7 @@ class IndexControllerTest extends BaseTestController
         $this->dispatch('/admin/index/index');
         $this->assertRedirectTo('/admin/index/dashboard');
     }
-    
+
     public function testDashboardExists()
     {
         $this->registerMockSession();
@@ -188,6 +188,9 @@ class IndexControllerTest extends BaseTestController
             ->setMethods(array('getUploadedFiles', 'getClientAddress', 'hasFiles', 'getQuery'))
             ->getMock();
         $mockRequest->expects($this->once())
+            ->method('getClientAddress')
+            ->will($this->returnValue(true));
+        $mockRequest->expects($this->once())
             ->method('getUploadedFiles')
             ->will($this->returnValue(array($mockFile)));
         $mockRequest->expects($this->once())
@@ -202,44 +205,6 @@ class IndexControllerTest extends BaseTestController
             ->method('exists')
             ->will($this->returnValue(true));
         $this->getDI()->set('Symfony\Component\Filesystem\Filesystem', $mockFilesystem);
-
-        $this->dispatch('/admin/index/agents');
-    }
-
-    /**
-     * @expectedException \Exception
-     * @expectedExceptionMessage Unable to create new pricelist
-     */
-    public function testFailedPricelistCreationShouldThrowException()
-    {
-        $this->registerMockSession();
-
-        $mockFile = $this->getMockBuilder('Phalcon\Http\Request\File')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mockRequest = $this->getMockBuilder('Phalcon\Http\Request\Request')
-            ->disableOriginalConstructor()
-            ->setMethods(array('getUploadedFiles', 'getClientAddress', 'hasFiles', 'getQuery'))
-            ->getMock();
-        $mockRequest->expects($this->once())
-            ->method('getUploadedFiles')
-            ->will($this->returnValue(array($mockFile)));
-        $mockRequest->expects($this->once())
-            ->method('hasFiles')
-            ->will($this->returnValue(true));
-        $this->getDI()->set('request', $mockRequest);
-
-        $mockPricelistModel = $this->getMockBuilder('Robinson\Backend\Models\Pricelist')
-            ->disableOriginalConstructor()
-            ->setMethods(array('createFromUploadedFile', 'getMessages'))
-            ->getMock();
-        $mockPricelistModel->expects($this->once())
-            ->method('createFromUploadedFile')
-            ->will($this->returnValue(false));
-        $mockPricelistModel->expects($this->exactly(2))
-            ->method('getMessages')
-            ->will($this->returnValue(array('error message.')));
-        $this->getDI()->set('Robinson\Backend\Models\Pricelist', $mockPricelistModel);
 
         $this->dispatch('/admin/index/agents');
     }

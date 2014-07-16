@@ -72,17 +72,16 @@ class DestinationController extends \Phalcon\Mvc\Controller
             $destination->setTabs($destinationTabs);
 
             // redirect to update upon successful save
-            if ($destination->create()) {
-                return $this->response->redirect(
-                    array
-                    (
-                        'for' => 'admin-update',
-                        'controller' => 'destination',
-                        'action' => 'update',
-                        'id' => $destination->getDestinationId(),
-                    )
-                );
-            }
+            $destination->create();
+            return $this->response->redirect(
+                array
+                (
+                    'for' => 'admin-update',
+                    'controller' => 'destination',
+                    'action' => 'update',
+                    'id' => $destination->getDestinationId(),
+                )
+            )->send();
         }
 
         $categories = \Robinson\Backend\Models\Category::find(

@@ -169,12 +169,7 @@ class IndexController extends ControllerBase
             foreach ($files as $file) {
                 /** @var \Robinson\Backend\Models\Pricelist $pricelist */
                 $pricelist = $this->getDI()->get('Robinson\Backend\Models\Pricelist');
-                if (!$pricelist->createFromUploadedFile($file)) {
-                    $this->log->log(implode(';', $pricelist->getMessages()), \Phalcon\Logger::ERROR);
-                    var_dump($pricelist->getMessages());
-                    ob_flush();
-                    throw new \Phalcon\Exception('Unable to create new pricelist.');
-                }
+                $pricelist->createFromUploadedFile($file);
             }
         }
 

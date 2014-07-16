@@ -38,7 +38,7 @@ class Pricelist extends \Phalcon\Mvc\Model
         /** @var \Symfony\Component\Filesystem\Filesystem $filesystem */
         $filesystem = $this->getDI()->get('Symfony\Component\Filesystem\Filesystem');
         if ($filesystem->exists($this->getFilepath())) {
-            throw new \Exception('Pricelist ' . $file->getName() . ' already exists.');
+            throw new \LogicException('Pricelist ' . $file->getName() . ' already exists.');
         }
         $file->moveTo($this->getFilepath());
         return $this->create();
