@@ -85,6 +85,54 @@ class IndexControllerTest extends BaseTestController
         $this->assertResponseContentContains('<p class="successMessage">Vaša poruka je poslata! Odgovorićemo u najkraćem mogućem roku! HVALA!!! :)</p>');
     }
 
+    public function testUsloviActionShouldExist()
+    {
+        $this->dispatch('/index/uslovi');
+        $this->assertController('index');
+        $this->assertAction('uslovi');
+        $this->assertResponseCode(200);
+    }
+
+    public function testInformacijeActionShouldExist()
+    {
+        $this->dispatch('/index/informacije');
+        $this->assertController('index');
+        $this->assertAction('informacije');
+        $this->assertResponseCode(200);
+    }
+
+    public function testPlacanjeActionShouldExist()
+    {
+        $this->dispatch('/index/placanje');
+        $this->assertController('index');
+        $this->assertAction('placanje');
+        $this->assertResponseCode(200);
+    }
+
+    public function testOsiguranjeActionShouldExist()
+    {
+        $this->dispatch('/index/osiguranje');
+        $this->assertController('index');
+        $this->assertAction('osiguranje');
+        $this->assertResponseCode(200);
+    }
+
+    public function testPrtljagActionShouldExist()
+    {
+        $this->dispatch('/index/prtljag');
+        $this->assertController('index');
+        $this->assertAction('prtljag');
+        $this->assertResponseCode(200);
+    }
+
+    public function testDokumentaActionShouldExist()
+    {
+        $this->dispatch('/index/dokumenta');
+        $this->assertController('index');
+        $this->assertAction('dokumenta');
+        $this->assertResponseCode(200);
+    }
+
     /**
      * @expectedExceptionMessage Invalid email.
      * @expectedException \Exception

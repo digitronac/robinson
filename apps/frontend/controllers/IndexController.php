@@ -129,6 +129,11 @@ class IndexController extends ControllerBase
         $this->tag->appendTitle('Dozvoljeni prtljag');
     }
 
+    /**
+     * Static page.
+     *
+     * @return void
+     */
     public function dokumentaAction()
     {
         $this->tag->appendTitle('Putna dokumenta');
