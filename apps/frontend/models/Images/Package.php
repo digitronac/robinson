@@ -36,9 +36,7 @@ class Package extends \Robinson\Frontend\Model\Images\Images
      */
     public function getImagesPath()
     {
-        if ($this->getDI()->has('config')) {
-            return $this->getDI()->getShared('config')->application->packageImagesPath;
-        }
+        return $this->getDI()->getShared('config')->application->packageImagesPath;
     }
     
     /**
