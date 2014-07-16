@@ -4,10 +4,6 @@
     "license": "proprietary",
     "repositories":
     [
-        {
-            "type": "vcs",
-            "url": "https://github.com/digitronac/incubator.git"
-        },
 	{
             "type": "vcs",
             "url": "https://github.com/digitronac/phinx.git"
@@ -24,7 +20,6 @@
 	    "type": "git",
 	    "url":  "https://github.com/digitronac/phalcon-ide-stubs.git"
 	}
-    
     ],
     "require": 
     {
@@ -32,7 +27,7 @@
 	 "ext-intl": "*",
 	 "imagine/imagine": "0.6.*@dev",
 	 "ext-imagick": "*",
-    "phalcon/incubator": "dev-master#5f8b6f500d15fc070cf23f43266b320f91246872",
+     "phalcon/incubator": "1.3.0.x-dev#7e5660c293a3a11dea5ed594f5d73d996117d5ff",
 	 "symfony/filesystem": "2.5.*@dev",
 	 "judev/php-htmltruncator": "1.0.0",
 	 "zendframework/zend-resources": "2.2.5",

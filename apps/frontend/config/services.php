@@ -47,16 +47,8 @@ $di['view'] = function () {
 $di['db'] = function () use ($di) {
     $config = $di->getShared('config');
     $eventsManager = new \Phalcon\Events\Manager();
-
-    $logger = new \Phalcon\Logger\Adapter\Firephp();
-    //Listen all the database events
-    /* $eventsManager->attach('db', function($event, $connection) use ($logger)
-      {
-      if ($event->getType() == 'beforeQuery')
-      {
-      $logger->log($connection->getSQLStatement(), \Phalcon\Logger::INFO);
-      }
-      }); */
+    $logger = new \Phalcon\Db\Profiler\QueryLogger();
+    $eventsManager->attach('db', $logger);
 
     $adapter = new \Phalcon\Db\Adapter\Pdo\Mysql(
         array(
@@ -67,7 +59,15 @@ $di['db'] = function () use ($di) {
             "charset" => 'utf8',
         )
     );
-    $adapter->setEventsManager($eventsManager);
+
+    // trusted user?
+    if (in_array(
+        $di['request']->getClientAddress(),
+        $di['config']->application->debug->ips->toArray()
+    )) {
+        $adapter->setEventsManager($eventsManager);
+    }
+
     return $adapter;
 };
 

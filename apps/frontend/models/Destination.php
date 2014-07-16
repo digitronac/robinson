@@ -89,7 +89,15 @@ class Destination extends \Phalcon\Mvc\Model
     {
         $filter = new \Robinson\Frontend\Filter\Unaccent();
         return \Phalcon\Tag::friendlyTitle(
-            $filter->filter($this->category->getCategory())
+            $filter->filter(
+                $this->getRelated(
+                    'category',
+                    array(
+                        'cache' => array('key' => 'related-category-for-destinationId-' . $this->getDestinationId())
+                    )
+                )
+                ->getCategory()
+            )
         )
         . '/' . $filter->filter(\Phalcon\Tag::friendlyTitle($this->destination)) . '/' . $this->destinationId;
     }

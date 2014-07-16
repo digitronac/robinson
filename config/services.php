@@ -137,6 +137,29 @@ $di->set('imagine', function()
 });
 
 
+$di->set('modelsMetadata', function () use ($di) {
+    return new \Phalcon\Mvc\Model\MetaData\Memcache(array(
+        'host' => '127.0.0.1',
+        'lifetime' => 60,
+    ));
+}, true);
+
+$di->set('modelsCache', function() {
+    //Cache data for one day by default
+    $frontCache = new \Phalcon\Cache\Frontend\Data(array(
+        "lifetime" => 60
+    ));
+
+    //Memcached connection settings
+    $cache = new \Phalcon\Cache\Backend\Memcache($frontCache, array(
+        "host" => "localhost",
+        "port" => "11211"
+    ));
+
+    return $cache;
+});
+
+
 $di['watermark'] = function() use ($di)
 {
     $filter = new \Robinson\Backend\Filter\Watermark(new \Imagick($di->getShared('config')
