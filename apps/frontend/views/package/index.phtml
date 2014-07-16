@@ -87,7 +87,9 @@
 
         <form method="post" id="contact-form">
             <div>
-                <input type="text" class="input-text" name="email" id="email" value="<?=@$this->flashSession->getMessages('email')[0]?>" placeholder="Vaš email" />
+                <?php $value = ($this->flashSession->has('email') ? $this->flashSession->getMessages('email')[0] : '') ?>
+
+                <input type="text" class="input-text" name="email" id="email" value="<?=$value?>" placeholder="Vaš email" />
                 <div class="errors">
                     <?php foreach ($this->flashSession->getMessages('email-error') as $message): ?>
                         <?php foreach($message as $type => $segment): ?>
@@ -97,7 +99,10 @@
                 </div>
             </div>
             <div>
-                <textarea name="body" class="input-textarea" id="body" placeholder="Pitanje u vezi <?=$this->escaper->escapeHtml($package->getPackage())?>"><?=@$this->flashSession->getMessages('body')[0]?></textarea>
+
+                <?php $value = ($this->flashSession->has('body') ? $this->flashSession->getMessages('body')[0] : '') ?>
+
+                <textarea name="body" class="input-textarea" id="body" placeholder="Pitanje u vezi <?=$this->escaper->escapeHtml($package->getPackage())?>"><?=$value?></textarea>
                 <div class="errors">
                     <?php foreach ($this->flashSession->getMessages('body-error') as $message): ?>
                         <?php foreach($message as $type => $segment): ?>
