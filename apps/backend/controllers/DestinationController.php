@@ -116,7 +116,6 @@ class DestinationController extends \Phalcon\Mvc\Controller
                 ->setStatus($this->request->getPost('status'));
 
             $destinationTabs = array();
-
             foreach ($this->request->getPost('tabs') as $tabType => $tabDescription) {
                 $tabDescription = trim($tabDescription);
                 $tab = $destination->getTabs(
@@ -142,7 +141,7 @@ class DestinationController extends \Phalcon\Mvc\Controller
                     continue;
                 }
 
-                // never existed and wasnt entered
+                // never existed and wasn't entered
                 if (!$tab && !$tabDescription) {
                     continue;
                 }
@@ -156,16 +155,14 @@ class DestinationController extends \Phalcon\Mvc\Controller
             // sort?
             $sort = $this->request->getPost('sort');
 
+            $images = array();
+
             if ($sort) {
-                $images = array();
-                // bug here ? if loop thru $destination->images, then cannot save related images on next update
                 foreach ($destination->getImages() as $image) {
                     $image->setSort($sort[$image->getImageId()]);
-                    $image->update();
+                    $images[] = $image;
                 }
             }
-
-            $images = array();
 
             $files = $this->request->getUploadedFiles();
             foreach ($files as $file) {
@@ -175,10 +172,8 @@ class DestinationController extends \Phalcon\Mvc\Controller
                 $images[] = $destinationImage;
             }
 
-            $destination->images = $images;
-
+            $destination->setImages($images);
             $destination->update();
-
         }
 
         $categories = \Robinson\Backend\Models\Category::find(

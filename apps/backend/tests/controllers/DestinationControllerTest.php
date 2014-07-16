@@ -333,6 +333,9 @@ class DestinationControllerTest extends BaseTestController
                 2 => 'test 2',
                 3 => 'test 3',
             ),
+            'categoryId' => 1,
+            'description' => 'updated description',
+            'destination' => 'updated destination',
         );
         
         $this->registerMockSession();

@@ -318,6 +318,19 @@ class Destination extends \Phalcon\Mvc\Model
             )
         );
     }
+
+    /**
+     * Related images setter method.
+     *
+     * @param array $images array of related image models
+     *
+     * @return $this
+     */
+    public function setImages(array $images)
+    {
+        $this->images = $images;
+        return $this;
+    }
     
     /**
      * Fetches destination category.
