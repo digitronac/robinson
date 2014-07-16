@@ -47,20 +47,20 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
      */
     public function updateAction()
     {
-        set_time_limit(300);
         /* @var $category \Robinson\Backend\Models\Category */
         $category = $this->getDI()->get('Robinson\Backend\Models\Category');
         $category = $category->findFirst('categoryId = ' . $this->dispatcher->getParam('id'));
 
+        // do update
         if ($this->request->isPost()) {
             $category->setCategory($this->request->getPost('category'))
                 ->setDescription($this->request->getPost('description'))
                 ->setStatus($this->request->getPost('status'));
      
             $images = array();
+
             // files upload
             $files = $this->request->getUploadedFiles();
-
             /* @var $file \Phalcon\Http\Request\File */
             foreach ($files as $file) {
                 /* @var $imageCategory \Robinson\Backend\Models\Images\Category */
@@ -73,11 +73,12 @@ class CategoryController extends \Robinson\Backend\Controllers\ControllerBase
             foreach ($category->getImages() as $image) {
                 $sort = $this->request->getPost('sort')[$image->getImageId()];
                 if ($sort) {
-                    $image->setSort($this->request->getPost('sort')[$image->getImageId()])->update();
+                    $image->setSort($this->request->getPost('sort')[$image->getImageId()]);
+                    $images[] = $image;
                 }
             }
-            
-            $category->images = $images;
+
+            $category->setImages($images);
             $category->update();
         }
 

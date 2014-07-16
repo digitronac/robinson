@@ -176,12 +176,14 @@ class CategoryControllerTest extends BaseTestController
         $this->registerMockSession();
         /* @var $category \Robinson\Backend\Models\Category */
         $category = \Robinson\Backend\Models\Category::findFirstByCategoryId(1);
-        
-        $_POST['sort'] = array
-        (
+
+        $_POST = array(
             'category' => $category->getCategory() . ' updated!',
             'description' => $category->getDescription() . ' updated!',
             'status' => $category->getStatus(),
+        );
+        $_POST['sort'] = array
+        (
             1 => 2,
             2 => 1,
             3 => 4,

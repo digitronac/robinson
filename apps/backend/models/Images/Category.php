@@ -37,7 +37,7 @@ class Category extends \Robinson\Backend\Models\Images\Images
     public function initialize()
     {
         $this->setSource('category_images');
-        $this->belongsTo('categoryId', 'Robinson\Backend\Models\Category', 'categoryId');
+        $this->belongsTo('categoryId', 'Robinson\Backend\Models\Category', 'categoryId', array('alias' => 'category'));
         $this->setImageType(self::IMAGE_TYPE_CATEGORY);
     }
     

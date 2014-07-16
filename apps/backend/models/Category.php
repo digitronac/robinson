@@ -254,6 +254,19 @@ class Category extends \Phalcon\Mvc\Model
             array('order' => 'sort ASC')
         );
     }
+
+    /**
+     * Related images setter method.
+     *
+     * @param array $images array of image models
+     *
+     * @return $this
+     */
+    public function setImages(array $images)
+    {
+        $this->images = $images;
+        return $this;
+    }
     
     /**
      * Fetches related destinations.
