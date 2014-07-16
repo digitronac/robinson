@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f7b8517895c2a723829f23db758a0587",
+    "hash": "b1dffdcdb7f6949f88c4968b4279c631",
     "packages": [
         {
             "name": "electrolinux/php-html5lib",
@@ -160,16 +160,16 @@
         },
         {
             "name": "phalcon/incubator",
-            "version": "dev-master",
+            "version": "1.3.0.x-dev",
             "source": {
                 "type": "git",
-                "url": "https://github.com/digitronac/incubator.git",
-                "reference": "5f8b6f500d15fc070cf23f43266b320f91246872"
+                "url": "https://github.com/phalcon/incubator.git",
+                "reference": "7e5660c293a3a11dea5ed594f5d73d996117d5ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digitronac/incubator/zipball/5f8b6f500d15fc070cf23f43266b320f91246872",
-                "reference": "5f8b6f500d15fc070cf23f43266b320f91246872",
+                "url": "https://api.github.com/repos/phalcon/incubator/zipball/7e5660c293a3a11dea5ed594f5d73d996117d5ff",
+                "reference": "7e5660c293a3a11dea5ed594f5d73d996117d5ff",
                 "shasum": ""
             },
             "require": {
@@ -183,10 +183,11 @@
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Phalcon": "Library/"
+                "psr-4": {
+                    "Phalcon\\": "Library/Phalcon/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3"
             ],
@@ -202,10 +203,7 @@
                 "framework",
                 "phalcon"
             ],
-            "support": {
-                "source": "https://github.com/digitronac/incubator/tree/master"
-            },
-            "time": "2014-04-09 05:08:25"
+            "time": "2014-06-19 06:31:43"
         },
         {
             "name": "symfony/filesystem",

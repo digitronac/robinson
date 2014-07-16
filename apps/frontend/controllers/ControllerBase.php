@@ -9,6 +9,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
             array(
                 'status = ' . \Robinson\Frontend\Model\Destination::STATUS_VISIBLE,
                 'order' => 'destination ASC',
+                'cache' => array('key' => 'find-destinations'),
             )
         );
         /*

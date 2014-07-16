@@ -57,7 +57,7 @@ class PackageController extends ControllerBase
 
                 return $this->response->redirect(
                     ltrim($this->request->getServer('REQUEST_URI') . '#contact-form', '/')
-                );
+                )->send();
             } else {
                 foreach ($messages as $type => $message) {
                     $this->flashSession->message($type, $message);
