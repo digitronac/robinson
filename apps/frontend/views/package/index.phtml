@@ -77,7 +77,13 @@
 <div class="package index contact-form">
     <div class="inner-site">
 
-        <p class="successMessage"><?=@$this->flashSession->getMessages('success')[0]?></p>
+        <?php if (array_key_exists(0, $this->flashSession->getMessages('success'))): ?>
+
+        <p class="successMessage">
+            <?=$this->flashSession->getMessages('success')[0]?>
+        </p>
+
+        <?php endif ?>
 
         <form method="post" id="contact-form">
             <div>
