@@ -144,6 +144,21 @@ $di->set('modelsMetadata', function () use ($di) {
     ));
 }, true);
 
+$di->set('memcache', function() {
+        //Cache data for one day by default
+        $frontCache = new \Phalcon\Cache\Frontend\Data(array(
+            "lifetime" => 60
+        ));
+
+        //Memcached connection settings
+        $cache = new \Phalcon\Cache\Backend\Memcache($frontCache, array(
+            "host" => "localhost",
+            "port" => "11211"
+        ));
+
+        return $cache;
+}, true);
+
 $di->set('modelsCache', function() {
     //Cache data for one day by default
     $frontCache = new \Phalcon\Cache\Frontend\Data(array(
@@ -157,7 +172,7 @@ $di->set('modelsCache', function() {
     ));
 
     return $cache;
-});
+}, true);
 
 
 $di['watermark'] = function() use ($di)

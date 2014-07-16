@@ -265,6 +265,10 @@ class Package extends \Phalcon\Mvc\Model
      */
     public function getUri()
     {
+        $uri = $this->getDI()->get('memcache')->get('uri-for-packageId-' . $this->getPackageId());
+        if ($uri) {
+            return $uri;
+        }
         $filter = new \Robinson\Frontend\Filter\Unaccent();
         $tag = $this->getDI()->getShared('tag');
 
@@ -276,7 +280,9 @@ class Package extends \Phalcon\Mvc\Model
 
         $packageTitle = $tag->friendlyTitle($filter->filter($this->getPackage()));
 
-        return $categoryTitle . '/' . $destinationTitle . '/' . $packageTitle . '/' . $this->packageId;
+        $uri = $categoryTitle . '/' . $destinationTitle . '/' . $packageTitle . '/' . $this->packageId;
+        $this->getDI()->get('memcache')->save('uri-for-packageId-' . $this->getPackageId(), $uri, 300);
+        return $uri;
     }
 
     /**
