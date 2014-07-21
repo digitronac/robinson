@@ -78,6 +78,8 @@ class Category extends \Phalcon\Mvc\Model
     /**
      * Gets category description.
      *
+     * @param null|int $limit char limit
+     *
      * @return string
      */
     public function getDescription($limit = null)
