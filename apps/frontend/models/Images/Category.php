@@ -38,7 +38,6 @@ class Category extends \Robinson\Frontend\Model\Images\Images
         $this->belongsTo('categoryId', 'Robinson\Frontend\Model\Category', 'categoryId');
         $this->setImageType(self::IMAGE_TYPE_CATEGORY);
     }
-    
 
     public function getBelongsToId()
     {

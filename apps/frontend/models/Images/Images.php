@@ -81,7 +81,7 @@ abstract class Images extends \Phalcon\Mvc\Model
      */
     public function onConstruct()
     {
-        $this->basePath = $this->getImagesPath();
+        $this->setBasePath($this->getImagesPath());
         
         if (!$this->filesystem) {
             $this->filesystem = $this->getDI()->getShared('fs');
