@@ -1,7 +1,12 @@
 <div id="index-contact">
     <div class="inner-site">
         <h1>Kontakt</h1>
-        <p class="successMessage"><?=@$this->flashSession->getMessages('success')[0]?></p>
+        <?php if ($this->flashSession->has('success')): ?>
+
+            <p class="successMessage"><?=$this->flashSession->getMessages('success')[0]?></p>
+        <?php endif ?>
+
+
         <form action="" method="post" class="contact-form">
             <div>
                 <input class="input-text" required="required" type="text" name="name" placeholder="Vaši podaci" />
