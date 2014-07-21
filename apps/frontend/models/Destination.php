@@ -46,6 +46,7 @@ class Destination extends \Phalcon\Mvc\Model
             'categoryId',
             array(
                 'alias' => 'category',
+                'reusable' => true,
             )
         );
 
@@ -55,6 +56,7 @@ class Destination extends \Phalcon\Mvc\Model
             'destinationId',
             array(
                 'alias' => 'packages',
+                'reusable' => true,
             )
         );
 
@@ -64,6 +66,7 @@ class Destination extends \Phalcon\Mvc\Model
             'destinationId',
             array(
                 'alias' => 'images',
+                'reusable' => true,
             )
         );
     }

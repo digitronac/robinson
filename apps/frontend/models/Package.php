@@ -55,6 +55,7 @@ class Package extends \Phalcon\Mvc\Model
             'destinationId',
             array(
                 'alias' => 'destination',
+                'reusable' => true,
             )
         );
 
@@ -64,6 +65,7 @@ class Package extends \Phalcon\Mvc\Model
             'packageId',
             array(
                 'alias' => 'tabs',
+                'reusable' => true,
             )
         );
 
@@ -73,6 +75,7 @@ class Package extends \Phalcon\Mvc\Model
             'packageId',
             array(
                 'alias' => 'tags',
+                'reusable' => true,
             )
         );
 
@@ -82,6 +85,7 @@ class Package extends \Phalcon\Mvc\Model
             'packageId',
             array(
                 'alias' => 'images',
+                'reusable' => true,
             )
         );
     }

@@ -39,6 +39,7 @@ class Category extends \Phalcon\Mvc\Model
             array
             (
                 'alias' => 'images',
+                'reusable' => true,
             )
         );
 
@@ -49,6 +50,7 @@ class Category extends \Phalcon\Mvc\Model
             array
             (
                 'alias' => 'destinations',
+                'reusable' => true,
             )
         );
     }
