@@ -24,7 +24,7 @@ class AddSlugFieldToDestination extends AbstractMigration
     {
         $sql = <<<HEREDOC
 ALTER TABLE `destinations`
-  ADD COLUMN `slug` VARCHAR(32) NOT NULL AFTER `status`;
+  ADD COLUMN `slug` VARCHAR(128) NOT NULL AFTER `status`;
 HEREDOC;
         $this->query($sql);
     }

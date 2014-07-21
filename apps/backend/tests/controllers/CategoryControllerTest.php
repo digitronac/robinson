@@ -105,6 +105,7 @@ class CategoryControllerTest extends BaseTestController
         $this->assertEquals($category->getDescription() . ' updated!', $updatedCategory->getDescription());
         $this->assertEquals($category->getDescription() . ' updated!', $updatedCategory->getDescription());
         $this->assertEquals(\Robinson\Backend\Models\Category::STATUS_VISIBLE, $updatedCategory->getStatus());
+        $this->assertEquals('fixture-category-updated-', $updatedCategory->getSlug());
     }
     
     public function testCategoryUpdateWithAddedImageShouldWorkAsExpected()

@@ -47,6 +47,10 @@ class Destination extends \Phalcon\Mvc\Model
             'destinationId',
             array('alias' => 'tabs')
         );
+
+        $this->belongsTo('categoryId', 'Robinson\Backend\Models\Category', 'categoryId', array(
+            'alias' => 'category',
+        ));
         
         $this->belongsTo('categoryId', 'Robinson\Backend\Models\Category', 'categoryId');
         
@@ -253,6 +257,28 @@ class Destination extends \Phalcon\Mvc\Model
     public static function getStatusMessages()
     {
         return self::$statusMessages;
+    }
+
+    /**
+     * Slug getter method.
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * OnBeforeValidation.
+     *
+     * @return void
+     */
+    public function beforeValidation()
+    {
+        $filter = new \Robinson\Frontend\Filter\Unaccent();
+        $this->slug = \Phalcon\Tag::friendlyTitle($filter->filter($this->getRelated('category')->getCategory())) .
+            '/' . \Phalcon\Tag::friendlyTitle($filter->filter($this->getDestination(false)));
     }
     
     /**
