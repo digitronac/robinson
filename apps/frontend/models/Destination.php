@@ -99,7 +99,7 @@ class Destination extends \Phalcon\Mvc\Model
                 ->getCategory()
             )
         )
-        . '/' . $filter->filter(\Phalcon\Tag::friendlyTitle($this->destination)) . '/' . $this->destinationId;
+        . '/' . \Phalcon\Tag::friendlyTitle($filter->filter($this->destination)) . '/' . $this->destinationId;
     }
 
     public function getDestinationId()
