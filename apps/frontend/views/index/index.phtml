@@ -1,3 +1,4 @@
+
 <div id="index-index">
     <div class="inner-site">
 
@@ -8,10 +9,7 @@
 
             <?php foreach ($lastMinutePackages as $package): ?>
 
-                <?=$this->partial(
-                    'partials/index-package-item',
-                    array('package' => $package)
-                ) . PHP_EOL ?>
+                <?php include __DIR__ . '/../partials/index-package-item.phtml' ?>
 
             <?php endforeach ?>
 
@@ -28,10 +26,7 @@
 
                 <?php foreach ($hotPackages as $package): ?>
 
-                    <?=$this->partial(
-                        'partials/index-package-item',
-                        array('package' => $package)
-                    ) . PHP_EOL ?>
+                    <?php include __DIR__ . '/../partials/index-package-item.phtml' ?>
 
                 <?php endforeach ?>
 
@@ -40,10 +35,7 @@
 
                 <?php foreach ($popularPackages as $package): ?>
 
-                <?=$this->partial(
-                        'partials/index-package-item',
-                        array('package' => $package)
-                ) . PHP_EOL ?>
+                    <?php include __DIR__ . '/../partials/index-package-item.phtml' ?>
 
                 <?php endforeach ?>
 
@@ -102,7 +94,7 @@
                 <div class="package-tab" id="category-link-tab-<?=$key?>">
 
                     <?php foreach ($tab->packages as $package): ?>
-                        <?=$this->partial('partials/index-package-item', array('package' => $package))?>
+                        <?php include __DIR__ . '/../partials/index-package-item.phtml' ?>
 
                     <?php endforeach ?>
 
