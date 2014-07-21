@@ -80,28 +80,31 @@ class Destination extends \Phalcon\Mvc\Model
         return $this->getDI()->getShared('escaper')->escapeHtml($this->destination);
     }
 
+    /**
+     * Description getter method.
+     *
+     * @return string
+     */
     public function getDescription()
     {
         return $this->description;
     }
 
+    /**
+     * Uri to destination.
+     *
+     * @return string
+     */
     public function getUri()
     {
-        $filter = new \Robinson\Frontend\Filter\Unaccent();
-        return \Phalcon\Tag::friendlyTitle(
-            $filter->filter(
-                $this->getRelated(
-                    'category',
-                    array(
-                        'cache' => array('key' => 'related-category-for-destinationId-' . $this->getDestinationId())
-                    )
-                )
-                ->getCategory()
-            )
-        )
-        . '/' . \Phalcon\Tag::friendlyTitle($filter->filter($this->destination)) . '/' . $this->destinationId;
+        return $this->slug . '/' . $this->destinationId;
     }
 
+    /**
+     * DestinationId getter method.
+     * 
+     * @return int
+     */
     public function getDestinationId()
     {
         return (int) $this->destinationId;
