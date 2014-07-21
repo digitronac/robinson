@@ -174,6 +174,9 @@ class IndexController extends ControllerBase
             $category = $category->findFirst(array(
                     'conditions' => "categoryId = $key AND status = 1",
                     'limit' => $limit,
+                    'cache' => array(
+                        'key' => 'find-category-by-categoryId-' . $key,
+                    )
                 ));
 
             if (!$category) {
