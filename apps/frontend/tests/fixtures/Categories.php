@@ -11,9 +11,9 @@ class Categories
      */
     public static function get($records = null)
     {
-        $template = "(%d, '%s', '%s', %d, '%s', '%s')";
+        $template = "(%d, '%s', '%s', %d, '%s', '%s', '%s')";
         
-        $data[] = "(1, 'fixture category', 'description test fixture category', 1, 
+        $data[] = "(1, 'fixture category', 'description test fixture category', 1, 'fixture-category',
             '2014-01-01 12:00:00', '2014-01-01 12:00:00')";
         return $data;
     }
