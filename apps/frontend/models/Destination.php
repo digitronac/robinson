@@ -102,7 +102,7 @@ class Destination extends \Phalcon\Mvc\Model
 
     /**
      * DestinationId getter method.
-     * 
+     *
      * @return int
      */
     public function getDestinationId()
