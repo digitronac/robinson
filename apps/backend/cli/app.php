@@ -23,6 +23,20 @@ $loader->registerDirs(
         MODULE_PATH . '/cli/tasks'
     )
 );
+
+$loader->registerNamespaces(
+    array
+    (
+        'Robinson\Backend\Controllers' => __DIR__ . '/../controllers/',
+        'Robinson\Backend\Models'      => __DIR__ . '/../models/',
+        'Robinson\Backend\Plugin'      => __DIR__ . '/../plugins/',
+        'Robinson\Backend\Validator'   => __DIR__ . '/../validators/',
+        'Robinson\Backend\Tag'         => __DIR__ . '/../tags/',
+        'Robinson\Backend\Filter'      => __DIR__ . '/../filters/',
+        'Robinson\Frontend\Filter'      => __DIR__ . '/../../frontend/filters/',
+    )
+);
+
 $loader->register();
 
 $config = new \Zend_Config_Ini(MODULE_PATH . '/config/application.ini', APPLICATION_ENV);
