@@ -63,6 +63,7 @@ class CategoryControllerTest extends BaseTestController
         $this->assertEquals($status, $categoryModel->getStatus());
         $this->assertNotEmpty($categoryModel->getCreatedAt());
         $this->assertNotEmpty($categoryModel->getUpdatedAt());
+        $this->assertEquals('test-category', $categoryModel->getSlug());
     }
     
     public function testCategoryUpdateShouldWorkAsExpected()
