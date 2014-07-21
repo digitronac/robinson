@@ -327,12 +327,16 @@ class Package extends \Phalcon\Mvc\Model
      */
     public function findLastMinute()
     {
-        return $this->_modelsManager->executeQuery(
+        $query = $this->getModelsManager()->createQuery(
             'SELECT packages.* FROM Robinson\Frontend\Model\Package AS packages JOIN
             Robinson\Frontend\Model\Tags\Package as packageTags
             ON packages.packageId = packageTags.packageId
             WHERE packages.status = 1 AND packageTags.type = 2 ORDER BY packageTags.[order] ASC'
         );
+        $query->cache(array(
+            'key' => 'last-minute-packages',
+        ));
+        return $query->execute();
     }
 
     /**
@@ -344,11 +348,15 @@ class Package extends \Phalcon\Mvc\Model
      */
     public function findPopular($limit)
     {
-        return $this->_modelsManager->executeQuery(
+        $query = $this->getModelsManager()->createQuery(
             "SELECT packages.* FROM Robinson\Frontend\Model\Package AS packages JOIN
             Robinson\Frontend\Model\Tags\Package as packageTags ON packages.packageId = packageTags.packageId
             WHERE packages.status = 1 AND packageTags.type = 3 ORDER BY packageTags.[order] LIMIT $limit"
         );
+        $query->cache(array(
+            'key' => 'popular-packages',
+        ));
+        return $query->execute();
     }
 
     /**
@@ -356,14 +364,18 @@ class Package extends \Phalcon\Mvc\Model
      *
      * @param int $limit
      *
-     * return mixed
+     * @return mixed
      */
     public function findHot($limit)
     {
-        return $this->_modelsManager->executeQuery(
+        $query = $this->getModelsManager()->createQuery(
             "SELECT packages.* FROM Robinson\Frontend\Model\Package AS packages JOIN
             Robinson\Frontend\Model\Tags\Package as packageTags ON packages.packageId = packageTags.packageId
             WHERE packages.status = 1 AND packageTags.type = 4 ORDER BY packageTags.[order] LIMIT $limit"
         );
+        $query->cache(array(
+            'key' => 'hot-packages',
+        ));
+        return $query->execute();
     }
 }
