@@ -15,7 +15,7 @@ class CategoryController extends ControllerBase
         $this->tag->prependTitle($this->view->category->getCategory());
         $this->view->metaDescription = \Phalcon\Tag::tagHtml('meta', array(
             'name' => 'description',
-            'content' => 'Aktuelne destinacije u kategoriji ' . $this->view->category->getCategory() . '.',
+            'content' => $this->view->category->getCategory() . ' - ' . $this->view->season->name,
         ));
     }
 }
