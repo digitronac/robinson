@@ -325,6 +325,16 @@ class Package extends \Phalcon\Mvc\Model
     }
 
     /**
+     * Slug getter method.
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
      * Sets uploaded pdf file.
      * 
      * @param \Phalcon\Http\Request\File $pdf uploaded pdf
@@ -429,11 +439,24 @@ class Package extends \Phalcon\Mvc\Model
         }
     }
 
+    /**
+     * OnBeforeValidation.
+     *
+     * @return void
+     */
     public function beforeValidation()
     {
         if (!$this->special) {
             $this->special = new \Phalcon\Db\RawValue('""');
         }
+
+        $filter = new \Robinson\Frontend\Filter\Unaccent();
+        $destination = $this->getDestination()->getDestination(false);
+        $category = $this->getDestination()->getCategory()->getCategory(false);
+        // slug
+        $this->slug =  \Phalcon\Tag::friendlyTitle($filter->filter($category)) .
+        '/' . \Phalcon\Tag::friendlyTitle($filter->filter($destination)) .
+        '/' . \Phalcon\Tag::friendlyTitle($filter->filter($this->getPackage()));
     }
 
     /**
@@ -477,7 +500,7 @@ class Package extends \Phalcon\Mvc\Model
             }
         }
     }
-    
+
     /**
      * Overriden create method.
      * 
