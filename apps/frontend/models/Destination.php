@@ -110,11 +110,25 @@ class Destination extends \Phalcon\Mvc\Model
         return (int) $this->destinationId;
     }
 
+    /**
+     * Related images getter method.
+     *
+     * @param array $params query params
+     *
+     * @return \Phalcon\Mvc\Model\ResultsetInterface
+     */
     public function getImages(array $params = null)
     {
         return $this->getRelated('images', $params);
     }
 
+    /**
+     * Related packages getter method.
+     *
+     * @param null|int $type type
+     *
+     * @return \Phalcon\Mvc\Model\ResultsetInterface
+     */
     public function getPackages($type = null)
     {
         if ($type) {
@@ -157,6 +171,11 @@ class Destination extends \Phalcon\Mvc\Model
 
     }
 
+    /**
+     * Returns truncated description.
+     *
+     * @return string
+     */
     public function getShortDescription()
     {
         return self::truncateText($this->description, 230);

@@ -334,6 +334,8 @@ class Package extends \Phalcon\Mvc\Model
     /**
      * Finds popular packages.
      *
+     * @param int $limit record limit
+     *
      * @return mixed
      */
     public function findPopular($limit)
