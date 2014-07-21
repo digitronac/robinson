@@ -154,6 +154,10 @@ class Category extends \Phalcon\Mvc\Model
             ORDER BY RAND()
             LIMIT $limit
         ";
-        return $this->_modelsManager->executeQuery($sql);
+        $query = $this->getModelsManager()->createQuery($sql);
+        $query->cache(array(
+            'key' => 'find-random-packages-by-categoryId-' . $catId,
+        ));
+        return $query->execute();
     }
 }
