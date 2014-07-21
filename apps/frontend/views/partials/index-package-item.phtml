@@ -9,7 +9,7 @@
                 <span class="date-sticker"><?=$package->getSpecial()?></span>
                 <?php endif ?>
 
-                <?php $this->tag->image(array
+                <?=$this->tag->image(array
                 (
                     $package->getMainImage()->getResizedSrc(250),
                     'alt' => $package->getPackage(),
