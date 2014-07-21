@@ -12,7 +12,10 @@ class IndexController extends ControllerBase
      */
     public function indexAction()
     {
-        $this->view->cache(true);
+        if (APPLICATION_ENV !== 'testing') {
+            $this->view->cache(true);
+        }
+
         /** @var $package \Robinson\Frontend\Model\Package */
         $package = $this->getDI()->get('Robinson\Frontend\Model\Package');
         $this->view->lastMinutePackages = $package->findLastMinute();
