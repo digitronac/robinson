@@ -454,9 +454,11 @@ class Package extends \Phalcon\Mvc\Model
         $destination = $this->getDestination()->getDestination(false);
         $category = $this->getDestination()->getCategory()->getCategory(false);
         // slug
-        $this->slug =  \Phalcon\Tag::friendlyTitle($filter->filter($category)) .
-        '/' . \Phalcon\Tag::friendlyTitle($filter->filter($destination)) .
-        '/' . \Phalcon\Tag::friendlyTitle($filter->filter($this->getPackage()));
+        $this->slug = rtrim(\Phalcon\Tag::friendlyTitle($filter->filter($category)), '-') .
+            '/' .
+            rtrim(\Phalcon\Tag::friendlyTitle($filter->filter($destination)), '-') .
+            '/' .
+            rtrim(\Phalcon\Tag::friendlyTitle($filter->filter($this->getPackage())), '-');
     }
 
     /**

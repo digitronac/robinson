@@ -226,7 +226,7 @@ class Category extends \Phalcon\Mvc\Model
     public function beforeValidation()
     {
         $filter = new \Robinson\Frontend\Filter\Unaccent();
-        $this->slug = \Phalcon\Tag::friendlyTitle($filter->filter($this->getCategory(false)));
+        $this->slug = rtrim(\Phalcon\Tag::friendlyTitle($filter->filter($this->getCategory(false))), '-');
     }
     
     /**

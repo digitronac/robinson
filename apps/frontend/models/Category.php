@@ -65,11 +65,14 @@ class Category extends \Phalcon\Mvc\Model
         return $this->getDI()->getShared('escaper')->escapeHtml($this->category);
     }
 
+    /**
+     * Uri to category.
+     *
+     * @return string
+     */
     public function getUri()
     {
-        $filter = new \Robinson\Frontend\Filter\Unaccent();
-        return '/' . $this->getDI()->getShared('tag')
-            ->friendlyTitle($filter->filter($this->category)) . '/' . $this->categoryId;
+        return $this->slug .  '/' . $this->categoryId;
     }
 
     /**
