@@ -17,15 +17,17 @@ class DestinationController extends ControllerBase
             (int) $this->dispatcher->getParam('id')
         );
 
-        $this->tag->prependTitle($this->view->destination->getRelated('category')->getCategory());
+        $category = $this->view->destination->category;
 
-        $this->view->categoryId = $this->view->destination->category->getCategoryId();
+        $this->tag->prependTitle($category->getCategory());
+        $this->view->categoryId = $category->getCategoryId();
         $this->view->destinationId = $this->view->destination->getDestinationId();
         $this->tag->setDefault('type', $this->view->type);
         $this->tag->prependTitle($this->view->destination->getDestination());
         $this->view->metaDescription = \Phalcon\Tag::tagHtml('meta', array(
             'name' => 'description',
-            'content' => 'Aktuelni aranzmani za destinaciju ' . $this->view->destination->getDestination() . '.',
+            'content' => $this->view->destination->getDestination() .
+                ' - ' . $category->getCategory() . $this->view->season->name,
         ));
     }
 }

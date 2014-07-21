@@ -12,14 +12,8 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'cache' => array('key' => 'find-destinations'),
             )
         );
-        /*
-         * removed per request
-         * $this->view->lowPricePackage = \Robinson\Frontend\Model\Package::findFirst(
-            array(
-                'status = ' . \Robinson\Frontend\Model\Destination::STATUS_VISIBLE . ' AND price != 0',
-                'order' => 'price ASC',
-            )
-        );*/
+
+        $this->view->season = $this->getDI()->get('config')->application->season;
 
         $this->view->categories = $this->getCategories();
 

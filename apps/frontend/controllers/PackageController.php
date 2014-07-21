@@ -79,15 +79,18 @@ class PackageController extends ControllerBase
             $this->config->application->packagePdfPath
         );
 
-        $this->view->categoryId = $this->view->package->destination->category->getCategoryId();
         $destination = $this->view->package->getRelated('destination');
+        $category = $destination->getCategory();
+        $this->view->categoryId = $category->getCategoryId();
 
-        $this->tag->prependTitle($destination->getRelated('category')->getCategory());
+        $this->tag->prependTitle($category->getCategory());
         $this->tag->prependTitle($destination->getDestination());
         $this->tag->prependTitle($this->view->package->getPackage());
         $this->view->metaDescription = \Phalcon\Tag::tagHtml('meta', array(
             'name' => 'description',
-            'content' => $this->view->package->getPackage() . ' - Aranzman - Opis - Cene - Rezervacija.',
+            'content' => $this->view->package->getPackage() . ' - ' .
+                $destination->getDestination() . ' - ' .
+                $category->getCategory() . ' - ' . $this->view->season->name . ': Aranzmani, Opis, Cene, Rezervacije',
         ));
     }
 
