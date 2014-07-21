@@ -67,4 +67,56 @@ class MaintenanceTask extends \Phalcon\CLI\Task
         }
         echo '    --- Pdf update finished!    ---' . PHP_EOL;
     }
+
+    /**
+     * Updates categories slug.
+     *
+     * @return void
+     */
+    public function slugifyCategoriesAction()
+    {
+        $categories = \Robinson\Backend\Models\Category::find();
+        foreach ($categories as $category) {
+            echo 'Slugifying category #' . $category->getCategoryId() . PHP_EOL;
+            $category->update();
+            echo 'Done.' . PHP_EOL;
+        }
+
+        echo 'All done.' . PHP_EOL;
+    }
+
+    /**
+     * Updates destinations slug.
+     *
+     * @return void
+     */
+    public function slugifyDestinationsAction()
+    {
+        $destinations = \Robinson\Backend\Models\Destination::find();
+        foreach ($destinations as $destination) {
+            echo 'Slugifying destination #' . $destination->getDestinationId() . PHP_EOL;
+            $destination->update();
+            echo 'Done.' . PHP_EOL;
+        }
+
+        echo 'All done.' . PHP_EOL;
+    }
+
+    /**
+     * Updates packages slug.
+     *
+     * @return void
+     */
+    public function slugifyPackagesAction()
+    {
+        $this->getDI()->set('fs', new \Symfony\Component\Filesystem\Filesystem());
+        $packages = \Robinson\Backend\Models\Package::find();
+        foreach ($packages as $package) {
+            echo 'Slugifying package #' . $package->getPackageId() . PHP_EOL;
+            $package->update();
+            echo 'Done.' . PHP_EOL;
+        }
+
+        echo 'All done.' . PHP_EOL;
+    }
 }

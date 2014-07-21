@@ -170,6 +170,8 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                 }
             }
         }
+
+        $this->assertEquals('fixture-category/fixture-destination-1/test-package-name-', $last->getSlug());
     }
 
     public function testCreatingNewPackageShouldBeInsertInDbWithBothPdfsUploaded()
@@ -534,7 +536,8 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         $image = \Robinson\Backend\Models\Images\Package::findFirst(6);
         $this->assertEquals('6-packageimagetest.jpg', $image->getRealFileName());
         $this->assertEquals('packageimagetest.jpg', $image->getTitle());
-        
+        $this->assertEquals('fixture-category/fixture-destination-2/test-package-name-2-', $package->getSlug());
+
         // assert tabs
         $this->assertGreaterThan(0, $package->getTabs()->count());
         

@@ -106,6 +106,8 @@ class DestinationControllerTest extends BaseTestController
                 $this->assertEquals('Neki tekst za ekskurzije?', $tab->getDescription());
             }
         }
+
+        $this->assertEquals('fixture-category/test-destination', $last->getSlug());
         
         $this->assertRedirectTo('/admin/destination/update/' . $last->getDestinationId());
     }
@@ -162,6 +164,8 @@ class DestinationControllerTest extends BaseTestController
                 $this->assertEquals('Neki tekst za ekskurzije?', $tab->getDescription());
             }
         }
+
+        $this->assertEquals('fixture-category/updated-destination-4', $destination->getSlug());
     }
     
     public function testUpdatingDestinationWithNewImagesShouldWorkAsExpected()

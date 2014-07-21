@@ -30,6 +30,7 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
                 'Robinson\Frontend\Filter'      => __DIR__ . '/filters/',
                 'Robinson\Frontend\Form' => __DIR__ . '/forms/',
                 'Robinson\Backend\Filter' => __DIR__ . '/../backend/filters/',
+                'Robinson\Frontend\Filter' => __DIR__ . '/../frontend/filters/',
             )
         );
 

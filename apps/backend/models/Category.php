@@ -207,6 +207,27 @@ class Category extends \Phalcon\Mvc\Model
     {
         return (new \DateTime($this->updatedAt, new \DateTimeZone('Europe/Belgrade')))->format($format);
     }
+
+    /**
+     * Slug getter method.
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * BeforeValidation.
+     *
+     * @return void
+     */
+    public function beforeValidation()
+    {
+        $filter = new \Robinson\Frontend\Filter\Unaccent();
+        $this->slug = \Phalcon\Tag::friendlyTitle($filter->filter($this->getCategory(false)));
+    }
     
     /**
      * Assembles and returns url for category update page.
