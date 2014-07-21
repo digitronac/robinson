@@ -194,7 +194,6 @@ abstract class Images extends \Phalcon\Mvc\Model
      */
     public function getResizedSrc($width = 300, $height = 0)
     {
-        return '/';
         if (!$this->imageType) {
             throw new \Robinson\Backend\Models\Images\Exception(
                 'imageType must be set prior to calling getResizedSrc()'
