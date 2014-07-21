@@ -50,7 +50,7 @@ class Destination extends \Robinson\Frontend\Model\Images\Images
 
     /**
      * Id to which this model belongs.
-     * 
+     *
      * @return int
      */
     public function getBelongsToId()

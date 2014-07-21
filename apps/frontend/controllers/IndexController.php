@@ -22,9 +22,6 @@ class IndexController extends ControllerBase
 
         $this->view->popularPackages = $package->findPopular(8);
 
-        /* leaving under comment as per request
-        $this->view->topTabs = $this->makeTopTabs();
-        */
         $this->view->bottomTabs = $this->makeBottomTabs(8);
         $this->view->metaDescription = \Phalcon\Tag::tagHtml('meta', array(
             'name' => 'description',
@@ -183,28 +180,6 @@ class IndexController extends ControllerBase
             }
             $packages = $category->getPackagesDirectly($limit);
             $stdClass->packages = $packages;
-            $tabs[] = $stdClass;
-        }
-
-        return $tabs;
-    }
-
-    /**
-     * Creates array of objects that contain data for building landing page top tabs.
-     *
-     * @return array tabs data
-     */
-    protected function makeTopTabs()
-    {
-        $category = $this->getDI()->get('Robinson\Frontend\Model\Category');
-        $tabs = array();
-
-        foreach ($this->config->application->tabs->landing->top->toArray() as $key => $tab) {
-            $stdClass = new \stdClass();
-            $stdClass->name = $tab;
-            $stdClass->category = $category->findFirst(array(
-                    'conditions' => "categoryId = $key AND status = 1",
-            ));
             $tabs[] = $stdClass;
         }
 

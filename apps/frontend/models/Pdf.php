@@ -173,9 +173,6 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
     protected function getPdfPath()
     {
         $baseDir = $this->baseDir . '/' . $this->package->getPackageId();
-        if ($this->pdfType === self::PDF_SECOND) {
-            return $baseDir . '/' . $this->package->getPdf2();
-        }
         return $baseDir . '/' . $this->package->getPdf();
     }
 }

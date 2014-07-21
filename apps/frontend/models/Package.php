@@ -148,29 +148,6 @@ class Package extends \Phalcon\Mvc\Model
     {
 
     }
-    
-
-    /**
-     * Gets package status.
-     * 
-     * @return int
-     */
-    public function getStatus()
-    {
-        return (int) $this->status;
-    }
-    
-    /**
-     * Status helper method.
-     * 
-     * @return bool 
-     */
-    public function isNotVisible()
-    {
-        return ($this->getStatus() === self::STATUS_INVISIBLE);
-    }
-
-
 
     /**
      * Retrieves destination to which package belongs to.
