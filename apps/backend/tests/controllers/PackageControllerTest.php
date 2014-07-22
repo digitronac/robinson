@@ -3,8 +3,6 @@ namespace Robinson\Backend\Tests\Controllers;
 // @codingStandardsIgnoreStart
 class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTestController
 {
-    protected $vfsfs;
-    
     protected function setUp(\Phalcon\DiInterface $di = null, \Phalcon\Config $config = null)
     {
         parent::setUp($di, $config);
@@ -12,8 +10,8 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         $this->populateTable('package_images');
         $this->populateTable('package_tabs');
         $this->populateTable('package_tags');
-        
-        $this->vfsfs = \org\bovigo\vfs\vfsStream::setup('root', null, array
+
+        \org\bovigo\vfs\vfsStream::setup('root', null, array
         (
             'pdf' => array
             (
@@ -24,7 +22,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                 'package' => array(),
             ),
         ));
-        
+
         $this->getDI()->get('config')->application->packagePdfPath = \org\bovigo\vfs\vfsStream::url('root/pdf/package');
         $this->getDI()->get('config')->application->packageImagesPath = \org\bovigo\vfs\vfsStream::url('root/img/package');
     }
@@ -1020,7 +1018,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                     ),
                 )
             ),
-        ), $this->vfsfs);
+        ));
         $this->dispatch('/admin/package/pdfPreview/1');
         $this->assertEquals('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><head><base href="/pdf/package/1/"></head><body></body></html>', trim($this->getContent()));
@@ -1047,7 +1045,6 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             (
                 2 => 'Last minute',
             ),
-
         );
 
         $this->dispatch('/admin/package/update/3');
