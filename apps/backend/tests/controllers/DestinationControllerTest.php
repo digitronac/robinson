@@ -64,7 +64,8 @@ class DestinationControllerTest extends BaseTestController
         $destination = 'test destination';
         $description = 'test description';
         $status = 1;
-        
+
+        $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = array
         (
             'categoryId' => $categoryId,
@@ -79,12 +80,6 @@ class DestinationControllerTest extends BaseTestController
             ),
         );
 
-        $request = $this->getMock('Phalcon\Http\Request', array('isPost'));
-        $request->expects($this->once())
-            ->method('isPost')
-            ->will($this->returnValue(true));
-        
-        $this->getDI()->setShared('request', $request);
         $this->dispatch('/admin/destination/create');
         /* @var $last \Robinson\Backend\Models\Destination */
         $last = \Robinson\Backend\Models\Destination::findFirst(array
@@ -125,6 +120,8 @@ class DestinationControllerTest extends BaseTestController
     public function testUpdatingDestinationShouldWorkAsExpected()
     {
         $this->registerMockSession();
+
+        $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = array
         (
             'categoryId' => 1,
@@ -138,11 +135,7 @@ class DestinationControllerTest extends BaseTestController
                 \Robinson\Backend\Models\Tabs\Destination::TYPE_HOTEL => 'Neki gotivan hotel',
             ),
         );
-        $request = $this->getMock('Phalcon\Http\Request', array('isPost'));
-        $request->expects($this->any())
-            ->method('isPost')
-            ->will($this->returnValue(true));
-        $this->getDI()->setShared('request', $request);
+
         $this->dispatch('/admin/destination/update/4');
         $destination = \Robinson\Backend\Models\Destination::findFirstByDestinationId(4);
         $this->assertEquals($_POST['categoryId'], $destination->getCategoryId());
@@ -170,6 +163,7 @@ class DestinationControllerTest extends BaseTestController
     
     public function testUpdatingDestinationWithNewImagesShouldWorkAsExpected()
     {
+        $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = array
         (
             'categoryId' => 1,
@@ -185,27 +179,29 @@ class DestinationControllerTest extends BaseTestController
         );
         
         $this->registerMockSession();
-        $request = $this->getMock('Phalcon\Http\Request', array('isPost', 'getUploadedFiles'));
-        $request->expects($this->once())
-            ->method('isPost')
-            ->will($this->returnValue(true));
-        
+
         // mock stuff for upload
-        $fileMock = $this->getMock('Phalcon\Http\Request\File', array('getName', 'moveTo'), array(), 'MockFileRequest', false);
+        $fileMock = $this->getMockBuilder('Phalcon\Http\Request\File')
+            ->setMethods(array('getName', 'moveTo'))
+            ->setMockClassName('MockFileRequest')
+            ->disableOriginalConstructor()
+            ->getMock();
         $fileMock->expects($this->exactly(2))
             ->method('getName')
             ->will($this->returnValue('testfile.png'));
        $fileMock->expects($this->any())
             ->method('moveTo')
             ->will($this->returnValue(true));
-        
+
+        $request = $this->getMock('Phalcon\Http\Request', array('getUploadedFiles'));
         $request->expects($this->once())
             ->method('getUploadedFiles')
             ->will($this->returnValue(array
             (
                 0 => $fileMock,
             )));
-        
+        $this->getDI()->set('request', $request, true);
+
         $destinationImage = $this->getMockBuilder('Robinson\Backend\Models\Images\Destination')
             ->setMethods(array('applyWatermark'))
             ->getMock();
@@ -213,10 +209,7 @@ class DestinationControllerTest extends BaseTestController
             ->method('applyWatermark')
             ->will($this->returnValue(true));
         $this->getDI()->set('Robinson\Backend\Models\Images\Destination', $destinationImage);
-        
-      
-        $this->getDI()->setShared('request', $request);
-        
+
         $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         $this->dispatch('/admin/destination/update/4');
         $this->assertAction('update');
@@ -244,6 +237,7 @@ class DestinationControllerTest extends BaseTestController
     
     public function testAddingImagesToDestinationShouldWorkAsExpected()
     {
+        $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = array
         (
             'categoryId' => 1,
@@ -258,30 +252,31 @@ class DestinationControllerTest extends BaseTestController
         );
         
         $this->registerMockSession();
-        $request = $this->getMock('Phalcon\Http\Request', array('isPost', 'getUploadedFiles'));
-        $request->expects($this->once())
-            ->method('isPost')
-            ->will($this->returnValue(true));
         
         // mock stuff for upload
-        
-        $fileMock = $this->getMock('Phalcon\Http\Request\File', array('getName', 'moveTo'), array(), 'MockFileRequest', false);
+        $fileMock = $this->getMockBuilder('Phalcon\Http\Request\File')
+            ->setMethods(array('getName', 'moveTo'))
+            ->disableOriginalConstructor()
+            ->setMockClassName('MockFileRequest')
+            ->getMock();
         $fileMock->expects($this->exactly(2))
             ->method('getName')
             ->will($this->returnValue('testfile.png'));
        $fileMock->expects($this->any())
             ->method('moveTo')
             ->will($this->returnValue(true));
-        
+
+        $request = $this->getMockBuilder('Phalcon\Http\Request')
+            ->setMethods(array('getUploadedFiles'))
+            ->getMock();
         $request->expects($this->once())
             ->method('getUploadedFiles')
             ->will($this->returnValue(array
             (
                 0 => $fileMock,
             )));
-        
-        $this->getDI()->setShared('request', $request);
-        
+        $this->getDI()->set('request', $request, true);
+
         $destinationImage = $this->getMockBuilder('Robinson\Backend\Models\Images\Destination')
             ->setMethods(array('applyWatermark'))
             ->getMock();
@@ -321,6 +316,7 @@ class DestinationControllerTest extends BaseTestController
     
     public function testReoderingImagesInDestinationShouldWorkAsExpected()
     {
+        $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = array
         (
             'sort' => array
@@ -343,15 +339,8 @@ class DestinationControllerTest extends BaseTestController
         );
         
         $this->registerMockSession();
-        $request = $this->getMock('Phalcon\Http\Request', array('isPost'));
-        $request->expects($this->once())
-            ->method('isPost')
-            ->will($this->returnValue(true));
-        
+
         $this->getDI()->set('Imagick', $this->mockWorkingImagick());
-        
-        $this->getDI()->setShared('request', $request);
-        
         
         $this->dispatch('/admin/destination/update/3');
         
@@ -366,12 +355,10 @@ class DestinationControllerTest extends BaseTestController
     public function testDeletingDestinationImageShouldWorkAsExpected()
     {
         $this->registerMockSession();
-        $requestMock = $this->getMock('Phalcon\Http\Request', array('getPost'));
-        $requestMock->expects($this->once())
-            ->method('getPost')
-            ->with($this->equalTo('id'))
-            ->will($this->returnValue(3));
-        $this->getDI()->setShared('request', $requestMock);
+        $_POST = array(
+            'id' => 3,
+        );
+
         $this->dispatch('/admin/destination/deleteImage');
         $image = \Robinson\Backend\Models\Images\Destination::findFirst(3);
         $this->assertFalse($image);
@@ -379,6 +366,7 @@ class DestinationControllerTest extends BaseTestController
     
     public function testEnteringNewTabShouldWorkAsExpected()
     {
+        $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = array
         (
             'categoryId' => 1,
@@ -394,11 +382,7 @@ class DestinationControllerTest extends BaseTestController
         );
         
         $this->registerMockSession();
-        $request = $this->getMock('Phalcon\Http\Request', array('isPost'));
-        $request->expects($this->once())
-            ->method('isPost')
-            ->will($this->returnValue(true));
-        
+
         $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
         $mockImagick->expects($this->any())
             ->method('scaleimage')
@@ -406,8 +390,6 @@ class DestinationControllerTest extends BaseTestController
         $mockImagick->expects($this->any())
             ->method('writeimage')
             ->will($this->returnValue(true));
-        
-        $this->getDI()->setShared('request', $request);
         
         $this->getDI()->set('Imagick', $mockImagick);
         $this->dispatch('/admin/destination/update/2');
@@ -433,6 +415,7 @@ class DestinationControllerTest extends BaseTestController
     
     public function testNotEnteringDescriptionForTabWhichDidntExistInFirstPlaceShouldWorkAsExpected()
     {
+        $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = array
         (
             'categoryId' => 1,
@@ -448,11 +431,7 @@ class DestinationControllerTest extends BaseTestController
         );
         
         $this->registerMockSession();
-        $request = $this->getMock('Phalcon\Http\Request', array('isPost'));
-        $request->expects($this->once())
-            ->method('isPost')
-            ->will($this->returnValue(true));
-        
+
         $mockImagick = $this->getMock('Imagick', array('scaleimage', 'writeimage'));
         $mockImagick->expects($this->any())
             ->method('scaleimage')
@@ -460,8 +439,6 @@ class DestinationControllerTest extends BaseTestController
         $mockImagick->expects($this->any())
             ->method('writeimage')
             ->will($this->returnValue(true));
-        
-        $this->getDI()->setShared('request', $request);
         
         $this->getDI()->set('Imagick', $mockImagick);
         $this->dispatch('/admin/destination/update/2');

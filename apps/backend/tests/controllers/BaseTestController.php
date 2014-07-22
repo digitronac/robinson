@@ -99,5 +99,11 @@ class BaseTestController extends \Phalcon\Test\FunctionalTestCase
         return $mockImagick;
    }
        
-       
+   protected function tearDown()
+   {
+       $_SERVER = null;
+       $_POST = null;
+       $_GET = null;
+       parent::tearDown();
+   }
 }

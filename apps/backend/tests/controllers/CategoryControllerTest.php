@@ -30,30 +30,14 @@ class CategoryControllerTest extends BaseTestController
         $category = 'test category';
         $description = 'this is some category description';
         $status = 0;
-        
-        $request = $this->getMock('Phalcon\Http\Request', array('getPost', 'isPost'));
-   
-        $request->expects($this->at(1))
-            ->method('getPost')
-            ->with($this->equalTo('category'))
-            ->will($this->returnValue($category));
-        
-        $request->expects($this->at(2))
-            ->method('getPost')
-            ->with($this->equalTo('description'))
-            ->will($this->returnValue($description));
-        
-        $request->expects($this->at(3))
-            ->method('getPost')
-            ->with($this->equalTo('status'))
-            ->will($this->returnValue($status));
- 
-        $request->expects($this->any())
-            ->method('isPost')
-            ->will($this->returnValue(true));
-        
-        $this->getDI()->setShared('request', $request);
-      
+
+        $_POST = array(
+            'category' => $category,
+            'description' => $description,
+            'status' => $status,
+        );
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+
         $this->dispatch('/admin/category/create');
         $this->assertRedirectTo('/admin/category/update/2');
         /* @var $categoryModel \Robinson\Backend\Models\Category */
@@ -71,31 +55,14 @@ class CategoryControllerTest extends BaseTestController
         $this->registerMockSession();
         /* @var $category \Robinson\Backend\Models\Category */
         $category = \Robinson\Backend\Models\Category::findFirst();
-        
-        $request = $this->getMock('Phalcon\Http\Request', array('getPost', 'isPost'));
-   
-        $request->expects($this->at(1))
-            ->method('getPost')
-            ->with($this->equalTo('category'))
-            ->will($this->returnValue($category->getCategory() . ' updated!'));
-        
-        $request->expects($this->at(2))
-            ->method('getPost')
-            ->with($this->equalTo('description'))
-            ->will($this->returnValue($category->getDescription() . ' updated!'));
-        
-        $request->expects($this->at(3))
-            ->method('getPost')
-            ->with($this->equalTo('status'))
-            ->will($this->returnValue($category->getStatus(\Robinson\Backend\Models\Category::STATUS_INVISIBLE)));
- 
-        $request->expects($this->any())
-            ->method('isPost')
-            ->will($this->returnValue(true));
-        
-        $this->getDI()->setShared('request', $request);
-        
-    
+
+        $_POST = array(
+            'category' => $category->getCategory() . ' updated!',
+            'description' => $category->getDescription() . ' updated!',
+            'status' => \Robinson\Backend\Models\Category::STATUS_INVISIBLE,
+        );
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+
         $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         
         $this->dispatch('/admin/category/update/' . $category->getCategoryId());
@@ -104,7 +71,7 @@ class CategoryControllerTest extends BaseTestController
         $this->assertEquals($category->getCategory() . ' updated!', $updatedCategory->getCategory());
         $this->assertEquals($category->getDescription() . ' updated!', $updatedCategory->getDescription());
         $this->assertEquals($category->getDescription() . ' updated!', $updatedCategory->getDescription());
-        $this->assertEquals(\Robinson\Backend\Models\Category::STATUS_VISIBLE, $updatedCategory->getStatus());
+        $this->assertEquals(\Robinson\Backend\Models\Category::STATUS_INVISIBLE, $updatedCategory->getStatus());
         $this->assertEquals('fixture-category-updated', $updatedCategory->getSlug());
     }
     
@@ -113,28 +80,14 @@ class CategoryControllerTest extends BaseTestController
         $this->registerMockSession();
         /* @var $category \Robinson\Backend\Models\Category */
         $category = \Robinson\Backend\Models\Category::findFirst();
-        
-        $request = $this->getMock('Phalcon\Http\Request', array('getPost', 'isPost', 'getUploadedFiles'));
-   
-        $request->expects($this->at(1))
-            ->method('getPost')
-            ->with($this->equalTo('category'))
-            ->will($this->returnValue($category->getCategory() . ' updated!'));
-        
-        $request->expects($this->at(2))
-            ->method('getPost')
-            ->with($this->equalTo('description'))
-            ->will($this->returnValue($category->getDescription() . ' updated!'));
-        
-        $request->expects($this->at(3))
-            ->method('getPost')
-            ->with($this->equalTo('status'))
-            ->will($this->returnValue($category->getStatus(\Robinson\Backend\Models\Category::STATUS_INVISIBLE)));
- 
-        $request->expects($this->any())
-            ->method('isPost')
-            ->will($this->returnValue(true));
-        
+
+        $_POST = array(
+            'category' => $category->getCategory() . ' updated!',
+            'description' => $category->getDescription() . ' updated!',
+            'status' => \Robinson\Backend\Models\Category::STATUS_INVISIBLE,
+        );
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+
         $fileMock = $this->getMock('Phalcon\Http\Request\File', array('getName', 'moveTo'), array(), 'MockFileRequest', false);
         $fileMock->expects($this->exactly(2))
             ->method('getName')
@@ -142,7 +95,8 @@ class CategoryControllerTest extends BaseTestController
         $fileMock->expects($this->once())
             ->method('moveTo')
             ->will($this->returnValue(true));
-        
+
+        $request = $this->getMock('Phalcon\Http\Request', array('getUploadedFiles'));
         $request->expects($this->once())
             ->method('getUploadedFiles')
             ->will($this->returnValue(array
@@ -169,16 +123,16 @@ class CategoryControllerTest extends BaseTestController
         $this->assertEquals($category->getCategory() . ' updated!', $updatedCategory->getCategory());
         $this->assertEquals($category->getDescription() . ' updated!', $updatedCategory->getDescription());
         $this->assertEquals($category->getDescription() . ' updated!', $updatedCategory->getDescription());
-        $this->assertEquals(\Robinson\Backend\Models\Category::STATUS_VISIBLE, $updatedCategory->getStatus());
+        $this->assertEquals(\Robinson\Backend\Models\Category::STATUS_INVISIBLE, $updatedCategory->getStatus());
     }
     
     public function testCategoryUpdateChangingOrderShouldWorkAsExpected()
     {
-        $_POST = array();
         $this->registerMockSession();
         /* @var $category \Robinson\Backend\Models\Category */
         $category = \Robinson\Backend\Models\Category::findFirstByCategoryId(1);
 
+        $_POST = array();
         $_POST = array(
             'category' => $category->getCategory() . ' updated!',
             'description' => $category->getDescription() . ' updated!',
@@ -192,13 +146,8 @@ class CategoryControllerTest extends BaseTestController
             4 => 5,
             5 => 3,
         );
-        
-        $request = $this->getMock('Phalcon\Http\Request', array('isPost'));
-        $request->expects($this->any())
-            ->method('isPost')
-            ->will($this->returnValue(true));
+        $_SERVER['REQUEST_METHOD'] = 'POST';
 
-        $this->getDI()->setShared('request', $request);
         $this->getDI()->set('Imagick', $this->mockWorkingImagick());
 
         $this->dispatch('/admin/category/update/' . $category->getCategoryId());
@@ -214,12 +163,9 @@ class CategoryControllerTest extends BaseTestController
     public function testDeletingCategoryImageShouldWorkAsExpected()
     {
         $this->registerMockSession();
-        $requestMock = $this->getMock('Phalcon\Http\Request', array('getPost'));
-        $requestMock->expects($this->once())
-            ->method('getPost')
-            ->with($this->equalTo('id'))
-            ->will($this->returnValue(3));
-        $this->getDI()->setShared('request', $requestMock);
+        $_POST = array(
+            'id' => 3,
+        );
         $this->dispatch('/admin/category/deleteImage');
         $image = \Robinson\Backend\Models\Images\Category::findFirst(3);
         $this->assertFalse($image);

@@ -78,6 +78,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
     public function testCreatingNewPackageShouldBeInsertInDbWithPdfUploaded()
     {
         $this->registerMockSession();
+        $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = array
         (
             'destinationId' => 1,
@@ -100,12 +101,6 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         );
         
         // mock stuff for upload
-        
-        $request = $this->getMock('Phalcon\Http\Request', array('isPost', 'getUploadedFiles'));
-        $request->expects($this->once())
-            ->method('isPost')
-            ->will($this->returnValue(true));
-        
         $fileMock = $this->getMockBuilder('Phalcon\Http\Request\File')
             ->setMethods(array('getName', 'moveTo', 'getKey'))
             ->disableOriginalConstructor()
@@ -120,15 +115,16 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
        $fileMock->expects($this->any())
             ->method('moveTo')
             ->will($this->returnValue(true));
-        
+
+        $request = $this->getMock('Phalcon\Http\Request', array('getUploadedFiles'));
         $request->expects($this->exactly(2))
             ->method('getUploadedFiles')
             ->will($this->returnValue(array
             (
                 0 => $fileMock,
             )));
-        
-       $this->getDI()->setShared('request', $request);
+       $this->getDI()->set('request', $request, true);
+
        $this->dispatch('/admin/package/create');
        $this->assertAction('create');
        $this->assertRedirectTo('/admin/package/update/6');
@@ -177,6 +173,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
     public function testCreatingNewPackageShouldBeInsertInDbWithBothPdfsUploaded()
     {
         $this->registerMockSession();
+        $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = array
         (
             'destinationId' => 1,
@@ -198,12 +195,6 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         );
 
         // mock stuff for upload
-
-        $request = $this->getMock('Phalcon\Http\Request', array('isPost', 'getUploadedFiles'));
-        $request->expects($this->once())
-            ->method('isPost')
-            ->will($this->returnValue(true));
-
         $fileMock = $this->getMockBuilder('Phalcon\Http\Request\File')
             ->setMethods(array('getName', 'moveTo', 'getKey'))
             ->disableOriginalConstructor()
@@ -234,6 +225,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             ->method('moveTo')
             ->will($this->returnValue(true));
 
+        $request = $this->getMock('Phalcon\Http\Request', array('getUploadedFiles'));
         $request->expects($this->any())
             ->method('getUploadedFiles')
             ->will($this->returnValue(array
@@ -242,7 +234,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                         1 => $fileMock2,
                     )));
 
-        $this->getDI()->setShared('request', $request);
+        $this->getDI()->set('request', $request, true);
         $this->dispatch('/admin/package/create');
         $this->assertAction('create');
         $this->assertRedirectTo('/admin/package/update/6');
@@ -294,20 +286,18 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
      */
     public function testFailureToCreatePackageShouldResultInException()
     {
+        $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST['tabs'] = array(
             1 => '',
             2 => '',
         );
         $this->registerMockSession();
-        $request = $this->getMock('Phalcon\Http\Request', array('isPost', 'getUploadedFiles'));
-        $request->expects($this->once())
-            ->method('isPost')
-            ->will($this->returnValue(true));
+
+
         $fileMock = $this->getMockBuilder('Phalcon\Http\Request\File')
             ->setMethods(array('getName', 'moveTo', 'getKey'))
             ->disableOriginalConstructor()
             ->getMock();
-
         $fileMock->expects($this->any())
             ->method('getName')
             ->will($this->returnValue('prices.pdf'));
@@ -317,13 +307,16 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         $fileMock->expects($this->any())
             ->method('moveTo')
             ->will($this->returnValue(true));
+
+        $request = $this->getMock('Phalcon\Http\Request', array('getUploadedFiles'));
         $request->expects($this->any())
             ->method('getUploadedFiles')
             ->will($this->returnValue(array
                     (
                         0 => $fileMock,
                     )));
-        $this->getDI()->setShared('request', $request);
+        $this->getDI()->set('request', $request, true);
+
         $packageMock = $this->getMockBuilder('Robinson\Backend\Models\Package')
             ->setMethods(array('create', 'getMessages'))
             ->disableOriginalConstructor()
@@ -344,6 +337,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
     public function testCreatingNewPackageShouldBeInsertInDbWithBothPdfsUploadedAndTabsAndTagsWithoutDescriptionShouldBeSkipped()
     {
         $this->registerMockSession();
+        $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = array
         (
             'destinationId' => 1,
@@ -365,12 +359,6 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         );
 
         // mock stuff for upload
-
-        $request = $this->getMock('Phalcon\Http\Request', array('isPost', 'getUploadedFiles'));
-        $request->expects($this->once())
-            ->method('isPost')
-            ->will($this->returnValue(true));
-
         $fileMock = $this->getMockBuilder('Phalcon\Http\Request\File')
             ->setMethods(array('getName', 'moveTo', 'getKey'))
             ->disableOriginalConstructor()
@@ -401,6 +389,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             ->method('moveTo')
             ->will($this->returnValue(true));
 
+        $request = $this->getMock('Phalcon\Http\Request', array('getUploadedFiles'));
         $request->expects($this->any())
             ->method('getUploadedFiles')
             ->will($this->returnValue(array
@@ -409,7 +398,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                         1 => $fileMock2,
                     )));
 
-        $this->getDI()->setShared('request', $request);
+        $this->getDI()->set('request', $request, true);
         $this->dispatch('/admin/package/create');
         $this->assertAction('create');
         $this->assertRedirectTo('/admin/package/update/6');
@@ -458,8 +447,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
     public function testUpdatePackageActionShouldExist()
     {
         $this->registerMockSession();
-        
-     
+
         $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         $this->dispatch('/admin/package/update/1');
         $this->assertAction('update');
@@ -469,6 +457,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
     public function testUpdatePackageWithNewImageTabsAndTagsShouldWorkAsExpected()
     {
         $this->registerMockSession();
+        $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = array
         (
             'destinationId' => 2,
@@ -501,19 +490,16 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             ->will($this->returnValue(true));
         
         $request = $this->getMockBuilder('Phalcon\Http\Request')
-            ->setMethods(array('isPost', 'getUploadedFiles'))
+            ->setMethods(array('getUploadedFiles'))
             ->getMock();
-        $request->expects($this->any())
-            ->method('isPost')
-            ->will($this->returnValue(true));
         $request->expects($this->once())
             ->method('getUploadedFiles')
             ->will($this->returnValue(array
             (
                 0 => $mockImageFile,
             )));
-        
-        
+        $this->getDI()->set('request', $request, true);
+
         $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         
         $packageImage = $this->getMockBuilder('Robinson\Backend\Models\Images\Package')
@@ -523,8 +509,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             ->method('applyWatermark')
             ->will($this->returnValue(true));
         $this->getDI()->set('Robinson\Backend\Models\Images\Package', $packageImage);
-        
-        $this->getDI()->setShared('request', $request);
+
         $this->dispatch('/admin/package/update/1');
         
         $package = \Robinson\Backend\Models\Package::findFirst();
@@ -568,6 +553,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
     public function testUpdatePackageWithNewPdfAndTabsShouldWorkAsExpected()
     {
         $this->registerMockSession();
+        $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = array
         (
             'destinationId' => 2,
@@ -613,7 +599,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
        
         $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         
-        $this->getDI()->setShared('request', $request);
+        $this->getDI()->set('request', $request, true);
         $this->dispatch('/admin/package/update/1');
         
         $package = \Robinson\Backend\Models\Package::findFirst();
@@ -642,6 +628,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
     public function testUpdatePackageWithUpdatedPdfShouldWorkAsExpectedAndClearObsoleteFiles()
     {
         $this->registerMockSession();
+        $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = array
         (
             'destinationId' => 2,
@@ -672,22 +659,18 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             ->will($this->returnValue('pdf'));
 
         $request = $this->getMockBuilder('Phalcon\Http\Request')
-            ->setMethods(array('isPost', 'getUploadedFiles'))
+            ->setMethods(array('getUploadedFiles'))
             ->getMock();
-        $request->expects($this->any())
-            ->method('isPost')
-            ->will($this->returnValue(true));
         $request->expects($this->once())
             ->method('getUploadedFiles')
             ->will($this->returnValue(array
                 (
                     0 => $mockPdfFile,
                 )));
-
+        $this->getDI()->set('request', $request, true);
 
         $this->getDI()->set('Imagick', $this->mockWorkingImagick());
 
-        $this->getDI()->setShared('request', $request);
 
         // mock directory iterator
         $dirIterator = $this->getMockBuilder('DirectoryIterator')
@@ -763,6 +746,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
     public function testFailureToUpdatePackageBySettingPriceAsStringShouldResultInException()
     {
         $this->registerMockSession();
+        $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = array
         (
             'destinationId' => 2,
@@ -793,22 +777,19 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             ->will($this->returnValue('pdf'));
 
         $request = $this->getMockBuilder('Phalcon\Http\Request')
-            ->setMethods(array('isPost', 'getUploadedFiles'))
+            ->setMethods(array('getUploadedFiles'))
             ->getMock();
-        $request->expects($this->any())
-            ->method('isPost')
-            ->will($this->returnValue(true));
         $request->expects($this->once())
             ->method('getUploadedFiles')
             ->will($this->returnValue(array
-                    (
-                        0 => $mockPdfFile,
-                    )));
-
+            (
+                0 => $mockPdfFile,
+            )));
+        $this->getDI()->set('request', $request, true);
 
         $this->getDI()->set('Imagick', $this->mockWorkingImagick());
 
-        $this->getDI()->setShared('request', $request);
+
         $this->dispatch('/admin/package/update/1');
 
         $package = \Robinson\Backend\Models\Package::findFirst();
@@ -837,6 +818,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
     public function testUpdatePackageWithNewPdfAndImageAndTabShouldWorkAsExpected()
     {
         $this->registerMockSession();
+        $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = array
         (
             'destinationId' => 2,
@@ -876,11 +858,8 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             ->will($this->returnValue('pdf'));
         
         $request = $this->getMockBuilder('Phalcon\Http\Request')
-            ->setMethods(array('isPost', 'getUploadedFiles'))
+            ->setMethods(array('getUploadedFiles'))
             ->getMock();
-        $request->expects($this->any())
-            ->method('isPost')
-            ->will($this->returnValue(true));
         $request->expects($this->once())
             ->method('getUploadedFiles')
             ->will($this->returnValue(array
@@ -888,8 +867,8 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                 0 => $mockPdfFile,
                 1 => $mockImageFile,
             )));
-        
-        
+        $this->getDI()->set('request', $request, true);
+
         $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         
         $packageImage = $this->getMockBuilder('Robinson\Backend\Models\Images\Package')
@@ -900,7 +879,6 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             ->will($this->returnValue(true));
         $this->getDI()->set('Robinson\Backend\Models\Images\Package', $packageImage);
         
-        $this->getDI()->setShared('request', $request);
         $this->dispatch('/admin/package/update/1');
         
         $package = \Robinson\Backend\Models\Package::findFirst();
@@ -934,6 +912,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
     public function testUpdatePackageWithNewPdfAndImageAndTabAndPdf2ShouldWorkAsExpected()
     {
         $this->registerMockSession();
+        $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = array
         (
             'destinationId' => 2,
@@ -987,21 +966,17 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             ->will($this->returnValue('pdf2'));
 
         $request = $this->getMockBuilder('Phalcon\Http\Request')
-            ->setMethods(array('isPost', 'getUploadedFiles'))
+            ->setMethods(array('getUploadedFiles'))
             ->getMock();
-        $request->expects($this->any())
-            ->method('isPost')
-            ->will($this->returnValue(true));
         $request->expects($this->once())
             ->method('getUploadedFiles')
             ->will($this->returnValue(array
-                    (
-                        0 => $mockPdfFile,
-                        1 => $mockImageFile,
-                        2 => $mockPdf2File,
-                    )));
-
-
+            (
+                0 => $mockPdfFile,
+                1 => $mockImageFile,
+                2 => $mockPdf2File,
+            )));
+        $this->getDI()->set('request', $request, true);
         $this->getDI()->set('Imagick', $this->mockWorkingImagick());
 
         $packageImage = $this->getMockBuilder('Robinson\Backend\Models\Images\Package')
@@ -1012,7 +987,6 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             ->will($this->returnValue(true));
         $this->getDI()->set('Robinson\Backend\Models\Images\Package', $packageImage);
 
-        $this->getDI()->setShared('request', $request);
         $this->dispatch('/admin/package/update/1');
 
         $package = \Robinson\Backend\Models\Package::findFirst();
@@ -1048,6 +1022,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
     public function testSortingPackageImagesAndAddingNewTabShouldWorkAsExpected()
     {
         $this->registerMockSession();
+        $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = array
         (
             'destinationId' => 2,
@@ -1068,19 +1043,9 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                 1 => 'tab1',
             ),
         );
-        
-       
-        $request = $this->getMockBuilder('Phalcon\Http\Request')
-            ->setMethods(array('isPost'))
-            ->getMock();
-        $request->expects($this->any())
-            ->method('isPost')
-            ->will($this->returnValue(true));
-        
-       
+
+
         $this->getDI()->set('Imagick', $this->mockWorkingImagick());
-        
-        $this->getDI()->setShared('request', $request);
         $this->dispatch('/admin/package/update/1');
         
         $package = \Robinson\Backend\Models\Package::findFirst();
@@ -1117,6 +1082,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
     public function testChangingTitlesOnImagesAndAddingTabsShouldWorkAsExpected()
     {
         $this->registerMockSession();
+        $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = array
         (
             'destinationId' => 2,
@@ -1138,19 +1104,9 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                 2 => '',
             ),
         );
-        
-       
-        $request = $this->getMockBuilder('Phalcon\Http\Request')
-            ->setMethods(array('isPost'))
-            ->getMock();
-        $request->expects($this->any())
-            ->method('isPost')
-            ->will($this->returnValue(true));
-        
-        
+
         $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         
-        $this->getDI()->setShared('request', $request);
         $this->dispatch('/admin/package/update/1');
         
         $package = \Robinson\Backend\Models\Package::findFirst();
@@ -1187,6 +1143,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
     public function testChangingTitlesOnImagesWithNewImageUploadShouldWorkAsExpected()
     {
         $this->registerMockSession();
+        $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = array
         (
             'destinationId' => 2,
@@ -1210,7 +1167,6 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         
         
         // new image
-        
         $mockImageFile = $this->getMockBuilder('Phalcon\Http\Request\File')
             ->disableOriginalConstructor()
             ->setMethods(array('getName', 'moveTo'))
@@ -1224,19 +1180,16 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
        
         // request
         $request = $this->getMockBuilder('Phalcon\Http\Request')
-            ->setMethods(array('isPost', 'getUploadedFiles'))
+            ->setMethods(array('getUploadedFiles'))
             ->getMock();
-        $request->expects($this->any())
-            ->method('isPost')
-            ->will($this->returnValue(true));
         $request->expects($this->once())
             ->method('getUploadedFiles')
             ->will($this->returnValue(array
             (
                 0 => $mockImageFile,
             )));
-        
-        
+        $this->getDI()->set('request', $request, true);
+
         $this->getDI()->set('Imagick', $this->mockWorkingImagick());
         
         $packageImage = $this->getMockBuilder('Robinson\Backend\Models\Images\Package')
@@ -1247,7 +1200,6 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
             ->will($this->returnValue(true));
         $this->getDI()->set('Robinson\Backend\Models\Images\Package', $packageImage);
         
-        $this->getDI()->setShared('request', $request);
         $this->dispatch('/admin/package/update/1');
         
         $package = \Robinson\Backend\Models\Package::findFirst();
@@ -1294,6 +1246,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
     public function testUpdatingExistingTabsShouldWorkAsExpected()
     {
         $this->registerMockSession();
+        $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = array
         (
             'destinationId' => 1,
@@ -1308,16 +1261,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
                 3 => '',
             ),
         );
-       
-        // request
-        $request = $this->getMockBuilder('Phalcon\Http\Request')
-            ->setMethods(array('isPost'))
-            ->getMock();
-        $request->expects($this->any())
-            ->method('isPost')
-            ->will($this->returnValue(true));
-        
-        $this->getDI()->setShared('request', $request);
+
         $this->dispatch('/admin/package/update/4');
         
         $package = \Robinson\Backend\Models\Package::findFirst(4);
@@ -1399,6 +1343,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
     public function testUnsettingTagShouldWorkAsExpected()
     {
         $this->registerMockSession();
+        $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = array
         (
             'destinationId' => 1,
@@ -1419,23 +1364,8 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
 
         );
 
-        // request
-        $request = $this->getMockBuilder('Phalcon\Http\Request')
-            ->setMethods(array('isPost'))
-            ->getMock();
-        $request->expects($this->any())
-            ->method('isPost')
-            ->will($this->returnValue(true));
-
-        $this->getDI()->setShared('request', $request);
         $this->dispatch('/admin/package/update/3');
         $package = \Robinson\Backend\Models\Package::findFirst(3);
         $this->assertCount(1, $package->getTags());
-    }
-
-    public function tearDown()
-    {
-        parent::tearDown();
-        unset($this->vfsfs);
     }
 }

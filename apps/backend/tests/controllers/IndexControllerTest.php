@@ -41,20 +41,12 @@ class IndexControllerTest extends BaseTestController
     
     public function testLoginShouldSetSession()
     {
-        $request = $this->getMock('Phalcon\Http\Request', array('isPost', 'getPost'));
-        $request->expects($this->once())
-            ->method('isPost')
-            ->will($this->returnValue(true));
-        $request->expects($this->at(1))
-            ->method('getPost')
-            ->with($this->equalTo('username'))
-            ->will($this->returnValue('test'));
-        $request->expects($this->at(2))
-            ->method('getPost')
-            ->with($this->equalTo('password'))
-            ->will($this->returnValue('testpassword'));
-        
-        $this->getDI()->setShared('request', $request);
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+        $_POST = array(
+            'username' => 'test',
+            'password' => 'testpassword',
+        );
+
         $stub = new \Robinson\Backend\Validator\Login(include __DIR__ . '/../fixtures/credentials.php');
         $this->getDI()->set('Robinson\Backend\Validator\Login', $stub);
         $this->dispatch('/admin/index/index');
