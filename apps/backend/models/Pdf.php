@@ -3,8 +3,6 @@ namespace Robinson\Backend\Models;
 
 class Pdf implements \Phalcon\DI\InjectionAwareInterface
 {
-    const PDF_FIRST = 1;
-    const PDF_SECOND = 2;
 
     /**
      *
@@ -45,8 +43,6 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
     protected $package;
     
     protected $baseDir;
-
-    protected $pdfType = self::PDF_FIRST;
     
     /**
      * Constructs pdf model.
@@ -54,18 +50,15 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
      * @param \Symfony\Component\Filesystem\Filesystem $filesystem filesystem
      * @param \Robinson\Backend\Models\Package         $package   pdf's package
      * @param string                                   $baseDir   path to package pdf folder
-     * @param int                                      $pdfType   type of pdf
      */
     public function __construct(
         \Symfony\Component\Filesystem\Filesystem $filesystem,
         \Robinson\Backend\Models\Package $package,
-        $baseDir,
-        $pdfType = self::PDF_FIRST
+        $baseDir
     ) {
         $this->filesystem = $filesystem;
         $this->package = $package;
         $this->baseDir = $baseDir;
-        $this->pdfType = $pdfType;
     }
     
     /**
@@ -169,21 +162,6 @@ class Pdf implements \Phalcon\DI\InjectionAwareInterface
     protected function getPdfPath()
     {
         $baseDir = $this->baseDir . '/' . $this->package->getPackageId();
-
-        if ($this->pdfType === self::PDF_SECOND) {
-            return $baseDir . '/' . $this->package->getPdf2();
-        }
         return $baseDir . '/' . $this->package->getPdf();
-    }
-
-    /**
-     * Returns relative file path to pdf2.
-     *
-     * @return string
-     */
-    public function getUriToSecondPdf()
-    {
-        return $this->baseDir . '/' . $this->package->getPackageId() . '/' .
-            rawurlencode($this->package->getPdf2());
     }
 }

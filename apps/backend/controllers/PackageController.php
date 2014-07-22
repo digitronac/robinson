@@ -47,13 +47,10 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             $destination = $this->getDI()->get('Robinson\Backend\Models\Destination');
             $destination = $destination->findFirst($this->request->getPost('destinationId'));
             $pdf = '';
-            $pdf2 = '';
 
             foreach ($this->request->getUploadedFiles() as $key => $file) {
                 if ($file->getKey() === 'pdf') {
                     $pdf = $this->request->getUploadedFiles()[$key];
-                } elseif ($file->getKey() === 'pdf2') {
-                    $pdf2 = $this->request->getUploadedFiles()[$key];
                 }
             }
             /* @var $package \Robinson\Backend\Models\Package */
@@ -65,10 +62,6 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 ->setDescription($this->request->getPost('description'))
                 ->setUploadedPdf($pdf)
                 ->setStatus($this->request->getPost('status'));
-
-            if ($pdf2) {
-                $package->setUploadedPdf2($pdf2);
-            }
 
             // add tabs, if any
             $tabs = array();
@@ -107,12 +100,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 $package->setSpecial($this->request->getPost('special'));
             }
 
-            if (!$package->create()) {
-                $this->log->log(implode(';', $package->getMessages()), \Phalcon\Logger::ERROR);
-                var_dump($package->getMessages());
-                ob_flush();
-                throw new \Phalcon\Exception('Unable to create new package.');
-            }
+            $package->create();
             
             return $this->response->redirect(
                 array(
@@ -121,7 +109,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                     'action' => 'update',
                     'id' => $package->getPackageId(),
                 )
-            );
+            )->send();
         }
 
         $this->view->tags = $this->getDI()->getShared('config')->application->package->tags->toArray();
@@ -144,18 +132,6 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
         $package = $this->getDI()->get('Robinson\Backend\Models\Package');
         /* @var $package \Robinson\Backend\Models\Package */
         $package = $package->findFirst($this->dispatcher->getParam('id'));
-
-        if ($package->getPdf2()) {
-            $this->view->pdf = $this->getDI()->get(
-                'Robinson\Backend\Models\Pdf',
-                array(
-                    $this->fs,
-                    $package,
-                    '/pdf/package',
-                    2,
-                )
-            );
-        }
 
         
         if ($this->request->isPost()) {
@@ -202,11 +178,6 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                     continue;
                 }
 
-                if ($file->getKey() === 'pdf2') {
-                    $package->setUploadedPdf2($file);
-                    continue;
-                }
-                
                 /* @var $packageImage \Robinson\Backend\Models\Images\Package */
                 $packageImage = $this->getDI()->get('Robinson\Backend\Models\Images\Package');
                 $packageImage->createFromUploadedFile($file)
@@ -264,15 +235,11 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
         /* @var $package \Robinson\Backend\Models\Package */
         $package = $package->findFirst($this->dispatcher->getParam('id'));
 
-        $pdfType = ($this->request->getQuery('pdfType')) ? (int) $this->request->getQuery('pdfType')
-            : \Robinson\Backend\Models\Pdf::PDF_FIRST;
-
-
         /* @var $pdf \Robinson\Backend\Models\Pdf */
         $pdf = $this->getDI()->get(
             'Robinson\Backend\Models\Pdf',
             array(
-                $this->fs, $package, $this->config->application->packagePdfPath, $pdfType
+                $this->fs, $package, $this->config->application->packagePdfPath
             )
         );
         

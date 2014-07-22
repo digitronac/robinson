@@ -13,13 +13,13 @@ class IndexController extends ControllerBase
         /* @var $acl \Phalcon\Acl\Adapter\Memory */
         $acl = $this->di->getService('acl')->resolve();
         if ($acl->getActiveRole() !== 'Guest') {
-            return $this->response->redirect(
+            $this->response->redirect(
                 array(
                     'for' => 'admin',
                     'controller' => 'index',
                     'action' => 'dashboard',
                 )
-            );
+            )->send();
         }
 
         if ($this->request->isPost()) {
@@ -45,13 +45,13 @@ class IndexController extends ControllerBase
                     )
                 );
 
-                return $this->response->redirect(
+                $this->response->redirect(
                     array(
                         'for' => 'admin',
                         'controller' => 'index',
                         'action' => 'dashboard',
                     )
-                );
+                )->send();
             }
         }
     }

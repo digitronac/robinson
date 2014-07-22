@@ -41,8 +41,6 @@ class Package extends \Phalcon\Mvc\Model
     
     protected $destinationId;
 
-    protected $pdf2;
-
     protected $type = self::TYPE_UNDEFINED;
 
     protected $special;
@@ -52,11 +50,6 @@ class Package extends \Phalcon\Mvc\Model
      * @var \Phalcon\Http\Request\File  
      */
     protected $uploadedPdf;
-
-    /**
-     * @var \Phalcon\Http\Request\File
-     */
-    protected $uploadedPdf2;
     
     /**
      *
@@ -257,16 +250,6 @@ class Package extends \Phalcon\Mvc\Model
     {
         return $this->pdf;
     }
-
-    /**
-     * Gets pdf base file name.
-     *
-     * @return string pdf's base file name
-     */
-    public function getPdf2()
-    {
-        return $this->pdf2;
-    }
     
     /**
      * Sets package status.
@@ -346,19 +329,6 @@ class Package extends \Phalcon\Mvc\Model
         $this->uploadedPdf = $pdf;
         return $this;
     }
-
-    /**
-     * Sets uploaded pdf2 file.
-     *
-     * @param \Phalcon\Http\Request\File $pdf uploaded pdf2
-     *
-     * @return $this
-     */
-    public function setUploadedPdf2(\Phalcon\Http\Request\File $pdf)
-    {
-        $this->uploadedPdf2 = $pdf;
-        return $this;
-    }
     
     /**
      * Called when new package is created.
@@ -410,11 +380,8 @@ class Package extends \Phalcon\Mvc\Model
             $this->setPdf($this->uploadedPdf->getName());
         }
 
-        if ($this->uploadedPdf2 instanceof \Phalcon\Http\Request\File) {
-            $this->pdf2 = $this->uploadedPdf2->getName();
-        } else {
-            $this->pdf2 = new \Phalcon\Db\RawValue('""');
-        }
+        // unused field :)
+        $this->pdf2 = new \Phalcon\Db\RawValue('""');
         
         if (is_null($this->status)) {
             $this->status = self::STATUS_INVISIBLE;
@@ -432,11 +399,8 @@ class Package extends \Phalcon\Mvc\Model
             $this->setPdf($this->uploadedPdf->getName());
         }
 
-        if ($this->uploadedPdf2 instanceof \Phalcon\Http\Request\File) {
-            $this->pdf2 = $this->uploadedPdf2->getName();
-        } else {
-            $this->pdf2 = new \Phalcon\Db\RawValue('""');
-        }
+        // unused field :)
+        $this->pdf2 = new \Phalcon\Db\RawValue('""');
     }
 
     /**
@@ -488,18 +452,6 @@ class Package extends \Phalcon\Mvc\Model
                 );
             }
             $this->removeObsoleteLeftovers();
-        }
-
-        if ($this->uploadedPdf2) {
-            if (!$this->uploadedPdf2->moveTo($destinationPackageFolder . '/' . $this->uploadedPdf2->getName())) {
-                throw new \Robinson\Backend\Models\Exception(
-                    sprintf(
-                        'Unable to move pdf2 file "%s" to destination dir "%s"',
-                        $this->uploadedPdf2->getName(),
-                        $destinationPackageFolder
-                    )
-                );
-            }
         }
     }
 
