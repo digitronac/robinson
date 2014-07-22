@@ -26,6 +26,7 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
                 'Robinson\Backend\Validator'   => __DIR__ . '/validators/',
                 'Robinson\Backend\Tag'         => __DIR__ . '/tags/',
                 'Robinson\Backend\Filter'      => __DIR__ . '/filters/',
+                'Robinson\Frontend\Filter'      => __DIR__ . '/filters/',
             )
         );
 
