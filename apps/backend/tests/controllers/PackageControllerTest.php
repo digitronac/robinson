@@ -490,6 +490,7 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
 
         $file = $this->getMockBuilder('Symfony\Component\Finder\SplFileInfo')
             ->disableOriginalConstructor()
+            ->disableOriginalClone()
             ->setMethods(array('getPathname', 'getFilename'))
             ->getMock();
         $file->expects($this->exactly(1))
