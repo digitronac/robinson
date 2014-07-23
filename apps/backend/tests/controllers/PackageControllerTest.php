@@ -488,38 +488,37 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         $this->getDI()->set('Imagick', $this->mockWorkingImagick());
 
 
-        // mock directory iterator
-        $dirIterator = $this->getMockBuilder('DirectoryIterator')
+        $file = $this->getMockBuilder('Symfony\Component\Finder\SplFileInfo')
             ->disableOriginalConstructor()
-            ->setMethods(array('valid', 'current'))
+            ->setMethods(array('getPathname', 'getFilename'))
             ->getMock();
-
-        $fileIterator = $this->getMockBuilder('DirectoryIterator')
-            ->disableOriginalConstructor()
-            ->setMethods(array('isDot', 'getPathname', 'getFilename'))
-            ->getMock();
-        $fileIterator->expects($this->any())
-            ->method('isDot')
-            ->will($this->returnValue(false));
-
-        // 1 times, on remove
-        $fileIterator->expects($this->exactly(1))
+        $file->expects($this->exactly(1))
             ->method('getPathname')
             ->will($this->onConsecutiveCalls('packagepdftest.pdf', 'packagepdftest.html'));
-
-
-        $fileIterator->expects($this->exactly(2))
+        $file->expects($this->exactly(2))
             ->method('getFilename')
             ->will($this->onConsecutiveCalls('packagepdftest.pdf', 'packagepdftest.html'));
 
 
-        $dirIterator->expects($this->any())
+        $iterator = $this->getMockBuilder('Symfony\Component\Finder\Iterator\PathFilterIterator')
+            ->setMethods(array('valid', 'current'))
+            ->setConstructorArgs(array(new \ArrayIterator(array()), array(), array()))
+            ->getMock();
+        $iterator->expects($this->any())
+            ->method('current')
+            ->will($this->returnValue($file));
+        $iterator->expects($this->any())
             ->method('valid')
             ->will($this->onConsecutiveCalls(true, true, false));
-        $dirIterator->expects($this->any())
-            ->method('current')
-            ->will($this->returnValue($fileIterator));
-        $this->getDI()->set('DirectoryIterator', $dirIterator);
+
+        $finder = $this->getMockBuilder('Symfony\Component\Finder\Finder')
+            ->setMethods(array('getIterator'))
+            ->getMock();
+        $finder->expects($this->once())
+            ->method('getIterator')
+            ->will($this->returnValue($iterator));
+
+        $this->getDI()->set('Symfony\Component\Finder\Finder', $finder);
 
         // mock filesystem component
         $filesystem = $this->getMockBuilder('Symfony\Component\Filesystem\Filesystem')

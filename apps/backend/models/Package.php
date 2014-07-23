@@ -653,30 +653,24 @@ class Package extends \Phalcon\Mvc\Model
      */
     protected function removeObsoleteLeftovers()
     {
-        $dir = $this->getDI()->get(
-            'DirectoryIterator',
-            array(
-                $this->getDI()->get('config')->application->packagePdfPath . '/' . $this->getPackageId()
-            )
-        );
-        while ($dir->valid()) {
-            /** @var \DirectoryIterator $file */
-            $file = $dir->current();
-
-            if ($file->isDot()) {
-                $dir->next();
-                continue;
-            }
-
+        /** @var \Symfony\Component\Finder\Finder $finder */
+        $finder = $this->getDI()->get('Symfony\Component\Finder\Finder');
+        $finder->files()->in($this->getDI()->get('config')->application->packagePdfPath . '/' . $this->getPackageId());
+        $finder->ignoreDotFiles(true);
+        $iterator = $finder->getIterator();
+        while ($iterator->valid()) {
+            /** @var \Symfony\Component\Finder\SplFileInfo $file */
+            $file = $iterator->current();
             // original pdf file?
             if ($file->getFilename() === $this->getPdf()) {
-                $dir->next();
+                $iterator->next();
                 continue;
             }
 
             $filesystem = $this->getDI()->get('Symfony\Component\Filesystem\Filesystem');
             $filesystem->remove($file->getPathname());
-            $dir->next();
+            $iterator->next();
+            continue;
         }
     }
 }
