@@ -488,50 +488,22 @@ class PackageControllerTest extends \Robinson\Backend\Tests\Controllers\BaseTest
         $this->getDI()->set('Imagick', $this->mockWorkingImagick());
 
 
-        $file = $this->getMockBuilder('Symfony\Component\Finder\SplFileInfo')
-            ->disableOriginalConstructor()
-            ->disableOriginalClone()
-            ->setMethods(array('getPathname', 'getFilename'))
-            ->getMock();
-        $file->expects($this->exactly(1))
-            ->method('getPathname')
-            ->will($this->onConsecutiveCalls('packagepdftest.pdf', 'packagepdftest.html'));
-        $file->expects($this->exactly(2))
-            ->method('getFilename')
-            ->will($this->onConsecutiveCalls('packagepdftest.pdf', 'packagepdftest.html'));
-
-
-        $iterator = $this->getMockBuilder('Symfony\Component\Finder\Iterator\PathFilterIterator')
-            ->setMethods(array('valid', 'current'))
-            ->setConstructorArgs(array(new \ArrayIterator(array()), array(), array()))
-            ->getMock();
-        $iterator->expects($this->any())
-            ->method('current')
-            ->will($this->returnValue($file));
-        $iterator->expects($this->any())
-            ->method('valid')
-            ->will($this->onConsecutiveCalls(true, true, false));
-
-        $finder = $this->getMockBuilder('Symfony\Component\Finder\Finder')
-            ->setMethods(array('getIterator'))
-            ->getMock();
-        $finder->expects($this->once())
-            ->method('getIterator')
-            ->will($this->returnValue($iterator));
-
-        $this->getDI()->set('Symfony\Component\Finder\Finder', $finder);
-
-        // mock filesystem component
-        $filesystem = $this->getMockBuilder('Symfony\Component\Filesystem\Filesystem')
-            ->setMethods(array('remove'))
-            ->getMock();
-        $filesystem->expects($this->once())
-            ->method('remove')
-            ->will($this->returnValue(true));
-        $this->getDI()->set('Symfony\Component\Filesystem\Filesystem', $filesystem);
+        // >= 5.5.13 cannot mock SplFileInfo :(
+        \org\bovigo\vfs\vfsStream::setup('root', null, array(
+            'pdf' => array(
+                'package' => array(
+                    '1' => array(
+                        'packagepdftest.pdf' => 'pdf',
+                        'packagepdftest.html' => 'html',
+                    )
+                )
+            )
+        ));
 
         $this->dispatch('/admin/package/update/1');
 
+        // assert file delete
+        $this->assertFalse($this->getDI()->get('fs')->exists('vfs://root/pdf/package/1/packagepdftest.html'));
         $package = \Robinson\Backend\Models\Package::findFirst();
         $this->assertEquals(2, $package->getDestination()->getDestinationId());
         $this->assertEquals('test package name 2 :)', $package->getPackage());

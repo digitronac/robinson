@@ -657,19 +657,18 @@ class Package extends \Phalcon\Mvc\Model
         $finder = $this->getDI()->get('Symfony\Component\Finder\Finder');
         $finder->files()->in($this->getDI()->get('config')->application->packagePdfPath . '/' . $this->getPackageId());
         $finder->ignoreDotFiles(true);
-        $iterator = $finder->getIterator();
-        while ($iterator->valid()) {
+        foreach ($finder as $file) {
             /** @var \Symfony\Component\Finder\SplFileInfo $file */
-            $file = $iterator->current();
+            //$file = $iterator->current();
             // original pdf file?
             if ($file->getFilename() === $this->getPdf()) {
-                $iterator->next();
+              //  $iterator->next();
                 continue;
             }
 
             $filesystem = $this->getDI()->get('Symfony\Component\Filesystem\Filesystem');
             $filesystem->remove($file->getPathname());
-            $iterator->next();
+            //$iterator->next();
             continue;
         }
     }
