@@ -69,7 +69,11 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'categoryId' => 7,
                 'uri' => '/formula-1/7',
             ),
-
+            array(
+                'title' => 'Skrivena Srbija',
+                'categoryId' => 11,
+                'uri' => '/skrivena-srbija/11',
+            )
         );
     }
 }
