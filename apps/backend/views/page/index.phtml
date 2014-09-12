@@ -1,0 +1,26 @@
+
+<div class="admin page index">
+    <div>
+        <?php if($pages): ?>
+
+            <h3>Stranice:</h3>
+
+            <ul>
+
+                <?php foreach ($pages as $page): ?>
+
+                    <li><a href="/admin/page/update?pageId=<?=$page->getPageId()?>"><?=$this->escaper->escapeHtml($page->getTitle())?></a></li>
+
+                <?php endforeach ?>
+
+            </ul>
+
+        <?php endif ?>
+    </div>
+    <p><?=$this->tag->linkTo(array(array
+            (
+                'for' => 'admin',
+                'controller' => 'page',
+                'action' => 'create',
+            ), 'Kreiraj novu stranicu'))?></p>
+</div>

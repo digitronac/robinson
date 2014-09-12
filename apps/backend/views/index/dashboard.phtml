@@ -70,20 +70,30 @@
             <h4>Akcije</h4>
 
             <ul>
-                <li class="action"><?=$this->tag->linkTo(array(
+                <li class="action">
+                    <?=$this->tag->linkTo(array(
                     'admin/index/sortTaggedPackages',
                     'Postavi prioritete',
                 )) . PHP_EOL ?>
                 </li>
 
 
-                <li class="action"><?=$this->tag->linkTo(array(
+                <li class="action">
+                    <?=$this->tag->linkTo(array(
                     'admin/index/agents',
                     'Cenovnici za agente',
                 )) . PHP_EOL ?>
                 </li>
 
-                <li class="action logout"><?=$this->tag->linkTo(array(
+                <li class="action">
+                    <?=$this->tag->linkTo(array(
+                        'admin/page/index',
+                        'Stranice',
+                    )) . PHP_EOL ?>
+                </li>
+
+                <li class="action logout">
+                    <?=$this->tag->linkTo(array(
                     'admin/index/logout',
                     'Logout',
                 )) . PHP_EOL ?>
