@@ -73,6 +73,7 @@ $di->setShared('acl', function () use ($di) {
         'category' => array('index', 'create', 'update', 'delete', 'deleteImage'),
         'destination' => array('index', 'create', 'update', 'delete', 'deleteImage'),
         'package' => array('index', 'create', 'update', 'delete', 'deleteImage', 'pdfPreview'),
+        'page' => array('index', 'create', 'update'),
     );
 
     $publicResources = array(

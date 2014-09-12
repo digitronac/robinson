@@ -1,0 +1,26 @@
+
+<div class="admin page update">
+    <form method="post" enctype="multipart/form-data">
+        <fieldset>
+            <legend>Osnovni podaci</legend>
+            <div>
+                <label>Naslov</label>
+                <?=$this->tag->textField(array(
+                        'title',
+                        'required' => 'required',
+                    )) . PHP_EOL ?>
+            </div>
+            <div>
+                <label>Tekst</label>
+                <?=$this->tag->textArea(array(
+                        'body',
+                        'required' => 'required',
+                        'class' => 'ckeditor',
+                    )) . PHP_EOL ?>
+            </div>
+        </fieldset>
+        <div>
+            <button class="btn btn-default btn-lg" name="submit">OK</button>
+        </div>
+    </form>
+</div>
