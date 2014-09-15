@@ -29,6 +29,8 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         );
         $this->tag->setTitleSeparator(' - ');
         $this->tag->setTitle('Robinson');
+
+        $this->view->pages = \Robinson\Frontend\Model\Page::find(array('order' => 'pageId ASC'));
     }
 
     protected function getCategories()
