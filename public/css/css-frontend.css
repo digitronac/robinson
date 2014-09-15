@@ -184,6 +184,7 @@ body{color:white;font-family: 'Open Sans', sans-serif;background:#f4f4f4}
 #footer #copyright p {vertical-align: middle;text-align:center}
 
 .static-page p {color:black; line-height:150%}
+.static-page strong {font-weight:bold}
 
 /* index/zaAgente */
 .pricelists {list-style-type: disc; list-style-position: inside; padding-bottom:20px}
