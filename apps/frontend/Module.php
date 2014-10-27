@@ -46,7 +46,7 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
      */
     public function registerServices($di)
     {
-        $config = apc_fetch('robinson.config');
+        $config = \apc_fetch('robinson.config');
         if (!$config) {
             $config = new \Phalcon\Config(
                 (new \Zend_Config_Ini(MODULE_PATH . '/config/application.ini', APPLICATION_ENV))->toArray()
@@ -58,7 +58,7 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
                 $config->merge($local);
             }
 
-            apc_store('robinson.config', $config, 30);
+            \apc_store('robinson.config', $config, 30);
         }
 
         include APPLICATION_PATH . '/frontend/config/services.php';
