@@ -37,4 +37,30 @@ class CategoryControllerTest extends BaseTestController
         $this->assertAction('index');
         $this->assertResponseContentContains('description test fixture category');
     }
+
+    public function testUriWithLastYearShouldRedirectToThisYearUri()
+    {
+        $imagickMock = $this->mockWorkingImagick();
+        $imagineMock = $this->getMockBuilder('Imagine\Imagick\ImagineInterface')
+            ->setMethods(array('open','getImagick', 'thumbnail'))
+            ->getMock();
+        $imageMock = $this->mockImage();
+
+        $imagineMock->expects($this->any())
+            ->method('open')
+            ->will($this->returnValue($imageMock));
+        $imagineMock->expects($this->any())
+            ->method('thumbnail')
+            ->will($this->returnValue($imageMock));
+        $imagineMock->expects($this->any())
+            ->method('getImagick')
+            ->will($this->returnValue($imagickMock));
+        $this->getDI()->set('imagine', $imagineMock);
+
+        $_SERVER['REQUEST_URI'] = '/2014-fixture-category/1';
+        $this->dispatch('/2014-fixture-category/1');
+        $this->assertResponseCode(301);
+        $this->assertRedirectTo('/2015-fixture-category/1');
+        $_SERVER['REQUEST_URI'] = '/';
+    }
 } 
