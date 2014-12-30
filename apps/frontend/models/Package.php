@@ -340,6 +340,25 @@ class Package extends \Phalcon\Mvc\Model
     }
 
     /**
+     * Finds first minute packages.
+     *
+     * @return mixed
+     */
+    public function findFirstMinute()
+    {
+        $query = $this->getModelsManager()->createQuery(
+            'SELECT packages.* FROM Robinson\Frontend\Model\Package AS packages JOIN
+            Robinson\Frontend\Model\Tags\Package as packageTags
+            ON packages.packageId = packageTags.packageId
+            WHERE packages.status = 1 AND packageTags.type = 1 ORDER BY packageTags.[order] ASC'
+        );
+        $query->cache(array(
+            'key' => 'first-minute-packages',
+        ));
+        return $query->execute();
+    }
+
+    /**
      * Finds popular packages.
      *
      * @param int $limit record limit
