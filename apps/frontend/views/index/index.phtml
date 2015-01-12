@@ -17,11 +17,25 @@
 
         <?php endif ?>
 
+        <?php if ($firstMinutePackages->count()): ?>
+
+            <div id="index-first-minute">
+                <h4>Specijalne <strong>first minute</strong> ponude</h4>
+
+                <?php foreach ($firstMinutePackages as $package): ?>
+
+                    <?php include __DIR__ . '/../partials/index-package-item.phtml' ?>
+
+                <?php endforeach ?>
+
+            </div>
+
+        <?php endif ?>
+
         <div id="index-first-section" class="index section tabs">
             <ul class="tabs-heading">
                 <li><a href="#tab1" class="selected">AKTUELNE PONUDE</a></li>
                 <li><a href="#tab2">NOVO U PONUDI</a></li>
-                <li><a href="#tab3">FIRST MINUTE PONUDE</a></li>
             </ul>
             <div id="tab1">
 
@@ -35,15 +49,6 @@
             <div id="tab2">
 
                 <?php foreach ($popularPackages as $package): ?>
-
-                    <?php include __DIR__ . '/../partials/index-package-item.phtml' ?>
-
-                <?php endforeach ?>
-
-            </div>
-            <div id="tab3">
-
-                <?php foreach ($firstMinutePackages as $package): ?>
 
                     <?php include __DIR__ . '/../partials/index-package-item.phtml' ?>
 

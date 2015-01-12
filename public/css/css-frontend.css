@@ -85,9 +85,9 @@ body{color:white;font-family: 'Open Sans', sans-serif;background:#f4f4f4}
 #content {background:#f4f4f4;padding-bottom:20px}
 .date-sticker {width:250px;padding:10px 0; /*background: rgba(195, 195, 195, 0.5);*/ background:#c9101e; font-weight:bold; color:white; text-align:center; position:absolute}
 /* index/index */
-#index-last-minute {padding: 20px 0 20px 0; text-align: center}
-#index-last-minute h4 {text-align:center; font-size:30px;color:#333333}
-#index-last-minute h4 strong {font-weight:bold}
+#index-last-minute, #index-first-minute {padding: 20px 0 20px 0; text-align: center}
+#index-last-minute h4, #index-first-minute h4 {text-align:center; font-size:30px;color:#333333}
+#index-last-minute h4 strong, #index-first-minute h4 strong {font-weight:bold}
 .package-item {color:#333333;display:inline-block;width:250px;margin:40px 0 0 20px;background:white}
 .package-item-package{text-align: center}
 .package-item-price {font-weight: bold;text-align:center; margin-top:5px}
