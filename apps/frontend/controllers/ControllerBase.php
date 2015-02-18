@@ -38,31 +38,6 @@ class ControllerBase extends \Phalcon\Mvc\Controller
     {
         return array(
             array(
-                'title' => 'Nova godina',
-                'categoryId' => 12,
-                'uri' => '/nova-godina-2015/12'
-            ),
-            array(
-                'title' => 'City break',
-                'categoryId' => 4,
-                'uri' => '/city-break/4',
-            ),
-            array(
-                'title' => 'Skrivena Srbija',
-                'categoryId' => 11,
-                'uri' => '/skrivena-srbija/11',
-            ),
-            array(
-                'title' => 'Zimovanje 2015',
-                'categoryId' => 13,
-                'uri' => '/zimovanje-2015/13',
-            ),
-            array(
-                'title' => 'Family club',
-                'categoryId' => 8,
-                'uri' => '/family-club/8',
-            ),
-            array(
                 'title' => 'Grčka leto 2015',
                 'categoryId' => 1,
                 'uri' => '/grcka-leto-2015/1'
@@ -71,6 +46,26 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'title' => 'Španija leto 2015',
                 'categoryId' => 2,
                 'uri' => '/spanija-leto-2015/2',
+            ),
+            array(
+                'title' => 'Italija leto 2015',
+                'categoryId' => 3,
+                'uri' => '/italija-leto-2015/3',
+            ),
+            array(
+                'title' => 'Family club',
+                'categoryId' => 8,
+                'uri' => '/family-club/8',
+            ),
+            array(
+                'title' => 'Skrivena Srbija',
+                'categoryId' => 11,
+                'uri' => '/skrivena-srbija/11',
+            ),
+            array(
+                'title' => 'City break',
+                'categoryId' => 4,
+                'uri' => '/city-break/4',
             ),
             array(
                 'title' => 'Formula 1',
