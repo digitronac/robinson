@@ -21,7 +21,7 @@ $this->assets->collection('css')
     ->addCss(APPLICATION_PATH . '/../public/css/css-frontend.css')
     ->join(true)
     ->setTargetPath(APPLICATION_PATH . '/../public/min/css-frontend.css')
-    ->setTargetUri('min/css-frontend.css?13')
+    ->setTargetUri('min/css-frontend.css?14')
     ->addFilter(new \Phalcon\Assets\Filters\Cssmin());
 ?>
 <!DOCTYPE html>
@@ -136,7 +136,6 @@ $this->assets->collection('css')
 		<?=$this->getContent() . PHP_EOL ?>
 
             <div style="text-align:center;padding-bottom:20px">
-                <img src="/img/assets/sajam-baner.jpg" />
                 <img src="/img/assets/gos_baner200x200px.png" />
             </div>
 
