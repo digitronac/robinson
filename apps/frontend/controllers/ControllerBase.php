@@ -38,6 +38,11 @@ class ControllerBase extends \Phalcon\Mvc\Controller
     {
         return array(
             array(
+                'title' => 'Nova godina 2016',
+                'categoryId' => 12,
+                'uri' => '/nova-godina-2016/12',
+            ),
+            array(
                 'title' => 'Grčka leto 2015',
                 'categoryId' => 1,
                 'uri' => '/grcka-leto-2015/1'
@@ -67,11 +72,11 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'categoryId' => 4,
                 'uri' => '/city-break/4',
             ),
-            array(
+            /*array(
                 'title' => 'Formula 1',
                 'categoryId' => 7,
                 'uri' => '/formula-1/7',
-            ),
+            ),*/
         );
     }
 
