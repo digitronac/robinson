@@ -72,11 +72,11 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'categoryId' => 4,
                 'uri' => '/city-break/4',
             ),
-            /*array(
+            array(
                 'title' => 'Formula 1',
                 'categoryId' => 7,
                 'uri' => '/formula-1/7',
-            ),*/
+            ),
         );
     }
 

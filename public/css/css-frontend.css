@@ -74,7 +74,7 @@ body{color:white;font-family: 'Open Sans', sans-serif;background:#f4f4f4}
 #main-nav{width:100%;background:white;height:70px;border-bottom:5px solid #de1a28}
 #main-nav ul{margin:0 auto}
 #main-nav ul li{display:inline-block}
-#main-nav ul li a{color:#333333;float:left;width:120px;height:70px;padding:20px 20px 20px 20px;
+#main-nav ul li a{color:#333333;float:left;width:120px;height:70px;padding:12px 12px 12px 12px;
     background: url("../img/assets/link-separator.png") center right no-repeat;text-decoration: none;line-height:125%}
 .active{color:white !important; background:#de1a28 !important}
 #main-nav ul li#home-link{width:80px;height:70px}
