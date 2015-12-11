@@ -43,19 +43,19 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => '/nova-godina-2016/12',
             ),
             array(
-                'title' => 'Grčka leto 2015',
+                'title' => 'Grčka leto 2016',
                 'categoryId' => 1,
-                'uri' => '/grcka-leto-2015/1'
+                'uri' => '/grcka-leto-2016/1'
             ),
             array(
-                'title' => 'Španija leto 2015',
+                'title' => 'Španija leto 2016',
                 'categoryId' => 2,
-                'uri' => '/spanija-leto-2015/2',
+                'uri' => '/spanija-leto-2016/2',
             ),
             array(
-                'title' => 'Italija leto 2015',
+                'title' => 'Italija leto 2016',
                 'categoryId' => 3,
-                'uri' => '/italija-leto-2015/3',
+                'uri' => '/italija-leto-2016/3',
             ),
             array(
                 'title' => 'Family club',
