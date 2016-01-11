@@ -37,11 +37,11 @@ class ControllerBase extends \Phalcon\Mvc\Controller
     protected function getCategories()
     {
         return array(
-            array(
+            /*array(
                 'title' => 'Nova godina 2016',
                 'categoryId' => 12,
                 'uri' => '/nova-godina-2016/12',
-            ),
+            ),*/
             array(
                 'title' => 'Grčka leto 2016',
                 'categoryId' => 1,
