@@ -16,6 +16,7 @@ class Cover
         $this->image = $data->image;
         $this->text = $data->text;
         $this->price = $data->price;
+        $this->link = $data->link;
     }
 
     public function getImageSrc()
