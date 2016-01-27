@@ -180,4 +180,45 @@ class IndexController extends ControllerBase
 
         $this->view->pricelists = \Robinson\Backend\Models\Pricelist::find(array('order' => 'filename ASC'));
     }
+
+    public function coverAction()
+    {
+        error_reporting(E_ALL);
+        ini_set('display_errors', 1);
+        $coverData = APPLICATION_PATH . '/../data/app/cover.json';
+        //  submit?
+        if ($this->request->isPost()) {
+            // set values
+            $data = new \stdClass();
+            $data->text = $this->request->getPost('cover-text');
+            $data->price = $this->request->getPost('cover-price', 'int');
+            $data->image = $this->request->getPost('current-cover-image');
+
+            // we have uploaded image?
+            if ($this->request->getUploadedFiles()) {
+                /** @var \Phalcon\Http\Request\File $image */
+                $image = $this->request->getUploadedFiles('cover-image')[0];
+                $image->moveTo(APPLICATION_PATH . '/../public/img/assets/cover/' . $image->getName());
+                $data->image = '/img/assets/cover/' . $image->getName();
+            }
+            file_put_contents($coverData, json_encode($data));
+        }
+
+        // cover data file actually there?
+        if (!file_exists($coverData)) {
+            return $this->response->send();
+        }
+
+        // read data
+        $coverJson = file_get_contents($coverData);
+
+        // bail out if empty
+        if (!$coverJson) {
+            return $this->response->send();
+        }
+
+        // decode it
+        $coverJson = json_decode($coverJson);
+        $this->view->cover = new \Robinson\Backend\Models\Cover($coverJson);
+    }
 }

@@ -9,3 +9,4 @@ composer.phar
 config/phinx-local.yml
 .idea/
 .wercker
+Vagrantfile
