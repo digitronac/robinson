@@ -193,6 +193,7 @@ class IndexController extends ControllerBase
             $data->text = $this->request->getPost('cover-text');
             $data->price = $this->request->getPost('cover-price', 'int');
             $data->image = $this->request->getPost('current-cover-image');
+            $data->link = $this->request->getPost('cover-link');
 
             // we have uploaded image?
             if ($this->request->getUploadedFiles()) {

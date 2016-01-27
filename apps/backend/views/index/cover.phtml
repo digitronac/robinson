@@ -5,6 +5,7 @@
     <form method="post" action="<?=$this->url->get('admin/index/cover')?>" enctype="multipart/form-data">
         Izmena cover teksta: <input type="text" size="100" name="cover-text" value="<?=$cover->getCoverData('text')?>" /> <br /> <br />
         Izmena cover cene (od) : <input type="text" maxlength="3"  name="cover-price" value="<?=$cover->getCoverData('price')?>" />&euro; <br /> <br />
+        Izmena cover linka: <input type="text" size="100" name="cover-link" value="<?=$cover->getCoverData('link')?>" /> <br /> <br />
         <img src="<?=$cover->getCoverData('image')?>" width="800" />
         <input type="hidden" name="current-cover-image" value="<?=$cover->getCoverData('image')?>" />
         <input type="file" name="cover-image" />  <br /> <br /> <br />

@@ -41,6 +41,10 @@ $this->assets->collection('css')
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- google analytics code -->
         <?=$this->partial('partials/ga') . PHP_EOL ?>
+
+        <style type="text/css">
+            #main-section {background: url("<?=$cover->getImageSrc?>") center no-repeat;
+        </style>
 	</head>
 	<body>
     <div id="fb-root"></div>
@@ -100,11 +104,11 @@ $this->assets->collection('css')
                     <div id="top-low-price" style="text-align:center">
                         <a href="http://www.robinson.rs/grcka-leto-2015/pilion/hotel-leda-2/157">
                             od
-                            <span class="big-price"><strong style="font-weight: bold">79</strong> &euro;</span>
+                            <span class="big-price"><strong style="font-weight: bold"><?=$cover->getPrice()?></strong> &euro;</span>
                         </a>
                     </div>
                     <div id="bottom-low-price" class="robinson-background">
-                        <a href="http://www.robinson.rs/grcka-leto-2015/pilion/hotel-leda-2/157">Prag polazak 12.02.</a>
+                        <a href="<?=$cover->getLink()?>"><?=$cover->getText()?></a>
                     </div>
                 </div>
             </div>
