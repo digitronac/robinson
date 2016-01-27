@@ -33,12 +33,6 @@ class IndexController extends ControllerBase
                 ' - aktuelne ponude. Vas Robinson!',
         ));
         $this->tag->prependTitle($this->view->season->name . ' ' . $this->view->season->year);
-
-        $this->view->cover = new \Robinson\Frontend\Model\Cover(
-            json_decode(
-                file_get_contents(APPLICATION_PATH . '/../data/app/cover.json')
-            )
-        );
     }
 
     /**

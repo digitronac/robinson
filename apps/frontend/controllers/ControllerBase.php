@@ -32,6 +32,11 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         $this->tag->setTitle('Robinson');
 
         $this->view->pages = \Robinson\Frontend\Model\Page::find(array('order' => 'pageId ASC'));
+        $this->view->cover = new \Robinson\Frontend\Model\Cover(
+            json_decode(
+                file_get_contents(APPLICATION_PATH . '/../data/app/cover.json')
+            )
+        );
     }
 
     protected function getCategories()
