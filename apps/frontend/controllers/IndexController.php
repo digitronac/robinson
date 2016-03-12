@@ -170,12 +170,12 @@ class IndexController extends ControllerBase
      */
     protected function makeBottomTabs($limit)
     {
-        $category = $this->getDI()->get('Robinson\Frontend\Model\Category');
+        $categoryModel = $this->getDI()->get('Robinson\Frontend\Model\Category');
         $tabs = array();
         foreach ($this->config->application->tabs->landing->bottom->toArray() as $key => $tab) {
             $stdClass = new \stdClass();
             $stdClass->name = $tab;
-            $category = $category->findFirst(array(
+            $category = $categoryModel->findFirst(array(
                     'conditions' => "categoryId = $key AND status = 1",
                     'limit' => $limit,
                     'cache' => array(
