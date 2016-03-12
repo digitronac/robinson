@@ -138,10 +138,11 @@ $di->set('imagine', function()
 
 
 $di->set('modelsMetadata', function () use ($di) {
-    return new \Phalcon\Mvc\Model\MetaData\Memcache(array(
+    /*return new \Phalcon\Mvc\Model\MetaData\Memcache(array(
         'host' => '127.0.0.1',
         'lifetime' => 60,
-    ));
+    ));*/
+    return new \Phalcon\Mvc\Model\MetaData\Memory();
 }, true);
 
 $di->set('memcache', function() {
@@ -155,7 +156,7 @@ $di->set('memcache', function() {
             "host" => "localhost",
             "port" => "11211"
         ));
-
+        $cache = new \Phalcon\Cache\Backend\Memory($frontCache);
         return $cache;
 }, true);
 
@@ -170,6 +171,7 @@ $di->set('modelsCache', function() {
         "host" => "localhost",
         "port" => "11211"
     ));
+    $cache = new \Phalcon\Cache\Backend\Memory($frontCache);
 
     return $cache;
 }, true);

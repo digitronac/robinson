@@ -85,10 +85,11 @@ $di->set('viewCache', function () {
         'lifetime' => 300,
     ));
 
-    $cache = new \Phalcon\Cache\Backend\Memcache($frontCache, array(
+    $cache = new \Phalcon\Cache\Backend\Memory($frontCache);
+    /*$cache = new \Phalcon\Cache\Backend\Memcache($frontCache, array(
         "host" => "localhost",
         "port" => "11211"
-    ));
+    ));*/
     return $cache;
 });
 
