@@ -46,7 +46,7 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
      */
     public function registerServices($di)
     {
-        $config = \apc_fetch('robinson.config');
+        $config = \apc_fetch('english.robinson.config');
         if (!$config) {
             $config = new \Phalcon\Config(
                 (new \Zend_Config_Ini(MODULE_PATH . '/config/application.ini', APPLICATION_ENV))->toArray()
