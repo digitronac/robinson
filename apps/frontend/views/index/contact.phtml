@@ -1,6 +1,6 @@
 <div id="index-contact">
     <div class="inner-site">
-        <h1>Kontakt</h1>
+        <h1>Contact</h1>
         <?php if ($this->flashSession->has('success')): ?>
 
             <p class="successMessage"><?=$this->flashSession->getMessages('success')[0]?></p>
@@ -9,19 +9,19 @@
 
         <form action="" method="post" class="contact-form">
             <div>
-                <input class="input-text" required="required" type="text" name="name" placeholder="Vaši podaci" />
+                <input class="input-text" required="required" type="text" name="name" placeholder="Name" />
             </div>
             <div>
                 <input class="input-text" required="required" type="email" name="email" placeholder="Email" />
             </div>
             <div>
-                <input class="input-text" required="required" type="text" name="phone" placeholder="Telefon" />
+                <input class="input-text" required="required" type="text" name="phone" placeholder="Phone" />
             </div>
             <div>
-                <textarea class="input-textarea" required="required" placeholder="Poruka" name="body"></textarea>
+                <textarea class="input-textarea" required="required" placeholder="Message" name="body"></textarea>
             </div>
             <div>
-                <input class="input-submit" type="submit" name="send" value="Pošalji rezervaciju" />
+                <input class="input-submit" type="submit" name="send" value="Send reservation" />
             </div>
         </form>
     </div>

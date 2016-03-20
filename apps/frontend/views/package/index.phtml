@@ -1,7 +1,7 @@
 <div class="package index intro">
     <div class="inner-site">
         <h1><?=$package->getPackage()?></h1>
-        <h4 id="price"><span>od <?=$package->getPrice()?> &euro;</span></h4>
+        <h4 id="price"><span>from <?=$package->getPrice()?> &euro;</span></h4>
         <div class="description">
             <?=$package->getDescription()?>
         </div>
@@ -23,8 +23,8 @@
 <div class="package index prices">
     <div class="inner-site">
         <a target="_blank" href="/pdf/<?=$package->getPackageId()?>">
-            <img src="/img/assets/pdf-icon.png" alt="Pogledajte cenovnik" />
-            <span>Pogledajte cenovnik ponude</span>
+            <img src="/img/assets/pdf-icon.png" alt="View prices" />
+            <span>View prices</span>
         </a>
     </div>
 </div>
@@ -34,8 +34,8 @@
 <div class="package index prices">
     <div class="inner-site">
         <a target="_blank" href="/pdf/<?=$package->getPackageId()?>?pdfType=2">
-            <img src="/img/assets/pdf-icon.png" alt="Pogledajte cenovnik" />
-            <span>Pogledajte cenovnik ponude</span>
+            <img src="/img/assets/pdf-icon.png" alt="View prices" />
+            <span>View prices</span>
         </a>
     </div>
 </div>
@@ -89,7 +89,7 @@
             <div>
                 <?php $value = ($this->flashSession->has('email') ? $this->flashSession->getMessages('email')[0] : '') ?>
 
-                <input type="text" class="input-text" name="email" id="email" value="<?=$value?>" placeholder="Vaš email" />
+                <input type="text" class="input-text" name="email" id="email" value="<?=$value?>" placeholder="Email" />
                 <div class="errors">
                     <?php foreach ($this->flashSession->getMessages('email-error') as $message): ?>
                         <?php foreach($message as $type => $segment): ?>
@@ -102,7 +102,7 @@
 
                 <?php $value = ($this->flashSession->has('body') ? $this->flashSession->getMessages('body')[0] : '') ?>
 
-                <textarea name="body" class="input-textarea" id="body" placeholder="Pitanje u vezi <?=$this->escaper->escapeHtml($package->getPackage())?>"><?=$value?></textarea>
+                <textarea name="body" class="input-textarea" id="body" placeholder="Inquery for <?=$this->escaper->escapeHtml($package->getPackage())?>"><?=$value?></textarea>
                 <div class="errors">
                     <?php foreach ($this->flashSession->getMessages('body-error') as $message): ?>
                         <?php foreach($message as $type => $segment): ?>
@@ -112,7 +112,7 @@
                 </div>
             </div>
             <div>
-                <input type="submit" class="input-submit" name="submit" value="Pošaljite upit" />
+                <input type="submit" class="input-submit" name="submit" value="Submit" />
             </div>
         </form>
     </div>

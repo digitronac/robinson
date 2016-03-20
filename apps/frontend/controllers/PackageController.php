@@ -23,7 +23,7 @@ class PackageController extends ControllerBase
             if (!$messages) {
                 $mail = new \Zend\Mail\Message();
                 $mail->addTo($this->config->application->smtp->package->address);
-                $mail->setSubject('Upit za "' . $this->view->package->getPackage() . '"');
+                $mail->setSubject('Engleski upit za "' . $this->view->package->getPackage() . '"');
                 $mail->addFrom($this->request->getPost('email'));
                 $mail->addReplyTo($this->request->getPost('email'));
                 $mail->setBody($this->request->getPost('body'));
@@ -52,7 +52,7 @@ class PackageController extends ControllerBase
 
                 $this->flashSession->message(
                     'success',
-                    'Vaša poruka je poslata! Odgovorićemo u najkraćem mogućem roku! HVALA!!! :)'
+                    'Your message has been sent! We will answer as soon as possible! THANKS!!! :)'
                 );
 
                 return $this->response->redirect(

@@ -61,19 +61,19 @@ $this->assets->collection('css')
                     Follow us: <br />
                     <iframe style="margin-top:10px" src="//www.facebook.com/plugins/like.php?href=https://www.facebook.com/pages/Robinson-Adventure-Team/55033277985&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=false&amp;share=true&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px;" allowTransparency="true"></iframe>                </div>
                 <div id="logo">
-                    <a href="/"><img src="/img/assets/logo.png" alt="robinson turisticka agencija" /></a>
-                    <img src="/img/assets/ilustracija.png" alt="robinson cikica" />
+                    <a href="/"><img src="/img/assets/logo.png" alt="robinson travel agency" /></a>
+                    <img src="/img/assets/ilustracija.png" alt="robinson adventure logo" />
                 </div>
                 <div id="contact-info">
                     <div style="float:left">
                         <img width="50px" height="50px" id="iphone-large" src="/img/assets/iphone.svg" alt="iphone icon" />
                     </div>
                     <div style="float:left">
-                        <strong style="font-weight:bold">011/334-67-76</strong>
+                        <strong style="font-weight:bold">+381 11 334 67 76</strong>
                         <br />
-                        <strong style="font-weight:bold">011/323-60-55</strong>
+                        <strong style="font-weight:bold">+381 11 323 60 55</strong>
                         <br />
-                        <p id="contact-page-link"><a href="/index/contact">Kontakt strana</a></p>
+                        <p id="contact-page-link"><a href="/index/contact">Contact page</a></p>
                     </div>
 
                 </div>
@@ -84,11 +84,11 @@ $this->assets->collection('css')
                 <div id="select-wrap">
                     <div id="select">
 
-                        <h3>Više od <strong style="font-weight:bold">1800</strong> ponuda</h3>
+                        <h3>Over <strong style="font-weight:bold">1800</strong> offets</h3>
 
                         <select id="destination-selection" name="destination">
 
-                            <option value="">Izaberi destinaciju!</option>
+                            <option value="">Choose destination!</option>
 
                             <?php foreach($destinations as $destination): ?>
 
@@ -103,7 +103,7 @@ $this->assets->collection('css')
                 <div id="low-price">
                     <div id="top-low-price" style="text-align:center">
                         <a href="<?=$cover->getLink()?>">
-                            od
+                            from
                             <span class="big-price"><strong style="font-weight: bold"><?=$cover->getPrice()?></strong> &euro;</span>
                         </a>
                     </div>
@@ -150,7 +150,7 @@ $this->assets->collection('css')
         <div id="footer" class="robinson-background">
             <div class="inner-site">
                 <div id="packages">
-                    <h3>Aranžmani</h3>
+                    <h3><!--Aranžmani-->Packages</h3>
                     <ul>
                         <?php foreach ($randomPackages as $package): ?>
 
@@ -179,12 +179,12 @@ $this->assets->collection('css')
                         <li><a href="/index/osiguranje">Putno osiguranje</a></li>
                         <li><a href="/index/prtljag">Dozvoljeni prtljag</a></li>
                         <li><a href="/index/dokumenta">Putna dokumenta</a></li>-->
-                        <li><a href="/index/zaAgente">Preuzimanje cenovnika</a></li>
+                        <li><a href="/index/zaAgente">Download price list</a></li>
                     </ul>
                 </div>
                 <div id="contact-data">
                     <div id="location">
-                        <span class="data">Beogradska 29,<br /> 11000 Beograd</span>
+                        <span class="data">Beogradska 29,<br /> 11000 Belgrade</span>
                     </div>
                     <div id="email">
                         <span class="data">info@robinson.rs</span>
@@ -198,7 +198,7 @@ $this->assets->collection('css')
                                 <img src="/img/assets/logo-yuta3.jpg" alt="yuta logo" />
                             </div>
                             <br />
-                            Licenca Ministarstva OTP 7/2010
+                            Licence OTP 7/2010
                         </span>
                     </div>
                 </div>
@@ -233,7 +233,7 @@ $this->assets->collection('css')
                         return false;
                     }
                     var selected = $(this).find('option[value="' + $(this).val() + '"]');
-                    selected.html('Putujemooo ...');
+                    selected.html('Travelling ...');
                     window.location.href = '/' + selected.data('url');
                 });
 
