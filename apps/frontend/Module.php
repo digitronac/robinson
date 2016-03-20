@@ -58,7 +58,7 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
                 $config->merge($local);
             }
 
-            \apc_store('robinson.config', $config, 30);
+            \apc_store('english.robinson.config', $config, 30);
         }
 
         include APPLICATION_PATH . '/frontend/config/services.php';
