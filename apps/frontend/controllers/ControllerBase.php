@@ -85,7 +85,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
             array(
                 'title' => 'Last minute',
                 'categoryId' => null,
-                'uri' => 'index/lastMinute',
+                'uri' => '/index/lastMinute',
             )
         );
     }
