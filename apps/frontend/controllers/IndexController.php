@@ -162,6 +162,18 @@ class IndexController extends ControllerBase
     }
 
     /**
+     * Display list of last minute packages.
+     *
+     * @return void
+     */
+    public function lastMinuteAction()
+    {
+        /** @var $package \Robinson\Frontend\Model\Package */
+        $package = $this->getDI()->get('Robinson\Frontend\Model\Package');
+        $this->view->lastMinutePackages = $package->findLastMinute();
+    }
+
+    /**
      * Creates array of objects that contain data for building landing page bottom tabs.
      *
      * @param int $limit limit
