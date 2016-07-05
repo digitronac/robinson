@@ -82,6 +82,11 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'categoryId' => 7,
                 'uri' => '/formula-1/7',
             ),
+            array(
+                'title' => 'Last minute',
+                'categoryId' => null,
+                'uri' => 'index/lastMinute',
+            )
         );
     }
 
