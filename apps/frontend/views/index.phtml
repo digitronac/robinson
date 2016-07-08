@@ -122,11 +122,11 @@ $this->assets->collection('css')
 
                         <?php if (isset($categoryId) && $categoryId == $category['categoryId']): ?>
 
-                            <li><a class="active" id="main-link-<?=$key?>" href="<?=$category['uri']?>"><?=$category['title']?></a></li>
+                            <li<?php if ($category['decorated']) {  echo ' class="decorated" '; }?>><a class="active" id="main-link-<?=$key?>" href="<?=$category['uri']?>"><?=$category['title']?></a></li>
 
                         <?php else: ?>
 
-                            <li><a id="main-link-<?=$key?>" href="<?=$category['uri']?>"><?=$category['title']?></a></li>
+                            <li<?php if ($category['decorated']) {  echo ' class="decorated" '; }?>><a id="main-link-<?=$key?>" href="<?=$category['uri']?>"><?=$category['title']?></a></li>
 
                         <?php endif ?>
                     <?php endforeach ?>
