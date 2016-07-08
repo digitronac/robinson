@@ -81,6 +81,8 @@ body{color:white;font-family: 'Open Sans', sans-serif;background:#f4f4f4}
 #main-nav ul li#home-link{width:80px;height:70px}
 #main-nav ul li#home-link a{width:100%;height:100%;display:inline-block;padding:0;background:none}
 #main-nav ul li#home-link a img{position:relative;top:25px;left:25px}
+#main-nav ul li.decorated {background: #de1a28}
+#main-nav ul li.decorated a {color:white}
 #iphone-large{width:50px}
 #contact-page-link {margin-top:1px}
 #contact-page-link a {color:white; text-decoration: underline; font-size:20px;font-weight:bold}
