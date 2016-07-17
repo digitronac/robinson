@@ -21,7 +21,7 @@ class PackageTagTest extends \Robinson\Backend\Tests\Models\BaseTestModel
         /* @var $tag \Robinson\Backend\Models\Tags\Package */
         $tag = $this->getDI()->get('Robinson\Backend\Models\Tags\Package');
         $tag->setTag('testtag');
-        $tag->setType(\Robinson\Backend\Models\Tags\Package::TYPE_FIRST_MINUTE);
+        $tag->setType(\Robinson\Backend\Models\Tags\Package::TYPE_HOMEPAGE);
         $tag->setPackageId(1);
         $this->assertTrue($tag->create());
         $tag = \Robinson\Backend\Models\Tags\Package::findFirst(array
@@ -29,6 +29,6 @@ class PackageTagTest extends \Robinson\Backend\Tests\Models\BaseTestModel
             'order' => 'packageTagId DESC',
         ));
         $this->assertEquals('testtag', $tag->getTag());
-        $this->assertEquals(\Robinson\Backend\Models\Tags\Package::TYPE_FIRST_MINUTE, $tag->getType());
+        $this->assertEquals(\Robinson\Backend\Models\Tags\Package::TYPE_HOMEPAGE, $tag->getType());
     }
 }

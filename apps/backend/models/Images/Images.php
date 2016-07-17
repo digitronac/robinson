@@ -274,7 +274,7 @@ abstract class Images extends \Phalcon\Mvc\Model
     public function afterSave()
     {
         // no image attached? pass...
-        if (!$this->uploadedFile) {
+        if ($this->uploadedFile === null) {
             return;
         }
 
