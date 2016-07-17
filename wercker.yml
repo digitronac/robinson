@@ -23,6 +23,10 @@ build:
             mv config/phinx-local.yml.dist config/phinx-local.yml
             php vendor/bin/phinx migrate --configuration="config/phinx.yml" --environment="testing"
     - script:
+        name: setup cover.json file
+        code: |-
+            mv data/cover.json.dist data/cover.json
+    - script:
         name: test backend
         code: |-
             cd apps/backend/tests

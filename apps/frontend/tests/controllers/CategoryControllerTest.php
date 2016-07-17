@@ -57,10 +57,10 @@ class CategoryControllerTest extends BaseTestController
             ->will($this->returnValue($imagickMock));
         $this->getDI()->set('imagine', $imagineMock);
 
-        $_SERVER['REQUEST_URI'] = '/2014-fixture-category/1';
-        $this->dispatch('/2014-fixture-category/1');
+        $_SERVER['REQUEST_URI'] = '/2015-fixture-category/1';
+        $this->dispatch('/2015-fixture-category/1');
         $this->assertResponseCode(301);
-        $this->assertRedirectTo('/2015-fixture-category/1');
+        $this->assertRedirectTo('/2016-fixture-category/1');
         $_SERVER['REQUEST_URI'] = '/';
     }
 } 
