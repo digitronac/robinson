@@ -120,7 +120,7 @@ class IndexController extends ControllerBase
     {
         $this->view->tags = $this->config->application->package->tags->toArray();
 
-        $type = \Robinson\Backend\Models\Tags\Package::TYPE_FIRST_MINUTE;
+        $type = \Robinson\Backend\Models\Tags\Package::TYPE_HOMEPAGE;
 
         if ($this->request->getPost('packageTagIds')) {
             foreach ($this->request->getPost('packageTagIds') as $packageTagId => $order) {
