@@ -25,7 +25,7 @@ build:
     - script:
         name: setup cover.json file
         code: |-
-            mv data/cover.json.dist data/cover.json
+            mv data/app/cover.json.dist data/app/cover.json
     - script:
         name: test backend
         code: |-
