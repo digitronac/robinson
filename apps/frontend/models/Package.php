@@ -340,11 +340,11 @@ class Package extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Finds first minute packages.
+     * Finds homepage packages.
      *
      * @return mixed
      */
-    public function findFirstMinute()
+    public function findHomepage()
     {
         $query = $this->getModelsManager()->createQuery(
             'SELECT packages.* FROM Robinson\Frontend\Model\Package AS packages JOIN
@@ -353,7 +353,7 @@ class Package extends \Phalcon\Mvc\Model
             WHERE packages.status = 1 AND packageTags.type = 1 ORDER BY packageTags.[order] ASC'
         );
         $query->cache(array(
-            'key' => 'first-minute-packages',
+            'key' => 'homepage-packages',
         ));
         return $query->execute();
     }

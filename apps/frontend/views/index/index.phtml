@@ -17,12 +17,12 @@
 
         <?php endif ?>
 
-        <?php if ($firstMinutePackages->count()): ?>
+        <?php if ($homepagePackages->count()): ?>
 
             <div id="index-first-minute">
-                <h4>Specijalne <strong>first minute</strong> ponude</h4>
+                <!--<h4>Specijalne <strong>first minute</strong> ponude</h4>-->
 
-                <?php foreach ($firstMinutePackages as $package): ?>
+                <?php foreach ($homepagePackages as $package): ?>
 
                     <?php include __DIR__ . '/../partials/index-package-item.phtml' ?>
 

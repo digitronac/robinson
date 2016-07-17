@@ -19,7 +19,7 @@ class IndexController extends ControllerBase
         /** @var $package \Robinson\Frontend\Model\Package */
         $package = $this->getDI()->get('Robinson\Frontend\Model\Package');
         $this->view->lastMinutePackages = $package->findLastMinute();
-        $this->view->firstMinutePackages = $package->findFirstMinute();
+        $this->view->homepagePackages = $package->findHomepage();
         /** @var $package \Robinson\Frontend\Model\Package */
         $package = $this->getDI()->get('Robinson\Frontend\Model\Package');
         $this->view->hotPackages = $package->findHot(8);
