@@ -247,3 +247,10 @@ html[xmlns] .clearfix {
 * html .clearfix {
     height: 1%;
 }
+
+/* media queries */
+@media screen and (max-width: 1170px) {
+    .inner-site{width:auto !important; margin:0 auto}
+    .contact-form .input-text, .contact-form .input-textarea {/*background: #f4f4f4;*/ border:none;padding:10px; margin-top:10px; width:auto; color:#333333}
+
+}
