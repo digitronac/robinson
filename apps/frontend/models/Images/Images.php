@@ -319,7 +319,7 @@ abstract class Images extends \Phalcon\Mvc\Model
     protected function compileImgPath($width, $height, $type = 'relative')
     {
         $baseImagePath = $this->imageType . '/' . $width . 'x' . $height . '/' . $this->getRealFilename();
-        
+
         if ($type === 'relative') {
             return 'img/' . $baseImagePath;
         }

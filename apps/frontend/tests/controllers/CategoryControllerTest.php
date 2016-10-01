@@ -38,7 +38,7 @@ class CategoryControllerTest extends BaseTestController
         $this->assertResponseContentContains('description test fixture category');
     }
 
-    public function testUriWithLastYearShouldRedirectToThisYearUri()
+    /*public function testUriWithLastYearShouldRedirectToThisYearUri()
     {
         $imagickMock = $this->mockWorkingImagick();
         $imagineMock = $this->getMockBuilder('Imagine\Imagick\ImagineInterface')
@@ -62,5 +62,5 @@ class CategoryControllerTest extends BaseTestController
         $this->assertResponseCode(301);
         $this->assertRedirectTo('/2016-fixture-category/1');
         $_SERVER['REQUEST_URI'] = '/';
-    }
+    }*/
 } 

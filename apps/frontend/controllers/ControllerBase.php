@@ -42,27 +42,34 @@ class ControllerBase extends \Phalcon\Mvc\Controller
     protected function getCategories()
     {
         return array(
-            /*array(
-                'title' => 'Nova godina 2016',
+            array(
+                'title' => 'Nova godina 2017',
                 'categoryId' => 12,
-                'uri' => '/nova-godina-2016/12',
-            ),*/
+                'uri' => '/nova-godina-2017/12',
+                'decorated' => false,
+            ),
             array(
-                'title' => 'Grčka leto 2016',
+                'title' => 'City break',
+                'categoryId' => 4,
+                'uri' => '/city-break/4',
+                'decorated' => false,
+            ),
+            array(
+                'title' => 'Grčka leto 2017',
                 'categoryId' => 1,
-                'uri' => '/grcka-leto-2016/1',
+                'uri' => '/grcka-leto-2017/1',
                 'decorated' => false,
             ),
             array(
-                'title' => 'Španija leto 2016',
+                'title' => 'Španija leto 2017',
                 'categoryId' => 2,
-                'uri' => '/spanija-leto-2016/2',
+                'uri' => '/spanija-leto-2017/2',
                 'decorated' => false,
             ),
             array(
-                'title' => 'Italija leto 2016',
+                'title' => 'Italija leto 2017',
                 'categoryId' => 3,
-                'uri' => '/italija-leto-2016/3',
+                'uri' => '/italija-leto-2017/3',
                 'decorated' => false,
             ),
             array(
@@ -78,23 +85,17 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'decorated' => false,
             ),
             array(
-                'title' => 'City break',
-                'categoryId' => 4,
-                'uri' => '/city-break/4',
-                'decorated' => false,
-            ),
-            array(
                 'title' => 'Formula 1',
                 'categoryId' => 7,
                 'uri' => '/formula-1/7',
                 'decorated' => false,
             ),
-            array(
+            /*array(
                 'title' => 'Last minute',
                 'categoryId' => null,
                 'uri' => '/index/lastMinute',
                 'decorated' => true,
-            )
+            )*/
         );
     }
 
@@ -105,7 +106,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
      */
     protected function upToDateUri()
     {
-        if (strpos($this->router->getRewriteUri(), '2015') !== false) {
+        if (strpos($this->router->getRewriteUri(), '2016')) {
             return $this->response->redirect(
                 str_replace(
                     ((int)$this->config->application->season->year) - 1,

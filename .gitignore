@@ -1,4 +1,6 @@
 nbproject
+.vagrant
+.DS_Store
 vendor
 apps/*/config/application.local.ini
 apps/backend/config/credentials.php
