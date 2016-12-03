@@ -48,7 +48,7 @@
     <div class="inner-site">
 
         <div class="tabs">
-            <?php if ($package->getTabs()): ?>
+            <?php if ($package->getTabs(['order' => 'type ASC'])): ?>
 
             <ul class="tabs-nav">
             <?php $i = 1; foreach($package->getTabs() as $key => $tab): ?>
