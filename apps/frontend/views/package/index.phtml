@@ -58,7 +58,7 @@
 
             </ul>
 
-            <?php foreach($package->getTabs() as $key => $tab): ?>
+            <?php foreach($package->getTabs(['order' => 'type ASC']) as $key => $tab): ?>
 
             <div id="tab-<?=$key?>">
                 <?=$tab->getDescription() . PHP_EOL?>
