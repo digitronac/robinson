@@ -150,6 +150,24 @@ class Destination extends \Phalcon\Mvc\Model
     }
 
     /**
+     * Returns featured packages.
+     *
+     * @return array
+     */
+    public function getFeaturedPackages()
+    {
+        $featured = [];
+        $config = $this->getDI()->get('config');
+        $featuredPackages = $config->application->destination->featuredPackages;
+        if (!empty($featuredPackages->toArray()[$this->destinationId])) {
+            foreach ($featuredPackages->toArray()[$this->destinationId] as $packageId) {
+                array_push($featured, Package::findFirst((int) $packageId));
+            }
+        }
+        return $featured;
+    }
+
+    /**
      * Finds main image of package (one with lowest sort number).
      *
      * @return Images\Package
