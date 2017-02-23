@@ -73,13 +73,19 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'decorated' => false,
             ),
             array(
+                'title' => 'Jadran 2017',
+                'categoryId' => 15,
+                'uri' => '/jadran-2017/8',
+                'decorated' => false,
+            ),
+            array(
                 'title' => 'Skrivena Srbija',
                 'categoryId' => 11,
                 'uri' => '/skrivena-srbija/11',
                 'decorated' => false,
             ),
             array(
-                'title' => 'Formula 1',
+                'title' => 'Formula 1 / Moto GP',
                 'categoryId' => 7,
                 'uri' => '/formula-1/7',
                 'decorated' => false,
