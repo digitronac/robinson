@@ -43,27 +43,33 @@ class ControllerBase extends \Phalcon\Mvc\Controller
     {
         return array(
             array(
+                'title' => 'Nova godina 2018',
+                'categoryId' => 12,
+                'uri' => '/nova-godina-2018/12',
+                'decorated' => false,
+            ),
+            array(
                 'title' => 'City break',
                 'categoryId' => 4,
                 'uri' => '/city-break/4',
                 'decorated' => false,
             ),
             array(
-                'title' => 'Grčka leto 2017',
+                'title' => 'Grčka leto 2018',
                 'categoryId' => 1,
-                'uri' => '/grcka-leto-2017/1',
+                'uri' => '/grcka-leto-2018/1',
                 'decorated' => false,
             ),
             array(
-                'title' => 'Španija leto 2017',
+                'title' => 'Španija leto 2018',
                 'categoryId' => 2,
-                'uri' => '/spanija-leto-2017/2',
+                'uri' => '/spanija-leto-2018/2',
                 'decorated' => false,
             ),
             array(
-                'title' => 'Italija leto 2017',
+                'title' => 'Italija leto 2018',
                 'categoryId' => 3,
-                'uri' => '/italija-leto-2017/3',
+                'uri' => '/italija-leto-2018/3',
                 'decorated' => false,
             ),
             array(
@@ -73,9 +79,9 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'decorated' => false,
             ),
             array(
-                'title' => 'Jadran 2017',
+                'title' => 'Jadran 2018',
                 'categoryId' => 15,
-                'uri' => '/jadran-2017/8',
+                'uri' => '/jadran-2018/8',
                 'decorated' => false,
             ),
             array(
@@ -85,7 +91,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'decorated' => false,
             ),
             array(
-                'title' => 'Formula 1 / Moto GP',
+                'title' => 'Formula 1',
                 'categoryId' => 7,
                 'uri' => '/formula-1/7',
                 'decorated' => false,
@@ -106,7 +112,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
      */
     protected function upToDateUri()
     {
-        if (strpos($this->router->getRewriteUri(), '2016')) {
+        if (strpos($this->router->getRewriteUri(), '2017')) {
             return $this->response->redirect(
                 str_replace(
                     ((int)$this->config->application->season->year) - 1,
