@@ -43,12 +43,6 @@ class ControllerBase extends \Phalcon\Mvc\Controller
     {
         return array(
             array(
-                'title' => 'Nova godina 2018',
-                'categoryId' => 12,
-                'uri' => '/nova-godina-2018/12',
-                'decorated' => false,
-            ),
-            array(
                 'title' => 'City break',
                 'categoryId' => 4,
                 'uri' => '/city-break/4',
