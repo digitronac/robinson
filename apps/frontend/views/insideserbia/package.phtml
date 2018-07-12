@@ -1,0 +1,119 @@
+<div class="package index intro">
+    <div class="inner-site">
+        <h1><?=$package->getPackage()?></h1>
+        <h4 id="price"><span>od <?=$package->getPrice()?> &euro;</span></h4>
+        <div class="description">
+            <?=$package->getDescription()?>
+        </div>
+    </div>
+</div>
+
+<?php if ($package->getImages()->count()): ?>
+
+<div class="package index images">
+    <div class="inner-site">
+        <?=$this->partial('partials/slider-image-gallery', array(
+                'item' => $package,
+            ))?>
+    </div>
+</div>
+
+<?php endif ?>
+
+<div class="package index prices">
+    <div class="inner-site">
+        <a target="_blank" href="/pdf/<?=$package->getPackageId()?>">
+            <img src="/img/assets/pdf-icon.png" alt="Pogledajte cenovnik" />
+            <span><?=$this->translate->query('Pogledajte cenovnik')?></span>
+        </a>
+    </div>
+</div>
+
+<?php if ($package->getPdf2()): ?>
+
+<div class="package index prices">
+    <div class="inner-site">
+        <a target="_blank" href="/pdf/<?=$package->getPackageId()?>?pdfType=2">
+            <img src="/img/assets/pdf-icon.png" alt="Pogledajte cenovnik" />
+            <span>Pogledajte cenovnik</span>
+        </a>
+    </div>
+</div>
+
+<?php endif ?>
+
+<?php if ($package->getTabs()): ?>
+
+<div class="package index tabs contrast-bg">
+    <div class="inner-site">
+
+        <div class="tabs">
+            <?php if ($package->getTabs(['order' => 'type ASC'])): ?>
+
+            <ul class="tabs-nav">
+            <?php $i = 1; foreach($package->getTabs(['order' => 'type ASC']) as $key => $tab): ?>
+
+                <li><a href="#tab-<?=$key?>"<?=($i === 1) ? ' class="selected first-cat"' : ''?>><?=$this->translate->query($tab->getTitle())?></a></li>
+            <?php $i++; endforeach ?>
+
+            </ul>
+
+            <?php foreach($package->getTabs(['order' => 'type ASC']) as $key => $tab): ?>
+
+            <div id="tab-<?=$key?>">
+                <?=$tab->getDescription() . PHP_EOL?>
+            </div>
+
+            <?php endforeach ?>
+
+            <?php endif ?>
+
+        </div>
+    </div>
+</div>
+
+<?php endif ?>
+
+<div class="package index contact-form">
+    <div class="inner-site">
+
+        <?php if ($this->flashSession->has('success')): ?>
+
+        <p class="successMessage">
+            <?=$this->flashSession->getMessages('success')[0]?>
+        </p>
+
+        <?php endif ?>
+
+        <form method="post" id="contact-form">
+            <div>
+                <?php $value = ($this->flashSession->has('email') ? $this->flashSession->getMessages('email')[0] : '') ?>
+
+                <input type="text" class="input-text" name="email" id="email" value="<?=$value?>" placeholder="<?=$this->translate->query('Vaš email')?>" />
+                <div class="errors">
+                    <?php foreach ($this->flashSession->getMessages('email-error') as $message): ?>
+                        <?php foreach($message as $type => $segment): ?>
+                        <li class="<?=$type?>"><?=$this->translate->_($segment)?></li>
+                        <?php endforeach ?>
+                    <?php endforeach ?>
+                </div>
+            </div>
+            <div>
+
+                <?php $value = ($this->flashSession->has('body') ? $this->flashSession->getMessages('body')[0] : '') ?>
+
+                <textarea name="body" class="input-textarea" id="body" placeholder="<?=$this->translate->query('Pitanje u vezi')?> <?=$this->escaper->escapeHtml($package->getPackage())?>"><?=$value?></textarea>
+                <div class="errors">
+                    <?php foreach ($this->flashSession->getMessages('body-error') as $message): ?>
+                        <?php foreach($message as $type => $segment): ?>
+                            <li class="<?=$type?>"><?=$this->translate->_($segment)?></li>
+                        <?php endforeach ?>
+                    <?php endforeach ?>
+                </div>
+            </div>
+            <div>
+                <input type="submit" class="input-submit" name="submit" value="<?=$this->translate->query('Pošaljite upit')?>" />
+            </div>
+        </form>
+    </div>
+</div>

@@ -10,6 +10,7 @@ class DestinationController extends ControllerBase
      */
     public function indexAction()
     {
+        $this->view->translate = $this->getDI()['translate'];
         $this->view->type = $this->request->getQuery('type');
 
         $this->view->destination = \Robinson\Frontend\Model\Destination::findFirst(
@@ -29,5 +30,9 @@ class DestinationController extends ControllerBase
             'content' => $this->view->destination->getDestination() .
                 ' - ' . $category->getCategory() . $this->view->season->name,
         ));
+        if ($this->view->destination->isEnglish()) {
+            $this->view->setMainView('layouts/english');
+            $this->view->pick('insideserbia/destination');
+        }
     }
 }

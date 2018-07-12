@@ -93,6 +93,11 @@ class Destination extends \Phalcon\Mvc\Model
         return $this->description;
     }
 
+    public function isEnglish()
+    {
+        return ((int) $this->categoryId === (int) $this->getDI()['config']->application->insideserbia->categoryId);
+    }
+
     /**
      * Uri to destination.
      *

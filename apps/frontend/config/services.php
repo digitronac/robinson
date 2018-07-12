@@ -141,9 +141,13 @@ $di['watermark'] = function () use ($di) {
 };
 
 $di['translate'] = function () use ($di) {
+    $lang = 'sr';
+    if (strpos($_SERVER['HTTP_HOST'], 'insideserbia.com') !== false) {
+        $lang = 'en';
+    }
     $translate = new \Phalcon\Translate\Adapter\NativeArray(
         array(
-            'content' => include APPLICATION_PATH . '/../data/translations/sr.php',
+            'content' => include APPLICATION_PATH . '/../data/translations/' . $lang . '.php',
         )
     );
     return $translate;

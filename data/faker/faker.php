@@ -140,3 +140,20 @@ $fixtureImage = file_get_contents(__DIR__ . '/fixtures/img/package/1-vila_maria_
 file_put_contents(__DIR__ . '/../../public/img/package/1-vila_maria_1.jpg', $fixtureImage);
 
 echo 'Added image to package!' . PHP_EOL;
+
+$packageTabs = [
+    'Program puta' => ['text' => $faker->text(), 'type' => 1],
+    'Uslovi putovanja' => ['text' => $faker->text(), 'type' => 2],
+    'Avio prevoz' => ['text' => $faker->text(), 'type' => 3],
+    'Bus prevoz' => ['text' => $faker->text(), 'type' => 4],
+    'Važne napomene' => ['text' => $faker->text(), 'type' => 5],
+];
+foreach ($packageTabs as $title => $info) {
+    $sql = <<<HEREDOC
+INSERT INTO package_tabs (title, description, `type`, packageId, createdAt, updatedAt) 
+VALUES ("%s", "%s", %d, 1, "2018-07-12 14:32:00", "2018-07-12 14:32:00")
+HEREDOC;
+    $query = sprintf($sql, $title, $info['text'], $info['type']);
+    $db->execute($query);
+}
+echo 'Generated package tabs!' . PHP_EOL;

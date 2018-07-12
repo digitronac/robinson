@@ -92,6 +92,12 @@ class PackageController extends ControllerBase
                 $destination->getDestination() . ' - ' .
                 $category->getCategory() . ' - ' . $this->view->season->name . ': Aranzmani, Opis, Cene, Rezervacije',
         ));
+
+        $this->view->translate = $this->getDI()['translate'];
+        if ($this->view->package->isEnglish()) {
+            $this->view->setMainView('layouts/english');
+            $this->view->pick('insideserbia/package');
+        }
     }
 
     public function pdfAction()

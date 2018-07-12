@@ -77,6 +77,11 @@ class Category extends \Phalcon\Mvc\Model
         return $this->slug .  '/' . $this->categoryId;
     }
 
+    public function isEnglish()
+    {
+        return ((int) $this->categoryId === (int) $this->getDI()['config']->application->insideserbia->categoryId);
+    }
+
     /**
      * Gets category description.
      *

@@ -163,6 +163,11 @@ class Package extends \Phalcon\Mvc\Model
         return $this->getRelated('destination');
     }
 
+    public function isEnglish()
+    {
+        return $this->getDestination()->isEnglish();
+    }
+
     /**
      * Gets package images.
      *

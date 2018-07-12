@@ -5,6 +5,8 @@ class CategoryController extends ControllerBase
 {
     public function indexAction()
     {
+        /**  @var \Phalcon\Translate\Adapter\NativeArray $this->view->translate */
+        $this->view->translate = $this->getDI()['translate'];
         $categories = $this->getDI()->get('Robinson\Frontend\Model\Category');
         $this->view->category = $categories->findFirst(
             'status = ' . \Robinson\Frontend\Model\Category::STATUS_VISIBLE .
@@ -18,10 +20,9 @@ class CategoryController extends ControllerBase
             'content' => $this->view->category->getCategory() . ' - ' . $this->view->season->name,
         ));
 
-        if ((int) $this->dispatcher->getParam('id') === 3) {
-            //$this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
+        if ($this->view->category->isEnglish()) {
             $this->view->setMainView('layouts/english');
-            $this->view->pick('index/english');
+            $this->view->pick('insideserbia/category');
         }
     }
 }
