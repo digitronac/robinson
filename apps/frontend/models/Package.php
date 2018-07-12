@@ -251,7 +251,13 @@ class Package extends \Phalcon\Mvc\Model
      */
     public function getUri()
     {
-        return $this->slug . '/' . $this->packageId;
+        $baseUrls = $this->getDI()->get('config')->application->baseUrls;
+        $domain = $baseUrls->rsBaseUrl;
+        if ($this->isEnglish()) {
+            $domain = $baseUrls->enBaseUrl;
+        }
+
+        return $domain . $this->slug . '/' . $this->packageId;
     }
 
     /**

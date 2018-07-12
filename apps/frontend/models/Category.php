@@ -74,7 +74,12 @@ class Category extends \Phalcon\Mvc\Model
      */
     public function getUri()
     {
-        return $this->slug .  '/' . $this->categoryId;
+        $baseUrls = $this->getDI()->get('config')->application->baseUrls;
+        $domain = $baseUrls->rsBaseUrl;
+        if ($this->isEnglish()) {
+            $domain = $baseUrls->enBaseUrl;
+        }
+        return $domain . $baseUrls->rs . $this->slug .  '/' . $this->categoryId;
     }
 
     public function isEnglish()

@@ -53,7 +53,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
             array(
                 'title' => 'Grčka leto 2018',
                 'categoryId' => 1,
-                'uri' => $baseUrls['rsBaseUrl'] . '/grcka-leto-2018/1',
+                'uri' => $baseUrls['enBaseUrl'] . '/grcka-leto-2018/1',
                 'decorated' => false,
             ),
             array(
@@ -65,7 +65,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
             array(
                 'title' => 'Italija leto 2018',
                 'categoryId' => 3,
-                'uri' => $baseUrls['enBaseUrl'] . '/italija-leto-2018/3',
+                'uri' => $baseUrls['rsBaseUrl'] . '/italija-leto-2018/3',
                 'decorated' => false,
             ),
             array(
@@ -83,7 +83,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
             array(
                 'title' => 'Formula 1',
                 'categoryId' => 7,
-                'uri' => $baseUrls['rsBaseUrl'] . '/formula-1/7',
+                'uri' => 'http://' . $baseUrls['rsBaseUrl'] . '/formula-1/7',
                 'decorated' => false,
             ),
             /*array(
