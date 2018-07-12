@@ -1,0 +1,264 @@
+<?php
+$this->assets->collection('javascript-footer')
+    ->addJs(APPLICATION_PATH . '/../public/js/jquery.min.js')
+    ->addJs(APPLICATION_PATH . '/../public/js/bootstrap.min.js')
+    ->addJs(APPLICATION_PATH . '/../public/js/jquery.customSelect.js')
+    ->addJs(APPLICATION_PATH . '/../public/js/fb/source/jquery.fancybox.js')
+    ->addJs(APPLICATION_PATH . '/../public/js/fb/source/helpers/jquery.fancybox-buttons.js')
+    ->addJs(APPLICATION_PATH . '/../public/js/fb/source/helpers/jquery.fancybox-thumbs.js')
+    ->addJs(APPLICATION_PATH . '/../public/js/fb/source/helpers/jquery.fancybox-media.js')
+    ->addJs(APPLICATION_PATH . '/../public/js/jquery.idTabs.min.js')
+    ->join(true)
+    ->setTargetPath(APPLICATION_PATH . '/../public/min/js-footer.js')
+    ->setTargetUri('min/js-footer.js')
+    ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
+$this->assets->collection('css')
+    ->addCss(APPLICATION_PATH . '/../public/css/bootstrap.css')
+    ->addCss(APPLICATION_PATH . '/../public/css/bootstrap-theme.css')
+    ->addCss(APPLICATION_PATH . '/../public/js/fb/source/jquery.fancybox.css')
+    ->addCss(APPLICATION_PATH . '/../public/js/fb/source/helpers/jquery.fancybox-buttons.css')
+    ->addCss(APPLICATION_PATH . '/../public/js/fb/source/helpers/jquery.fancybox-thumbs.css')
+    ->addCss(APPLICATION_PATH . '/../public/css/css-frontend.css')
+    ->join(true)
+    ->setTargetPath(APPLICATION_PATH . '/../public/min/css-frontend.css')
+    ->setTargetUri('min/css-frontend.css?21')
+    ->addFilter(new \Phalcon\Assets\Filters\Cssmin());
+?>
+<!DOCTYPE html>
+<html>
+	<head>
+		<?=$this->tag->getTitle() . PHP_EOL ?>
+        <meta charset="utf-8" />
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,700,800,600&subset=latin,latin-ext' rel='stylesheet' type='text/css' />
+        <?=$this->assets->outputCss('css') . PHP_EOL ?>
+
+        <?php if (isset($metaDescription)): ?>
+
+            <?=$metaDescription?>
+
+        <?php endif ?>
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- google analytics code -->
+        <?=$this->partial('partials/ga') . PHP_EOL ?>
+
+        <style type="text/css">
+            #main-section {background: url("<?=$cover->getImageSrc()?>") center no-repeat};
+        </style>
+	</head>
+	<body>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+        <div id="header" class="robinson-background">
+            <div class="inner-site">
+                <div id="social">
+                    Follow us: <br />
+                    <iframe style="margin-top:10px" src="//www.facebook.com/plugins/like.php?href=https://www.facebook.com/pages/Robinson-Adventure-Team/55033277985&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=false&amp;share=true&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px;" allowTransparency="true"></iframe>                </div>
+                <div id="logo">
+                    <a href="/"><img src="/img/assets/logo.png" alt="robinson turisticka agencija" /></a>
+                    <img src="/img/assets/ilustracija.png" alt="robinson cikica" />
+                </div>
+                <div id="contact-info">
+                    <div style="float:left">
+                        <img width="50px" height="50px" id="iphone-large" src="/img/assets/iphone.svg" alt="iphone icon" />
+                    </div>
+                    <div style="float:left">
+                        <strong style="font-weight:bold">011/334-67-76</strong>
+                        <br />
+                        <strong style="font-weight:bold">011/323-60-55</strong>
+                        <br />
+                        <p id="contact-page-link"><a href="/index/contact">Kontakt strana</a></p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div id="main-section">
+            <div class="inner-site">
+                <div id="select-wrap">
+                    <div id="select">
+
+                        <h3>Više od <strong style="font-weight:bold">1800</strong> ponuda</h3>
+
+                        <select id="destination-selection" name="destination">
+
+                            <option value="">Izaberi destinaciju!</option>
+
+                            <?php foreach($destinations as $destination): ?>
+
+                            <option<?=(isset($destinationId) && $destinationId == $destination->getDestinationId()) ? ' selected="selected"' : ''?> value="<?=$destination->getDestinationId()?>" data-url="<?=$destination->getUri()?>"><?=$destination->getDestination()?></option>
+
+                            <?php endforeach ?>
+
+                        </select>
+
+                    </div>
+                </div>
+                <div id="low-price">
+                    <div id="top-low-price" style="text-align:center">
+                        <a href="<?=$cover->getLink()?>">
+                            od
+                            <span class="big-price"><strong style="font-weight: bold"><?=$cover->getPrice()?></strong> &euro;</span>
+                        </a>
+                    </div>
+                    <div id="bottom-low-price" class="robinson-background">
+                        <a href="<?=$cover->getLink()?>"><?=$cover->getText()?></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="main-nav">
+            <div class="inner-site">
+                <ul>
+                    <li id="home-link" class="robinson-background"><a href="/"><img src="/img/assets/home-icon.png" alt="Home" /></a></li>
+
+                    <?php $categories = [['uri' => 'http://insideserbia.com/insideserbia/3', 'title' => 'Inside Serbia', 'categoryId' => 3, 'decorated' => false]]; ?>
+                    <?php foreach($categories as $key => $category): ?>
+
+                        <?php if (isset($categoryId) && $categoryId == $category['categoryId']): ?>
+
+                            <li<?php if ($category['decorated']) {  echo ' class="decorated" '; }?>><a class="active" id="main-link-<?=$key?>" href="<?=$category['uri']?>"><?=$category['title']?></a></li>
+
+                        <?php else: ?>
+
+                            <li<?php if ($category['decorated']) {  echo ' class="decorated" '; }?>><a id="main-link-<?=$key?>" href="<?=$category['uri']?>"><?=$category['title']?></a></li>
+
+                        <?php endif ?>
+                    <?php endforeach ?>
+
+                </ul>
+            </div>
+        </div>
+
+        <div id="content">
+
+		<?=$this->getContent() . PHP_EOL ?>
+
+            <div style="text-align:center;padding-bottom:20px">
+                <a href="https://www.societegenerale.rs/stanovnistvo/kreditne-kartice/masterata-na-rate-bez-kamate/?utm_source=robinson&utm_medium=banner&utm_campaign=masterata&utm_content=24rate "><img src="/img/assets/societe.png" /></a>
+            </div>
+
+        </div>
+
+        <div id="footer" class="robinson-background">
+            <div class="inner-site">
+                <div id="packages">
+                    <h3>Aranžmani</h3>
+                    <ul>
+                        <?php foreach ($randomPackages as $package): ?>
+
+                            <li><?=$this->tag->linkTo(array($package->getUri(), $package->getPackage()))?></li>
+
+                        <?php endforeach ?>
+                    </ul>
+                </div>
+                <div id="map">
+                    <h3>ROBINSON ADVENTURE TEAM</h3>
+                    <div id="gmap">
+                        <div style="overflow:hidden;height:220px;width:400px;"><div id="gmap_canvas" style="height:300px;width:400px;"><!--<img src="/img/assets/map.jpg" />-->
+                                <!--<iframe width="400" height="220" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=207688385104757749577.0004d01cb74e7f0eebcbc&amp;ie=UTF8&amp;t=m&amp;ll=44.804935,20.467851&amp;spn=0.004567,0.007274&amp;z=16&amp;output=embed"></iframe>-->
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2830.818369790572!2d20.466594315644226!3d44.80489007909867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475a7aa0cdf30e97%3A0x5ba9a6b0e363350b!2sRobinson!5e0!3m2!1ssr!2srs!4v1478034930859" width="400" height="220" frameborder="0" style="border:0" allowfullscreen></iframe>
+                            </div>
+                            <style>
+                                #gmap_canvas img{max-width:none!important;background:none!important}
+                            </style>
+                        </div>
+                    </div>
+                </div>
+                <div id="important-info" style="width:200px;height:400px;float:right">
+                    <h3>ROBINSON INFO</h3>
+                    <ul>
+                        <?php foreach ($pages as $page): ?>
+
+                            <li><a href="/page/index?pageId=<?=$page->getPageId()?>"><?=$page->getTitle()?></a></li>
+
+                        <?php endforeach ?>
+
+                        <!--<li><a href="/index/uslovi">Opšti uslovi putovanja</a></li>
+                        <li><a href="/index/informacije">Korisne informacije</a></li>
+                        <li><a href="/index/placanje">Način plaćanja</a></li>
+                        <li><a href="/index/osiguranje">Putno osiguranje</a></li>
+                        <li><a href="/index/prtljag">Dozvoljeni prtljag</a></li>
+                        <li><a href="/index/dokumenta">Putna dokumenta</a></li>-->
+                        <li><a href="/index/zaAgente">Preuzimanje cenovnika</a></li>
+                    </ul>
+                </div>
+                <div id="contact-data">
+                    <div id="location">
+                        <span class="data">Beogradska 29,<br /> 11000 Beograd</span>
+                    </div>
+                    <div id="email">
+                        <span class="data">info@robinson.rs</span>
+                    </div>
+                    <div id="phones">
+                        <span class="data">
+                            <div class="phone">011/334-67-76</div>
+                            <div class="phone">011/323-60-55</div>
+                            <div class="phone">011/324-43-88</div>
+                            <div class="friends">
+                                <img src="/img/assets/logo-yuta3.jpg" alt="yuta logo" />
+                            </div>
+                            <br />
+                            Licenca Ministarstva OTP 7/2010
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div id="copyright">
+                <div class="inner-site">
+                    <p>&copy; <?=date('Y')?> Robinson Adventure Team. All rights reserved</p>
+                </div>
+            </div>
+        </div>
+
+        <?=$this->assets->outputJs('javascript-footer') . PHP_EOL ?>
+
+        <script type="text/javascript">
+            $(document).ready(function()
+            {
+               $('#select select').customSelect();
+               $('.fancybox').fancybox
+               ({
+                   prevEffect	: 'none',
+                   nextEffect	: 'none',
+                   helpers	: {
+                       title	: {
+                           type: 'outside'
+                       }
+                   }
+               });
+
+                $('#destination-selection').on('change', function(e)
+                {
+                    if ($(this).val().length === 0) {
+                        return false;
+                    }
+                    var selected = $(this).find('option[value="' + $(this).val() + '"]');
+                    selected.html('Putujemooo ...');
+                    window.location.href = '/' + selected.data('url');
+                });
+
+                $('#packages-selector').on('change', function()
+                {
+                    window.location.href = '?type=' + $(this).val() + '#packages-selector';
+                });
+
+                $('#package-item-image img').hover(function() {
+                    $("#package-item-image img").addClass('transition');
+
+                }, function() {
+                    $("#package-item-image img").removeClass('transition');
+                });
+
+                $('.tabs').idTabs();
+            });
+        </script>
+    <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">require(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us14.list-manage.com","uuid":"4c7bce463efb1bd6f96ffd524","lid":"2eacd608a3"}) })</script>
+	</body>
+</html>

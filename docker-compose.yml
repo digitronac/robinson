@@ -1,0 +1,32 @@
+version: '2'
+services:
+  web:
+      build: ./docker/nginx/
+      ports:
+          - 80:80
+      volumes_from:
+          - php
+  php:
+      build: ./docker/php/
+      expose:
+          - 9000
+      volumes:
+          - .:/var/www/robinson
+  mysql:
+      build: ./docker/mysql
+      ports:
+          - 3307:3306
+      environment:
+          MYSQL_ROOT_PASSWORD: 12345
+          MYSQL_DATABASE: robinson_development
+          MYSQL_USER: robinson
+          MYSQL_PASSWORD: 12345
+  memcached:
+      image: memcached:latest
+      expose:
+          - 11211
+      command: "memcached"
+  redis:
+      image: redis
+      expose:
+          - 6379

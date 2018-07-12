@@ -17,6 +17,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         $this->view->season = $this->getDI()->get('config')->application->season;
 
         $this->view->categories = $this->getCategories();
+        $this->view->baseUrls = $this->getDI()->get('config')->application->baseUrls;
 
         $this->view->randomPackages = \Robinson\Frontend\Model\Package::find(
             array(
@@ -41,47 +42,48 @@ class ControllerBase extends \Phalcon\Mvc\Controller
 
     protected function getCategories()
     {
+        $baseUrls = $this->getDI()->get('config')->application->baseUrls;
         return array(
             array(
                 'title' => 'City break',
                 'categoryId' => 4,
-                'uri' => '/city-break/4',
+                'uri' => $baseUrls['rsBaseUrl'] . '/city-break/4',
                 'decorated' => false,
             ),
             array(
                 'title' => 'Grčka leto 2018',
                 'categoryId' => 1,
-                'uri' => '/grcka-leto-2018/1',
+                'uri' => $baseUrls['rsBaseUrl'] . '/grcka-leto-2018/1',
                 'decorated' => false,
             ),
             array(
                 'title' => 'Španija leto 2018',
                 'categoryId' => 2,
-                'uri' => '/spanija-leto-2018/2',
+                'uri' => $baseUrls['rsBaseUrl'] . '/spanija-leto-2018/2',
                 'decorated' => false,
             ),
             array(
                 'title' => 'Italija leto 2018',
                 'categoryId' => 3,
-                'uri' => '/italija-leto-2018/3',
+                'uri' => $baseUrls['enBaseUrl'] . '/italija-leto-2018/3',
                 'decorated' => false,
             ),
             array(
                 'title' => 'Family club',
                 'categoryId' => 8,
-                'uri' => '/family-club/8',
+                'uri' => $baseUrls['rsBaseUrl'] . '/family-club/8',
                 'decorated' => false,
             ),
             array(
                 'title' => 'Skrivena Srbija',
                 'categoryId' => 11,
-                'uri' => '/skrivena-srbija/11',
+                'uri' => $baseUrls['rsBaseUrl'] . '/skrivena-srbija/11',
                 'decorated' => false,
             ),
             array(
                 'title' => 'Formula 1',
                 'categoryId' => 7,
-                'uri' => '/formula-1/7',
+                'uri' => $baseUrls['rsBaseUrl'] . '/formula-1/7',
                 'decorated' => false,
             ),
             /*array(

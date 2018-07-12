@@ -139,12 +139,12 @@ $di->set('imagine', function()
 
 $di->set('modelsMetadata', function () use ($di) {
     return new \Phalcon\Mvc\Model\MetaData\Memcache(array(
-        'host' => '127.0.0.1',
+        'host' => $di->getShared('config')->application->memcache->host,
         'lifetime' => 60,
     ));
 }, true);
 
-$di->set('memcache', function() {
+$di->set('memcache', function() use ($di) {
         //Cache data for one day by default
         $frontCache = new \Phalcon\Cache\Frontend\Data(array(
             "lifetime" => 60
@@ -152,14 +152,14 @@ $di->set('memcache', function() {
 
         //Memcached connection settings
         $cache = new \Phalcon\Cache\Backend\Memcache($frontCache, array(
-            "host" => "localhost",
+            "host" => $di->getShared('config')->application->memcache->host,
             "port" => "11211"
         ));
 
         return $cache;
 }, true);
 
-$di->set('modelsCache', function() {
+$di->set('modelsCache', function() use ($di) {
     //Cache data for one day by default
     $frontCache = new \Phalcon\Cache\Frontend\Data(array(
         "lifetime" => 60
@@ -167,7 +167,7 @@ $di->set('modelsCache', function() {
 
     //Memcached connection settings
     $cache = new \Phalcon\Cache\Backend\Memcache($frontCache, array(
-        "host" => "localhost",
+        "host" => $di->getShared('config')->application->memcache->host,
         "port" => "11211"
     ));
 

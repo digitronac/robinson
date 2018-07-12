@@ -17,5 +17,11 @@ class CategoryController extends ControllerBase
             'name' => 'description',
             'content' => $this->view->category->getCategory() . ' - ' . $this->view->season->name,
         ));
+
+        if ((int) $this->dispatcher->getParam('id') === 3) {
+            //$this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
+            $this->view->setMainView('layouts/english');
+            $this->view->pick('index/english');
+        }
     }
 }

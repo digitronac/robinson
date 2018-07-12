@@ -24,10 +24,9 @@
     <div class="destination index packages-list">
 
         <div class="inner-site">
-
             <ul>
                 <?php foreach ($destination->getFeaturedPackages() as $package): ?>
-
+                <?php if (!$package) continue; ?>
                     <li class="clearfix">
 
                         <?php if ($package->getMainImage()): ?>

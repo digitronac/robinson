@@ -48,7 +48,17 @@
          "phpunit/dbunit": "1.3.1",
 	 "digitronac/coverage-checker": "1.0.0",
 	 "digitronac/phalcon-ide-stubs": "1.3.0",
-         "robmorgan/phinx": "dev-0.2.x-dev#918878c4be987dee7f5931eda60e2b68ba34e565"
+         "robmorgan/phinx": "dev-0.2.x-dev#918878c4be987dee7f5931eda60e2b68ba34e565",
+		"fzaninotto/faker": "^v1.7.1"
     },
+	"scripts": {
+		"docker-dev": [
+			"@setup-db",
+			"@docker-faker"
+		],
+		"setup-db": "php vendor/bin/phinx migrate --configuration=\"config/phinx.yml\" --environment=\"development\"",
+		"docker-faker": "php data/faker/faker.php"
+
+	},
     "minimum-stability": "dev"
-}   
+}

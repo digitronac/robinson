@@ -80,13 +80,13 @@ $di->set('url', function () use ($di) {
 });
 
 //Set the views cache service
-$di->set('viewCache', function () {
+$di->set('viewCache', function () use ($di) {
     $frontCache = new \Phalcon\Cache\Frontend\Output(array(
         'lifetime' => 300,
     ));
 
     $cache = new \Phalcon\Cache\Backend\Memcache($frontCache, array(
-        "host" => "localhost",
+        "host" => $di->getShared('config')->application->memcache->host,
         "port" => "11211"
     ));
     return $cache;
