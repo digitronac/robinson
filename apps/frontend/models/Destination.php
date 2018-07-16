@@ -111,7 +111,7 @@ class Destination extends \Phalcon\Mvc\Model
             $domain = $baseUrls->enBaseUrl;
         }
 
-        return $domain . $this->slug . '/' . $this->destinationId;
+        return $domain . '/' . $this->slug . '/' . $this->destinationId;
     }
 
     /**

@@ -17,4 +17,8 @@ return array_merge($array, array
     'Pogledajte cenovnik' => 'GENERAL INFORMATIONS',
     'Pitanje u vezi' => 'Inquiry regarding',
     'Pošaljite upit' => 'Send',
+    'Vaš email' => 'Email',
+    'Aranžmani' => 'Packages',
+    'Apartmani' => 'Apartments',
+    'Hoteli' => 'Hotels',
 ));

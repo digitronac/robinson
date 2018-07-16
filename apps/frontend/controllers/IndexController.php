@@ -12,7 +12,7 @@ class IndexController extends ControllerBase
      */
     public function indexAction()
     {
-        if (APPLICATION_ENV !== 'testing') {
+        if (APPLICATION_ENV !== 'testing' && $_SERVER['HTTP_HOST'] !== 'insideserbia.com') {
             $this->view->cache(true);
         }
 
@@ -33,6 +33,33 @@ class IndexController extends ControllerBase
                 ' - aktuelne ponude. Vas Robinson!',
         ));
         $this->tag->prependTitle($this->view->season->name . ' ' . $this->view->season->year);
+    }
+
+    public function englishAction()
+    {
+        if (APPLICATION_ENV !== 'testing' && $_SERVER['HTTP_HOST'] !== 'insideserbia.com') {
+            $this->view->cache(true);
+        }
+
+        /** @var $package \Robinson\Frontend\Model\Package */
+        $package = $this->getDI()->get('Robinson\Frontend\Model\Package');
+        $this->view->lastMinutePackages = $package->findLastMinute();
+        $this->view->homepagePackages = $package->findHomepage();
+        /** @var $package \Robinson\Frontend\Model\Package */
+        $package = $this->getDI()->get('Robinson\Frontend\Model\Package');
+        $this->view->hotPackages = $package->findHot(8);
+
+        $this->view->popularPackages = $package->findPopular(8);
+
+        $this->view->bottomTabs = $this->makeBottomTabs(8);
+        $this->view->metaDescription = \Phalcon\Tag::tagHtml('meta', array(
+            'name' => 'description',
+            'content' => $this->view->season->name . ' ' . $this->view->season->year .
+                ' - aktuelne ponude. Vas Robinson!',
+        ));
+        $this->tag->prependTitle($this->view->season->name . ' ' . $this->view->season->year);
+        $this->view->setMainView('layouts/english');
+        $this->view->pick('insideserbia/index');
     }
 
     /**

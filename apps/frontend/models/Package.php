@@ -257,7 +257,7 @@ class Package extends \Phalcon\Mvc\Model
             $domain = $baseUrls->enBaseUrl;
         }
 
-        return $domain . $this->slug . '/' . $this->packageId;
+        return $domain . '/' .  $this->slug . '/' . $this->packageId;
     }
 
     /**

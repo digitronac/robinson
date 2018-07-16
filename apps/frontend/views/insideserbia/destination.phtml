@@ -50,14 +50,13 @@
                         <?php endif ?>
 
                         <div class="description">
-                            <h3><strong><?=$this->tag->linkTo($package->getUri(), $package->getPackage())?></strong></h3>
+                            <h3><strong><a href="<?=$package->getUri()?>"><?=$package->getPackage()?></a></strong></h3>
                             <div class="description-text">
                                 <?=$package->getShortDescription()?>
                             </div>
                             <div class="link">
 
-                                <?=$this->tag->linkTo($package->getUri(), '/ Pogledajte aranžman /') . PHP_EOL?>
-                            </div>
+                                <a href="<?=$package->getUri()?>"><?=$this->translate->query('/ Pogledajte aranžman /')?></a>                            </div>
                         </div>
                     </li>
 
@@ -71,8 +70,8 @@
                     array(
                         'type',
                         array(
-                            1 => 'Apartmani',
-                            2 => 'Hoteli',
+                            1 => $this->translate->query('Apartmani'),
+                            2 => $this->translate->query('Hoteli'),
                         ),
                         'useEmpty' => true,
                         'emptyText' => $this->translate->query('Filtriraj aranžmane!'),
@@ -109,13 +108,13 @@
                         <?php endif ?>
 
                         <div class="description">
-                            <h3><strong><?=$this->tag->linkTo($package->getUri(), $package->getPackage())?></strong></h3>
+                            <h3><strong><a href="<?=$package->getUri()?>"><?=$package->getPackage()?></a></strong></h3>
                             <div class="description-text">
                                 <?=$package->getShortDescription()?>
                             </div>
                             <div class="link">
 
-                                <?=$this->tag->linkTo($package->getUri(), $this->translate->query('/ Pogledajte aranžman /')) . PHP_EOL?>
+                                <a href="<?=$package->getUri()?>"><?=$this->translate->query('/ Pogledajte aranžman /')?></a>
                             </div>
                         </div>
                     </li>

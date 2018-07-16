@@ -79,7 +79,7 @@ class Category extends \Phalcon\Mvc\Model
         if ($this->isEnglish()) {
             $domain = $baseUrls->enBaseUrl;
         }
-        return $domain . $baseUrls->rs . $this->slug .  '/' . $this->categoryId;
+        return $domain . '/' . $this->slug .  '/' . $this->categoryId;
     }
 
     public function isEnglish()

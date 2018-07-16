@@ -17,6 +17,14 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         $this->view->season = $this->getDI()->get('config')->application->season;
 
         $this->view->categories = $this->getCategories();
+        if (
+            strpos(
+                $this->getDI()->getShared('config')->application->baseUrls->enBaseUrl,
+                $this->request->getServer('HTTP_HOST')
+            ) !== false
+        ) {
+            $this->view->categories = $this->getEnglishCategories();
+        }
         $this->view->baseUrls = $this->getDI()->get('config')->application->baseUrls;
 
         $this->view->randomPackages = \Robinson\Frontend\Model\Package::find(
@@ -92,6 +100,19 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => '/index/lastMinute',
                 'decorated' => true,
             )*/
+        );
+    }
+
+    protected function getEnglishCategories()
+    {
+        $baseUrls = $this->getDI()->get('config')->application->baseUrls;
+        return array(
+            array(
+                'title' => 'Grčka leto 2018',
+                'categoryId' => 1,
+                'uri' => $baseUrls['enBaseUrl'] . '/grcka-leto-2018/1',
+                'decorated' => false,
+            ),
         );
     }
 

@@ -17,84 +17,6 @@ $di = new FactoryDefault();
 /**
  * Registering a router
  */
-$di['router'] = function() {
-
-        $router = new Router();
-        $router->removeExtraSlashes(true);
-        $router->setUriSource(\Phalcon\Mvc\Router::URI_SOURCE_SERVER_REQUEST_URI);
-
-        $router->setDefaultModule("frontend");
-        $router->setDefaultNamespace("Robinson\Frontend\Controllers");
-
-        // add frontend
-
-        $router->add('/([a-z0-9\-]+)/:int', array
-        (
-            'module' => 'frontend',
-            'namespace' => 'Robinson\Frontend\Controllers\\',
-            'controller' => 'category',
-            'action' => 'index',
-            'id' => 2,
-        ))
-        ->setName('category');
-
-        $router->add('/pdf/:int', array
-        (
-            'module' => 'frontend',
-            'namespace' => 'Robinson\Frontend\Controllers\\',
-            'controller' => 'package',
-            'action' => 'pdf',
-            'id' => 1,
-        ))
-        ->setName('pdf');
-
-        $router->add('/([a-z0-9\-]+)/([a-z0-9\-]+)/:int', array
-        (
-            'module' => 'frontend',
-            'namespace' => 'Robinson\Frontend\Controllers\\',
-            'controller' => 'destination',
-            'action' => 'index',
-            'id' => 3,
-        ))
-        ->setName('destination');
-
-        $router->add('/([a-z0-9\-]+)/([a-z0-9\-]+)/([a-z0-9\-]+)/:int', array
-        (
-            'module' => 'frontend',
-            'namespace' => 'Robinson\Frontend\Controllers\\',
-            'controller' => 'package',
-            'action' => 'index',
-            'id' => 4,
-        ))
-        ->setName('package');
-
-        // add backend
-        $router->add('/admin', array
-        (
-            'module' => "backend",
-            'namespace' => 'Robinson\Backend\Controllers\\',
-            'controller' => 'index',
-            'action' => "index",
-        ))->setName('admin-index');
-        
-       $router->add('/admin/:controller/:action', array(
-        'module' => 'backend',
-        'namespace' => 'Robinson\Backend\Controllers\\',
-        'controller' => 1,
-        'action' => 2,
-    ))->setName('admin');
-       
-       $router->add('/admin/:controller/:action/:int', array
-       (
-            'module' => 'backend',
-            'namespace' => 'Robinson\Backend\Controllers\\',
-            'controller' => 1,
-            'action' => 2,
-            'id' => 3,
-       ))->setName('admin-update');
-        
-    return $router;
-};
 
 /**
  * The URL component is used to generate all kind of urls in the application
@@ -181,6 +103,106 @@ $di['watermark'] = function() use ($di)
         ->application->watermark->watermark));
     return $filter;
 };
+
+$di['router'] = function() use ($di) {
+        $router = new Router();
+        $router->removeExtraSlashes(true);
+        $router->setUriSource(\Phalcon\Mvc\Router::URI_SOURCE_SERVER_REQUEST_URI);
+
+        $router->setDefaultModule("frontend");
+        $router->setDefaultNamespace("Robinson\Frontend\Controllers");
+
+        if (strpos('http://insideserbia.com', $_SERVER['HTTP_HOST'])) {
+            $router->add('/', array
+            (
+                'module' => 'frontend',
+                'namespace' => 'Robinson\Frontend\Controllers\\',
+                'controller' => 'index',
+                'action' => 'english',
+            ))
+            ->setName('index');
+        } else {
+            $router->add('/', array
+            (
+                'module' => 'frontend',
+                'namespace' => 'Robinson\Frontend\Controllers\\',
+                'controller' => 'index',
+                'action' => 'index',
+            ))
+            ->setName('index');
+        }
+
+
+        // add frontend
+
+        $router->add('/([a-z0-9\-]+)/:int', array
+        (
+            'module' => 'frontend',
+            'namespace' => 'Robinson\Frontend\Controllers\\',
+            'controller' => 'category',
+            'action' => 'index',
+            'id' => 2,
+        ))
+        ->setName('category');
+
+        $router->add('/pdf/:int', array
+        (
+            'module' => 'frontend',
+            'namespace' => 'Robinson\Frontend\Controllers\\',
+            'controller' => 'package',
+            'action' => 'pdf',
+            'id' => 1,
+        ))
+        ->setName('pdf');
+
+        $router->add('/([a-z0-9\-]+)/([a-z0-9\-]+)/:int', array
+        (
+            'module' => 'frontend',
+            'namespace' => 'Robinson\Frontend\Controllers\\',
+            'controller' => 'destination',
+            'action' => 'index',
+            'id' => 3,
+        ))
+        ->setName('destination');
+
+        $router->add('/([a-z0-9\-]+)/([a-z0-9\-]+)/([a-z0-9\-]+)/:int', array
+        (
+            'module' => 'frontend',
+            'namespace' => 'Robinson\Frontend\Controllers\\',
+            'controller' => 'package',
+            'action' => 'index',
+            'id' => 4,
+        ))
+        ->setName('package');
+
+        // add backend
+        $router->add('/admin', array
+        (
+            'module' => "backend",
+            'namespace' => 'Robinson\Backend\Controllers\\',
+            'controller' => 'index',
+            'action' => "index",
+        ))->setName('admin-index');
+
+       $router->add('/admin/:controller/:action', array(
+        'module' => 'backend',
+        'namespace' => 'Robinson\Backend\Controllers\\',
+        'controller' => 1,
+        'action' => 2,
+    ))->setName('admin');
+
+       $router->add('/admin/:controller/:action/:int', array
+       (
+            'module' => 'backend',
+            'namespace' => 'Robinson\Backend\Controllers\\',
+            'controller' => 1,
+            'action' => 2,
+            'id' => 3,
+       ))->setName('admin-update');
+
+    return $router;
+};
+
 
 \Phalcon\Mvc\Model::setup(array(
     'virtualForeignKeys' => false,

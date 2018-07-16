@@ -59,7 +59,7 @@ $this->assets->collection('css')
             <div class="inner-site">
                 <div id="social">
                     Follow us: <br />
-                    <iframe style="margin-top:10px" src="//www.facebook.com/plugins/like.php?href=https://www.facebook.com/pages/Robinson-Adventure-Team/55033277985&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=false&amp;share=true&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px;" allowTransparency="true"></iframe>                </div>
+                    <iframe style="margin-top:10px; height:50px" src="//www.facebook.com/plugins/like.php?href=https://www.facebook.com/pages/Robinson-Adventure-Team/55033277985&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=false&amp;share=true" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>                </div>
                 <div id="logo">
                     <a href="/"><img src="/img/assets/logo.png" alt="robinson turisticka agencija" /></a>
                     <img src="/img/assets/ilustracija.png" alt="robinson cikica" />
@@ -79,46 +79,11 @@ $this->assets->collection('css')
                 </div>
             </div>
         </div>
-        <div id="main-section">
-            <div class="inner-site">
-                <div id="select-wrap">
-                    <div id="select">
-
-                        <h3>Više od <strong style="font-weight:bold">1800</strong> ponuda</h3>
-
-                        <select id="destination-selection" name="destination">
-
-                            <option value="">Izaberi destinaciju!</option>
-
-                            <?php foreach($destinations as $destination): ?>
-
-                            <option<?=(isset($destinationId) && $destinationId == $destination->getDestinationId()) ? ' selected="selected"' : ''?> value="<?=$destination->getDestinationId()?>" data-url="<?=$destination->getUri()?>"><?=$destination->getDestination()?></option>
-
-                            <?php endforeach ?>
-
-                        </select>
-
-                    </div>
-                </div>
-                <div id="low-price">
-                    <div id="top-low-price" style="text-align:center">
-                        <a href="<?=$cover->getLink()?>">
-                            od
-                            <span class="big-price"><strong style="font-weight: bold"><?=$cover->getPrice()?></strong> &euro;</span>
-                        </a>
-                    </div>
-                    <div id="bottom-low-price" class="robinson-background">
-                        <a href="<?=$cover->getLink()?>"><?=$cover->getText()?></a>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div id="main-nav">
             <div class="inner-site">
                 <ul>
                     <li id="home-link" class="robinson-background"><a href="/"><img src="/img/assets/home-icon.png" alt="Home" /></a></li>
 
-                    <?php $categories = [['uri' => 'http://insideserbia.com/insideserbia/3', 'title' => 'Inside Serbia', 'categoryId' => 3, 'decorated' => false]]; ?>
                     <?php foreach($categories as $key => $category): ?>
 
                         <?php if (isset($categoryId) && $categoryId == $category['categoryId']): ?>
@@ -140,16 +105,12 @@ $this->assets->collection('css')
 
 		<?=$this->getContent() . PHP_EOL ?>
 
-            <div style="text-align:center;padding-bottom:20px">
-                <a href="https://www.societegenerale.rs/stanovnistvo/kreditne-kartice/masterata-na-rate-bez-kamate/?utm_source=robinson&utm_medium=banner&utm_campaign=masterata&utm_content=24rate "><img src="/img/assets/societe.png" /></a>
-            </div>
-
         </div>
 
         <div id="footer" class="robinson-background">
             <div class="inner-site">
                 <div id="packages">
-                    <h3>Aranžmani</h3>
+                    <h3><?=$this->translate->query('Aranžmani')?></h3>
                     <ul>
                         <?php foreach ($randomPackages as $package): ?>
 
@@ -186,7 +147,7 @@ $this->assets->collection('css')
                         <li><a href="/index/osiguranje">Putno osiguranje</a></li>
                         <li><a href="/index/prtljag">Dozvoljeni prtljag</a></li>
                         <li><a href="/index/dokumenta">Putna dokumenta</a></li>-->
-                        <li><a href="/index/zaAgente">Preuzimanje cenovnika</a></li>
+                        <!--<li><a href="/index/zaAgente">Preuzimanje cenovnika</a></li>-->
                     </ul>
                 </div>
                 <div id="contact-data">

@@ -47,13 +47,13 @@
                 <?php endif ?>
 
                 <div class="description">
-                    <h3><strong><?=$this->tag->linkTo($destination->getUri(), $destination->getDestination())?></strong> <span>/ <?=$this->translate->query('Broj ponuda')?>: <?=$destination->getPackages()->count()?></span></h3>
+                    <h3><strong><a href="<?=$destination->getUri()?>"><?=$destination->getDestination()?></a></strong> <span>/ <?=$this->translate->query('Broj ponuda')?>: <?=$destination->getPackages()->count()?></span></h3>
                     <div class="description-text">
                         <?=$destination->getShortDescription()?>
                     </div>
                     <div class="link">
 
-                        <?=$this->tag->linkTo($destination->getUri(), $this->translate->query('/ Pogledajte ponude /')) . PHP_EOL?>
+                        <a href="<?=$destination->getUri()?>"><?=$this->translate->query('/ Pogledajte ponude /')?></a>
                     </div>
                 </div>
             </li>
