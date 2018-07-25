@@ -84,7 +84,7 @@ class Category extends \Phalcon\Mvc\Model
 
     public function isEnglish()
     {
-        return ((int) $this->categoryId === (int) $this->getDI()['config']->application->insideserbia->categoryId);
+        return in_array($this->categoryId, $this->getDI()['config']->application->insideserbia->categoryIds->toArray());
     }
 
     /**
