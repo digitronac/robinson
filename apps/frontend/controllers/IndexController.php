@@ -43,13 +43,13 @@ class IndexController extends ControllerBase
 
         /** @var $package \Robinson\Frontend\Model\Package */
         $package = $this->getDI()->get('Robinson\Frontend\Model\Package');
-        $this->view->lastMinutePackages = $package->findLastMinute();
-        $this->view->homepagePackages = $package->findHomepage();
+        $this->view->lastMinutePackages = $package->findLastMinute(true);
+        $this->view->homepagePackages = $package->findHomepage(true);
         /** @var $package \Robinson\Frontend\Model\Package */
         $package = $this->getDI()->get('Robinson\Frontend\Model\Package');
-        $this->view->hotPackages = $package->findHot(8);
+        $this->view->hotPackages = $package->findHot(8, true);
 
-        $this->view->popularPackages = $package->findPopular(8);
+        $this->view->popularPackages = $package->findPopular(8, true);
 
         $this->view->bottomTabs = $this->makeBottomTabs(8);
         $this->view->metaDescription = \Phalcon\Tag::tagHtml('meta', array(

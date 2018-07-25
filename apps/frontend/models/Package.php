@@ -336,16 +336,22 @@ class Package extends \Phalcon\Mvc\Model
      *
      * @return mixed
      */
-    public function findLastMinute()
+    public function findLastMinute($english = false)
     {
+        $packageTagsType = 2;
+        $cacheKey = 'last-minute-packages';
+        if ($english) {
+            $packageTagsType = 6;
+            $cacheKey = 'english-last-minute-packages';
+        }
         $query = $this->getModelsManager()->createQuery(
             'SELECT packages.* FROM Robinson\Frontend\Model\Package AS packages JOIN
             Robinson\Frontend\Model\Tags\Package as packageTags
             ON packages.packageId = packageTags.packageId
-            WHERE packages.status = 1 AND packageTags.type = 2 ORDER BY packageTags.[order] ASC'
+            WHERE packages.status = 1 AND packageTags.type = ' . $packageTagsType . ' ORDER BY packageTags.[order] ASC'
         );
         $query->cache(array(
-            'key' => 'last-minute-packages',
+            'key' => $cacheKey,
         ));
         return $query->execute();
     }
@@ -355,16 +361,22 @@ class Package extends \Phalcon\Mvc\Model
      *
      * @return mixed
      */
-    public function findHomepage()
+    public function findHomepage($english = false)
     {
+        $packageTagsType = 1;
+        $cacheKey = 'homepage-packages';
+        if ($english) {
+            $packageTagsType = 5;
+            $cacheKey = 'english-homepage-packages';
+        }
         $query = $this->getModelsManager()->createQuery(
             'SELECT packages.* FROM Robinson\Frontend\Model\Package AS packages JOIN
             Robinson\Frontend\Model\Tags\Package as packageTags
             ON packages.packageId = packageTags.packageId
-            WHERE packages.status = 1 AND packageTags.type = 1 ORDER BY packageTags.[order] ASC'
+            WHERE packages.status = 1 AND packageTags.type = ' . $packageTagsType . ' ORDER BY packageTags.[order] ASC'
         );
         $query->cache(array(
-            'key' => 'homepage-packages',
+            'key' => $cacheKey,
         ));
         return $query->execute();
     }
@@ -376,15 +388,21 @@ class Package extends \Phalcon\Mvc\Model
      *
      * @return mixed
      */
-    public function findPopular($limit)
+    public function findPopular($limit, $english = false)
     {
+        $packageTagsType = 3;
+        $cacheKey = 'popular-packages';
+        if ($english) {
+            $packageTagsType = 7;
+            $cacheKey = 'english-popular-packages';
+        }
         $query = $this->getModelsManager()->createQuery(
             "SELECT packages.* FROM Robinson\Frontend\Model\Package AS packages JOIN
             Robinson\Frontend\Model\Tags\Package as packageTags ON packages.packageId = packageTags.packageId
-            WHERE packages.status = 1 AND packageTags.type = 3 ORDER BY packageTags.[order] LIMIT $limit"
+            WHERE packages.status = 1 AND packageTags.type = ' . $packageTagsType . ' ORDER BY packageTags.[order] LIMIT $limit"
         );
         $query->cache(array(
-            'key' => 'popular-packages',
+            'key' => $cacheKey,
         ));
         return $query->execute();
     }
@@ -396,15 +414,21 @@ class Package extends \Phalcon\Mvc\Model
      *
      * @return mixed
      */
-    public function findHot($limit)
+    public function findHot($limit, $english = false)
     {
+        $packageTagsType = 4;
+        $cacheKey = 'hot-packages';
+        if ($english) {
+            $packageTagsType = 8;
+            $cacheKey = 'english-hot-packages';
+        }
         $query = $this->getModelsManager()->createQuery(
             "SELECT packages.* FROM Robinson\Frontend\Model\Package AS packages JOIN
             Robinson\Frontend\Model\Tags\Package as packageTags ON packages.packageId = packageTags.packageId
-            WHERE packages.status = 1 AND packageTags.type = 4 ORDER BY packageTags.[order] LIMIT $limit"
+            WHERE packages.status = 1 AND packageTags.type = ' . $packageTagsType . ' ORDER BY packageTags.[order] LIMIT $limit"
         );
         $query->cache(array(
-            'key' => 'hot-packages',
+            'key' => $cacheKey,
         ));
         return $query->execute();
     }
