@@ -108,9 +108,9 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         $baseUrls = $this->getDI()->get('config')->application->baseUrls;
         return array(
             array(
-                'title' => 'Grčka leto 2018',
-                'categoryId' => 1,
-                'uri' => $baseUrls['enBaseUrl'] . '/grcka-leto-2018/1',
+                'title' => 'Proba za Srbiju',
+                'categoryId' => 16,
+                'uri' => $baseUrls['enBaseUrl'] . '/proba-za-srbiju/16',
                 'decorated' => false,
             ),
         );

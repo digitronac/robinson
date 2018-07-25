@@ -54,6 +54,7 @@ $category->setStatus(1);
 $category->setDescription($faker->text());
 $category->setImages([]);
 $category->create();
+
 /** @var \Robinson\Backend\Models\Category $grckaCategory */
 $grckaCategory = \Robinson\Backend\Models\Category::findFirst(1);
 
@@ -86,6 +87,23 @@ $category->setImages([]);
 $category->create();
 /** @var \Robinson\Backend\Models\Category $cityBreakCategory */
 $cityBreakCategory = \Robinson\Backend\Models\Category::findFirst(4);
+
+/** @var \Robinson\Backend\Models\Category $category */
+$category = $di->get(\Robinson\Backend\Models\Category::class);
+$category->setCategory('Proba za srbiju');
+$category->setStatus(1);
+$category->setDescription($faker->text());
+$category->setImages([]);
+$category->create();
+
+$sql = <<<HEREDOC
+UPDATE categories SET categoryId = 16 WHERE categoryId = 5
+HEREDOC;
+$di->get('db')->execute($sql);
+
+
+/** @var \Robinson\Backend\Models\Category $probaZaSrbijuCategory */
+$probaZaSrbijuCategory = \Robinson\Backend\Models\Category::findFirst(16);
 
 echo 'Generated tabs categories!' . PHP_EOL;
 
