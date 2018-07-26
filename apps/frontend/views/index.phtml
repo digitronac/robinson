@@ -240,7 +240,7 @@ $this->assets->collection('css')
                     }
                     var selected = $(this).find('option[value="' + $(this).val() + '"]');
                     selected.html('Putujemooo ...');
-                    window.location.href = '/' + selected.data('url');
+                    window.location.href = selected.data('url');
                 });
 
                 $('#packages-selector').on('change', function()
