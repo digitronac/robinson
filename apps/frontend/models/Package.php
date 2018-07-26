@@ -431,7 +431,7 @@ class Package extends \Phalcon\Mvc\Model
         $query = $this->getModelsManager()->createQuery(
             "SELECT packages.* FROM Robinson\Frontend\Model\Package AS packages JOIN
             Robinson\Frontend\Model\Tags\Package as packageTags ON packages.packageId = packageTags.packageId
-            WHERE packages.status = 1 AND packageTags.type = ' . $packageTagsType . ' ORDER BY packageTags.[order] LIMIT $limit"
+            WHERE packages.status = 1 AND packageTags.type = $packageTagsType ORDER BY packageTags.[order] LIMIT $limit"
         );
         $query->cache(array(
             'key' => $cacheKey,
@@ -457,7 +457,7 @@ class Package extends \Phalcon\Mvc\Model
         $query = $this->getModelsManager()->createQuery(
             "SELECT packages.* FROM Robinson\Frontend\Model\Package AS packages JOIN
             Robinson\Frontend\Model\Tags\Package as packageTags ON packages.packageId = packageTags.packageId
-            WHERE packages.status = 1 AND packageTags.type = ' . $packageTagsType . ' ORDER BY packageTags.[order] LIMIT $limit"
+            WHERE packages.status = 1 AND packageTags.type = $packageTagsType ORDER BY packageTags.[order] LIMIT $limit"
         );
         $query->cache(array(
             'key' => $cacheKey,
