@@ -61,7 +61,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
             array(
                 'title' => 'Grčka leto 2018',
                 'categoryId' => 1,
-                'uri' => $baseUrls['enBaseUrl'] . '/grcka-leto-2018/1',
+                'uri' => $baseUrls['rsBaseUrl'] . '/grcka-leto-2018/1',
                 'decorated' => false,
             ),
             array(
