@@ -1,7 +1,7 @@
 <div class="package index intro">
     <div class="inner-site">
         <h1><?=$package->getPackage()?></h1>
-        <h4 id="price"><span>od <?=$package->getPrice()?> &euro;</span></h4>
+        <h4 id="price"><span><?=$this->translate->query('od')?> <?=$package->getPrice()?> &euro;</span></h4>
         <div class="description">
             <?=$package->getDescription()?>
         </div>

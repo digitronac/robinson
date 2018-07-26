@@ -52,6 +52,8 @@ class IndexController extends ControllerBase
         $this->view->popularPackages = $package->findPopular(8, true);
 
         $this->view->bottomTabs = $this->makeBottomTabs(8);
+        $this->view->randomPackages = $package->findRandomEnglishPackages();
+        $this->view->latestPackages = $package->findLatestEnglishPackages();
         $this->view->metaDescription = \Phalcon\Tag::tagHtml('meta', array(
             'name' => 'description',
             'content' => $this->view->season->name . ' ' . $this->view->season->year .

@@ -21,4 +21,9 @@ return array_merge($array, array
     'Aranžmani' => 'Packages',
     'Apartmani' => 'Apartments',
     'Hoteli' => 'Hotels',
+    'od' => 'starting',
+    'DETALJNIJE' => 'MORE INFO',
+    'Specijalne ponude' => 'Special Offers',
+    'AKTUELNE PONUDE' => 'HOT OFFERS',
+    'NOVO U PONUDI' => 'LATEST PACKAGES',
 ));

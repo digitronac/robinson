@@ -100,6 +100,38 @@ class Package extends \Phalcon\Mvc\Model
         return (int) $this->packageId;
     }
 
+    public function findRandomEnglishPackages()
+    {
+        $englishCategoryIds = $this->getDI()->get('config')->application->insideserbia->categoryIds->toArray();
+        $englishCategoryIdsForQuery = implode(',', $englishCategoryIds);
+        $query = $this->getModelsManager()->createQuery(
+            'SELECT packages.* FROM Robinson\Frontend\Model\Package AS packages JOIN
+            Robinson\Frontend\Model\Destination as destinations
+            ON packages.destinationId = destinations.destinationId
+            WHERE packages.status = 1 AND destinations.categoryId IN ("' . $englishCategoryIdsForQuery . '") ORDER BY RAND()'
+        );
+        $query->cache(array(
+            'key' => 'random-english-packages',
+        ));
+        return $query->execute();
+    }
+
+    public function findLatestEnglishPackages()
+    {
+        $englishCategoryIds = $this->getDI()->get('config')->application->insideserbia->categoryIds->toArray();
+        $englishCategoryIdsForQuery = implode(',', $englishCategoryIds);
+        $query = $this->getModelsManager()->createQuery(
+            'SELECT packages.* FROM Robinson\Frontend\Model\Package AS packages JOIN
+            Robinson\Frontend\Model\Destination as destinations
+            ON packages.destinationId = destinations.destinationId
+            WHERE packages.status = 1 AND destinations.categoryId IN ("' . $englishCategoryIdsForQuery . '") ORDER BY packages.createdAt DESC'
+        );
+        $query->cache(array(
+            'key' => 'latest-english-packages',
+        ));
+        return $query->execute();
+    }
+
 
     /**
      * Gets package name.

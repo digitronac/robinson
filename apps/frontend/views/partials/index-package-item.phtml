@@ -23,14 +23,14 @@
         <h2><?=$package->getPackage()?></h2>
     </div>
     <div class="package-item-price">
-        od <span><?=$package->getPrice()?>&euro;</span>
+        <?=$this->translate->query('od')?> <span><?=$package->getPrice()?>&euro;</span>
     </div>
     <div class="package-item-link">
 
         <?=$this->tag->linkTo(array
             (
                 $package->getUri(),
-                'DETALJNIJE',
+                $this->translate->query('DETALJNIJE'),
             )) . PHP_EOL ?>
 
     </div>
