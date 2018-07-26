@@ -37,26 +37,19 @@
 
                                 <?php endif ?>
 
-                                <?=$this->tag->linkTo(array
-                                    (
-                                        $package->getUri(),
-                                        $this->tag->image(array
-                                        (
-                                            $package->getMainImage()->getResizedSrc(250)
-                                        ))
-                                    )) . PHP_EOL ?>
+                                <a href="<?=$package->getUri()?>"><?=$this->tag->image(array($package->getMainImage()->getResizedSrc(250)))?></a>
                             </div>
 
                         <?php endif ?>
 
                         <div class="description">
-                            <h3><strong><?=$this->tag->linkTo($package->getUri(), $package->getPackage())?></strong></h3>
+                            <h3><strong><a href="<?=$package->getUri()?>"><?=$package->getPackage()?></a></strong></h3>
                             <div class="description-text">
                                 <?=$package->getShortDescription()?>
                             </div>
                             <div class="link">
 
-                                <?=$this->tag->linkTo($package->getUri(), '/ Pogledajte aranžman /') . PHP_EOL?>
+                                <a href="<?=$package->getUri()?>">/ Pogledajte aranžman /</a>
                             </div>
                         </div>
                     </li>
@@ -96,26 +89,19 @@
 
                                 <?php endif ?>
 
-                                <?=$this->tag->linkTo(array
-                                    (
-                                        $package->getUri(),
-                                        $this->tag->image(array
-                                        (
-                                            $package->getMainImage()->getResizedSrc(250)
-                                        ))
-                                    )) . PHP_EOL ?>
+                                <a href="<?=$package->getUri()?>"><?=$this->tag->image(array($package->getMainImage()->getResizedSrc(250)))?></a>
                             </div>
 
                         <?php endif ?>
 
                         <div class="description">
-                            <h3><strong><?=$this->tag->linkTo($package->getUri(), $package->getPackage())?></strong></h3>
+                            <h3><strong><a href="<?=$package->getUri()?>"><?=$package->getPackage()?></a></strong></h3>
                             <div class="description-text">
                                 <?=$package->getShortDescription()?>
                             </div>
                             <div class="link">
 
-                                <?=$this->tag->linkTo($package->getUri(), '/ Pogledajte aranžman /') . PHP_EOL?>
+                                <a href="<?=$package->getUri()?>">/ Pogledajte aranžman /</a>
                             </div>
                         </div>
                     </li>

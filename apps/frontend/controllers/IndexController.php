@@ -216,7 +216,7 @@ class IndexController extends ControllerBase
         foreach ($this->config->application->tabs->landing->bottom->toArray() as $key => $tab) {
             $stdClass = new \stdClass();
             $stdClass->name = $tab;
-            $category = $category->findFirst(array(
+            $categoryNew = $category->findFirst(array(
                     'conditions' => "categoryId = $key AND status = 1",
                     'limit' => $limit,
                     'cache' => array(
@@ -224,10 +224,10 @@ class IndexController extends ControllerBase
                     )
                 ));
 
-            if (!$category) {
+            if (!$categoryNew) {
                 continue;
             }
-            $packages = $category->getPackagesDirectly($limit);
+            $packages = $categoryNew->getPackagesDirectly($limit);
             $stdClass->packages = $packages;
             $tabs[] = $stdClass;
         }
