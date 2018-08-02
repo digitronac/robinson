@@ -27,16 +27,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         }
         $this->view->baseUrls = $this->getDI()->get('config')->application->baseUrls;
 
-        $this->view->randomPackages = \Robinson\Frontend\Model\Package::find(
-            array(
-                'status = ' . \Robinson\Frontend\Model\Package::STATUS_VISIBLE,
-                'order' => 'RAND()',
-                'limit' => 10,
-                'cache' => array(
-                    'key' => 'find-random-packages',
-                ),
-            )
-        );
+        $this->view->randomPackages = $this->findRandomPackages();
         $this->tag->setTitleSeparator(' - ');
         $this->tag->setTitle('Robinson');
 
@@ -46,6 +37,22 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 file_get_contents(APPLICATION_PATH . '/../data/app/cover.json')
             )
         );
+    }
+
+    public function findRandomPackages()
+    {
+        $englishCategoryIds = $this->getDI()->get('config')->application->insideserbia->categoryIds->toArray();
+        $englishCategoryIdsForQuery = implode(',', $englishCategoryIds);
+        $query = $this->getDI()->get('modelsManager')->createQuery(
+            'SELECT packages.* FROM Robinson\Frontend\Model\Package AS packages JOIN
+            Robinson\Frontend\Model\Destination as destinations
+            ON packages.destinationId = destinations.destinationId
+            WHERE packages.status = 1 AND destinations.categoryId NOT IN ("' . $englishCategoryIdsForQuery . '") ORDER BY RAND() LIMIT 10'
+        );
+        $query->cache(array(
+            'key' => 'find-random-packages',
+        ));
+        return $query->execute();
     }
 
     protected function getCategories()
