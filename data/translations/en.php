@@ -26,4 +26,12 @@ return array_merge($array, array
     'Specijalne ponude' => 'Special Offers',
     'AKTUELNE PONUDE' => 'HOT OFFERS',
     'NOVO U PONUDI' => 'LATEST PACKAGES',
+    'Kontakt' => 'Contact form',
+    'Info sa kontakt forme' => 'Info sa kontakt forme insideserbia.com',
+    'Vaša poruka je poslata! Odgovorićemo u najkraćem mogućem roku! HVALA!!! :)' => 'Your message has been sent. We will contact You as soon as possible.',
+    'Vaši podaci' => 'Your data / name',
+    'Telefon' => 'Phone',
+    'Poruka' => 'Message',
+    'Pošalji rezervaciju' => 'Send message',
+    'Aranzmani, Opis, Cene, Rezervacije' => 'Serbian Packages, Description, Prices, Bookings',
 ));

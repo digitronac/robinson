@@ -33,6 +33,9 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         $this->view->randomPackages = $this->findRandomPackages();
         $this->tag->setTitleSeparator(' - ');
         $this->tag->setTitle('Robinson');
+        if (APPLICATION_ENV !== 'testing' && $_SERVER['HTTP_HOST'] === 'insideserbia.com') {
+            $this->tag->setTitle('InSide Serbia');
+        }
 
         $this->view->pages = \Robinson\Frontend\Model\Page::find(array('order' => 'pageId ASC'));
         $this->view->cover = new \Robinson\Frontend\Model\Cover(

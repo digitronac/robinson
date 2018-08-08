@@ -54,7 +54,7 @@ class IndexController extends ControllerBase
         $this->view->metaDescription = \Phalcon\Tag::tagHtml('meta', array(
             'name' => 'description',
             'content' => $this->view->season->name . ' ' . $this->view->season->year .
-                ' - aktuelne ponude. Vas Robinson!',
+                ' - current offers. InSide Serbia!',
         ));
         $this->tag->prependTitle($this->view->season->name . ' ' . $this->view->season->year);
         $this->view->setMainView('layouts/english');
@@ -78,7 +78,7 @@ class IndexController extends ControllerBase
 
             $mail = new \Zend\Mail\Message();
             $mail->addTo($this->config->application->smtp->info->address);
-            $mail->setSubject('Info sa kontakt forme');
+            $mail->setSubject($this->getDI()->get('translator')->query('Info sa kontakt forme'));
             $mail->setFrom($this->request->getPost('email'));
             $mail->addReplyTo($this->request->getPost('email'));
             $body = 'Ime: ' . $this->request->getPost('name') . '<br />' . PHP_EOL;
@@ -110,11 +110,15 @@ class IndexController extends ControllerBase
 
             $this->flashSession->message(
                 'success',
-                'Vaša poruka je poslata! Odgovorićemo u najkraćem mogućem roku! HVALA!!! :)'
+                $this->getDI()->get('translator')->query('Vaša poruka je poslata! Odgovorićemo u najkraćem mogućem roku! HVALA!!! :)')
             );
         }
 
         $this->tag->appendTitle('Kontakt');
+        if (APPLICATION_ENV !== 'testing' && $_SERVER['HTTP_HOST'] === 'insideserbia.com') {
+            $this->view->setMainView('layouts/english');
+            $this->view->pick('insideserbia/contact');
+        }
     }
 
     /**
