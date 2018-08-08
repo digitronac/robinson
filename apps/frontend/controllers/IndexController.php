@@ -53,10 +53,10 @@ class IndexController extends ControllerBase
         $this->view->bottomTabs = $this->makeBottomTabs(8);
         $this->view->metaDescription = \Phalcon\Tag::tagHtml('meta', array(
             'name' => 'description',
-            'content' => $this->view->season->name . ' ' . $this->view->season->year .
+            'content' => $this->getDI()->get('translate')->query($this->view->season->name) . ' ' . $this->view->season->year .
                 ' - current offers. InSide Serbia!',
         ));
-        $this->tag->prependTitle($this->view->season->name . ' ' . $this->view->season->year);
+        $this->tag->prependTitle($this->getDI()->get('translate')->query($this->view->season->name) . ' ' . $this->view->season->year);
         $this->view->setMainView('layouts/english');
         $this->view->pick('insideserbia/index');
     }
