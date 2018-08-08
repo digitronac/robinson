@@ -6,6 +6,9 @@ class ControllerBase extends \Phalcon\Mvc\Controller
     public function initialize()
     {
         $this->upToDateUri();
+        /** @var $package \Robinson\Frontend\Model\Package */
+        $package = $this->getDI()->get('Robinson\Frontend\Model\Package');
+        $this->view->randomEnglishPackages = $package->findRandomEnglishPackages();
         $this->view->destinations = \Robinson\Frontend\Model\Destination::find(
             array(
                 'status = ' . \Robinson\Frontend\Model\Destination::STATUS_VISIBLE,

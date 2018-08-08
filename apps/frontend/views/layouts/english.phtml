@@ -127,7 +127,7 @@ $this->assets->collection('css')
                 <div id="packages">
                     <h3><?=$this->translate->query('Aranžmani')?></h3>
                     <ul>
-                        <?php foreach ($randomPackages as $package): ?>
+                        <?php foreach ($randomEnglishPackages as $package): ?>
 
                             <li><?=$this->tag->linkTo(array($package->getUri(), $package->getPackage()))?></li>
 
