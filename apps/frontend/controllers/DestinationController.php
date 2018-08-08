@@ -28,7 +28,7 @@ class DestinationController extends ControllerBase
         $this->view->metaDescription = \Phalcon\Tag::tagHtml('meta', array(
             'name' => 'description',
             'content' => $this->view->destination->getDestination() .
-                ' - ' . $category->getCategory() . $this->getDI()->get('translator')->query($this->view->season->name),
+                ' - ' . $category->getCategory() . $this->getDI()->get('translate')->query($this->view->season->name),
         ));
         if ($this->view->destination->isEnglish()) {
             $this->view->setMainView('layouts/english');

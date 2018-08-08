@@ -52,7 +52,7 @@ class PackageController extends ControllerBase
 
                 $this->flashSession->message(
                     'success',
-                    $this->getDI()->get('translator')->query('Vaša poruka je poslata! Odgovorićemo u najkraćem mogućem roku! HVALA!!! :)')
+                    $this->getDI()->get('translate')->query('Vaša poruka je poslata! Odgovorićemo u najkraćem mogućem roku! HVALA!!! :)')
                 );
 
                 return $this->response->redirect(
@@ -90,7 +90,7 @@ class PackageController extends ControllerBase
             'name' => 'description',
             'content' => $this->view->package->getPackage() . ' - ' .
                 $destination->getDestination() . ' - ' .
-                $category->getCategory() . ' - ' . $this->getDI()->get('translator')->query($this->view->season->name) . ': ' . $this->getDI()->get('translator')->query('Aranzmani, Opis, Cene, Rezervacije'),
+                $category->getCategory() . ' - ' . $this->getDI()->get('translate')->query($this->view->season->name) . ': ' . $this->getDI()->get('translate')->query('Aranzmani, Opis, Cene, Rezervacije'),
         ));
 
         $this->view->translate = $this->getDI()['translate'];

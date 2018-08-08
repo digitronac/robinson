@@ -17,7 +17,7 @@ class CategoryController extends ControllerBase
         $this->tag->prependTitle($this->view->category->getCategory());
         $this->view->metaDescription = \Phalcon\Tag::tagHtml('meta', array(
             'name' => 'description',
-            'content' => $this->view->category->getCategory() . ' - ' . $this->getDI()->get('translator')->query($this->view->season->name),
+            'content' => $this->view->category->getCategory() . ' - ' . $this->getDI()->get('translate')->query($this->view->season->name),
         ));
 
         if ($this->view->category->isEnglish()) {

@@ -78,7 +78,7 @@ class IndexController extends ControllerBase
 
             $mail = new \Zend\Mail\Message();
             $mail->addTo($this->config->application->smtp->info->address);
-            $mail->setSubject($this->getDI()->get('translator')->query('Info sa kontakt forme'));
+            $mail->setSubject($this->getDI()->get('translate')->query('Info sa kontakt forme'));
             $mail->setFrom($this->request->getPost('email'));
             $mail->addReplyTo($this->request->getPost('email'));
             $body = 'Ime: ' . $this->request->getPost('name') . '<br />' . PHP_EOL;
@@ -110,7 +110,7 @@ class IndexController extends ControllerBase
 
             $this->flashSession->message(
                 'success',
-                $this->getDI()->get('translator')->query('Vaša poruka je poslata! Odgovorićemo u najkraćem mogućem roku! HVALA!!! :)')
+                $this->getDI()->get('translate')->query('Vaša poruka je poslata! Odgovorićemo u najkraćem mogućem roku! HVALA!!! :)')
             );
         }
 
