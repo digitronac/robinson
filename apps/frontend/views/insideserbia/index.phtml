@@ -56,21 +56,6 @@
             </div>
         </div>
 
-        <?php if ($latestPackages->count()): ?>
-
-            <div id="index-latest-english">
-                <!--<h4>Specijalne <strong>first minute</strong> ponude</h4>-->
-
-                <?php foreach ($latestPackages as $package): ?>
-
-                    <?php include __DIR__ . '/../partials/index-package-item.phtml' ?>
-
-                <?php endforeach ?>
-
-            </div>
-
-        <?php endif ?>
-
         <?php /* unfortunatly, i was requsted to remove this section ... will leave it under comment, in controller too ...
         <div id="index-category-tabs-section" class="index section tabs">
             <ul class="tabs-nav">
