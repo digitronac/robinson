@@ -37,6 +37,11 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 file_get_contents(APPLICATION_PATH . '/../data/app/cover.json')
             )
         );
+        $this->view->englishCover = new \Robinson\Frontend\Model\Cover(
+            json_decode(
+                file_get_contents(APPLICATION_PATH . '/../data/app/cover_en.json')
+            )
+        );
     }
 
     public function findRandomPackages()

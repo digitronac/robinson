@@ -43,7 +43,7 @@ $this->assets->collection('css')
         <?=$this->partial('partials/ga') . PHP_EOL ?>
 
         <style type="text/css">
-            #main-section {background: url("<?=$cover->getImageSrc()?>") center no-repeat};
+            #main-section {background: url("<?=$englishCover->getImageSrc()?>") center no-repeat};
         </style>
 	</head>
 	<body>
@@ -76,6 +76,21 @@ $this->assets->collection('css')
                         <p id="contact-page-link"><a href="/index/contact"><?=$this->translate->query('Kontakt strana')?></a></p>
                     </div>
 
+                </div>
+            </div>
+        </div>
+        <div id="main-section">
+            <div class="inner-site">
+                <div id="low-price">
+                    <div id="top-low-price" style="text-align:center">
+                        <a href="<?=$englishCover->getLink()?>">
+                            Starting at
+                            <span class="big-price"><strong style="font-weight: bold"><?=$englishCover->getPrice()?></strong> &euro;</span>
+                        </a>
+                    </div>
+                    <div id="bottom-low-price" class="robinson-background">
+                        <a href="<?=$englishCover->getLink()?>"><?=$englishCover->getText()?></a>
+                    </div>
                 </div>
             </div>
         </div>
