@@ -90,7 +90,7 @@ class PackageController extends ControllerBase
             'name' => 'description',
             'content' => $this->view->package->getPackage() . ' - ' .
                 $destination->getDestination() . ' - ' .
-                $category->getCategory() . ' - ' . $this->view->season->name . ': ' . $this->getDI()->get('translator')->query('Aranzmani, Opis, Cene, Rezervacije'),
+                $category->getCategory() . ' - ' . $this->getDI()->get('translator')->query($this->view->season->name) . ': ' . $this->getDI()->get('translator')->query('Aranzmani, Opis, Cene, Rezervacije'),
         ));
 
         $this->view->translate = $this->getDI()['translate'];

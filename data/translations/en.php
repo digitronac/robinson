@@ -34,4 +34,5 @@ return array_merge($array, array
     'Poruka' => 'Message',
     'Pošalji rezervaciju' => 'Send message',
     'Aranzmani, Opis, Cene, Rezervacije' => 'Serbian Packages, Description, Prices, Bookings',
+    'Leto 2018, Letovanje 2018, Spanija, Grcka, Italija, Krf, Majorka, Zakintos, Aranzmani, Bec, Dunav' => 'InSide Serbia',
 ));
