@@ -190,9 +190,9 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 $package->images = $images;
             }
 
-            if ($this->request->getPost('special')) {
-                $package->setSpecial($this->request->getPost('special'));
-            }
+            //if ($this->request->getPost('special')) {
+            $package->setSpecial($this->request->getPost('special', null, ''));
+            //}
             
             $package->update();
             $package->refresh();
