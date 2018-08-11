@@ -20,6 +20,11 @@ if(APPLICATION_ENV !== 'production')
     ini_set('display_errors', 1);
 }
 
+function is_english()
+{
+    return (APPLICATION_ENV !== 'testing' && $_SERVER['HTTP_HOST'] === 'insideserbia.com');
+}
+
 register_shutdown_function(function() use ($di)
 {
     $lastError = error_get_last();

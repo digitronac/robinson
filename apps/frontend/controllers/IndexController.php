@@ -37,7 +37,7 @@ class IndexController extends ControllerBase
 
     public function englishAction()
     {
-        if (APPLICATION_ENV !== 'testing' && $_SERVER['HTTP_HOST'] !== 'insideserbia.com') {
+        if (is_english()) {
             $this->view->cache(true);
         }
 

@@ -292,3 +292,10 @@ $packageTag->setOrder(1);
 $packageTag->create();
 
 echo 'Generated package tags!' . PHP_EOL;
+
+/** @var \Robinson\Backend\Models\Page $page */
+$page = $di->get(\Robinson\Backend\Models\Page::class);
+$page->setBody('static page');
+$page->setTitle('static title');
+$page->create();
+echo 'Generated static page!' . PHP_EOL;
