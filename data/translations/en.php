@@ -21,7 +21,7 @@ return array_merge($array, array
     'Aranžmani' => 'Packages',
     'Apartmani' => 'Day Trips',
     'Hoteli' => 'Best Tours ',
-    'od' => 'starting',
+    'od' => 'from',
     'DETALJNIJE' => 'MORE INFO',
     'Specijalne ponude' => 'Special Offers',
     'AKTUELNE PONUDE' => 'HOT OFFERS',
