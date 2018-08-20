@@ -109,15 +109,15 @@ class ControllerBase extends \Phalcon\Mvc\Controller
             array(
                 'title' => 'Formula 1',
                 'categoryId' => 7,
-                'uri' => 'http://' . $baseUrls['rsBaseUrl'] . '/formula-1/7',
+                'uri' => $baseUrls['rsBaseUrl'] . '/formula-1/7',
                 'decorated' => false,
             ),
-            /*array(
-                'title' => 'Last minute',
+            array(
+                'title' => 'InSide Serbia',
                 'categoryId' => null,
-                'uri' => '/index/lastMinute',
-                'decorated' => true,
-            )*/
+                'uri' => 'http://insideserbia.com/inside-serbia/14',
+                'decorated' => false,
+            )
         );
     }
 
