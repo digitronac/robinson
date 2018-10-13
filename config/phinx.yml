@@ -11,9 +11,10 @@ environments:
                 
     development:
         adapter: mysql
-        host: localhost
+        host: mysql
         name: robinson_development
-        
+        user: robinson
+        pass: 12345
         port: 3306
                     
     testing:
