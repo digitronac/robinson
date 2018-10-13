@@ -101,12 +101,6 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'decorated' => false,
             ),
             array(
-                'title' => 'Family club',
-                'categoryId' => 8,
-                'uri' => $baseUrls['rsBaseUrl'] . '/family-club/8',
-                'decorated' => false,
-            ),
-            array(
                 'title' => 'Skrivena Srbija',
                 'categoryId' => 11,
                 'uri' => $baseUrls['rsBaseUrl'] . '/skrivena-srbija/11',
