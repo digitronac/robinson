@@ -71,9 +71,15 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         $baseUrls = $this->getDI()->get('config')->application->baseUrls;
         return array(
             array(
+                'title' => 'Zimovanje 2019',
+                'categoryId' => 13,
+                'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2019/13',
+                'decorated' => false,
+            ),
+            array(
                 'title' => 'Nova godina 2019',
                 'categoryId' => 12,
-                'uri' => $baseUrls['rsBaeUrl'] . '/nova-godina-2019/12',
+                'uri' => $baseUrls['rsBaseUrl'] . '/nova-godina-2019/12',
                 'decorated' => false,
             ),
             array(
@@ -100,12 +106,12 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => $baseUrls['rsBaseUrl'] . '/italija-leto-2019/3',
                 'decorated' => false,
             ),
-            array(
+            /*array(
                 'title' => 'Skrivena Srbija',
                 'categoryId' => 11,
                 'uri' => $baseUrls['rsBaseUrl'] . '/skrivena-srbija/11',
                 'decorated' => false,
-            ),
+            ),*/
             array(
                 'title' => 'Formula 1',
                 'categoryId' => 7,
