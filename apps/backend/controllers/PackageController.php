@@ -132,8 +132,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
         $package = $this->getDI()->get('Robinson\Backend\Models\Package');
         /* @var $package \Robinson\Backend\Models\Package */
         $package = $package->findFirst($this->dispatcher->getParam('id'));
-
-        
+        $special = $package->getSpecial();
         if ($this->request->isPost()) {
             $images = array();
             $destination = $this->getDI()->get('Robinson\Backend\Models\Destination');
@@ -190,14 +189,13 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
                 $package->images = $images;
             }
 
-            //if ($this->request->getPost('special')) {
-            $package->setSpecial($this->request->getPost('special', null, ''));
-            //}
-            
+            if ($this->request->getPost('special')) {
+                $special = $this->request->getPost('special', null, '');
+                $package->setSpecial($special);
+            }
+
             $package->update();
             $package->refresh();
-
-            $this->tag->setDefault('special', $package->getSpecial());
         }
         
         $tabs = $package->getTabs();
@@ -209,6 +207,7 @@ class PackageController extends \Robinson\Backend\Controllers\ControllerBase
             $this->tag->setDefault('tags[' . $tag->getType() . ']', $tag->getTag());
         }
 
+        $this->tag->setDefault('special', $special);
         $this->tag->setDefault('type', $package->getType());
         $this->tag->setDefault('destinationId', $package->getDestination()->getDestinationId());
         $this->tag->setDefault('package', $package->getPackage());

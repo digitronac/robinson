@@ -26,7 +26,7 @@ RUN pecl install imagick-3.3.0
 RUN cp /etc/php5/cli/php.ini /usr/local/etc/php/php.ini
 RUN echo "date.timezone = Europe/Belgrade" >> /usr/local/etc/php/php.ini
 
-RUN git clone -q --depth=1 https://github.com/phalcon/cphalcon.git -b 1.3.2
+RUN git clone -q --depth=1 https://github.com/phalcon/cphalcon.git -b phalcon-v1.3.2
 RUN export CFLAGS="-g3 -O1 -fno-delete-null-pointer-checks -Wall";
 WORKDIR /var/www/html/cphalcon/build
 RUN ./install
