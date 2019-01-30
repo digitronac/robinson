@@ -126,7 +126,7 @@ $this->assets->collection('css')
 
                         <?php else: ?>
 
-                            <li<?php if ($category['decorated']) {  echo ' class="decorated" '; }?>><a id="main-link-<?=$key?>" href="<?=$category['uri']?>"><?=$category['title']?></a></li>
+                            <li<?php if ($category['decorated']) {  echo ' class="decorated" '; }?>><?php if ($category['categoryId'] === null) { echo '<img style="float:left; margin-top:25px" width="30" src="/img/assets/gb.jpg" />'; } ?><a id="main-link-<?=$key?>" href="<?=$category['uri']?>"><?=$category['title']?></a></li>
 
                         <?php endif ?>
                     <?php endforeach ?>
