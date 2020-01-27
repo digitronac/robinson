@@ -71,24 +71,6 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         $baseUrls = $this->getDI()->get('config')->application->baseUrls;
         return array(
             array(
-                'title' => 'Nova godina 2020',
-                'categoryId' => 12,
-                'uri' => $baseUrls['rsBaseUrl'] . '/nova-godina-2020/12',
-                'decorated' => false,
-            ),
-            array(
-                'title' => 'Zimovanje 2020',
-                'categoryId' => 13,
-                'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2020/13',
-                'decorated' => false,
-            ),
-            array(
-                'title' => 'City break',
-                'categoryId' => 4,
-                'uri' => $baseUrls['rsBaseUrl'] . '/city-break/4',
-                'decorated' => false,
-            ),
-            array(
                 'title' => 'Grčka 2020',
                 'categoryId' => 1,
                 'uri' => $baseUrls['rsBaseUrl'] . '/grcka-leto-2020/1',
@@ -100,12 +82,30 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => $baseUrls['rsBaseUrl'] . '/spanija-leto-2020/2',
                 'decorated' => false,
             ),
-            /*array(
-                'title' => 'Italija 2019',
+            array(
+                'title' => 'Italija 2020',
                 'categoryId' => 3,
-                'uri' => $baseUrls['rsBaseUrl'] . '/italija-leto-2019/3',
+                'uri' => $baseUrls['rsBaseUrl'] . '/italija-leto-2020/3',
                 'decorated' => false,
-            ),*/
+            ),
+            array(
+                'title' => 'Egipat 2020',
+                'categoryId' => 17,
+                'uri' => $baseUrls['rsBaseUrl'] . '/egipat-leto-2020/17',
+                'decorated' => false,
+            ),
+            array(
+                'title' => 'City break',
+                'categoryId' => 4,
+                'uri' => $baseUrls['rsBaseUrl'] . '/city-break/4',
+                'decorated' => false,
+            ),
+            array(
+                'title' => 'Zimovanje 2020',
+                'categoryId' => 13,
+                'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2020/13',
+                'decorated' => false,
+            ),
             array(
                 'title' => 'Skrivena Srbija',
                 'categoryId' => 11,
