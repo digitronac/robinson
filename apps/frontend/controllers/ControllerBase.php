@@ -100,12 +100,12 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => $baseUrls['rsBaseUrl'] . '/city-break/4',
                 'decorated' => false,
             ),
-            array(
+            /*array(
                 'title' => 'Zimovanje 2020',
                 'categoryId' => 13,
                 'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2020/13',
                 'decorated' => false,
-            ),
+            ),*/
             array(
                 'title' => 'Skrivena Srbija',
                 'categoryId' => 11,
@@ -118,12 +118,12 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => $baseUrls['rsBaseUrl'] . '/formula-1/7',
                 'decorated' => false,
             ),
-            array(
+            /*array(
                 'title' => 'InSide Serbia',
                 'categoryId' => null,
                 'uri' => 'http://insideserbia.com/inside-serbia/14',
                 'decorated' => false,
-            ),
+            ),*/
         );
     }
 
