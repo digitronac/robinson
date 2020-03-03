@@ -11,7 +11,7 @@ $this->assets->collection('javascript-footer')
     ->addJs(APPLICATION_PATH . '/../public/js/jquery.ihavecookies.min.js')
     ->join(true)
     ->setTargetPath(APPLICATION_PATH . '/../public/min/js-footer.js')
-    ->setTargetUri('min/js-footer.js')
+    ->setTargetUri('min/js-footer.js?1')
     ->addFilter(new \Phalcon\Assets\Filters\Jsmin());
 $this->assets->collection('css')
     ->addCss(APPLICATION_PATH . '/../public/css/bootstrap.css')
@@ -23,7 +23,7 @@ $this->assets->collection('css')
     ->addCss(APPLICATION_PATH . '/../public/css/css-frontend.css')
     ->join(true)
     ->setTargetPath(APPLICATION_PATH . '/../public/min/css-frontend.css')
-    ->setTargetUri('min/css-frontend.css?21')
+    ->setTargetUri('min/css-frontend.css?22')
     ->addFilter(new \Phalcon\Assets\Filters\Cssmin());
 ?>
 <!DOCTYPE html>
