@@ -8,6 +8,7 @@ $this->assets->collection('javascript-footer')
     ->addJs(APPLICATION_PATH . '/../public/js/fb/source/helpers/jquery.fancybox-thumbs.js')
     ->addJs(APPLICATION_PATH . '/../public/js/fb/source/helpers/jquery.fancybox-media.js')
     ->addJs(APPLICATION_PATH . '/../public/js/jquery.idTabs.min.js')
+    ->addJs(APPLICATION_PATH . '/../public/js/jquery.ihavecookies.min.js')
     ->join(true)
     ->setTargetPath(APPLICATION_PATH . '/../public/min/js-footer.js')
     ->setTargetUri('min/js-footer.js')
@@ -15,6 +16,7 @@ $this->assets->collection('javascript-footer')
 $this->assets->collection('css')
     ->addCss(APPLICATION_PATH . '/../public/css/bootstrap.css')
     ->addCss(APPLICATION_PATH . '/../public/css/bootstrap-theme.css')
+    ->addCss(APPLICATION_PATH . '/../public/css/ihavecookies.css')
     ->addCss(APPLICATION_PATH . '/../public/js/fb/source/jquery.fancybox.css')
     ->addCss(APPLICATION_PATH . '/../public/js/fb/source/helpers/jquery.fancybox-buttons.css')
     ->addCss(APPLICATION_PATH . '/../public/js/fb/source/helpers/jquery.fancybox-thumbs.css')
@@ -277,8 +279,24 @@ $this->assets->collection('css')
                 });
 
                 $('.tabs').idTabs();
+
+                $('body').ihavecookies({
+                    title: '&#x1F36A; Prihvatite kolačiće i uslove korišćenja',
+                    message: 'Sajt Robinson.rs radi Vašeg boljeg korisničkog iskustva koristi kolačiće. Korišćenjem stranice saglasni ste sa korištenjem kolačića. Vise informacija na sledećem linku.',
+                    delay: 600,
+                    expires: 1,
+                    link: '/page/index?pageId=9',
+                    onAccept: function(){
+                        var myPreferences = $.fn.ihavecookies.cookie();
+                    },
+                    uncheckBoxes: true,
+                    acceptBtnLabel: 'Prihvatam',
+                    moreInfoLabel: 'Više informacija'
+                });
+
             });
         </script>
+
     <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">require(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us14.list-manage.com","uuid":"4c7bce463efb1bd6f96ffd524","lid":"2eacd608a3"}) })</script>
 	</body>
 </html>
