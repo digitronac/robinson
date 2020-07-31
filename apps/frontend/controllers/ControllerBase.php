@@ -88,6 +88,11 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => $baseUrls['rsBaseUrl'] . '/spanija-leto-2020/2',
                 'decorated' => false,
             ),
+            array(
+                'title' => 'Turska leto 2020',
+                'categoryId' => 18,
+                'uri' => $baseUrls['rsBaseUrl'] . '/turska-leto-2020/18',
+            ),
             /*array(
                 'title' => 'Italija 2020',
                 'categoryId' => 3,
@@ -118,12 +123,12 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => $baseUrls['rsBaseUrl'] . '/skrivena-srbija/11',
                 'decorated' => false,
             ),
-            array(
+            /*array(
                 'title' => 'Formula 1',
                 'categoryId' => 7,
                 'uri' => $baseUrls['rsBaseUrl'] . '/formula-1/7',
                 'decorated' => false,
-            ),
+            ),*/
             /*array(
                 'title' => 'InSide Serbia',
                 'categoryId' => null,
