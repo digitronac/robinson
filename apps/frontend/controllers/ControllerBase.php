@@ -77,15 +77,9 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'decorated' => false,
             ),
             array(
-                'title' => 'Grčka 2020',
+                'title' => 'Grčka leto 2020',
                 'categoryId' => 1,
                 'uri' => $baseUrls['rsBaseUrl'] . '/grcka-leto-2020/1',
-                'decorated' => false,
-            ),
-            array(
-                'title' => 'Španija 2020',
-                'categoryId' => 2,
-                'uri' => $baseUrls['rsBaseUrl'] . '/spanija-leto-2020/2',
                 'decorated' => false,
             ),
             array(
@@ -93,36 +87,54 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'categoryId' => 18,
                 'uri' => $baseUrls['rsBaseUrl'] . '/turska-leto-2020/18',
             ),
-            /*array(
-                'title' => 'Italija 2020',
-                'categoryId' => 3,
-                'uri' => $baseUrls['rsBaseUrl'] . '/italija-leto-2020/3',
-                'decorated' => false,
-            ),*/
             array(
-                'title' => 'Egipat 2020',
+                'title' => 'Egipat leto 2020',
                 'categoryId' => 17,
                 'uri' => $baseUrls['rsBaseUrl'] . '/egipat-leto-2020/17',
                 'decorated' => false,
             ),
             array(
-                'title' => 'City break',
-                'categoryId' => 4,
-                'uri' => $baseUrls['rsBaseUrl'] . '/city-break/4',
+                'title' => 'Albanija leto 2020',
+                'categoryId' => 20,
+                'uri' => $baseUrls['rsBaseUrl'] . '/albanija-leto-2020/20',
                 'decorated' => false,
             ),
-            /*array(
-                'title' => 'Zimovanje 2020',
-                'categoryId' => 13,
-                'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2020/13',
+            array(
+                'title' => 'Crna Gora leto 2020',
+                'categoryId' => 21,
+                'uri' => $baseUrls['rsBaseUrl'] . '/crna-gora-2020/21',
                 'decorated' => false,
-            ),*/
+            ),
             array(
                 'title' => 'Skrivena Srbija',
                 'categoryId' => 11,
                 'uri' => $baseUrls['rsBaseUrl'] . '/skrivena-srbija/11',
                 'decorated' => false,
             ),
+            /*array(
+                'title' => 'Španija 2020',
+                'categoryId' => 2,
+                'uri' => $baseUrls['rsBaseUrl'] . '/spanija-leto-2020/2',
+                'decorated' => false,
+            ),*/
+            /*array(
+                'title' => 'Italija 2020',
+                'categoryId' => 3,
+                'uri' => $baseUrls['rsBaseUrl'] . '/italija-leto-2020/3',
+                'decorated' => false,
+            ),*/
+            /*array(
+                'title' => 'City break',
+                'categoryId' => 4,
+                'uri' => $baseUrls['rsBaseUrl'] . '/city-break/4',
+                'decorated' => false,
+            ),*/
+            /*array(
+                'title' => 'Zimovanje 2020',
+                'categoryId' => 13,
+                'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2020/13',
+                'decorated' => false,
+            ),*/
             /*array(
                 'title' => 'Formula 1',
                 'categoryId' => 7,
