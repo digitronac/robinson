@@ -71,12 +71,54 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         $baseUrls = $this->getDI()->get('config')->application->baseUrls;
         return array(
             array(
-                'title' => 'Srbija leto 2020',
-                'categoryId' => 19,
-                'uri' => $baseUrls['rsBaseUrl'] . '/srbija-leto-2020/19',
+                'title' => 'Nova Godina 2021',
+                'categoryId' => 12,
+                'uri' => $baseUrls['rsBaseUrl'] . '/nova-godina-2021/12',
                 'decorated' => false,
             ),
             array(
+                'title' => 'Zimovanje 2021',
+                'categoryId' => 13,
+                'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2021/13',
+                'decorated' => false,
+            ),
+            array(
+                'title' => 'City break',
+                'categoryId' => 4,
+                'uri' => $baseUrls['rsBaseUrl'] . '/city-break/4',
+                'decorated' => false,
+            ),
+            array(
+                'title' => 'Srbija odmor',
+                'categoryId' => 19,
+                'uri' => $baseUrls['rsBaseUrl'] . '/srbija-odmor/19',
+                'decorated' => false,
+            ),
+            array(
+                'title' => 'Skrivena Srbija',
+                'categoryId' => 11,
+                'uri' => $baseUrls['rsBaseUrl'] . '/skrivena-srbija/11',
+                'decorated' => false,
+            ),
+            array(
+                'title' => 'Egipat',
+                'categoryId' => 17,
+                'uri' => $baseUrls['rsBaseUrl'] . '/egipat/17',
+                'decorated' => false,
+            ),
+            array(
+                'title' => 'Wellness I Spa',
+                'categoryId' => 22,
+                'uri' => $baseUrls['rsBaseUrl'] . '/wellness-i-spa/22',
+                'decorated' => false,
+            ),
+            array(
+                'title' => 'InSide Serbia',
+                'categoryId' => null,
+                'uri' => 'http://insideserbia.com/inside-serbia/14',
+                'decorated' => false,
+            ),
+            /*array(
                 'title' => 'Grčka leto 2020',
                 'categoryId' => 1,
                 'uri' => $baseUrls['rsBaseUrl'] . '/grcka-leto-2020/1',
@@ -88,12 +130,6 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => $baseUrls['rsBaseUrl'] . '/turska-leto-2020/18',
             ),
             array(
-                'title' => 'Egipat leto 2020',
-                'categoryId' => 17,
-                'uri' => $baseUrls['rsBaseUrl'] . '/egipat-leto-2020/17',
-                'decorated' => false,
-            ),
-            array(
                 'title' => 'Albanija leto 2020',
                 'categoryId' => 20,
                 'uri' => $baseUrls['rsBaseUrl'] . '/albanija-leto-2020/20',
@@ -103,12 +139,6 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'title' => 'Crna Gora leto 2020',
                 'categoryId' => 21,
                 'uri' => $baseUrls['rsBaseUrl'] . '/crna-gora-2020/21',
-                'decorated' => false,
-            ),
-            array(
-                'title' => 'Skrivena Srbija',
-                'categoryId' => 11,
-                'uri' => $baseUrls['rsBaseUrl'] . '/skrivena-srbija/11',
                 'decorated' => false,
             ),
             /*array(
@@ -124,27 +154,9 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'decorated' => false,
             ),*/
             /*array(
-                'title' => 'City break',
-                'categoryId' => 4,
-                'uri' => $baseUrls['rsBaseUrl'] . '/city-break/4',
-                'decorated' => false,
-            ),*/
-            /*array(
-                'title' => 'Zimovanje 2020',
-                'categoryId' => 13,
-                'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2020/13',
-                'decorated' => false,
-            ),*/
-            /*array(
                 'title' => 'Formula 1',
                 'categoryId' => 7,
                 'uri' => $baseUrls['rsBaseUrl'] . '/formula-1/7',
-                'decorated' => false,
-            ),*/
-            /*array(
-                'title' => 'InSide Serbia',
-                'categoryId' => null,
-                'uri' => 'http://insideserbia.com/inside-serbia/14',
                 'decorated' => false,
             ),*/
         );
@@ -170,7 +182,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
      */
     protected function upToDateUri()
     {
-        if (strpos($this->router->getRewriteUri(), '2019')) {
+        if (strpos($this->router->getRewriteUri(), '2020')) {
             return $this->response->redirect(
                 str_replace(
                     ((int)$this->config->application->season->year) - 1,
