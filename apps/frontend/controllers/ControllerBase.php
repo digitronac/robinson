@@ -31,7 +31,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         $this->view->baseUrls = $this->getDI()->get('config')->application->baseUrls;
 
         $this->view->randomPackages = $this->findRandomPackages();
-        $this->tag->setTitleSeparator(' - ');
+        $this->tag->setTitleSe  parator(' - ');
         $this->tag->setTitle('Robinson');
         if (APPLICATION_ENV !== 'testing' && $_SERVER['HTTP_HOST'] === 'insideserbia.com') {
             $this->tag->setTitle('InSide Serbia');
@@ -71,6 +71,23 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         $baseUrls = $this->getDI()->get('config')->application->baseUrls;
         return array(
             array(
+                'title' => 'Grčka 2021',
+                'categoryId' => 1,
+                'uri' => $baseUrls['rsBaseUrl'] . '/grcka-leto-2021/1',
+                'decorated' => false,
+            ),
+            array(
+                'title' => 'Albanija 2021',
+                'categoryId' => 20,
+                'uri' => $baseUrls['rsBaseUrl'] . '/albanija-leto-2021/20',
+                'decorated' => false,
+            ),
+            array(
+                'title' => 'Turska 2021',
+                'categoryId' => 18,
+                'uri' => $baseUrls['rsBaseUrl'] . '/turska-leto-2021/18',
+            ),
+            /*array(
                 'title' => 'Nova Godina 2021',
                 'categoryId' => 12,
                 'uri' => $baseUrls['rsBaseUrl'] . '/nova-godina-2021/12',
@@ -80,6 +97,12 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'title' => 'Zimovanje 2021',
                 'categoryId' => 13,
                 'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2021/13',
+                'decorated' => false,
+            ),*/
+            array(
+                'title' => 'Egipat 2021',
+                'categoryId' => 17,
+                'uri' => $baseUrls['rsBaseUrl'] . '/egipat/17',
                 'decorated' => false,
             ),
             array(
@@ -100,18 +123,12 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => $baseUrls['rsBaseUrl'] . '/skrivena-srbija/11',
                 'decorated' => false,
             ),
-            array(
-                'title' => 'Egipat',
-                'categoryId' => 17,
-                'uri' => $baseUrls['rsBaseUrl'] . '/egipat/17',
-                'decorated' => false,
-            ),
-            array(
+            /*array(
                 'title' => 'Wellness I Spa',
                 'categoryId' => 22,
                 'uri' => $baseUrls['rsBaseUrl'] . '/wellness-i-spa/22',
                 'decorated' => false,
-            ),
+            ),*/
             array(
                 'title' => 'InSide Serbia',
                 'categoryId' => null,
