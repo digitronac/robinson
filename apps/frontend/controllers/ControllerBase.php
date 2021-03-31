@@ -31,7 +31,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         $this->view->baseUrls = $this->getDI()->get('config')->application->baseUrls;
 
         $this->view->randomPackages = $this->findRandomPackages();
-        $this->tag->setTitleSe  parator(' - ');
+        $this->tag->setTitleSeparator(' - ');
         $this->tag->setTitle('Robinson');
         if (APPLICATION_ENV !== 'testing' && $_SERVER['HTTP_HOST'] === 'insideserbia.com') {
             $this->tag->setTitle('InSide Serbia');
