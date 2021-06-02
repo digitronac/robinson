@@ -99,10 +99,17 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2021/13',
                 'decorated' => false,
             ),*/
-            array(
+            /*array(
                 'title' => 'Egipat 2021',
                 'categoryId' => 17,
                 'uri' => $baseUrls['rsBaseUrl'] . '/egipat/17',
+                'decorated' => false,
+            ),
+            */
+            array(
+                'title' => 'Ohrid 2021',
+                'categoryId' => 23,
+                'uri' => $baseUrls['rsBaseUrl'] . '/ohrid/23',
                 'decorated' => false,
             ),
             array(
