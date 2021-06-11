@@ -112,10 +112,16 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => $baseUrls['rsBaseUrl'] . '/ohrid/23',
                 'decorated' => false,
             ),
-            array(
+            /*array(
                 'title' => 'City break',
                 'categoryId' => 4,
                 'uri' => $baseUrls['rsBaseUrl'] . '/city-break/4',
+                'decorated' => false,
+            ),*/
+            array(
+                'title' => 'Formula 1',
+                'categoryId' => 7,
+                'uri' => $baseUrls['rsBaseUrl'] . '/formula-1/7',
                 'decorated' => false,
             ),
             array(
@@ -175,12 +181,6 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'title' => 'Italija 2020',
                 'categoryId' => 3,
                 'uri' => $baseUrls['rsBaseUrl'] . '/italija-leto-2020/3',
-                'decorated' => false,
-            ),*/
-            /*array(
-                'title' => 'Formula 1',
-                'categoryId' => 7,
-                'uri' => $baseUrls['rsBaseUrl'] . '/formula-1/7',
                 'decorated' => false,
             ),*/
         );
