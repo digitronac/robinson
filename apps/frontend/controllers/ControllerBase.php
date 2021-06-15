@@ -82,10 +82,16 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => $baseUrls['rsBaseUrl'] . '/albanija-leto-2021/20',
                 'decorated' => false,
             ),
-            array(
+            /*array(
                 'title' => 'Turska 2021',
                 'categoryId' => 18,
                 'uri' => $baseUrls['rsBaseUrl'] . '/turska-leto-2021/18',
+            ),*/
+            array(
+                'title' => 'Španija 2021',
+                'categoryId' => 2,
+                'uri' => $baseUrls['rsBaseUrl'] . '/spanija-leto-2021/2',
+                'decorated' => false,
             ),
             /*array(
                 'title' => 'Nova Godina 2021',
