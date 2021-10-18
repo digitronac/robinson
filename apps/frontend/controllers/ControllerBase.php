@@ -71,15 +71,27 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         $baseUrls = $this->getDI()->get('config')->application->baseUrls;
         return array(
             array(
-                'title' => 'Grčka 2021',
-                'categoryId' => 1,
-                'uri' => $baseUrls['rsBaseUrl'] . '/grcka-leto-2021/1',
+                'title' => 'Nova Godina 2022',
+                'categoryId' => 12,
+                'uri' => $baseUrls['rsBaseUrl'] . '/nova-godina-2022/12',
                 'decorated' => false,
             ),
             array(
-                'title' => 'Albanija 2021',
+                'title' => 'Zimovanje 2022',
+                'categoryId' => 13,
+                'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2022/13',
+                'decorated' => false,
+            ),
+            array(
+                'title' => 'Grčka 2022',
+                'categoryId' => 1,
+                'uri' => $baseUrls['rsBaseUrl'] . '/grcka-leto-2022/1',
+                'decorated' => false,
+            ),
+            array(
+                'title' => 'Albanija 2022',
                 'categoryId' => 20,
-                'uri' => $baseUrls['rsBaseUrl'] . '/albanija-leto-2021/20',
+                'uri' => $baseUrls['rsBaseUrl'] . '/albanija-leto-2022/20',
                 'decorated' => false,
             ),
             /*array(
@@ -88,9 +100,27 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => $baseUrls['rsBaseUrl'] . '/turska-leto-2021/18',
             ),*/
             array(
-                'title' => 'Španija 2021',
+                'title' => 'Španija 2022',
                 'categoryId' => 2,
-                'uri' => $baseUrls['rsBaseUrl'] . '/spanija-leto-2021/2',
+                'uri' => $baseUrls['rsBaseUrl'] . '/spanija-leto-2022/2',
+                'decorated' => false,
+            ),
+            array(
+                'title' => 'Srbija odmor',
+                'categoryId' => 19,
+                'uri' => $baseUrls['rsBaseUrl'] . '/srbija-odmor/19',
+                'decorated' => false,
+            ),
+            array(
+                'title' => 'Skrivena Srbija',
+                'categoryId' => 11,
+                'uri' => $baseUrls['rsBaseUrl'] . '/skrivena-srbija/11',
+                'decorated' => false,
+            ),
+            array(
+                'title' => 'InSide Serbia',
+                'categoryId' => null,
+                'uri' => 'http://insideserbia.com/inside-serbia/14',
                 'decorated' => false,
             ),
             /*array(
@@ -112,48 +142,30 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'decorated' => false,
             ),
             */
-            array(
+            /*array(
                 'title' => 'Ohrid 2021',
                 'categoryId' => 23,
                 'uri' => $baseUrls['rsBaseUrl'] . '/ohrid/23',
                 'decorated' => false,
-            ),
+            ),*/
             /*array(
                 'title' => 'City break',
                 'categoryId' => 4,
                 'uri' => $baseUrls['rsBaseUrl'] . '/city-break/4',
                 'decorated' => false,
             ),*/
-            array(
+            /*array(
                 'title' => 'Formula 1',
                 'categoryId' => 7,
                 'uri' => $baseUrls['rsBaseUrl'] . '/formula-1/7',
                 'decorated' => false,
-            ),
-            array(
-                'title' => 'Srbija odmor',
-                'categoryId' => 19,
-                'uri' => $baseUrls['rsBaseUrl'] . '/srbija-odmor/19',
-                'decorated' => false,
-            ),
-            array(
-                'title' => 'Skrivena Srbija',
-                'categoryId' => 11,
-                'uri' => $baseUrls['rsBaseUrl'] . '/skrivena-srbija/11',
-                'decorated' => false,
-            ),
+            ),*/
             /*array(
                 'title' => 'Wellness I Spa',
                 'categoryId' => 22,
                 'uri' => $baseUrls['rsBaseUrl'] . '/wellness-i-spa/22',
                 'decorated' => false,
             ),*/
-            array(
-                'title' => 'InSide Serbia',
-                'categoryId' => null,
-                'uri' => 'http://insideserbia.com/inside-serbia/14',
-                'decorated' => false,
-            ),
             /*array(
                 'title' => 'Grčka leto 2020',
                 'categoryId' => 1,
