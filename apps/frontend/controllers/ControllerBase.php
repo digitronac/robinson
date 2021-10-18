@@ -224,7 +224,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
      */
     protected function upToDateUri()
     {
-        if (strpos($this->router->getRewriteUri(), '2020')) {
+        if (strpos($this->router->getRewriteUri(), '2021')) {
             return $this->response->redirect(
                 str_replace(
                     ((int)$this->config->application->season->year) - 1,
