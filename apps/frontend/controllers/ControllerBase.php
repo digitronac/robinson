@@ -100,11 +100,17 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => $baseUrls['rsBaseUrl'] . '/turska-leto-2021/18',
             ),*/
             array(
+                'title' => 'City break',
+                'categoryId' => 4,
+                'uri' => $baseUrls['rsBaseUrl'] . '/city-break/4',
+                'decorated' => false,
+            ),
+            /*array(
                 'title' => 'Španija 2022',
                 'categoryId' => 2,
                 'uri' => $baseUrls['rsBaseUrl'] . '/spanija-leto-2022/2',
                 'decorated' => false,
-            ),
+            ),*/
             array(
                 'title' => 'Srbija odmor',
                 'categoryId' => 19,
