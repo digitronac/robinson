@@ -99,7 +99,7 @@ body{color:white;font-family: 'Open Sans', sans-serif;background:#f4f4f4}
 .package-item-image {height:200px;overflow:hidden}
 .package-item-link a {width:250px; display:block; padding:5px; background:#c3c3c3; margin-top:10px;text-align:center;color:white}
 .package-item-link a:hover {background:#de1a28;text-decoration: none}
-.index.section.tabs {text-align:center;background:#f4f4f4;padding-bottom:60px;padding-top:20px}
+.index.section.tabs {text-align:center;background:#f4f4f4;padding-bottom:20px;padding-top:20px}
 .tabs-heading {display:inline; background:white;padding:10px;background:#C9101E}
 .tabs-heading li {display:inline-block; margin-left:20px}
 .tabs-heading li a {text-decoration: none; /*color:#333*/ color:white}
