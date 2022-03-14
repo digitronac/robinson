@@ -71,18 +71,6 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         $baseUrls = $this->getDI()->get('config')->application->baseUrls;
         return array(
             array(
-                'title' => 'Nova Godina 2022',
-                'categoryId' => 12,
-                'uri' => $baseUrls['rsBaseUrl'] . '/nova-godina-2022/12',
-                'decorated' => false,
-            ),
-            array(
-                'title' => 'Zimovanje 2022',
-                'categoryId' => 13,
-                'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2022/13',
-                'decorated' => false,
-            ),
-            array(
                 'title' => 'Grčka 2022',
                 'categoryId' => 1,
                 'uri' => $baseUrls['rsBaseUrl'] . '/grcka-leto-2022/1',
@@ -94,27 +82,22 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => $baseUrls['rsBaseUrl'] . '/albanija-leto-2022/20',
                 'decorated' => false,
             ),
-            /*array(
-                'title' => 'Turska 2021',
-                'categoryId' => 18,
-                'uri' => $baseUrls['rsBaseUrl'] . '/turska-leto-2021/18',
-            ),*/
+            array(
+                'title' => 'Letovanje 2022',
+                'categoryId' => 15,
+                'uri' => $baseUrls['rsBaseUrl'] . '/letovanje-2022/15',
+                'decorated' => false,
+            ),
             array(
                 'title' => 'City break',
                 'categoryId' => 4,
                 'uri' => $baseUrls['rsBaseUrl'] . '/city-break/4',
                 'decorated' => false,
             ),
-            /*array(
-                'title' => 'Španija 2022',
-                'categoryId' => 2,
-                'uri' => $baseUrls['rsBaseUrl'] . '/spanija-leto-2022/2',
-                'decorated' => false,
-            ),*/
             array(
-                'title' => 'Srbija odmor',
-                'categoryId' => 19,
-                'uri' => $baseUrls['rsBaseUrl'] . '/srbija-odmor/19',
+                'title' => 'Formula 1',
+                'categoryId' => 7,
+                'uri' => $baseUrls['rsBaseUrl'] . '/formula-1/7',
                 'decorated' => false,
             ),
             array(
@@ -129,6 +112,35 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => 'http://insideserbia.com/inside-serbia/14',
                 'decorated' => false,
             ),
+            /*array(
+                'title' => 'Nova Godina 2022',
+                'categoryId' => 12,
+                'uri' => $baseUrls['rsBaseUrl'] . '/nova-godina-2022/12',
+                'decorated' => false,
+            ),*/
+            /*array(
+                'title' => 'Zimovanje 2022',
+                'categoryId' => 13,
+                'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2022/13',
+                'decorated' => false,
+            ),*/
+            /*array(
+                'title' => 'Turska 2021',
+                'categoryId' => 18,
+                'uri' => $baseUrls['rsBaseUrl'] . '/turska-leto-2021/18',
+            ),*/
+            /*array(
+                'title' => 'Španija 2022',
+                'categoryId' => 2,
+                'uri' => $baseUrls['rsBaseUrl'] . '/spanija-leto-2022/2',
+                'decorated' => false,
+            ),*/
+            /*array(
+                'title' => 'Srbija odmor',
+                'categoryId' => 19,
+                'uri' => $baseUrls['rsBaseUrl'] . '/srbija-odmor/19',
+                'decorated' => false,
+            ),*/
             /*array(
                 'title' => 'Nova Godina 2021',
                 'categoryId' => 12,
@@ -158,12 +170,6 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'title' => 'City break',
                 'categoryId' => 4,
                 'uri' => $baseUrls['rsBaseUrl'] . '/city-break/4',
-                'decorated' => false,
-            ),*/
-            /*array(
-                'title' => 'Formula 1',
-                'categoryId' => 7,
-                'uri' => $baseUrls['rsBaseUrl'] . '/formula-1/7',
                 'decorated' => false,
             ),*/
             /*array(
