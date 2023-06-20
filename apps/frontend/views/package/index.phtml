@@ -90,13 +90,13 @@
                 <?php $value = ($this->flashSession->has('email') ? $this->flashSession->getMessages('email')[0] : '') ?>
 
                 <input type="text" class="input-text" name="email" id="email" value="<?=$value?>" placeholder="Vaš email" />
-                <div class="errors">
+                <divqu class="errors">
                     <?php foreach ($this->flashSession->getMessages('email-error') as $message): ?>
                         <?php foreach($message as $type => $segment): ?>
                         <li class="<?=$type?>"><?=$this->translate->_($segment)?></li>
                         <?php endforeach ?>
                     <?php endforeach ?>
-                </div>
+                </divqu>
             </div>
             <div>
 
