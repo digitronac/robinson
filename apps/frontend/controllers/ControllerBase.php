@@ -71,27 +71,15 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         $baseUrls = $this->getDI()->get('config')->application->baseUrls;
         return array(
             array(
-                'title' => 'Grčka 2023',
-                'categoryId' => 1,
-                'uri' => $baseUrls['rsBaseUrl'] . '/grcka-leto-2022/1',
-                'decorated' => false,
-            ),
-            /*array(
-                'title' => 'Španija 2020',
-                'categoryId' => 2,
-                'uri' => $baseUrls['rsBaseUrl'] . '/spanija-leto-2020/2',
-                'decorated' => false,
-            ),*/
-            array(
-                'title' => 'Španija | Italija 2023',
-                'categoryId' => 15,
-                'uri' => $baseUrls['rsBaseUrl'] . '/spanija-italija-2023/15',
+                'title' => 'Nova Godina 2024',
+                'categoryId' => 12,
+                'uri' => $baseUrls['rsBaseUrl'] . '/nova-godina-2024/12',
                 'decorated' => false,
             ),
             array(
-                'title' => 'Letovanje 2023',
-                'categoryId' => 20,
-                'uri' => $baseUrls['rsBaseUrl'] . '/letovanje-2023/20',
+                'title' => 'Zimovanje 2024',
+                'categoryId' => 13,
+                'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2024/13',
                 'decorated' => false,
             ),
             array(
@@ -100,36 +88,18 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => $baseUrls['rsBaseUrl'] . '/putovanja/4',
                 'decorated' => false,
             ),
-            /*array(
-                'title' => 'Zimovanje 2023',
-                'categoryId' => 13,
-                'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2023/13',
-                'decorated' => false,
-            ),*/
-           /* array(
-                'title' => 'City break',
-                'categoryId' => 4,
-                'uri' => $baseUrls['rsBaseUrl'] . '/city-break/4',
-                'decorated' => false,
-            ),*/
             array(
                 'title' => 'Formula 1',
                 'categoryId' => 7,
                 'uri' => $baseUrls['rsBaseUrl'] . '/formula-1/7',
                 'decorated' => false,
             ),
-            /*array(
-                'title' => 'Albanija 2022',
-                'categoryId' => 20,
-                'uri' => $baseUrls['rsBaseUrl'] . '/albanija-leto-2022/20',
+            array(
+                'title' => 'Grčka 2024',
+                'categoryId' => 1,
+                'uri' => $baseUrls['rsBaseUrl'] . '/grcka-leto-2024/1',
                 'decorated' => false,
-            ),*/
-            /*array(
-                'title' => 'Letovanje 2022',
-                'categoryId' => 15,
-                'uri' => $baseUrls['rsBaseUrl'] . '/letovanje-2022/15',
-                'decorated' => false,
-            ),*/
+            ),
             array(
                 'title' => 'Skrivena Srbija',
                 'categoryId' => 11,
@@ -142,6 +112,48 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => 'http://insideserbia.com/inside-serbia/14',
                 'decorated' => false,
             ),
+            /*array(
+                'title' => 'Španija 2020',
+                'categoryId' => 2,
+                'uri' => $baseUrls['rsBaseUrl'] . '/spanija-leto-2020/2',
+                'decorated' => false,
+            ),*/
+            /*array(
+                'title' => 'Španija | Italija 2023',
+                'categoryId' => 15,
+                'uri' => $baseUrls['rsBaseUrl'] . '/spanija-italija-2023/15',
+                'decorated' => false,
+            ),*/
+            /*array(
+                'title' => 'Letovanje 2023',
+                'categoryId' => 20,
+                'uri' => $baseUrls['rsBaseUrl'] . '/letovanje-2023/20',
+                'decorated' => false,
+            ),*/
+            /*array(
+                'title' => 'Zimovanje 2023',
+                'categoryId' => 13,
+                'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2023/13',
+                'decorated' => false,
+            ),*/
+           /* array(
+                'title' => 'City break',
+                'categoryId' => 4,
+                'uri' => $baseUrls['rsBaseUrl'] . '/city-break/4',
+                'decorated' => false,
+            ),*/
+            /*array(
+                'title' => 'Albanija 2022',
+                'categoryId' => 20,
+                'uri' => $baseUrls['rsBaseUrl'] . '/albanija-leto-2022/20',
+                'decorated' => false,
+            ),*/
+            /*array(
+                'title' => 'Letovanje 2022',
+                'categoryId' => 15,
+                'uri' => $baseUrls['rsBaseUrl'] . '/letovanje-2022/15',
+                'decorated' => false,
+            ),*/
             /*array(
                 'title' => 'Turska 2021',
                 'categoryId' => 18,
@@ -254,7 +266,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
      */
     protected function upToDateUri()
     {
-        if (strpos($this->router->getRewriteUri(), '2022')) {
+        if (strpos($this->router->getRewriteUri(), '2023')) {
             return $this->response->redirect(
                 str_replace(
                     ((int)$this->config->application->season->year) - 1,
