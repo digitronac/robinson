@@ -71,21 +71,15 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         $baseUrls = $this->getDI()->get('config')->application->baseUrls;
         return array(
             array(
-                'title' => 'Grčka',
-                'categoryId' => 1,
-                'uri' => $baseUrls['rsBaseUrl'] . '/grcka-leto-2025/1',
+                'title' => 'Nova Godina 2026',
+                'categoryId' => 12,
+                'uri' => $baseUrls['rsBaseUrl'] . '/nova-godina-2026/12',
                 'decorated' => false,
             ),
             array(
-                'title' => 'Španija | Italija',
-                'categoryId' => 15,
-                'uri' => $baseUrls['rsBaseUrl'] . '/spanija-italija-2025/15',
-                'decorated' => false,
-            ),
-            array(
-                'title' => 'Letovanje',
-                'categoryId' => 20,
-                'uri' => $baseUrls['rsBaseUrl'] . '/letovanje-2025/20',
+                'title' => 'Zimovanje 2026',
+                'categoryId' => 13,
+                'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2026/13',
                 'decorated' => false,
             ),
             array(
@@ -95,9 +89,15 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'decorated' => false,
             ),
             array(
-                'title' => 'Formula 1',
+                'title' => 'Formula 1 2026',
                 'categoryId' => 7,
                 'uri' => $baseUrls['rsBaseUrl'] . '/formula-1/7',
+                'decorated' => false,
+            ),
+            array(
+                'title' => 'Grčka 2026',
+                'categoryId' => 1,
+                'uri' => $baseUrls['rsBaseUrl'] . '/grcka-leto-2026/1',
                 'decorated' => false,
             ),
             array(
@@ -112,78 +112,79 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => 'http://insideserbia.com/inside-serbia/14',
                 'decorated' => false,
             ),
-            /*array(
-                'title' => 'Nova Godina 2025',
-                'categoryId' => 12,
-                'uri' => $baseUrls['rsBaseUrl'] . '/nova-godina-2025/12',
+             /*
+             array(
+                'title' => 'Španija | Italija',
+                'categoryId' => 15,
+                'uri' => $baseUrls['rsBaseUrl'] . '/spanija-italija-2025/15',
                 'decorated' => false,
             ),
             array(
-                'title' => 'Zimovanje 2025',
-                'categoryId' => 13,
-                'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2025/13',
+                'title' => 'Letovanje',
+                'categoryId' => 20,
+                'uri' => $baseUrls['rsBaseUrl'] . '/letovanje-2025/20',
                 'decorated' => false,
-            ),*/
-            /*array(
+            ),
+            array(
                 'title' => 'Nova Godina 2024',
                 'categoryId' => 12,
                 'uri' => $baseUrls['rsBaseUrl'] . '/nova-godina-2024/12',
                 'decorated' => false,
-            ),*/
-            /*array(
+            ),
+            array(
                 'title' => 'Zimovanje 2024',
                 'categoryId' => 13,
                 'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2024/13',
                 'decorated' => false,
-            ),*/
-            /*array(
+            ),
+            array(
                 'title' => 'Španija 2020',
                 'categoryId' => 2,
                 'uri' => $baseUrls['rsBaseUrl'] . '/spanija-leto-2020/2',
                 'decorated' => false,
-            ),*/
+            ),
             /*array(
                 'title' => 'Zimovanje 2023',
                 'categoryId' => 13,
                 'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2023/13',
                 'decorated' => false,
-            ),*/
-           /* array(
+            ),
+            array(
                 'title' => 'City break',
                 'categoryId' => 4,
                 'uri' => $baseUrls['rsBaseUrl'] . '/city-break/4',
                 'decorated' => false,
-            ),*/
-            /*array(
+            ),
+            array(
                 'title' => 'Albanija 2022',
                 'categoryId' => 20,
                 'uri' => $baseUrls['rsBaseUrl'] . '/albanija-leto-2022/20',
                 'decorated' => false,
-            ),*/
-            /*array(
+            ),
+            array(
                 'title' => 'Letovanje 2022',
                 'categoryId' => 15,
                 'uri' => $baseUrls['rsBaseUrl'] . '/letovanje-2022/15',
                 'decorated' => false,
-            ),*/
-            /*array(
+            ),
+            array(
                 'title' => 'Turska 2021',
                 'categoryId' => 18,
                 'uri' => $baseUrls['rsBaseUrl'] . '/turska-leto-2021/18',
-            ),*/
-            /*array(
+            ),
+            array(
                 'title' => 'Španija 2022',
                 'categoryId' => 2,
                 'uri' => $baseUrls['rsBaseUrl'] . '/spanija-leto-2022/2',
                 'decorated' => false,
-            ),*/
-            /*array(
+            ),
+            array(
                 'title' => 'Srbija odmor',
                 'categoryId' => 19,
                 'uri' => $baseUrls['rsBaseUrl'] . '/srbija-odmor/19',
                 'decorated' => false,
-            ),*/
-            /*array(
+            ),
+            array(
                 'title' => 'Nova Godina 2021',
                 'categoryId' => 12,
                 'uri' => $baseUrls['rsBaseUrl'] . '/nova-godina-2021/12',
