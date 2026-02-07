@@ -71,15 +71,21 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         $baseUrls = $this->getDI()->get('config')->application->baseUrls;
         return array(
             array(
-                'title' => 'Nova Godina 2026',
-                'categoryId' => 12,
-                'uri' => $baseUrls['rsBaseUrl'] . '/nova-godina-2026/12',
+                'title' => 'Grčka 2026',
+                'categoryId' => 1,
+                'uri' => $baseUrls['rsBaseUrl'] . '/grcka-leto-2026/1',
                 'decorated' => false,
             ),
             array(
-                'title' => 'Zimovanje 2026',
-                'categoryId' => 13,
-                'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2026/13',
+                'title' => 'Španija | Italija',
+                'categoryId' => 15,
+                'uri' => $baseUrls['rsBaseUrl'] . '/spanija-italija-2026/15',
+                'decorated' => false,
+            ),
+            array(
+                'title' => 'Letovanje',
+                'categoryId' => 20,
+                'uri' => $baseUrls['rsBaseUrl'] . '/letovanje-2026/20',
                 'decorated' => false,
             ),
             array(
@@ -95,12 +101,6 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'decorated' => false,
             ),
             array(
-                'title' => 'Grčka 2026',
-                'categoryId' => 1,
-                'uri' => $baseUrls['rsBaseUrl'] . '/grcka-leto-2026/1',
-                'decorated' => false,
-            ),
-            array(
                 'title' => 'Skrivena Srbija',
                 'categoryId' => 11,
                 'uri' => $baseUrls['rsBaseUrl'] . '/skrivena-srbija/11',
@@ -112,19 +112,20 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => 'http://insideserbia.com/inside-serbia/14',
                 'decorated' => false,
             ),
-             /*
-             array(
-                'title' => 'Španija | Italija',
-                'categoryId' => 15,
-                'uri' => $baseUrls['rsBaseUrl'] . '/spanija-italija-2025/15',
+            /*
+            array(
+                'title' => 'Nova Godina 2026',
+                'categoryId' => 12,
+                'uri' => $baseUrls['rsBaseUrl'] . '/nova-godina-2026/12',
                 'decorated' => false,
             ),
             array(
-                'title' => 'Letovanje',
-                'categoryId' => 20,
-                'uri' => $baseUrls['rsBaseUrl'] . '/letovanje-2025/20',
+                'title' => 'Zimovanje 2026',
+                'categoryId' => 13,
+                'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2026/13',
                 'decorated' => false,
             ),
+             /*
             array(
                 'title' => 'Nova Godina 2024',
                 'categoryId' => 12,
