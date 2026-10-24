@@ -71,21 +71,15 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         $baseUrls = $this->getDI()->get('config')->application->baseUrls;
         return array(
             array(
-                'title' => 'Grčka 2026',
-                'categoryId' => 1,
-                'uri' => $baseUrls['rsBaseUrl'] . '/grcka-leto-2026/1',
+                'title' => 'Nova Godina',
+                'categoryId' => 12,
+                'uri' => $baseUrls['rsBaseUrl'] . '/nova-godina-2027/12',
                 'decorated' => false,
             ),
             array(
-                'title' => 'Španija | Italija',
-                'categoryId' => 15,
-                'uri' => $baseUrls['rsBaseUrl'] . '/spanija-italija-2026/15',
-                'decorated' => false,
-            ),
-            array(
-                'title' => 'Letovanje',
-                'categoryId' => 20,
-                'uri' => $baseUrls['rsBaseUrl'] . '/letovanje-2026/20',
+                'title' => 'Zimovanje 2026',
+                'categoryId' => 13,
+                'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2026/13',
                 'decorated' => false,
             ),
             array(
@@ -95,9 +89,15 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'decorated' => false,
             ),
             array(
-                'title' => 'Formula 1 2026',
+                'title' => 'Formula 1',
                 'categoryId' => 7,
                 'uri' => $baseUrls['rsBaseUrl'] . '/formula-1/7',
+                'decorated' => false,
+            ),
+            array(
+                'title' => 'Grčka',
+                'categoryId' => 1,
+                'uri' => $baseUrls['rsBaseUrl'] . '/grcka-leto-2027/1',
                 'decorated' => false,
             ),
             array(
@@ -112,6 +112,18 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'uri' => 'http://insideserbia.com/inside-serbia/14',
                 'decorated' => false,
             ),
+            /*array(
+                'title' => 'Španija | Italija',
+                'categoryId' => 15,
+                'uri' => $baseUrls['rsBaseUrl'] . '/spanija-italija-2026/15',
+                'decorated' => false,
+            ),
+            array(
+                'title' => 'Letovanje',
+                'categoryId' => 20,
+                'uri' => $baseUrls['rsBaseUrl'] . '/letovanje-2026/20',
+                'decorated' => false,
+            ),*/
             /*
             array(
                 'title' => 'Nova Godina 2026',
@@ -280,7 +292,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
      */
     protected function upToDateUri()
     {
-        if (strpos($this->router->getRewriteUri(), '2023')) {
+        if (strpos($this->router->getRewriteUri(), '2026')) {
             return $this->response->redirect(
                 str_replace(
                     ((int)$this->config->application->season->year) - 1,
