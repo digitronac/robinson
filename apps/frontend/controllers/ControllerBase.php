@@ -77,7 +77,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
                 'decorated' => false,
             ),
             array(
-                'title' => 'Zimovanje 2026',
+                'title' => 'Zimovanje',
                 'categoryId' => 13,
                 'uri' => $baseUrls['rsBaseUrl'] . '/zimovanje-2026/13',
                 'decorated' => false,
